@@ -7,10 +7,10 @@ extends CharacterBody3D
 var SPEED = 2.5
 var isRunning = true
 var isLocked = false
-const JUMP_VELOCITY = 4.5
-const walking_speed = 2.5
-const running_speed = 4
-const angular_rotation = 1
+
+const walking_speed = 1.5
+const running_speed = 3.5
+const rotation_speed = 10
 
 @export var sens_horizontal = 0.2
 @export var sens_vertical = 0.2
@@ -21,18 +21,20 @@ func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _input(event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().quit()
+		
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x*sens_horizontal))
 		visuals.rotate_y(deg_to_rad(event.relative.x*sens_horizontal))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y*sens_vertical))
-	
 
 func _physics_process(delta):
 	if Input.is_action_just_pressed('run') and isRunning == false:
 		isRunning = true
 	elif Input.is_action_just_pressed('run') and isRunning == true:
 		isRunning = false
-	
+
 	if isRunning == true:
 		SPEED = running_speed
 	else:
@@ -41,25 +43,19 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y -= gravity * delta
 
-	# Handle jump.
-	#if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		#velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	if direction:
 		if isRunning == false and animation_player.current_animation != "walking":
 			animation_player.play("walking")
 		if isRunning == true and animation_player.current_animation != "running":
 			animation_player.play("running")
 			
-		
 		if !isLocked:
-			visuals.look_at(position + direction)
+			visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(-input_dir.x, -input_dir.y), .5)
 
-			
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
@@ -71,4 +67,8 @@ func _physics_process(delta):
 	if !isLocked:
 		move_and_slide()
 
+func _on_area_3d_area_entered(area):
+	print('entered ', area)
 
+func _on_area_3d_area_exited(area):
+	print('exited ',  area)
