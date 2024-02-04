@@ -10,6 +10,7 @@ var isLocked = false
 const JUMP_VELOCITY = 4.5
 const walking_speed = 2.5
 const running_speed = 4
+const angular_rotation = 1
 
 @export var sens_horizontal = 0.2
 @export var sens_vertical = 0.2
@@ -54,8 +55,10 @@ func _physics_process(delta):
 		if isRunning == true and animation_player.current_animation != "running":
 			animation_player.play("running")
 			
+		
 		if !isLocked:
 			visuals.look_at(position + direction)
+
 			
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -67,3 +70,5 @@ func _physics_process(delta):
 		
 	if !isLocked:
 		move_and_slide()
+
+
