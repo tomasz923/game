@@ -7,6 +7,7 @@ extends CharacterBody3D
 var SPEED = 2.5
 var isRunning = true
 var isLocked = false
+var allow_movement = true
 
 const walking_speed = 1.5
 const running_speed = 3.5
@@ -30,6 +31,9 @@ func _input(event):
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y*sens_vertical))
 
 func _physics_process(delta):
+	if !allow_movement:
+		return
+		
 	if Input.is_action_just_pressed('run') and isRunning == false:
 		isRunning = true
 	elif Input.is_action_just_pressed('run') and isRunning == true:
@@ -50,8 +54,10 @@ func _physics_process(delta):
 	if direction:
 		if isRunning == false and animation_player.current_animation != "walking":
 			animation_player.play("walking")
-		if isRunning == true and animation_player.current_animation != "running":
+		if isRunning == true and animation_player.current_animation != "running" and !isLocked:
 			animation_player.play("running")
+		if (animation_player.current_animation == "running" or animation_player.current_animation == "walking")  and isLocked:
+			animation_player.play("idle")
 			
 		if !isLocked:
 			visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(-input_dir.x, -input_dir.y), .5)
@@ -68,7 +74,14 @@ func _physics_process(delta):
 		move_and_slide()
 
 func _on_area_3d_area_entered(area):
-	print('entered ', area)
+	if area.name != 'Area3D':
+		allow_movement = false
+		animation_player.play("idle")
+		var parts = area.name.split("_")
+		var area_name = parts[0]
+		LoadManager.load_scene("res://game/scenes/fightSceneOne.tscn")
+	else:
+			print('Saving...')
 
-func _on_area_3d_area_exited(area):
-	print('exited ',  area)
+#func _on_area_3d_area_exited(area):
+	#print(area.name, ' exited')
