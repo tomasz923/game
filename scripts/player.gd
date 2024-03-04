@@ -77,8 +77,8 @@ func _on_area_3d_area_entered(area):
 	if area.name != 'Area3D':
 		allow_movement = false
 		animation_player.play("idle")
-		var parts = area.name.split("_")
-		var area_name = parts[0]
+		#var parts = area.name.split("_")
+		#var area_name = parts[0]
 		LoadManager.load_scene("res://game/scenes/fightSceneOne.tscn")
 	else:
 			print('Saving...')

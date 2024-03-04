@@ -1,76 +1,22 @@
-[gd_scene load_steps=14 format=3 uid="uid://dfc5c7rer8bhs"]
+[gd_scene load_steps=10 format=3 uid="uid://dfc5c7rer8bhs"]
 
-[ext_resource type="Texture2D" uid="uid://dmxmgw3rh0ym2" path="res://assets/textures/grids/Purple/texture_01.png" id="1_evxrc"]
-[ext_resource type="Texture2D" uid="uid://bs8atlepclylh" path="res://assets/textures/grids/Green/texture_02.png" id="2_3qmpu"]
 [ext_resource type="Script" path="res://game/scripts/Menu.gd" id="3_810ur"]
-[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="4_1j5rk"]
+[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://other/main_menu_theme.tres" id="4_1j5rk"]
+[ext_resource type="AudioStream" uid="uid://b0qgfwhcfar14" path="res://assets/sounds/menu_theme.wav" id="4_8al7t"]
 [ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="4_h2o47"]
-[ext_resource type="AudioStream" uid="uid://bvegwp3rbhuh7" path="res://assets/sounds/crossroads_loop.wav" id="4_uvsq5"]
 [ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="6_ebafp"]
+[ext_resource type="Texture2D" uid="uid://b04uks02fov0m" path="res://assets/textures/ui/options_background.png" id="6_lst31"]
+[ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="6_q2y6w"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_dy667"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_hycx3"]
+font = ExtResource("6_q2y6w")
+font_size = 32
 
-[sub_resource type="Sky" id="Sky_wb04e"]
-sky_material = SubResource("ProceduralSkyMaterial_dy667")
+[sub_resource type="LabelSettings" id="LabelSettings_g3qta"]
+font = ExtResource("6_q2y6w")
+font_size = 24
 
-[sub_resource type="Environment" id="Environment_e0sly"]
-background_mode = 2
-sky = SubResource("Sky_wb04e")
-tonemap_mode = 2
-ssr_max_steps = 512
-ssr_fade_in = 0.0174944
-ssr_fade_out = 25.9921
-ssao_enabled = true
-glow_enabled = true
-adjustment_enabled = true
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_hbuj3"]
-dof_blur_far_enabled = true
-dof_blur_far_distance = 0.01
-dof_blur_far_transition = -1.0
-dof_blur_near_enabled = true
-dof_blur_near_distance = 0.01
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgij4"]
-albedo_texture = ExtResource("1_evxrc")
-uv1_triplanar = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m1kc0"]
-albedo_texture = ExtResource("2_3qmpu")
-uv1_triplanar = true
-
-[node name="Node3D" type="Node3D"]
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_e0sly")
-camera_attributes = SubResource("CameraAttributesPractical_hbuj3")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="Node3D" type="Node3D" parent="."]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
-material_override = SubResource("StandardMaterial3D_hgij4")
-size = Vector3(100, 1, 100)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Node3D"]
-transform = Transform3D(0.99315, 0, 0.116844, 0, 1, 0, -0.116844, 0, 0.99315, 1.81342, 1.95164, -0.0736837)
-material_override = SubResource("StandardMaterial3D_m1kc0")
-size = Vector3(1, 3, 1)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="Node3D"]
-transform = Transform3D(0.943807, 0, 0.330498, 0, 1, 0, -0.330498, 0, 0.943807, -2.25458, 1.95164, 4.82186)
-material_override = SubResource("StandardMaterial3D_m1kc0")
-size = Vector3(1, 3, 1)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.43917, 7.87854)
-
-[node name="Menu" type="Control" parent="."]
+[node name="ui_elements" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -80,67 +26,255 @@ grow_vertical = 2
 size_flags_vertical = 0
 script = ExtResource("3_810ur")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Menu"]
-stream = ExtResource("4_uvsq5")
-autoplay = true
+[node name="button_pressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_ebafp")
+bus = &"UI"
 
-[node name="ColorRect" type="ColorRect" parent="Menu"]
+[node name="menu_theme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8al7t")
+autoplay = true
+bus = &"Music"
+
+[node name="background" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -25.0
+offset_right = 81.0
+offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.392157)
+color = Color(0, 0, 0, 0.882353)
 
-[node name="MarginContainer" type="MarginContainer" parent="Menu/ColorRect"]
+[node name="options" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="options_belt" type="TextureRect" parent="options"]
+modulate = Color(1, 1, 1, 0.784314)
+layout_mode = 2
+offset_top = -47.0
+offset_right = 1920.0
+offset_bottom = 153.0
+texture = ExtResource("6_lst31")
+
+[node name="return_belt_cont" type="MarginContainer" parent="options"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.856481
+anchor_right = 1.0
+anchor_bottom = 0.916667
+grow_horizontal = 2
+grow_vertical = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="return_belt" type="HBoxContainer" parent="options/return_belt_cont"]
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="back_button" type="Button" parent="options/return_belt_cont/return_belt"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_1j5rk")
+text = "back_button"
+
+[node name="options_margines" type="MarginContainer" parent="options"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0564815
+anchor_right = 1.0
+anchor_bottom = 0.116667
+grow_horizontal = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="horizontal_container" type="HBoxContainer" parent="options/options_margines"]
+layout_mode = 2
+alignment = 1
+
+[node name="audio_button" type="Button" parent="options/options_margines/horizontal_container"]
+layout_mode = 2
+theme = ExtResource("4_1j5rk")
+text = "options_audio
+"
+
+[node name="controls_button" type="Button" parent="options/options_margines/horizontal_container"]
+layout_mode = 2
+theme = ExtResource("4_1j5rk")
+text = "options_controls
+"
+
+[node name="screen_button" type="Button" parent="options/options_margines/horizontal_container"]
+layout_mode = 2
+theme = ExtResource("4_1j5rk")
+text = "options_screen
+"
+
+[node name="graphics_button" type="Button" parent="options/options_margines/horizontal_container"]
+layout_mode = 2
+theme = ExtResource("4_1j5rk")
+text = "options_graphics
+"
+
+[node name="graphics_button2" type="Button" parent="options/options_margines/horizontal_container"]
+layout_mode = 2
+theme = ExtResource("4_1j5rk")
+text = "options_game
+"
+
+[node name="options_screen" type="Control" parent="options"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 532.0
+offset_top = 178.0
+offset_right = 1391.0
+offset_bottom = 913.0
+
+[node name="options_screen_margins" type="MarginContainer" parent="options/options_screen"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0071
+anchor_bottom = 1.00995
+offset_right = -0.0990295
+offset_bottom = -0.313934
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="main_container" type="VBoxContainer" parent="options/options_screen/options_screen_margins"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="fscreen_container" type="VBoxContainer" parent="options/options_screen/options_screen_margins/main_container"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="fscreen_option" type="Label" parent="options/options_screen/options_screen_margins/main_container/fscreen_container"]
+layout_mode = 2
+text = "option_full_screen"
+label_settings = SubResource("LabelSettings_hycx3")
+horizontal_alignment = 1
+
+[node name="screen_options" type="HBoxContainer" parent="options/options_screen/options_screen_margins/main_container/fscreen_container"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="yes_button" type="TextureButton" parent="options/options_screen/options_screen_margins/main_container/fscreen_container/screen_options"]
+layout_mode = 2
+toggle_mode = true
+stretch_mode = 0
+
+[node name="yes_label" type="Label" parent="options/options_screen/options_screen_margins/main_container/fscreen_container/screen_options"]
+layout_mode = 2
+text = "yes
+"
+label_settings = SubResource("LabelSettings_g3qta")
+horizontal_alignment = 1
+
+[node name="wsize_container" type="VBoxContainer" parent="options/options_screen/options_screen_margins/main_container"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="display_option" type="Label" parent="options/options_screen/options_screen_margins/main_container/wsize_container"]
+layout_mode = 2
+text = "option_full_screen"
+label_settings = SubResource("LabelSettings_hycx3")
+horizontal_alignment = 1
+
+[node name="screen_options2" type="HBoxContainer" parent="options/options_screen/options_screen_margins/main_container/wsize_container"]
+layout_mode = 2
+alignment = 1
+
+[node name="yes_label" type="Label" parent="options/options_screen/options_screen_margins/main_container/wsize_container/screen_options2"]
+layout_mode = 2
+text = "Yes
+"
+label_settings = SubResource("LabelSettings_g3qta")
+horizontal_alignment = 1
+
+[node name="options_audio" type="MarginContainer" parent="options"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.277
+anchor_top = 0.164481
+anchor_right = 0.724
+anchor_bottom = 0.845
+offset_left = 0.159973
+offset_top = 0.360001
+offset_right = 0.919922
+offset_bottom = 0.399963
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="vertical_container" type="VBoxContainer" parent="options/options_audio"]
+layout_mode = 2
+
+[node name="main_menu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="logo" type="TextureRect" parent="main_menu"]
+layout_mode = 2
+offset_left = 514.0
+offset_top = 162.0
+offset_right = 1414.0
+offset_bottom = 562.0
+texture = ExtResource("4_h2o47")
+
+[node name="MarginContainer" type="MarginContainer" parent="main_menu"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_top = 0.773
 anchor_right = 0.5
 anchor_bottom = 0.773
-offset_left = -168.0
-offset_top = -154.84
-offset_right = 169.0
-offset_bottom = 183.16
+offset_left = 490.5
+offset_top = 618.08
+offset_right = 1390.5
+offset_bottom = 1018.08
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TemporaryTitle" type="Sprite2D" parent="Menu/ColorRect/MarginContainer"]
-position = Vector2(160, -360)
-texture = ExtResource("4_h2o47")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Menu/ColorRect/MarginContainer"]
+[node name="main_menu" type="VBoxContainer" parent="main_menu/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("4_1j5rk")
 alignment = 1
 
-[node name="Continue" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+[node name="Continue" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
-text = "Continue"
+text = "menu_con"
 
-[node name="NewGame" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+[node name="NewGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
-text = "New Game"
+text = "menu_new"
 
-[node name="Options" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+[node name="Options" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
-text = "Options"
+text = "menu_options"
 
-[node name="Exit" type="Button" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+[node name="Exit" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
-text = "Exit"
+text = "menu_exit"
 
-[node name="button_pressed" type="AudioStreamPlayer" parent="Menu/ColorRect/MarginContainer/VBoxContainer"]
+[node name="button_pressed" type="AudioStreamPlayer" parent="main_menu/MarginContainer/main_menu"]
 stream = ExtResource("6_ebafp")
 
-[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/Continue" to="Menu" method="_on_continue_pressed"]
-[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/NewGame" to="Menu" method="_on_new_game_pressed"]
-[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/Options" to="Menu" method="_on_options_pressed"]
-[connection signal="pressed" from="Menu/ColorRect/MarginContainer/VBoxContainer/Exit" to="Menu" method="_on_exit_pressed"]
+[connection signal="pressed" from="options/return_belt_cont/return_belt/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="main_menu/MarginContainer/main_menu/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="main_menu/MarginContainer/main_menu/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="main_menu/MarginContainer/main_menu/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="main_menu/MarginContainer/main_menu/Exit" to="." method="_on_exit_pressed"]
