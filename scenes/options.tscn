@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bxjiyu0x6qaam"]
+
+[node name="options" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+grow_vertical = 2

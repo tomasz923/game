@@ -1,6 +1,8 @@
-[gd_scene load_steps=17 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=19 format=3 uid="uid://y0egc0gmui6w"]
 
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://other/labels_theme.tres" id="1_l25qx"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
+[ext_resource type="Script" path="res://game/scenes/FPS.gd" id="2_008au"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
@@ -51,6 +53,14 @@ height = 4.0
 radius = 4.0
 
 [node name="world" type="Node3D"]
+
+[node name="FPS" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 38.0
+text = "s"
+label_settings = ExtResource("1_l25qx")
+horizontal_alignment = 1
+script = ExtResource("2_008au")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmj8b")
