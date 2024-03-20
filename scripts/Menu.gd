@@ -30,10 +30,10 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 #}
 
 @onready var display_resolution = $options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container/screen_options2/display_resolution
-@onready var label_scale = $options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/label_scale
-@onready var scaling_option = $options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/scaling_box/scaling_hbox/scaling_option
-@onready var game_resolution = $options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/resolution_hbox/game_resolution
-@onready var frs_scaling = $options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/resolution_hbox/frs_scaling
+@onready var label_scale = $options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/label_scale
+@onready var scaling_option = $options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box/scaling_hbox/scaling_option
+@onready var game_resolution = $options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/game_resolution
+@onready var frs_scaling = $options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/frs_scaling
 
 
 func _ready()	:
@@ -41,10 +41,14 @@ func _ready()	:
 	$options.visible = false
 	$options/options_body_audio.visible= false
 	$options/options_body_screen.visible = false
+	$options/options_body_graphics.visible = false
+	$options/options_body_controls.visible = false
+	$options/options_body_game.visible = false
 	label_scale.visible = false 
 	frs_scaling.visible = false 
 	game_resolution.visible = false
 	add_resolutions()
+	_on_scaling_option_item_selected(0)
 
 
 func _physics_process(_delta):
@@ -133,10 +137,6 @@ func _on_controls_button_pressed():
 ##Screen Options -----------------------------------------------------------------------------------
 func _on_screen_button_pressed():
 	_on_button_toggled(2, top_option_buttons)
-	var value = 100
-	var resolution_scale = value/100.00
-	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
-	label_scale.set_text(str(value)+"% - "+ resolution_text)
 
 func _on_display_resolution_item_selected(index):
 	var _window = get_window()
@@ -169,6 +169,14 @@ func _on_display_settings_item_selected(index):
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 			change_window_size()
 
+##Graphics Options ---------------------------------------------------------------------------------
+func _on_graphics_button_pressed():
+	_on_button_toggled(3, top_option_buttons)
+	var value = 100
+	var resolution_scale = value/100.00
+	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
+	label_scale.set_text(str(value)+"% - "+ resolution_text)
+
 func _on_game_resolution_value_changed(value):
 	var resolution_scale = value/100.00
 	print(value)
@@ -180,14 +188,12 @@ func _on_game_resolution_value_changed(value):
 func _on_scaling_option_item_selected(index):
 	match index:
 		0:
-			label_scale.visible = false 
-			frs_scaling.visible = false 
-			game_resolution.visible = false
-		1:
+			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_BILINEAR)
 			label_scale.visible = true 
 			frs_scaling.visible = false 
 			game_resolution.visible = true
-		2:
+		1:
+			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR2)
 			label_scale.visible = true 
 			frs_scaling.visible = true 
 			game_resolution.visible = false
@@ -202,11 +208,7 @@ func _on_frs_scaling_item_selected(index):
 			_on_game_resolution_value_changed(67.00)
 		3:
 			_on_game_resolution_value_changed(77.00)
-		
-##Graphics Options ---------------------------------------------------------------------------------
-func _on_graphics_button_pressed():
-	_on_button_toggled(3, top_option_buttons)
-	
+
 ## Gameplay Options
 func _on_game_button_pressed():
 	_on_button_toggled(4, top_option_buttons)

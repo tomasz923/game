@@ -68,9 +68,9 @@ texture = ExtResource("6_lst31")
 [node name="return_belt_cont" type="MarginContainer" parent="options"]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.856481
+anchor_top = 0.923148
 anchor_right = 1.0
-anchor_bottom = 0.916667
+anchor_bottom = 0.958333
 grow_horizontal = 2
 grow_vertical = 0
 metadata/_edit_use_anchors_ = true
@@ -240,51 +240,108 @@ layout_mode = 2
 theme = ExtResource("4_1j5rk")
 alignment = 1
 
-[node name="scaling_box" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+[node name="vsync_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+custom_minimum_size = Vector2(365, 64)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="vsync_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox"]
+layout_mode = 2
+text = "vsync_label"
+label_settings = ExtResource("7_yb142")
+horizontal_alignment = 1
+
+[node name="vsync_hbox" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox"]
+custom_minimum_size = Vector2(365, 0)
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="vsync_yes_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox/vsync_hbox"]
+layout_mode = 2
+text = "yes"
+label_settings = ExtResource("8_ln307")
+
+[node name="TextureButton" type="TextureButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox/vsync_hbox"]
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("9_dsr2j")
+texture_pressed = ExtResource("10_0p0ov")
+
+[node name="vsync_no_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox/vsync_hbox"]
+layout_mode = 2
+text = "no"
+label_settings = ExtResource("8_ln307")
+
+[node name="sceond_main_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="options_body_graphics" type="Control" parent="options"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 195.0
+offset_right = 4.0
+offset_bottom = -98.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="options_graphics_margines" type="MarginContainer" parent="options/options_body_graphics"]
+layout_mode = 0
+offset_right = 1917.0
+offset_bottom = 789.0
+
+[node name="graphics_vbox" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="scaling_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="scaling_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/scaling_box"]
+[node name="scaling_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box"]
 layout_mode = 2
 text = "scaling_type"
 label_settings = ExtResource("7_yb142")
 horizontal_alignment = 1
 
-[node name="scaling_hbox" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/scaling_box"]
+[node name="scaling_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box"]
 layout_mode = 2
 alignment = 1
 
-[node name="scaling_option" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/scaling_box/scaling_hbox"]
+[node name="scaling_option" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box/scaling_hbox"]
 custom_minimum_size = Vector2(356, 64)
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
 alignment = 1
-item_count = 3
-popup/item_0/text = "none_"
-popup/item_0/id = 2
-popup/item_1/text = "BILINEAR"
+item_count = 2
+popup/item_0/text = "BILINEAR"
+popup/item_0/id = 0
+popup/item_1/text = "AMS FSR 2.0"
 popup/item_1/id = 1
-popup/item_2/text = "AMS FSR 2.0"
-popup/item_2/id = 0
 
-[node name="resolution_box" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+[node name="resolution_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="resolution_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box"]
+[node name="resolution_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box"]
 layout_mode = 2
 text = "in_game_resolution"
 label_settings = ExtResource("7_yb142")
 horizontal_alignment = 1
 
-[node name="resolution_hbox" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box"]
+[node name="resolution_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box"]
 layout_mode = 2
 alignment = 1
 
-[node name="frs_scaling" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/resolution_hbox"]
-custom_minimum_size = Vector2(356, 64)
+[node name="frs_scaling" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox"]
+custom_minimum_size = Vector2(356, 40)
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
+alignment = 1
 item_count = 4
 popup/item_0/text = "performance_fsr"
 popup/item_0/id = 0
@@ -295,61 +352,20 @@ popup/item_2/id = 2
 popup/item_3/text = "ultra_quality_fsr"
 popup/item_3/id = 3
 
-[node name="game_resolution" type="HSlider" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/resolution_hbox"]
-custom_minimum_size = Vector2(365, 10)
+[node name="game_resolution" type="HSlider" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox"]
+custom_minimum_size = Vector2(365, 40)
 layout_mode = 2
 theme = ExtResource("4_1j5rk")
 min_value = 50.0
 max_value = 200.0
+step = 5.0
 value = 100.0
 
-[node name="label_scale" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box"]
+[node name="label_scale" type="Label" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box"]
 layout_mode = 2
 text = "100% "
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="sceond_main_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="vsync_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/sceond_main_container"]
-layout_mode = 2
-text = "vsync_label"
-label_settings = ExtResource("7_yb142")
-horizontal_alignment = 1
-
-[node name="vsync_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/sceond_main_container"]
-custom_minimum_size = Vector2(365, 64)
-layout_mode = 2
-theme_override_constants/separation = 30
-
-[node name="vsync_hbox" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/sceond_main_container/vsync_vbox"]
-custom_minimum_size = Vector2(365, 0)
-layout_mode = 2
-theme_override_constants/separation = 10
-alignment = 1
-
-[node name="vsync_yes_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/sceond_main_container/vsync_vbox/vsync_hbox"]
-layout_mode = 2
-text = "yes"
-label_settings = ExtResource("8_ln307")
-
-[node name="TextureButton" type="TextureButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/sceond_main_container/vsync_vbox/vsync_hbox"]
-layout_mode = 2
-toggle_mode = true
-texture_normal = ExtResource("9_dsr2j")
-texture_pressed = ExtResource("10_0p0ov")
-
-[node name="vsync_no_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/sceond_main_container/vsync_vbox/vsync_hbox"]
-layout_mode = 2
-text = "no"
-label_settings = ExtResource("8_ln307")
-
-[node name="options_body_graphics" type="Control" parent="options"]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 
 [node name="options_body_game" type="Control" parent="options"]
 anchors_preset = 0
@@ -434,9 +450,9 @@ stream = ExtResource("6_ebafp")
 [connection signal="pressed" from="options/options_margines/horizontal_container/game_button" to="." method="_on_game_button_pressed"]
 [connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/fscreen_container/fscreen_options/display_settings" to="." method="_on_display_settings_item_selected"]
 [connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container/screen_options2/display_resolution" to="." method="_on_display_resolution_item_selected"]
-[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/scaling_box/scaling_hbox/scaling_option" to="." method="_on_scaling_option_item_selected"]
-[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/resolution_hbox/frs_scaling" to="." method="_on_frs_scaling_item_selected"]
-[connection signal="value_changed" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/resolution_box/resolution_hbox/game_resolution" to="." method="_on_game_resolution_value_changed"]
+[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box/scaling_hbox/scaling_option" to="." method="_on_scaling_option_item_selected"]
+[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/frs_scaling" to="." method="_on_frs_scaling_item_selected"]
+[connection signal="value_changed" from="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/game_resolution" to="." method="_on_game_resolution_value_changed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Options" to="." method="_on_options_pressed"]
