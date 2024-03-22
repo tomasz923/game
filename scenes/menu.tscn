@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://b0qgfwhcfar14" path="res://assets/sounds/menu_theme.wav" id="1_2euln"]
 [ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="2_6hs5g"]
-[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://other/main_menu_theme.tres" id="3_ilneb"]
+[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="3_ilneb"]
 [ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="4_p6la0"]
 
 [node name="Menu" type="Control"]

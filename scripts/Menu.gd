@@ -1,5 +1,6 @@
 extends Control
 
+var user_prefs: UserPreferences
 var language_codes = ["EN", "PL", "DE", "ES"]
 var top_option_buttons = []
 var first_row_buttons = []
@@ -10,11 +11,11 @@ var current_option_screen = null
 var current_window_size = 0
 var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 								"1920x1080":Vector2i(1920,1080),
-								"1366x768":Vector2i(1366,768),
-								"1536x864":Vector2i(1536,864),
-								"1280x720":Vector2i(1280,720),
-								"1440x900":Vector2i(1440,900),
 								"1600x900":Vector2i(1600,900),
+								"1536x864":Vector2i(1536,864),
+								"1440x900":Vector2i(1440,900),
+								"1366x768":Vector2i(1366,768),
+								"1280x720":Vector2i(1280,720),
 								"1024x600":Vector2i(1024,600),
 								"800x600": Vector2i(800,600)}
 
@@ -28,15 +29,17 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 	#str(round(get_window().get_size().x*0.67))+"x"+str(round(get_window().get_size().y*0.67)):0.67,
 	#str(round(get_window().get_size().x*0.5))+"x"+str(round(get_window().get_size().y*0.5)):0.5
 #}
-
-@onready var display_resolution = $options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container/screen_options2/display_resolution
-@onready var label_scale = $options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/label_scale
-@onready var scaling_option = $options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box/scaling_hbox/scaling_option
-@onready var game_resolution = $options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/game_resolution
-@onready var frs_scaling = $options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/frs_scaling
+@onready var display_settings = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options/display_settings
+@onready var display_resolution = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options/display_resolution
+@onready var label_scale = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box/label_scale
+@onready var scaling_option = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/scaling_hbox/scaling_option
+@onready var game_resolution = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/game_resolution
+@onready var frs_scaling = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/frs_scaling
+@onready var display_screen_settings = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/display_screen_hbox/display_screen_settings
 
 
 func _ready()	:
+	user_prefs = UserPreferences.load_or_create()
 	TranslationServer.set_locale("EN")
 	$options.visible = false
 	$options/options_body_audio.visible= false
@@ -49,6 +52,8 @@ func _ready()	:
 	game_resolution.visible = false
 	add_resolutions()
 	_on_scaling_option_item_selected(0)
+	add_screens()
+	load_settings()
 
 
 func _physics_process(_delta):
@@ -89,8 +94,17 @@ func _on_options_pressed():
 	get_node("options/options_body_game")]
 	
 
-func updateUI():
+func is_in_game():
 	pass
+
+func load_settings():
+	#Resolution
+	display_resolution.select(user_prefs.display_resolution_selected)
+	var _window = get_window()
+	var mode = _window.get_mode()
+	current_window_size = resolutions.values()[user_prefs.display_resolution_selected]
+	if mode == Window.MODE_WINDOWED:
+		change_window_size()
 
 func _on_back_button_pressed():
 	$main_menu.visible = true
@@ -143,6 +157,10 @@ func _on_display_resolution_item_selected(index):
 	var mode = _window.get_mode()
 	current_window_size = resolutions.values()[index]
 	
+	if user_prefs:
+		user_prefs.display_resolution_selected = index
+		user_prefs.save()
+	
 	if mode == Window.MODE_WINDOWED:
 		change_window_size()
 
@@ -150,6 +168,7 @@ func centre_window():
 	var centre_screen = DisplayServer.screen_get_position()+DisplayServer.screen_get_size()/2
 	var window_size = get_window().get_size_with_decorations()
 	get_window().set_position(centre_screen-window_size/2)
+
 
 func change_window_size(): 
 	DisplayServer.window_set_size(current_window_size)
@@ -160,7 +179,7 @@ func _on_display_settings_item_selected(index):
 	match index:
 		0: 
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
@@ -168,6 +187,28 @@ func _on_display_settings_item_selected(index):
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 			change_window_size()
+
+func _on_vsync_settings_item_selected(index):
+	match index:
+		0:
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+		1:
+			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+
+func add_screens():
+	var screens = DisplayServer.get_screen_count()
+	
+	for s in screens:
+		display_screen_settings.add_item(str(s+1))
+
+func _on_display_screen_settings_item_selected(index):
+	var window = get_window()
+	var mode = window.get_mode()
+	#Needs to change once we have saved settings variables, so it returns to be unwindowed.
+	
+	window.set_mode(Window.MODE_WINDOWED)
+	window.set_current_screen(index)
+	
 
 ##Graphics Options ---------------------------------------------------------------------------------
 func _on_graphics_button_pressed():
@@ -212,10 +253,3 @@ func _on_frs_scaling_item_selected(index):
 ## Gameplay Options
 func _on_game_button_pressed():
 	_on_button_toggled(4, top_option_buttons)
-
-
-
-
-
-
-

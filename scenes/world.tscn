@@ -1,6 +1,6 @@
 [gd_scene load_steps=27 format=3 uid="uid://y0egc0gmui6w"]
 
-[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://other/labels_theme.tres" id="1_l25qx"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="1_l25qx"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
 [ext_resource type="Script" path="res://game/scenes/FPS.gd" id="2_008au"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]

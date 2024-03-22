@@ -1,17 +1,14 @@
-[gd_scene load_steps=13 format=3 uid="uid://dfc5c7rer8bhs"]
+[gd_scene load_steps=10 format=3 uid="uid://dfc5c7rer8bhs"]
 
-[ext_resource type="Script" path="res://game/scripts/Menu.gd" id="3_810ur"]
-[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://other/main_menu_theme.tres" id="4_1j5rk"]
-[ext_resource type="AudioStream" uid="uid://b0qgfwhcfar14" path="res://assets/sounds/menu_theme.wav" id="4_8al7t"]
-[ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="4_h2o47"]
-[ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="6_ebafp"]
-[ext_resource type="Texture2D" uid="uid://b04uks02fov0m" path="res://assets/textures/ui/options_background.png" id="6_lst31"]
-[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://other/menu_toggle_theme.tres" id="6_mh4dg"]
-[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://other/labels_theme.tres" id="7_yb142"]
-[ext_resource type="Script" path="res://game/scenes/FPS.gd" id="8_b4twn"]
-[ext_resource type="LabelSettings" uid="uid://bjmqdjfaim2w3" path="res://other/options_theme.tres" id="8_ln307"]
-[ext_resource type="Texture2D" uid="uid://c8ae7m0upqrsq" path="res://assets/textures/ui/toggle_button_off.png" id="9_dsr2j"]
-[ext_resource type="Texture2D" uid="uid://qbi8lh81skyg" path="res://assets/textures/ui/toggle_button_on.png" id="10_0p0ov"]
+[ext_resource type="Script" path="res://game/scripts/Menu.gd" id="1_b1aer"]
+[ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_apu84"]
+[ext_resource type="AudioStream" uid="uid://b0qgfwhcfar14" path="res://assets/sounds/menu_theme.wav" id="3_ms3pl"]
+[ext_resource type="Texture2D" uid="uid://b04uks02fov0m" path="res://assets/textures/ui/options_background.png" id="4_j8wfi"]
+[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="5_jyl5u"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_kfdsf"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="7_ucb6e"]
+[ext_resource type="Script" path="res://game/scenes/FPS.gd" id="11_dvf48"]
+[ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="12_vvxv3"]
 
 [node name="ui_elements" type="Control"]
 layout_mode = 3
@@ -22,15 +19,15 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-script = ExtResource("3_810ur")
+script = ExtResource("1_b1aer")
 metadata/_edit_use_anchors_ = true
 
 [node name="button_pressed" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_ebafp")
+stream = ExtResource("2_apu84")
 bus = &"UI"
 
 [node name="menu_theme" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("4_8al7t")
+stream = ExtResource("3_ms3pl")
 autoplay = true
 bus = &"Music"
 
@@ -63,7 +60,7 @@ offset_right = 1920.0
 offset_bottom = 153.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("6_lst31")
+texture = ExtResource("4_j8wfi")
 
 [node name="return_belt_cont" type="MarginContainer" parent="options"]
 layout_mode = 1
@@ -84,7 +81,7 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 text = "back_button"
 
 [node name="options_margines" type="MarginContainer" parent="options"]
@@ -103,31 +100,31 @@ alignment = 1
 
 [node name="audio_button" type="Button" parent="options/options_margines/horizontal_container"]
 layout_mode = 2
-theme = ExtResource("6_mh4dg")
+theme = ExtResource("6_kfdsf")
 toggle_mode = true
 text = "audio_options"
 
 [node name="controls_button" type="Button" parent="options/options_margines/horizontal_container"]
 layout_mode = 2
-theme = ExtResource("6_mh4dg")
+theme = ExtResource("6_kfdsf")
 toggle_mode = true
 text = "control_options"
 
 [node name="screen_button" type="Button" parent="options/options_margines/horizontal_container"]
 layout_mode = 2
-theme = ExtResource("6_mh4dg")
+theme = ExtResource("6_kfdsf")
 toggle_mode = true
 text = "screen_options"
 
 [node name="graphics_button" type="Button" parent="options/options_margines/horizontal_container"]
 layout_mode = 2
-theme = ExtResource("6_mh4dg")
+theme = ExtResource("6_kfdsf")
 toggle_mode = true
 text = "graphics_options"
 
 [node name="game_button" type="Button" parent="options/options_margines/horizontal_container"]
 layout_mode = 2
-theme = ExtResource("6_mh4dg")
+theme = ExtResource("6_kfdsf")
 toggle_mode = true
 text = "game_options"
 
@@ -184,32 +181,59 @@ metadata/_edit_use_anchors_ = true
 
 [node name="main_hbox_screen" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins"]
 layout_mode = 2
-theme_override_constants/separation = 250
+theme_override_constants/separation = 50
 alignment = 1
 
 [node name="main_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen"]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="fscreen_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+[node name="fscreen_option" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+custom_minimum_size = Vector2(356, 38)
+layout_mode = 2
+text = "option_full_screen"
+label_settings = ExtResource("7_ucb6e")
+
+[node name="wsize_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="fscreen_option" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/fscreen_container"]
+[node name="display_option" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container"]
 layout_mode = 2
-text = "option_full_screen"
-label_settings = ExtResource("7_yb142")
-horizontal_alignment = 1
+text = "option_window_size"
+label_settings = ExtResource("7_ucb6e")
 
-[node name="fscreen_options" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/fscreen_container"]
+[node name="vsync_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+custom_minimum_size = Vector2(365, 38)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="vsync_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox"]
+layout_mode = 2
+text = "vsync_label"
+label_settings = ExtResource("7_ucb6e")
+
+[node name="display_screen_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
+layout_mode = 2
+
+[node name="display_screen_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/display_screen_vbox"]
+layout_mode = 2
+text = "display_screen_label"
+label_settings = ExtResource("7_ucb6e")
+
+[node name="second_main_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="fscreen_options" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="display_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/fscreen_container/fscreen_options"]
-custom_minimum_size = Vector2(356, 64)
+[node name="display_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options"]
+custom_minimum_size = Vector2(356, 38)
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 3
 popup/item_0/text = "exclusive_fullscreen_mode"
@@ -219,64 +243,39 @@ popup/item_1/id = 1
 popup/item_2/text = "window_mode"
 popup/item_2/id = 2
 
-[node name="wsize_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="display_option" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container"]
-layout_mode = 2
-text = "option_window_size"
-label_settings = ExtResource("7_yb142")
-horizontal_alignment = 1
-
-[node name="screen_options2" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container"]
+[node name="screen_options" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container"]
 layout_mode = 2
 theme_override_constants/separation = 30
 alignment = 1
 
-[node name="display_resolution" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container/screen_options2"]
-custom_minimum_size = Vector2(356, 64)
+[node name="display_resolution" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options"]
+custom_minimum_size = Vector2(356, 38)
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 alignment = 1
 
-[node name="vsync_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
-custom_minimum_size = Vector2(365, 64)
+[node name="vsync_options" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container"]
 layout_mode = 2
-theme_override_constants/separation = 30
 
-[node name="vsync_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox"]
+[node name="vsync_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/vsync_options"]
+custom_minimum_size = Vector2(356, 38)
 layout_mode = 2
-text = "vsync_label"
-label_settings = ExtResource("7_yb142")
-horizontal_alignment = 1
-
-[node name="vsync_hbox" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox"]
-custom_minimum_size = Vector2(365, 0)
-layout_mode = 2
-theme_override_constants/separation = 10
+theme = ExtResource("5_jyl5u")
 alignment = 1
+item_count = 2
+popup/item_0/text = "on"
+popup/item_0/id = 0
+popup/item_1/text = "off"
+popup/item_1/id = 1
 
-[node name="vsync_yes_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox/vsync_hbox"]
+[node name="display_screen_hbox" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container"]
 layout_mode = 2
-text = "yes"
-label_settings = ExtResource("8_ln307")
 
-[node name="TextureButton" type="TextureButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox/vsync_hbox"]
+[node name="display_screen_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/display_screen_hbox"]
+custom_minimum_size = Vector2(356, 38)
 layout_mode = 2
-toggle_mode = true
-texture_normal = ExtResource("9_dsr2j")
-texture_pressed = ExtResource("10_0p0ov")
-
-[node name="vsync_no_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox/vsync_hbox"]
-layout_mode = 2
-text = "no"
-label_settings = ExtResource("8_ln307")
-
-[node name="sceond_main_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen"]
-visible = false
-layout_mode = 2
-theme_override_constants/separation = 20
+theme = ExtResource("5_jyl5u")
+alignment = 1
 
 [node name="options_body_graphics" type="Control" parent="options"]
 layout_mode = 1
@@ -294,53 +293,79 @@ layout_mode = 0
 offset_right = 1917.0
 offset_bottom = 789.0
 
-[node name="graphics_vbox" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines"]
+[node name="options_graphics_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="first_vbox_graphics" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox"]
 layout_mode = 2
 theme_override_constants/separation = 30
 
-[node name="scaling_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox"]
+[node name="scaling_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics"]
+custom_minimum_size = Vector2(356, 38)
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="scaling_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box"]
+[node name="scaling_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/scaling_box"]
 layout_mode = 2
 text = "scaling_type"
-label_settings = ExtResource("7_yb142")
-horizontal_alignment = 1
+label_settings = ExtResource("7_ucb6e")
 
-[node name="scaling_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box"]
+[node name="resolution_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics"]
 layout_mode = 2
-alignment = 1
+theme_override_constants/separation = 0
 
-[node name="scaling_option" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box/scaling_hbox"]
-custom_minimum_size = Vector2(356, 64)
-layout_mode = 2
-theme = ExtResource("4_1j5rk")
-alignment = 1
-item_count = 2
-popup/item_0/text = "BILINEAR"
-popup/item_0/id = 0
-popup/item_1/text = "AMS FSR 2.0"
-popup/item_1/id = 1
-
-[node name="resolution_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="resolution_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box"]
+[node name="resolution_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box"]
 layout_mode = 2
 text = "in_game_resolution"
-label_settings = ExtResource("7_yb142")
-horizontal_alignment = 1
+label_settings = ExtResource("7_ucb6e")
 
-[node name="resolution_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box"]
+[node name="label_scale" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box"]
+layout_mode = 2
+text = "100% "
+vertical_alignment = 1
+
+[node name="second_vbox_graphics" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="scaling_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics"]
 layout_mode = 2
 alignment = 1
 
-[node name="frs_scaling" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox"]
+[node name="scaling_option" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/scaling_hbox"]
+custom_minimum_size = Vector2(356, 38)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+alignment = 1
+item_count = 2
+popup/item_0/text = "Bilinear"
+popup/item_0/id = 0
+popup/item_1/text = "AMD FSR 2.0"
+popup/item_1/id = 1
+
+[node name="resolution_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics"]
+layout_mode = 2
+alignment = 1
+
+[node name="game_resolution_vbox" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox"]
+custom_minimum_size = Vector2(356, 38)
+layout_mode = 2
+
+[node name="game_resolution" type="HSlider" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+min_value = 50.0
+max_value = 200.0
+step = 5.0
+value = 100.0
+
+[node name="frs_scaling" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox"]
 custom_minimum_size = Vector2(356, 40)
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 4
 popup/item_0/text = "performance_fsr"
@@ -351,21 +376,6 @@ popup/item_2/text = "quality_fsr"
 popup/item_2/id = 2
 popup/item_3/text = "ultra_quality_fsr"
 popup/item_3/id = 3
-
-[node name="game_resolution" type="HSlider" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox"]
-custom_minimum_size = Vector2(365, 40)
-layout_mode = 2
-theme = ExtResource("4_1j5rk")
-min_value = 50.0
-max_value = 200.0
-step = 5.0
-value = 100.0
-
-[node name="label_scale" type="Label" parent="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box"]
-layout_mode = 2
-text = "100% "
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="options_body_game" type="Control" parent="options"]
 anchors_preset = 0
@@ -384,9 +394,9 @@ offset_bottom = 23.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 13
 text = "0"
-label_settings = ExtResource("7_yb142")
+label_settings = ExtResource("7_ucb6e")
 horizontal_alignment = 1
-script = ExtResource("8_b4twn")
+script = ExtResource("11_dvf48")
 
 [node name="logo" type="TextureRect" parent="main_menu"]
 layout_mode = 2
@@ -394,7 +404,7 @@ offset_left = 514.0
 offset_top = 162.0
 offset_right = 1414.0
 offset_bottom = 562.0
-texture = ExtResource("4_h2o47")
+texture = ExtResource("12_vvxv3")
 
 [node name="MarginContainer" type="MarginContainer" parent="main_menu"]
 layout_mode = 1
@@ -403,43 +413,40 @@ anchor_left = 0.5
 anchor_top = 0.773
 anchor_right = 0.5
 anchor_bottom = 0.773
-offset_left = 490.5
-offset_top = 618.08
-offset_right = 1390.5
-offset_bottom = 1018.08
+offset_left = 491.0
+offset_top = 652.08
+offset_right = 1391.0
+offset_bottom = 1047.08
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="main_menu" type="VBoxContainer" parent="main_menu/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 alignment = 1
 
 [node name="Continue" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
 text = "menu_con"
 
 [node name="NewGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 text = "menu_new"
 
 [node name="Options" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 text = "menu_options"
 
 [node name="Exit" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("4_1j5rk")
+theme = ExtResource("5_jyl5u")
 text = "menu_exit"
-
-[node name="button_pressed" type="AudioStreamPlayer" parent="main_menu/MarginContainer/main_menu"]
-stream = ExtResource("6_ebafp")
 
 [connection signal="pressed" from="options/return_belt_cont/return_belt/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/audio_button" to="." method="_on_audio_button_pressed"]
@@ -448,11 +455,13 @@ stream = ExtResource("6_ebafp")
 [connection signal="pressed" from="options/options_margines/horizontal_container/screen_button" to="." method="_on_screen_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/graphics_button" to="." method="_on_graphics_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/game_button" to="." method="_on_game_button_pressed"]
-[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/fscreen_container/fscreen_options/display_settings" to="." method="_on_display_settings_item_selected"]
-[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container/screen_options2/display_resolution" to="." method="_on_display_resolution_item_selected"]
-[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/graphics_vbox/scaling_box/scaling_hbox/scaling_option" to="." method="_on_scaling_option_item_selected"]
-[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/frs_scaling" to="." method="_on_frs_scaling_item_selected"]
-[connection signal="value_changed" from="options/options_body_graphics/options_graphics_margines/graphics_vbox/resolution_box/resolution_hbox/game_resolution" to="." method="_on_game_resolution_value_changed"]
+[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options/display_settings" to="." method="_on_display_settings_item_selected"]
+[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options/display_resolution" to="." method="_on_display_resolution_item_selected"]
+[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/vsync_options/vsync_settings" to="." method="_on_vsync_settings_item_selected"]
+[connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/display_screen_hbox/display_screen_settings" to="." method="_on_display_screen_settings_item_selected"]
+[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/scaling_hbox/scaling_option" to="." method="_on_scaling_option_item_selected"]
+[connection signal="value_changed" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/game_resolution" to="." method="_on_game_resolution_value_changed"]
+[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/frs_scaling" to="." method="_on_frs_scaling_item_selected"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Options" to="." method="_on_options_pressed"]
