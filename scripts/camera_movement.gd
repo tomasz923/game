@@ -10,3 +10,9 @@ func _input(event):
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			fov += zoom_speed
 		fov = clamp(fov, min_fov, max_fov)
+
+func blur():
+	attributes.dof_blur_far_enabled = true
+
+func unblur():
+	attributes.dof_blur_far_enabled = false

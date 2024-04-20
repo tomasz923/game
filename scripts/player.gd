@@ -8,27 +8,28 @@ var SPEED = 2.5
 var isRunning = true
 var isLocked = false
 var allow_movement = true
+var user_prefs: UserPreferences
 
 const walking_speed = 1.5
 const running_speed = 3.5
 const rotation_speed = 10
 
-@export var sens_horizontal = 0.2
-@export var sens_vertical = 0.2
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	user_prefs = UserPreferences.load_or_create()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
 func _input(event):
-	if Input.is_action_just_pressed("ui_cancel"):
-		get_tree().quit()
+	#if Input.is_action_just_pressed("ui_cancel"):
+		#get_tree().quit()
 		
 	if event is InputEventMouseMotion:
-		rotate_y(deg_to_rad(-event.relative.x*sens_horizontal))
-		visuals.rotate_y(deg_to_rad(event.relative.x*sens_horizontal))
-		camera_mount.rotate_x(deg_to_rad(-event.relative.y*sens_vertical))
+		rotate_y(deg_to_rad(-event.relative.x*user_prefs.mouse_sensitivity))
+		visuals.rotate_y(deg_to_rad(event.relative.x*user_prefs.mouse_sensitivity))
+		camera_mount.rotate_x(deg_to_rad(-event.relative.y*user_prefs.mouse_sensitivity))
 
 func _physics_process(delta):
 	if !allow_movement:
@@ -82,6 +83,9 @@ func _on_area_3d_area_entered(area):
 		LoadManager.load_scene("res://game/scenes/fightSceneOne.tscn")
 	else:
 			print('Saving...')
+			
+func blur():
+	print('hello blur from a player') 
 
 #func _on_area_3d_area_exited(area):
 	#print(area.name, ' exited')

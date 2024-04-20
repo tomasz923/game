@@ -1,14 +1,15 @@
-[gd_scene load_steps=27 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=23 format=3 uid="uid://y0egc0gmui6w"]
 
-[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="1_l25qx"]
+[ext_resource type="Script" path="res://game/scenes/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
-[ext_resource type="Script" path="res://game/scenes/FPS.gd" id="2_008au"]
+[ext_resource type="Script" path="res://game/scenes/map.gd" id="2_14vrx"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/player.tscn" id="5_f8m7e"]
-[ext_resource type="Shader" path="res://game/scenes/gemini.gdshader" id="5_q0d0x"]
 [ext_resource type="Texture2D" uid="uid://d2pabwwu1pndq" path="res://assets/textures/grids/Light/texture_01.png" id="5_wn3g0"]
+[ext_resource type="Script" path="res://game/scenes/pause.gd" id="9_qjkfo"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="10_fa75o"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -55,46 +56,10 @@ radius = 2.11754
 height = 4.0
 radius = 4.0
 
-[sub_resource type="Gradient" id="Gradient_62quv"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_vbpb4"]
-gradient = SubResource("Gradient_62quv")
-
-[sub_resource type="Gradient" id="Gradient_8mavw"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_4cji3"]
-gradient = SubResource("Gradient_8mavw")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b3egl"]
-render_priority = 0
-shader = ExtResource("5_q0d0x")
-shader_parameter/speed = 0.0
-shader_parameter/color = Color(0, 0, 0.984314, 1)
-shader_parameter/deep_water = Color(0.211765, 0, 0.905882, 1)
-shader_parameter/beer_law_factor = 2.0
-shader_parameter/_distance = 0.0
-shader_parameter/edge_color = null
-shader_parameter/edge_scale = 0.25
-shader_parameter/near = 0.1
-shader_parameter/far = 100.0
-shader_parameter/wave_strength = Vector2(0.015, 0.015)
-shader_parameter/wave_frequ = Vector2(12, 12)
-shader_parameter/time_factor = Vector2(1, 2)
-shader_parameter/noise1 = SubResource("GradientTexture2D_vbpb4")
-shader_parameter/noise2 = SubResource("GradientTexture2D_4cji3")
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_rwia4"]
-material = SubResource("ShaderMaterial_b3egl")
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mbfqn"]
 
 [node name="world" type="Node3D"]
-
-[node name="FPS" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 38.0
-text = "s"
-label_settings = ExtResource("1_l25qx")
-horizontal_alignment = 1
-script = ExtResource("2_008au")
+script = ExtResource("1_2ccfw")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmj8b")
@@ -104,6 +69,7 @@ transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75
 shadow_enabled = true
 
 [node name="map" type="Node3D" parent="."]
+script = ExtResource("2_14vrx")
 
 [node name="floor" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -158,7 +124,46 @@ monitoring = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("CylinderShape3D_e1nti")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="map"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68731, 0.341936, -2.95114)
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_mbfqn")
+offset_left = 342.0
+offset_top = 262.0
+offset_right = 1545.0
+offset_bottom = 873.0
+
+[node name="pause" type="Control" parent="."]
+process_mode = 2
 visible = false
-mesh = SubResource("PlaneMesh_rwia4")
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1924.0
+offset_bottom = 1088.0
+size_flags_horizontal = 4
+script = ExtResource("9_qjkfo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="pause"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -41.5
+offset_top = -40.0
+offset_right = 41.5
+offset_bottom = 40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="pause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_fa75o")
+text = "START"
+
+[node name="exit" type="Button" parent="pause/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("10_fa75o")
+text = "EXIT"
+
+[connection signal="pressed" from="pause/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="pause/VBoxContainer/exit" to="." method="_on_exit_pressed"]

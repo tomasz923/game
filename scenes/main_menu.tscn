@@ -45,10 +45,16 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.882353)
 
 [node name="options" type="Control" parent="."]
-layout_mode = 2
-anchors_preset = 0
-offset_right = 1920.0
-offset_bottom = 1080.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -72,10 +78,8 @@ grow_horizontal = 2
 grow_vertical = 0
 metadata/_edit_use_anchors_ = true
 
-[node name="return_belt" type="HBoxContainer" parent="options/return_belt_cont"]
+[node name="return_belt" type="VBoxContainer" parent="options/return_belt_cont"]
 layout_mode = 2
-size_flags_vertical = 8
-alignment = 1
 
 [node name="back_button" type="Button" parent="options/return_belt_cont/return_belt"]
 layout_mode = 2
@@ -83,6 +87,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("5_jyl5u")
 text = "back_button"
+
+[node name="reset_button" type="Button" parent="options/return_belt_cont/return_belt"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_jyl5u")
+text = "reset_button"
 
 [node name="options_margines" type="MarginContainer" parent="options"]
 layout_mode = 1
@@ -136,47 +148,152 @@ offset_bottom = 40.0
 [node name="options_audio_margins" type="MarginContainer" parent="options/options_body_audio"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.277
-anchor_top = 0.164481
-anchor_right = 0.724
-anchor_bottom = 0.845
-offset_left = 520.92
-offset_top = 171.42
-offset_right = 521.68
-offset_bottom = 171.46
+offset_top = 180.0
+offset_right = 1920.0
+offset_bottom = 980.0
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
 
-[node name="vertical_container" type="VBoxContainer" parent="options/options_body_audio/options_audio_margins"]
+[node name="options_audio_hbox" type="HBoxContainer" parent="options/options_body_audio/options_audio_margins"]
 layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="first_vbox_audio" type="VBoxContainer" parent="options/options_body_audio/options_audio_margins/options_audio_hbox"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="master_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
+layout_mode = 2
+text = "master_label"
+label_settings = ExtResource("7_ucb6e")
+vertical_alignment = 1
+
+[node name="music_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
+layout_mode = 2
+text = "music_label"
+label_settings = ExtResource("7_ucb6e")
+vertical_alignment = 1
+
+[node name="ui_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
+layout_mode = 2
+text = "ui_label"
+label_settings = ExtResource("7_ucb6e")
+vertical_alignment = 1
+
+[node name="sfx_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
+layout_mode = 2
+text = "sfx_label"
+label_settings = ExtResource("7_ucb6e")
+vertical_alignment = 1
+
+[node name="voice_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
+layout_mode = 2
+text = "voice_label"
+label_settings = ExtResource("7_ucb6e")
+vertical_alignment = 1
+
+[node name="second_vbox_audio" type="VBoxContainer" parent="options/options_body_audio/options_audio_margins/options_audio_hbox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="master_slider" type="HSlider" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="music_slider" type="HSlider" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="ui_slider" type="HSlider" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="sfx_slider" type="HSlider" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="voice_slider" type="HSlider" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+max_value = 1.0
+step = 0.01
+value = 0.8
 
 [node name="options_body_controls" type="Control" parent="options"]
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+
+[node name="options_controls_margines" type="MarginContainer" parent="options/options_body_controls"]
+layout_mode = 1
+offset_top = 180.0
+offset_right = 1920.0
+offset_bottom = 980.0
+
+[node name="options_controls_hbox" type="HBoxContainer" parent="options/options_body_controls/options_controls_margines"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="first_vbox_controls" type="VBoxContainer" parent="options/options_body_controls/options_controls_margines/options_controls_hbox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="mouse_hbox" type="VBoxContainer" parent="options/options_body_controls/options_controls_margines/options_controls_hbox/first_vbox_controls"]
+custom_minimum_size = Vector2(360, 38)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="mouse_sens_label" type="Label" parent="options/options_body_controls/options_controls_margines/options_controls_hbox/first_vbox_controls/mouse_hbox"]
+custom_minimum_size = Vector2(356, 40)
+layout_mode = 2
+text = "mouse_sensitivity"
+label_settings = ExtResource("7_ucb6e")
+
+[node name="second_vbox_controls" type="VBoxContainer" parent="options/options_body_controls/options_controls_margines/options_controls_hbox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="mouse_hbox" type="HBoxContainer" parent="options/options_body_controls/options_controls_margines/options_controls_hbox/second_vbox_controls"]
+layout_mode = 2
+alignment = 1
+
+[node name="mouse_sens_slider" type="HSlider" parent="options/options_body_controls/options_controls_margines/options_controls_hbox/second_vbox_controls/mouse_hbox"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+min_value = 0.05
+max_value = 0.8
+step = 0.05
+value = 0.2
 
 [node name="options_body_screen" type="Control" parent="options"]
 layout_mode = 2
 anchors_preset = 0
-offset_left = 532.0
-offset_top = 178.0
-offset_right = 1391.0
-offset_bottom = 913.0
 
 [node name="options_screen_margins" type="MarginContainer" parent="options/options_body_screen"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = -1.22018
-anchor_top = -0.0138707
-anchor_right = 2.23101
-anchor_bottom = 1.26082
-offset_left = 523.131
-offset_top = 27.195
-offset_right = -527.439
-offset_bottom = -154.701
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_top = 180.0
+offset_right = 1920.0
+offset_bottom = 980.0
 metadata/_edit_use_anchors_ = true
 
 [node name="main_hbox_screen" type="HBoxContainer" parent="options/options_body_screen/options_screen_margins"]
@@ -189,7 +306,7 @@ layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="fscreen_option" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
-custom_minimum_size = Vector2(356, 38)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "option_full_screen"
 label_settings = ExtResource("7_ucb6e")
@@ -199,6 +316,7 @@ layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="display_option" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/wsize_container"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "option_window_size"
 label_settings = ExtResource("7_ucb6e")
@@ -209,6 +327,7 @@ layout_mode = 2
 theme_override_constants/separation = 30
 
 [node name="vsync_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/vsync_vbox"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "vsync_label"
 label_settings = ExtResource("7_ucb6e")
@@ -217,6 +336,7 @@ label_settings = ExtResource("7_ucb6e")
 layout_mode = 2
 
 [node name="display_screen_label" type="Label" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container/display_screen_vbox"]
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "display_screen_label"
 label_settings = ExtResource("7_ucb6e")
@@ -231,7 +351,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="display_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options"]
-custom_minimum_size = Vector2(356, 38)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
@@ -249,7 +369,7 @@ theme_override_constants/separation = 30
 alignment = 1
 
 [node name="display_resolution" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options"]
-custom_minimum_size = Vector2(356, 38)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
@@ -258,7 +378,7 @@ alignment = 1
 layout_mode = 2
 
 [node name="vsync_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/vsync_options"]
-custom_minimum_size = Vector2(356, 38)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
@@ -272,26 +392,20 @@ popup/item_1/id = 1
 layout_mode = 2
 
 [node name="display_screen_settings" type="OptionButton" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/display_screen_hbox"]
-custom_minimum_size = Vector2(356, 38)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
 
 [node name="options_body_graphics" type="Control" parent="options"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = 195.0
-offset_right = 4.0
-offset_bottom = -98.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
 
 [node name="options_graphics_margines" type="MarginContainer" parent="options/options_body_graphics"]
 layout_mode = 0
-offset_right = 1917.0
-offset_bottom = 789.0
+offset_top = 180.0
+offset_right = 1920.0
+offset_bottom = 980.0
 
 [node name="options_graphics_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines"]
 layout_mode = 2
@@ -301,6 +415,14 @@ alignment = 1
 [node name="first_vbox_graphics" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox"]
 layout_mode = 2
 theme_override_constants/separation = 30
+
+[node name="aa_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics"]
+layout_mode = 2
+
+[node name="aa_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/aa_box"]
+layout_mode = 2
+text = "Anti-Aliasing"
+label_settings = ExtResource("7_ucb6e")
 
 [node name="scaling_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics"]
 custom_minimum_size = Vector2(356, 38)
@@ -330,12 +452,28 @@ vertical_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 30
 
+[node name="aa_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics"]
+layout_mode = 2
+
+[node name="aa_option" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/aa_hbox"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+alignment = 1
+item_count = 3
+popup/item_0/text = "none"
+popup/item_0/id = 0
+popup/item_1/text = "FXAA"
+popup/item_1/id = 1
+popup/item_2/text = "TAA"
+popup/item_2/id = 2
+
 [node name="scaling_hbox" type="HBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics"]
 layout_mode = 2
 alignment = 1
 
 [node name="scaling_option" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/scaling_hbox"]
-custom_minimum_size = Vector2(356, 38)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
@@ -354,7 +492,7 @@ custom_minimum_size = Vector2(356, 38)
 layout_mode = 2
 
 [node name="game_resolution" type="HSlider" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox"]
-custom_minimum_size = Vector2(365, 40)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 min_value = 50.0
@@ -363,7 +501,7 @@ step = 5.0
 value = 100.0
 
 [node name="frs_scaling" type="OptionButton" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox"]
-custom_minimum_size = Vector2(356, 40)
+custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
@@ -382,15 +520,64 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="options_game_margines" type="MarginContainer" parent="options/options_body_game"]
+layout_mode = 0
+offset_top = 180.0
+offset_right = 1920.0
+offset_bottom = 980.0
+
+[node name="options_game_hbox" type="HBoxContainer" parent="options/options_body_game/options_game_margines"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="first_vbox_game" type="VBoxContainer" parent="options/options_body_game/options_game_margines/options_game_hbox"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="language_label" type="Label" parent="options/options_body_game/options_game_margines/options_game_hbox/first_vbox_game"]
+layout_mode = 2
+text = "mchosen_language"
+label_settings = ExtResource("7_ucb6e")
+
+[node name="second_vbox_game" type="VBoxContainer" parent="options/options_body_game/options_game_margines/options_game_hbox"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="language_option" type="OptionButton" parent="options/options_body_game/options_game_margines/options_game_hbox/second_vbox_game"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("5_jyl5u")
+alignment = 1
+item_count = 4
+popup/item_0/text = "lang_eng"
+popup/item_0/id = 0
+popup/item_1/text = "lang_pol"
+popup/item_1/id = 1
+popup/item_2/text = "lang_de"
+popup/item_2/id = 2
+popup/item_3/text = "lang_es"
+popup/item_3/id = 3
+
 [node name="main_menu" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="FPS" type="Label" parent="main_menu"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+layout_mode = 1
+offset_right = 68.0
+offset_bottom = 74.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 13
 text = "0"
@@ -400,10 +587,10 @@ script = ExtResource("11_dvf48")
 
 [node name="logo" type="TextureRect" parent="main_menu"]
 layout_mode = 2
-offset_left = 514.0
-offset_top = 162.0
-offset_right = 1414.0
-offset_bottom = 562.0
+offset_left = -405.0
+offset_top = -362.0
+offset_right = 495.0
+offset_bottom = 38.0
 texture = ExtResource("12_vvxv3")
 
 [node name="MarginContainer" type="MarginContainer" parent="main_menu"]
@@ -413,10 +600,10 @@ anchor_left = 0.5
 anchor_top = 0.773
 anchor_right = 0.5
 anchor_bottom = 0.773
-offset_left = 491.0
-offset_top = 652.08
-offset_right = 1391.0
-offset_bottom = 1047.08
+offset_left = -451.0
+offset_top = 12.08
+offset_right = 449.0
+offset_bottom = 407.08
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -428,40 +615,49 @@ alignment = 1
 
 [node name="Continue" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("5_jyl5u")
+theme = ExtResource("6_kfdsf")
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
 text = "menu_con"
 
 [node name="NewGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("5_jyl5u")
+theme = ExtResource("6_kfdsf")
 text = "menu_new"
 
 [node name="Options" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("5_jyl5u")
+theme = ExtResource("6_kfdsf")
 text = "menu_options"
 
 [node name="Exit" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
-theme = ExtResource("5_jyl5u")
+theme = ExtResource("6_kfdsf")
 text = "menu_exit"
 
 [connection signal="pressed" from="options/return_belt_cont/return_belt/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="options/return_belt_cont/return_belt/reset_button" to="." method="_on_reset_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/audio_button" to="." method="_on_audio_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/controls_button" to="." method="_on_controls_button_pressed"]
 [connection signal="toggled" from="options/options_margines/horizontal_container/controls_button" to="." method="_on_controls_button_toggled"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/screen_button" to="." method="_on_screen_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/graphics_button" to="." method="_on_graphics_button_pressed"]
 [connection signal="pressed" from="options/options_margines/horizontal_container/game_button" to="." method="_on_game_button_pressed"]
+[connection signal="value_changed" from="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/master_slider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/music_slider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/ui_slider" to="." method="_on_ui_slider_value_changed"]
+[connection signal="value_changed" from="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/sfx_slider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/voice_slider" to="." method="_on_voice_slider_value_changed"]
+[connection signal="value_changed" from="options/options_body_controls/options_controls_margines/options_controls_hbox/second_vbox_controls/mouse_hbox/mouse_sens_slider" to="." method="_on_mouse_sens_slider_value_changed"]
 [connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options/display_settings" to="." method="_on_display_settings_item_selected"]
 [connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options/display_resolution" to="." method="_on_display_resolution_item_selected"]
 [connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/vsync_options/vsync_settings" to="." method="_on_vsync_settings_item_selected"]
 [connection signal="item_selected" from="options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/display_screen_hbox/display_screen_settings" to="." method="_on_display_screen_settings_item_selected"]
+[connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/aa_hbox/aa_option" to="." method="_on_aa_option_item_selected"]
 [connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/scaling_hbox/scaling_option" to="." method="_on_scaling_option_item_selected"]
 [connection signal="value_changed" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/game_resolution" to="." method="_on_game_resolution_value_changed"]
 [connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/frs_scaling" to="." method="_on_frs_scaling_item_selected"]
+[connection signal="item_selected" from="options/options_body_game/options_game_margines/options_game_hbox/second_vbox_game/language_option" to="." method="_on_language_option_item_selected"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Options" to="." method="_on_options_pressed"]
