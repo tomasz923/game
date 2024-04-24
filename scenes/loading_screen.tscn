@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://c7nvtxvlopxxt"]
 
-[ext_resource type="Script" path="res://game/scripts/loading_screen.gd" id="1_kex26"]
+[ext_resource type="Script" path="res://game/resources/loading_screen.gd" id="1_kex26"]
 
 [sub_resource type="Animation" id="Animation_xsylo"]
 length = 0.001

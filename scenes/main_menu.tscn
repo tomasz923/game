@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="5_jyl5u"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_kfdsf"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="7_ucb6e"]
-[ext_resource type="Script" path="res://game/scenes/FPS.gd" id="11_dvf48"]
+[ext_resource type="Script" path="res://game/scripts/FPS.gd" id="11_dvf48"]
 [ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="12_vvxv3"]
 
 [node name="ui_elements" type="Control"]
@@ -42,7 +42,7 @@ offset_right = 81.0
 offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.882353)
+color = Color(0, 0, 0, 0.784314)
 
 [node name="options" type="Control" parent="."]
 layout_mode = 1
@@ -620,6 +620,13 @@ theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
 text = "menu_con"
 
+[node name="SaveGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
+layout_mode = 2
+theme = ExtResource("6_kfdsf")
+theme_override_constants/outline_size = 0
+theme_override_constants/h_separation = 0
+text = "menu_save"
+
 [node name="NewGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
 theme = ExtResource("6_kfdsf")
@@ -659,6 +666,7 @@ text = "menu_exit"
 [connection signal="item_selected" from="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/frs_scaling" to="." method="_on_frs_scaling_item_selected"]
 [connection signal="item_selected" from="options/options_body_game/options_game_margines/options_game_hbox/second_vbox_game/language_option" to="." method="_on_language_option_item_selected"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="main_menu/MarginContainer/main_menu/SaveGame" to="." method="_on_save_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Exit" to="." method="_on_exit_pressed"]

@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+var texting_saving = "Deafult Value"
+
 @onready var camera_mount =  $camera_mount
 @onready var animation_player = $visuals/mixamo_base/AnimationPlayer
 @onready var visuals = $visuals
@@ -75,17 +77,20 @@ func _physics_process(delta):
 		move_and_slide()
 
 func _on_area_3d_area_entered(area):
-	if area.name != 'Area3D':
-		allow_movement = false
-		animation_player.play("idle")
-		#var parts = area.name.split("_")
-		#var area_name = parts[0]
-		LoadManager.load_scene("res://game/scenes/fightSceneOne.tscn")
-	else:
-			print('Saving...')
+	if area.name != 'makarena':
+		if area.name != 'Area3D':
+			Global.scene_being_loaded = "res://game/scenes/fightSceneOne.tscn"
+			var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
+			get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
+		else:
+				print('Saving...')
 			
 func blur():
 	print('hello blur from a player') 
 
-#func _on_area_3d_area_exited(area):
-	#print(area.name, ' exited')
+
+
+func _on_makarena_body_entered(_body):
+	Global.scene_being_loaded = "res://game/scenes/world.tscn"
+	var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
+	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()

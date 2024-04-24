@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bct5xjjskyq72"]
+[gd_scene load_steps=10 format=3 uid="uid://bct5xjjskyq72"]
 
+[ext_resource type="Script" path="res://game/scripts/world.gd" id="1_cvfek"]
 [ext_resource type="Texture2D" uid="uid://bm8djub5otix2" path="res://assets/textures/grids/Purple/texture_02.png" id="1_p15qh"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/player.tscn" id="2_csx0h"]
+[ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu.tscn" id="4_vo62q"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_plv6m"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -20,7 +22,11 @@ glow_enabled = true
 albedo_texture = ExtResource("1_p15qh")
 uv1_triplanar = true
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_fdpku"]
+
 [node name="Node3D" type="Node3D"]
+process_mode = 3
+script = ExtResource("1_cvfek")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_qud8c")
@@ -29,12 +35,30 @@ environment = SubResource("Environment_qud8c")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Node3D" type="Node3D" parent="."]
+[node name="Pausable" type="Node3D" parent="."]
+process_mode = 1
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Node3D"]
+[node name="Node3D" type="Node3D" parent="Pausable"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Pausable/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 material_override = SubResource("StandardMaterial3D_rhwr8")
 use_collision = true
 size = Vector3(100, 0.5, 100)
 
-[node name="player" parent="." instance=ExtResource("2_csx0h")]
+[node name="player" parent="Pausable" instance=ExtResource("2_csx0h")]
+
+[node name="makarena" type="Area3D" parent="Pausable"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pausable/makarena"]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0.589894, 0, -5.14313)
+shape = SubResource("SphereShape3D_fdpku")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Pausable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.56281, -0.235144, -5.22334)
+
+[node name="ui_elements" parent="." instance=ExtResource("4_vo62q")]
+process_mode = 2
+visible = false
+
+[connection signal="body_entered" from="Pausable/makarena" to="Pausable/player" method="_on_makarena_body_entered"]

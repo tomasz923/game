@@ -48,7 +48,12 @@ func _ready()	:
 	$options/options_body_game.visible = false
 	add_resolutions()
 	add_screens()
-	load_settings()
+	if Global.is_initial_load_ready:
+		print('Everything was already loaded')
+	else:
+		load_settings()
+		print('Successul load')
+		Global.is_initial_load_ready = true
 
 
 func _physics_process(_delta):
@@ -56,10 +61,27 @@ func _physics_process(_delta):
 
 func _on_continue_pressed():
 	$button_pressed.play()
-	
-func _on_new_game_pressed():
+	get_tree().call_group('main_menu', 'continue_game')
+
+func _input(_event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		get_tree().call_group('main_menu', '_input')
+
+func _on_save_game_pressed():
+	#get_tree().call_group('main_menu', 'take_players_positions')
+	Global.scene_being_loaded = "res://game/scenes/main_menu.tscn"
+	var loading_screen = load("res://game/scenes/temp_laoding_screen.tscn")
+	get_tree().change_scene_to_packed(loading_screen)
+
+func _on_new_game_pressed() -> void:
 	$button_pressed.play()
-	LoadManager.load_scene("res://game/scenes/world.tscn")
+	var parent_node = get_parent()
+	if parent_node.name == 'root':
+		Global.scene_being_loaded = "res://game/scenes/world.tscn"
+		var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
+		get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
+	else:
+		print('fuck off')
 
 func _on_exit_pressed():
 	$button_pressed.play()
@@ -202,6 +224,7 @@ func load_settings():
 	_on_sfx_slider_value_changed(user_prefs.sfx_volume)
 	_on_ui_slider_value_changed(user_prefs.ui_volume)
 	_on_music_slider_value_changed(user_prefs.music_volume)
+	
 # Options top bar ----------------------------------------------------------------------------------
 func _on_button_toggled(i : int, buttons_list : Array):
 	$button_pressed.play()
