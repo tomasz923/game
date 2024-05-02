@@ -1,14 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfc5c7rer8bhs"]
+[gd_scene load_steps=11 format=3 uid="uid://dfc5c7rer8bhs"]
 
 [ext_resource type="Script" path="res://game/scripts/Menu.gd" id="1_b1aer"]
 [ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_apu84"]
 [ext_resource type="AudioStream" uid="uid://b0qgfwhcfar14" path="res://assets/sounds/menu_theme.wav" id="3_ms3pl"]
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="4_4mjmb"]
 [ext_resource type="Texture2D" uid="uid://b04uks02fov0m" path="res://assets/textures/ui/options_background.png" id="4_j8wfi"]
 [ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="5_jyl5u"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_kfdsf"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="7_ucb6e"]
-[ext_resource type="Script" path="res://game/scripts/FPS.gd" id="11_dvf48"]
 [ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="12_vvxv3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pdcj"]
+shader = ExtResource("4_4mjmb")
+shader_parameter/blur = 4.0
 
 [node name="ui_elements" type="Control"]
 layout_mode = 3
@@ -31,7 +35,16 @@ stream = ExtResource("3_ms3pl")
 autoplay = true
 bus = &"Music"
 
-[node name="background" type="ColorRect" parent="."]
+[node name="blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6pdcj")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="background_pause" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -42,7 +55,20 @@ offset_right = 81.0
 offset_bottom = 45.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.784314)
+color = Color(0, 0, 0, 0.647059)
+
+[node name="background_main" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -65.0
+offset_top = -25.0
+offset_right = 81.0
+offset_bottom = 45.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="options" type="Control" parent="."]
 layout_mode = 1
@@ -574,17 +600,6 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="FPS" type="Label" parent="main_menu"]
-layout_mode = 1
-offset_right = 68.0
-offset_bottom = 74.0
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 13
-text = "0"
-label_settings = ExtResource("7_ucb6e")
-horizontal_alignment = 1
-script = ExtResource("11_dvf48")
-
 [node name="logo" type="TextureRect" parent="main_menu"]
 layout_mode = 2
 offset_left = -405.0
@@ -627,6 +642,10 @@ theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
 text = "menu_save"
 
+[node name="LoadGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
+layout_mode = 2
+text = "menu_load"
+
 [node name="NewGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
 theme = ExtResource("6_kfdsf")
@@ -641,6 +660,69 @@ text = "menu_options"
 layout_mode = 2
 theme = ExtResource("6_kfdsf")
 text = "menu_exit"
+
+[node name="load_game" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="load_game"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="load_game/ScrollContainer"]
+layout_mode = 2
+
+[node name="return_belt" type="VBoxContainer" parent="load_game"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -77.0
+offset_top = -83.0
+offset_right = 77.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="back_button" type="Button" parent="load_game/return_belt"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_jyl5u")
+text = "back_button"
+
+[node name="reset_button" type="Button" parent="load_game/return_belt"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("5_jyl5u")
+text = "reset_button"
+
+[node name="alert_save_file" type="Label" parent="load_game"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -533.0
+offset_top = -185.5
+offset_right = 533.0
+offset_bottom = 185.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 60
+text = "alert_save_file"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="pressed" from="options/return_belt_cont/return_belt/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="options/return_belt_cont/return_belt/reset_button" to="." method="_on_reset_button_pressed"]
@@ -667,6 +749,9 @@ text = "menu_exit"
 [connection signal="item_selected" from="options/options_body_game/options_game_margines/options_game_hbox/second_vbox_game/language_option" to="." method="_on_language_option_item_selected"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Continue" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/SaveGame" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="main_menu/MarginContainer/main_menu/LoadGame" to="." method="_on_load_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/NewGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Options" to="." method="_on_options_pressed"]
 [connection signal="pressed" from="main_menu/MarginContainer/main_menu/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="load_game/return_belt/back_button" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="load_game/return_belt/reset_button" to="." method="_on_reset_button_pressed"]

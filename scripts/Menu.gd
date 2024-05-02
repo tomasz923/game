@@ -1,5 +1,6 @@
 extends Control
 
+
 var user_prefs: UserPreferences
 var language_codes = ["EN", "PL", "DE", "ES"]
 var top_option_buttons = []
@@ -20,6 +21,7 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 								"1024x600":Vector2i(1024,600),
 								"800x600": Vector2i(800,600)}
 
+@onready var parent_node = get_parent()
 @onready var display_settings = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options/display_settings
 @onready var display_resolution = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options/display_resolution
 @onready var label_scale = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box/label_scale
@@ -36,25 +38,37 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var ui_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/ui_slider
 @onready var sfx_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/sfx_slider
 @onready var voice_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/voice_slider
+@onready var background_pause = $background_pause
+@onready var background_main = $background_main
+@onready var alert_save_file = $load_game/alert_save_file
 
 
 func _ready()	:
+	if not Global.is_initial_load_ready:
+		Global.temp_debugging()
 	user_prefs = UserPreferences.load_or_create()
+	if parent_node.name == 'root':
+		background_main.visible = true
+	else:
+		background_pause.visible = true
+		
 	$options.visible = false
 	$options/options_body_audio.visible= false
 	$options/options_body_screen.visible = false
 	$options/options_body_graphics.visible = false
 	$options/options_body_controls.visible = false
 	$options/options_body_game.visible = false
+	$load_game.visible = false
+	
 	add_resolutions()
 	add_screens()
 	if Global.is_initial_load_ready:
 		print('Everything was already loaded')
 	else:
+		#Global.temp_debugging()
 		load_settings()
 		print('Successul load')
 		Global.is_initial_load_ready = true
-
 
 func _physics_process(_delta):
 	pass
@@ -68,20 +82,21 @@ func _input(_event):
 		get_tree().call_group('main_menu', '_input')
 
 func _on_save_game_pressed():
-	#get_tree().call_group('main_menu', 'take_players_positions')
-	Global.scene_being_loaded = "res://game/scenes/main_menu.tscn"
-	var loading_screen = load("res://game/scenes/temp_laoding_screen.tscn")
-	get_tree().change_scene_to_packed(loading_screen)
+	get_tree().call_group('main_menu', 'take_players_positions')
+	Global.save_game()
 
 func _on_new_game_pressed() -> void:
 	$button_pressed.play()
-	var parent_node = get_parent()
 	if parent_node.name == 'root':
 		Global.scene_being_loaded = "res://game/scenes/world.tscn"
 		var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
 		get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
 	else:
 		print('fuck off')
+
+func _on_load_game_pressed():
+	$load_game.visible = true
+	$main_menu.visible = false
 
 func _on_exit_pressed():
 	$button_pressed.play()
@@ -109,6 +124,7 @@ func _on_back_button_pressed():
 	$button_pressed.play()
 	$main_menu.visible = true
 	$options.visible = false
+	$load_game.visible = false
 
 func _on_reset_button_pressed():
 	user_prefs.display_resolution_selected = 1

@@ -1,14 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=26 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
-[ext_resource type="Script" path="res://game/scripts/map.gd" id="2_14vrx"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]
+[ext_resource type="PackedScene" uid="uid://dpxqgjaudcmg5" path="res://game/scenes/specs.tscn" id="2_vvsx5"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/player.tscn" id="5_f8m7e"]
 [ext_resource type="Texture2D" uid="uid://d2pabwwu1pndq" path="res://assets/textures/grids/Light/texture_01.png" id="5_wn3g0"]
 [ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu.tscn" id="9_u7f4u"]
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="9_xda2v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,6 +28,10 @@ glow_enabled = true
 fog_enabled = true
 fog_light_color = Color(1, 1, 1, 1)
 fog_density = 0.001
+
+[sub_resource type="GDScript" id="GDScript_fv5vn"]
+script/source = "extends Node3D
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo3m8"]
 albedo_texture = ExtResource("1_xdxcu")
@@ -55,9 +60,23 @@ radius = 2.11754
 height = 4.0
 radius = 4.0
 
+[sub_resource type="QuadMesh" id="QuadMesh_jqkqf"]
+flip_faces = true
+size = Vector2(2, 2)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q7514"]
+shader = ExtResource("9_xda2v")
+shader_parameter/blur = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_elj1f"]
+shader = ExtResource("9_xda2v")
+shader_parameter/blur = 1.0
+
 [node name="world" type="Node3D" groups=["main_menu"]]
 process_mode = 3
 script = ExtResource("1_2ccfw")
+
+[node name="Specs" parent="." instance=ExtResource("2_vvsx5")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmj8b")
@@ -68,7 +87,7 @@ shadow_enabled = true
 
 [node name="map" type="Node3D" parent="."]
 process_mode = 1
-script = ExtResource("2_14vrx")
+script = SubResource("GDScript_fv5vn")
 
 [node name="floor" type="CSGBox3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -122,6 +141,21 @@ monitoring = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="map/Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 shape = SubResource("CylinderShape3D_e1nti")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="map"]
+visible = false
+extra_cull_margin = 16384.0
+mesh = SubResource("QuadMesh_jqkqf")
+surface_material_override/0 = SubResource("ShaderMaterial_q7514")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_elj1f")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="ui_elements" parent="." instance=ExtResource("9_u7f4u")]
 process_mode = 2

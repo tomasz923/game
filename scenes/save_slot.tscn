@@ -1,0 +1,90 @@
+[gd_scene load_steps=9 format=3 uid="uid://dkloeunnxd5f"]
+
+[ext_resource type="Texture2D" uid="uid://bp6hmkj8it8n5" path="res://assets/textures/ui/save_slot_frame.png" id="1_uq7hc"]
+[ext_resource type="Script" path="res://game/scripts/save_slot.gd" id="2_b0031"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_xe61w"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmttl"]
+bg_color = Color(1, 1, 1, 0.784314)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bpp1"]
+bg_color = Color(1, 1, 1, 0.784314)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbogv"]
+texture = ExtResource("1_uq7hc")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ctxo"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="Theme" id="Theme_gaqol"]
+Button/styles/focus = SubResource("StyleBoxFlat_dmttl")
+Button/styles/hover = SubResource("StyleBoxFlat_1bpp1")
+Button/styles/normal = SubResource("StyleBoxTexture_mbogv")
+Button/styles/pressed = SubResource("StyleBoxFlat_8ctxo")
+
+[node name="save_slot" type="Control"]
+custom_minimum_size = Vector2(750, 130)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+script = ExtResource("2_b0031")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -65.0
+offset_right = 375.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+custom_minimum_size = Vector2(750, 130)
+layout_mode = 2
+theme = SubResource("Theme_gaqol")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Button"]
+layout_mode = 0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 255.0
+offset_bottom = 101.0
+theme_override_constants/separation = 10
+
+[node name="screenshot_image" type="TextureRect" parent="VBoxContainer/Button/HBoxContainer"]
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Control" type="Control" parent="VBoxContainer/Button/HBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Button/HBoxContainer/Control"]
+layout_mode = 0
+offset_top = -7.0
+offset_right = 156.0
+offset_bottom = 119.0
+mouse_filter = 2
+alignment = 1
+
+[node name="save_name" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+label_settings = ExtResource("2_xe61w")
+
+[node name="level_label" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 1
+
+[node name="date_label" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
+layout_mode = 2

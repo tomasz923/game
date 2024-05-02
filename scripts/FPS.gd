@@ -10,3 +10,4 @@ func _ready():
 func _process(_delta):
 	# Assuming Engine.get_frames_per_second() is still available
 	set_text(str(Engine.get_frames_per_second()))
+

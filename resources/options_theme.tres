@@ -1,7 +1,0 @@
-[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://bjmqdjfaim2w3"]
-
-[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="1_ny1cb"]
-
-[resource]
-font = ExtResource("1_ny1cb")
-font_size = 32

@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpxqgjaudcmg5"]
+
+[ext_resource type="Script" path="res://game/scripts/FPS.gd" id="1_odjkb"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="1_wge7g"]
+[ext_resource type="Script" path="res://game/scripts/CPU.gd" id="2_7a4ba"]
+
+[node name="Specs" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="FPS" type="Label" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "120"
+label_settings = ExtResource("1_wge7g")
+script = ExtResource("1_odjkb")
+
+[node name="CPU" type="Label" parent="."]
+layout_mode = 0
+offset_top = 38.0
+offset_right = 40.0
+offset_bottom = 76.0
+text = "20"
+label_settings = ExtResource("1_wge7g")
+script = ExtResource("2_7a4ba")
