@@ -40,13 +40,17 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var voice_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/voice_slider
 @onready var background_pause = $background_pause
 @onready var background_main = $background_main
-@onready var alert_save_file = $load_game/alert_save_file
+@onready var save_slots_container = $load_game/ScrollContainer/save_slots_container
+@onready var new_save_slot_button = $load_game/ScrollContainer/save_slots_container/new_save_slot_button
 
 
 func _ready()	:
-	if not Global.is_initial_load_ready:
-		Global.temp_debugging()
+	#Global.read_last_mod()
+	#if not Global.is_initial_load_ready:
 	user_prefs = UserPreferences.load_or_create()
+	Global.collect_save_files()
+	Global.load_save_slots(save_slots_container)
+	#Global.sort_save_slots()
 	if parent_node.name == 'root':
 		background_main.visible = true
 	else:
@@ -70,9 +74,14 @@ func _ready()	:
 		print('Successul load')
 		Global.is_initial_load_ready = true
 
-func _physics_process(_delta):
-	pass
-
+#func _physics_process(_delta):
+	#pass
+func loading_game_from_menu():
+	if parent_node.name == 'root':	
+		Global.load_game()
+	else:
+		get_tree().call_group('main_menu', 'loading_game_locally')
+	
 func _on_continue_pressed():
 	$button_pressed.play()
 	get_tree().call_group('main_menu', 'continue_game')
@@ -82,8 +91,21 @@ func _input(_event):
 		get_tree().call_group('main_menu', '_input')
 
 func _on_save_game_pressed():
-	get_tree().call_group('main_menu', 'take_players_positions')
-	Global.save_game()
+	new_save_slot_button.visible = true
+	Global.is_about_to_load_game = false
+	Global.collect_save_files()
+	Global.load_save_slots(save_slots_container)
+	$load_game.visible = true
+	$main_menu.visible = false
+	#new_save_slot_button.visible = true
+	#get_tree().call_group('main_menu', 'take_players_positions')
+	#Global.save_game(save_slots_container)
+
+	
+func _on_new_save_slot_button_pressed():
+	Global.save_game(save_slots_container)
+	_on_back_button_pressed()
+	get_tree().call_group('main_menu', 'continue_game')
 
 func _on_new_game_pressed() -> void:
 	$button_pressed.play()
@@ -95,6 +117,10 @@ func _on_new_game_pressed() -> void:
 		print('fuck off')
 
 func _on_load_game_pressed():
+	new_save_slot_button.visible = false
+	Global.is_about_to_load_game = true
+	Global.collect_save_files()
+	Global.load_save_slots(save_slots_container)
 	$load_game.visible = true
 	$main_menu.visible = false
 

@@ -1,8 +1,15 @@
 extends Node
 
 var is_initial_load_ready = false
+#This variable checks if it is possible to save a game
+var is_eligible_for_saving : bool = true
 var scene_being_loaded
-#Player's position in the main world:
+#This variable holds a path to a fiel that is about to ba loaded. It changes when clciking on a save slot in a loading mode:
+var save_file_being_loaded
+#To mark current save slot of the quicksave
+var quick_save_file_path
+#When overwriting a save file, this variable will hold the path to the file that has be removed later:
+var save_file_to_be_removed
 var mw_player_position:Vector3
 #Player's position in the fight world:
 var temp_player_position:Vector3
@@ -10,6 +17,11 @@ var current_scene:String
 var screenshot : Image
 var save_files
 var highest_save_number : int = 0
+var savegame_tres_files = []
+var is_load_screen : bool
+var saves_path = ("res://saves/")
+var save_slot = preload("res://game/scenes/save_slot.tscn")
+var is_about_to_load_game : bool
 
 func take_screenshot():
 	var viewport = get_viewport()
@@ -18,58 +30,140 @@ func take_screenshot():
 	Global.screenshot.resize(220, 120, Image.INTERPOLATE_LANCZOS)
 	Global.screenshot.save_jpg(file_path, 0.8)
 
-func save_game():
+func save_game(vbox_container):
 	var saved_game:SavedGame = SavedGame.new()
 	var datetime = Time.get_datetime_dict_from_system()
+	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
 	
-	saved_game.mw_player_position = Global.mw_player_position
-	saved_game.current_scene = Global.current_scene
+	saved_game.mw_player_position = mw_player_position
+	saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
-	saved_game.file_name = 'Fake Save'
+	saved_game.file_name = 'Fake Save '+str(highest_save_number+1)
 	saved_game.adventure_mode = 'Exploration - Level'
 	saved_game.level = 3
-	saved_game.screenshot = Global.screenshot
+	saved_game.screenshot = screenshot
 	
-	ResourceSaver.save(saved_game, "res://saves/savegame.tres")
+	ResourceSaver.save(saved_game, current_save_file)
+	highest_save_number += 1
+	
+	#If it is a new file:
+	var slot_instance = save_slot.instantiate()
+	slot_instance.save_slot =  saved_game
+	slot_instance.save_file_path = current_save_file
+	vbox_container.add_child(slot_instance)
+	vbox_container.move_child(slot_instance, 1)
 
-func temp_debugging():
+func quick_save():
+	if quick_save_file_path != null:
+		DirAccess.remove_absolute(quick_save_file_path)
+	var saved_game:SavedGame = SavedGame.new()
+	var datetime = Time.get_datetime_dict_from_system()
+	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_quicksave.tres"
+	quick_save_file_path = current_save_file
+	
+	# Make sure it is the same in all types of saves
+	saved_game.mw_player_position = mw_player_position
+	saved_game.current_scene = current_scene
+	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
+	saved_game.file_name = 'Quick Save'
+	saved_game.adventure_mode = 'Exploration - Level'
+	saved_game.level = 3
+	saved_game.screenshot = screenshot
+
+	ResourceSaver.save(saved_game, current_save_file)
+
+func auto_save():
+	var saved_game:SavedGame = SavedGame.new()
+	var datetime = Time.get_datetime_dict_from_system()
+	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_autosave.tres"
+	
+	# Make sure it is the same in all types of saves
+	saved_game.mw_player_position = mw_player_position
+	saved_game.current_scene = current_scene
+	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
+	saved_game.file_name = 'AutoSave'
+	saved_game.adventure_mode = 'Exploration - Level'
+	saved_game.level = 3
+	saved_game.screenshot = screenshot
+
+	ResourceSaver.save(saved_game, current_save_file)
+	
+func collect_save_files():
 # Get all save files in the directory
 	var dir_access = DirAccess.open("res://saves/")
-
 	if dir_access:  # Check if directory was opened successfully
 		save_files = dir_access.get_files()
 		#dir_access.close()  # Close the directory access (important for resource management)
 			# Filter only savegame*.tres files
-		var savegame_tres_files = []
+		savegame_tres_files = []
+		var autosave_files_num = 0
 		for file in save_files:
-			if file.ends_with(".tres") and file.find("savegame") != -1:
+			if file.ends_with(".tres") and file.find("save") != -1:
 				savegame_tres_files.append(file)
+				#var save_number = int(file.save_file_number)  # Convert to integer
+				#save_file_number = max(save_file_number, save_number)
+		
+		savegame_tres_files.reverse()
+		print("Here we go:")
+		print(savegame_tres_files)
 		
 		# Extract save numbers (assuming numbering starts from savegame1.tres)
 		for file in savegame_tres_files:
-			var number_string = file.split("savegame")[1].split(".")[0]  # Extract number part
-			var save_number = int(number_string)  # Convert to integer
-			highest_save_number = max(highest_save_number, save_number)
-		print("The highest number is ", highest_save_number)  # Find highest number
-	else:
-		var dir = DirAccess.open("res://")
-		var path = "res://saves"
-		if dir.make_dir_recursive(path) == OK:
-			print("Directory created successfully.")
-		else:
-			print("Failed to create directory.")
+			if file.ends_with(".tres") and file.find("savegame") != -1:
+				var number_string = file.split("savegame")[1].split(".")[0]  # Extract number part
+				var save_number = int(number_string)  # Convert to integer
+				highest_save_number = max(highest_save_number, save_number)
 
-
+func load_save_slots(vbox_container):
+	var autosave_files_num = 0
+	
+	#Removing all nodes in the vbox container except the "new save button" (so removing all save slots)
+	for n in vbox_container.get_children():
+		if n.name != 'new_save_slot_button':
+			vbox_container.remove_child(n)
+			n.queue_free() 
+		
+	for file in savegame_tres_files:
+	 #Check if file starts with "savegame" and ends with ".tres"
+		if file.begins_with("slot") and file.ends_with(".tres"):
+			if file.ends_with("_quicksave.tres"):
+				quick_save_file_path = "res://saves/" + file
+				print("Here is the quicksave file:" + quick_save_file_path)
+			if file.ends_with("_autosave.tres"):
+				autosave_files_num += 1
+				print("Number of autosave files: " + str(autosave_files_num))
+				if autosave_files_num > 4:
+					print("TEMP: This file should have been removed: " + "res://saves/" + file)
+					DirAccess.remove_absolute("res://saves/" + file)
+					continue  
+			# Load the save slot scene
+			var slot_instance = save_slot.instantiate()
+			var save_slot_path = saves_path + file
+			var loaded_saved_slot = load(save_slot_path) as SavedGame
+			slot_instance.save_slot =  loaded_saved_slot
+			slot_instance.save_file_path = save_slot_path
+			vbox_container.add_child(slot_instance)
+			#slot_instance.name = str(FileAccess.get_modified_time(save_slot_path))
+			#print("The new node's name is: ", slot_instance.name)
+		if not save_slot:
+			print("Error: Could not load save slot scene:", file)
+		continue
 
 func load_game():
-	var saved_game:SavedGame = load("res://saves/savegame.tres")
+	var saved_game:SavedGame = load(save_file_being_loaded)
 	var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
 	Global.mw_player_position = saved_game.mw_player_position
 	Global.current_scene = saved_game.current_scene
 	Global.scene_being_loaded = Global.current_scene
 	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
+	
 #func reset_values():
 	#mw_player_position = null
 	##Player's position in the fight world:
 	#temp_player_position = null
 	#current_scene = null
+
+#func read_last_mod():
+	#print("The file was last modified:")
+	#print(FileAccess.get_modified_time("res://saves/savegame.tres"))
+	#print(FileAccess.get_modified_time("res://saves/savegame - nowy.tres"))

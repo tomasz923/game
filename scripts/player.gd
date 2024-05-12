@@ -79,6 +79,8 @@ func _physics_process(delta):
 func _on_area_3d_area_entered(area):
 	if area.name != 'makarena':
 		if area.name != 'Area3D':
+			Global.take_screenshot()
+			Global.auto_save()
 			Global.scene_being_loaded = "res://game/scenes/fightSceneOne.tscn"
 			var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
 			get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()

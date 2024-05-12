@@ -4,7 +4,7 @@ extends Node3D
 func _ready():
 	if Global.mw_player_position != null:
 		player.global_position = Global.mw_player_position
-		print("mw_player_position is not null")
+		print(Global.mw_player_position)
 	else:
 		print("mw_player_position is null")
 	Global.current_scene = "res://game/scenes/world.tscn"
@@ -20,16 +20,28 @@ func _input(_event):
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:  # Unpause if already paused
 			#get_tree().call_group('cameras', 'unblur')
+			get_tree().call_group('main_menu', '_on_back_button_pressed')
 			$ui_elements.hide()
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			get_tree().paused = false
+	if Input.is_action_just_pressed("quicksave") and Global.is_eligible_for_saving:
+		Global.take_screenshot()
+		Global.quick_save()
+	if Input.is_action_just_pressed("quickload") and Global.quick_save_file_path != null:
+		Global.save_file_being_loaded = Global.quick_save_file_path
+		Global.load_game()
 
+func  loading_game_locally():
+	print("TEMP: Successful load from world.tsc")
+	get_tree().paused = false
+	Global.load_game()
 
 func take_players_positions():
 	Global.mw_player_position = $map/player.global_position
 
 func continue_game():
-	get_tree().call_group('cameras', 'unblur')
+	#get_tree().call_group('cameras', 'unblur')
+	get_tree().call_group('main_menu', '_on_back_button_pressed')
 	$ui_elements.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().paused = false

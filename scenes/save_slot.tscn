@@ -1,26 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dkloeunnxd5f"]
+[gd_scene load_steps=4 format=3 uid="uid://dkloeunnxd5f"]
 
-[ext_resource type="Texture2D" uid="uid://bp6hmkj8it8n5" path="res://assets/textures/ui/save_slot_frame.png" id="1_uq7hc"]
+[ext_resource type="Theme" uid="uid://dowx0156xohdr" path="res://game/resources/save_slot.tres" id="2_7xv0t"]
 [ext_resource type="Script" path="res://game/scripts/save_slot.gd" id="2_b0031"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_xe61w"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dmttl"]
-bg_color = Color(1, 1, 1, 0.784314)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bpp1"]
-bg_color = Color(1, 1, 1, 0.784314)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mbogv"]
-texture = ExtResource("1_uq7hc")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8ctxo"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="Theme" id="Theme_gaqol"]
-Button/styles/focus = SubResource("StyleBoxFlat_dmttl")
-Button/styles/hover = SubResource("StyleBoxFlat_1bpp1")
-Button/styles/normal = SubResource("StyleBoxTexture_mbogv")
-Button/styles/pressed = SubResource("StyleBoxFlat_8ctxo")
 
 [node name="save_slot" type="Control"]
 custom_minimum_size = Vector2(750, 130)
@@ -51,7 +33,7 @@ alignment = 1
 [node name="Button" type="Button" parent="VBoxContainer"]
 custom_minimum_size = Vector2(750, 130)
 layout_mode = 2
-theme = SubResource("Theme_gaqol")
+theme = ExtResource("2_7xv0t")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Button"]
 layout_mode = 0
@@ -88,3 +70,5 @@ mouse_filter = 1
 
 [node name="date_label" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
 layout_mode = 2
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]

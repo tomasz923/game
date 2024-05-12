@@ -157,6 +157,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ui_elements" parent="." instance=ExtResource("9_u7f4u")]
+[node name="ui_elements" parent="." groups=["main_menu"] instance=ExtResource("9_u7f4u")]
 process_mode = 2
 visible = false

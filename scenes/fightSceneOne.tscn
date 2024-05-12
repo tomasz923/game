@@ -25,7 +25,7 @@ uv1_triplanar = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_fdpku"]
 
-[node name="fight" type="Node3D"]
+[node name="fight" type="Node3D" groups=["main_menu"]]
 process_mode = 3
 script = ExtResource("1_b62ta")
 
@@ -60,7 +60,7 @@ shape = SubResource("SphereShape3D_fdpku")
 [node name="CSGBox3D" type="CSGBox3D" parent="Pausable"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.56281, -0.235144, -5.22334)
 
-[node name="ui_elements" parent="." instance=ExtResource("4_vo62q")]
+[node name="ui_elements" parent="." groups=["main_menu"] instance=ExtResource("4_vo62q")]
 process_mode = 2
 visible = false
 
