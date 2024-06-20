@@ -42,6 +42,7 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var background_main = $background_main
 @onready var save_slots_container = $load_game/ScrollContainer/save_slots_container
 @onready var new_save_slot_button = $load_game/ScrollContainer/save_slots_container/new_save_slot_button
+@onready var save_game = $main_menu/MarginContainer/main_menu/SaveGame
 
 
 func _ready()	:
@@ -53,6 +54,7 @@ func _ready()	:
 	#Global.sort_save_slots()
 	if parent_node.name == 'root':
 		background_main.visible = true
+		save_game.visible = false
 	else:
 		background_pause.visible = true
 		
@@ -68,6 +70,7 @@ func _ready()	:
 	add_screens()
 	if Global.is_initial_load_ready:
 		print('Everything was already loaded')
+		set_values()
 	else:
 		#Global.temp_debugging()
 		load_settings()
@@ -84,7 +87,8 @@ func loading_game_from_menu():
 	
 func _on_continue_pressed():
 	$button_pressed.play()
-	get_tree().call_group('main_menu', 'continue_game')
+	#get_tree().call_group('main_menu', 'continue_game')
+	
 
 func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
@@ -266,6 +270,48 @@ func load_settings():
 	_on_sfx_slider_value_changed(user_prefs.sfx_volume)
 	_on_ui_slider_value_changed(user_prefs.ui_volume)
 	_on_music_slider_value_changed(user_prefs.music_volume)
+	
+func set_values():
+	#Screen Selected
+	#Omit if on SteamDeck 2DO
+	var window = get_window()
+	if user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
+		display_screen_settings.select(0)
+	else:
+		display_screen_settings.select(user_prefs.current_screen_selected)
+		
+	#Resolution
+	#Omit on SteamDeck 2DO
+	display_resolution.select(user_prefs.display_resolution_selected)
+	var _window = get_window()
+	current_window_size = resolutions.values()[user_prefs.display_resolution_selected]
+		
+	#Fullscreen
+	#Omit on SteamDeck 2DO
+	display_settings.select(user_prefs.display_settings_selected)
+	
+	#V-Sync
+	vsync_settings.select(user_prefs.vsync_settings_selected)
+	
+	#Scaling Load
+	scaling_option.select(user_prefs.scaling_option_item_selected)
+	
+	#Language
+	language_option.select(user_prefs.chosen_language)
+	
+	# AA
+	aa_option.select(user_prefs.aa_option_selected)
+	
+	# Mouse Sensitivity
+	mouse_sens_slider.value = user_prefs.mouse_sensitivity
+	
+	# Audio
+	master_slider.value = user_prefs.master_volume
+	voice_slider.value = user_prefs.voice_volume
+	sfx_slider.value = user_prefs.sfx_volume
+	ui_slider.value = user_prefs.ui_volume
+	music_slider.value = user_prefs.music_volume
+
 	
 # Options top bar ----------------------------------------------------------------------------------
 func _on_button_toggled(i : int, buttons_list : Array):

@@ -11,17 +11,17 @@ var quick_save_file_path
 #When overwriting a save file, this variable will hold the path to the file that has be removed later:
 var save_file_to_be_removed
 var mw_player_position:Vector3
-#Player's position in the fight world:
-var temp_player_position:Vector3
+var temp_player_position:Vector3 #Player's position in the fight world:
 var current_scene:String 
-var screenshot : Image
+var screenshot:Image #Saved as a part of a save file
 var save_files
-var highest_save_number : int = 0
+var highest_save_number:int = 0
 var savegame_tres_files = []
-var is_load_screen : bool
+var is_load_screen:bool
 var saves_path = ("res://saves/")
 var save_slot = preload("res://game/scenes/save_slot.tscn")
-var is_about_to_load_game : bool
+var is_about_to_load_game:bool #Whether the save slots are created for saving or loading; if saving - skip autosaves and quickloads
+var last_save_file_path:String
 
 func take_screenshot():
 	var viewport = get_viewport()
@@ -34,6 +34,31 @@ func save_game(vbox_container):
 	var saved_game:SavedGame = SavedGame.new()
 	var datetime = Time.get_datetime_dict_from_system()
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
+	last_save_file_path = current_save_file
+	
+	saved_game.mw_player_position = mw_player_position
+	saved_game.current_scene = current_scene
+	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
+	saved_game.file_name = 'Fake Save '+str(highest_save_number+1)
+	saved_game.adventure_mode = 'Exploration - Level'
+	saved_game.level = 3
+	saved_game.screenshot = screenshot
+	
+	ResourceSaver.save(saved_game, current_save_file)
+	highest_save_number += 1
+	
+	#If it is a new file:
+	var slot_instance = save_slot.instantiate()
+	slot_instance.save_slot =  saved_game
+	slot_instance.save_file_path = current_save_file
+	vbox_container.add_child(slot_instance)
+	vbox_container.move_child(slot_instance, 1)
+
+func overwrite_save_game(vbox_container):
+	var saved_game:SavedGame = SavedGame.new()
+	var datetime = Time.get_datetime_dict_from_system()
+	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
+	last_save_file_path = current_save_file
 	
 	saved_game.mw_player_position = mw_player_position
 	saved_game.current_scene = current_scene
@@ -60,6 +85,7 @@ func quick_save():
 	var datetime = Time.get_datetime_dict_from_system()
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_quicksave.tres"
 	quick_save_file_path = current_save_file
+	last_save_file_path = current_save_file
 	
 	# Make sure it is the same in all types of saves
 	saved_game.mw_player_position = mw_player_position
@@ -137,14 +163,15 @@ func load_save_slots(vbox_container):
 					DirAccess.remove_absolute("res://saves/" + file)
 					continue  
 			# Load the save slot scene
-			var slot_instance = save_slot.instantiate()
-			var save_slot_path = saves_path + file
-			var loaded_saved_slot = load(save_slot_path) as SavedGame
-			slot_instance.save_slot =  loaded_saved_slot
-			slot_instance.save_file_path = save_slot_path
-			vbox_container.add_child(slot_instance)
-			#slot_instance.name = str(FileAccess.get_modified_time(save_slot_path))
-			#print("The new node's name is: ", slot_instance.name)
+			if is_about_to_load_game == true or (is_about_to_load_game == false and not (file.ends_with("_autosave.tres") or file.ends_with("_quicksave.tres"))):
+				var slot_instance = save_slot.instantiate()
+				var save_slot_path = saves_path + file
+				var loaded_saved_slot = load(save_slot_path) as SavedGame
+				slot_instance.save_slot =  loaded_saved_slot
+				slot_instance.save_file_path = save_slot_path
+				vbox_container.add_child(slot_instance)
+				#slot_instance.name = str(FileAccess.get_modified_time(save_slot_path))
+				#print("The new node's name is: ", slot_instance.name)
 		if not save_slot:
 			print("Error: Could not load save slot scene:", file)
 		continue

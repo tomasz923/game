@@ -74,6 +74,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="options" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -652,6 +653,7 @@ text = "menu_save"
 
 [node name="LoadGame" type="Button" parent="main_menu/MarginContainer/main_menu"]
 layout_mode = 2
+theme = ExtResource("6_kfdsf")
 text = "menu_load"
 
 [node name="Options" type="Button" parent="main_menu/MarginContainer/main_menu"]
@@ -665,6 +667,7 @@ theme = ExtResource("6_kfdsf")
 text = "menu_exit"
 
 [node name="load_game" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

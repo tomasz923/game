@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=25 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -65,10 +65,6 @@ flip_faces = true
 size = Vector2(2, 2)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_q7514"]
-shader = ExtResource("9_xda2v")
-shader_parameter/blur = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_elj1f"]
 shader = ExtResource("9_xda2v")
 shader_parameter/blur = 1.0
 
@@ -147,15 +143,6 @@ visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_jqkqf")
 surface_material_override/0 = SubResource("ShaderMaterial_q7514")
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource("ShaderMaterial_elj1f")
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="ui_elements" parent="." groups=["main_menu"] instance=ExtResource("9_u7f4u")]
 process_mode = 2

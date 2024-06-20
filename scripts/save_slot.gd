@@ -24,3 +24,4 @@ func _on_button_pressed():
 		get_tree().call_group('ui_elements', 'loading_game_from_menu')
 	else:
 		Global.save_file_to_be_removed = save_file_path
+		print('Here is the save name: ', save_name.text)
