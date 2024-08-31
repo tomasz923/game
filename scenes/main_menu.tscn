@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfc5c7rer8bhs"]
+[gd_scene load_steps=13 format=3 uid="uid://dfc5c7rer8bhs"]
 
 [ext_resource type="Script" path="res://game/scripts/Menu.gd" id="1_b1aer"]
 [ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_apu84"]
@@ -7,13 +7,18 @@
 [ext_resource type="Texture2D" uid="uid://b04uks02fov0m" path="res://assets/textures/ui/options_background.png" id="4_j8wfi"]
 [ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="5_jyl5u"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_kfdsf"]
-[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="7_ucb6e"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="8_htl0s"]
 [ext_resource type="Theme" uid="uid://dowx0156xohdr" path="res://game/resources/save_slot.tres" id="10_k2753"]
 [ext_resource type="Texture2D" uid="uid://g3aoxpahvpdm" path="res://assets/textures/ui/TemporaryTitle.png" id="12_vvxv3"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6pdcj"]
 shader = ExtResource("4_4mjmb")
 shader_parameter/blur = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yomp8"]
+font = ExtResource("8_htl0s")
+font_size = 32
+outline_color = Color(0, 0, 0, 1)
 
 [node name="ui_elements" type="Control" groups=["ui_elements"]]
 layout_mode = 3
@@ -74,7 +79,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="options" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -198,31 +202,31 @@ theme_override_constants/separation = 30
 [node name="master_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
 layout_mode = 2
 text = "master_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 vertical_alignment = 1
 
 [node name="music_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
 layout_mode = 2
 text = "music_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 vertical_alignment = 1
 
 [node name="ui_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
 layout_mode = 2
 text = "ui_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 vertical_alignment = 1
 
 [node name="sfx_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
 layout_mode = 2
 text = "sfx_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 vertical_alignment = 1
 
 [node name="voice_label" type="Label" parent="options/options_body_audio/options_audio_margins/options_audio_hbox/first_vbox_audio"]
 layout_mode = 2
 text = "voice_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 vertical_alignment = 1
 
 [node name="second_vbox_audio" type="VBoxContainer" parent="options/options_body_audio/options_audio_margins/options_audio_hbox"]
@@ -296,7 +300,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(356, 40)
 layout_mode = 2
 text = "mouse_sensitivity"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="second_vbox_controls" type="VBoxContainer" parent="options/options_body_controls/options_controls_margines/options_controls_hbox"]
 layout_mode = 2
@@ -339,7 +343,7 @@ theme_override_constants/separation = 30
 custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "option_full_screen"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="wsize_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
 layout_mode = 2
@@ -349,7 +353,7 @@ theme_override_constants/separation = 10
 custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "option_window_size"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="vsync_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
 custom_minimum_size = Vector2(365, 38)
@@ -360,7 +364,7 @@ theme_override_constants/separation = 30
 custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "vsync_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="display_screen_vbox" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen/main_container"]
 layout_mode = 2
@@ -369,7 +373,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 text = "display_screen_label"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="second_main_container" type="VBoxContainer" parent="options/options_body_screen/options_screen_margins/main_hbox_screen"]
 layout_mode = 2
@@ -452,7 +456,7 @@ layout_mode = 2
 [node name="aa_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/aa_box"]
 layout_mode = 2
 text = "Anti-Aliasing"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="scaling_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics"]
 custom_minimum_size = Vector2(356, 38)
@@ -462,7 +466,7 @@ theme_override_constants/separation = 10
 [node name="scaling_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/scaling_box"]
 layout_mode = 2
 text = "scaling_type"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="resolution_box" type="VBoxContainer" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics"]
 layout_mode = 2
@@ -471,7 +475,7 @@ theme_override_constants/separation = 0
 [node name="resolution_label" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box"]
 layout_mode = 2
 text = "in_game_resolution"
-label_settings = ExtResource("7_ucb6e")
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="label_scale" type="Label" parent="options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box"]
 layout_mode = 2
@@ -568,8 +572,8 @@ theme_override_constants/separation = 30
 
 [node name="language_label" type="Label" parent="options/options_body_game/options_game_margines/options_game_hbox/first_vbox_game"]
 layout_mode = 2
-text = "mchosen_language"
-label_settings = ExtResource("7_ucb6e")
+text = "chosen_language"
+label_settings = SubResource("LabelSettings_yomp8")
 
 [node name="second_vbox_game" type="VBoxContainer" parent="options/options_body_game/options_game_margines/options_game_hbox"]
 layout_mode = 2
@@ -580,15 +584,11 @@ custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("5_jyl5u")
 alignment = 1
-item_count = 4
+item_count = 2
 popup/item_0/text = "lang_eng"
 popup/item_0/id = 0
 popup/item_1/text = "lang_pol"
 popup/item_1/id = 1
-popup/item_2/text = "lang_de"
-popup/item_2/id = 2
-popup/item_3/text = "lang_es"
-popup/item_3/id = 3
 
 [node name="main_menu" type="Control" parent="."]
 layout_mode = 1

@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var player = $map/player
+
 func _ready():
 	if Global.mw_player_position != null:
 		player.global_position = Global.mw_player_position
@@ -8,6 +9,9 @@ func _ready():
 	else:
 		print("mw_player_position is null")
 	Global.current_scene = "res://game/scenes/world.tscn"
+	Global.dialogue_box = $DialogueBox
+	Global.allow_movement = true
+	Global.collider = null
 
 
 func _input(_event):
@@ -19,7 +23,7 @@ func _input(_event):
 			$ui_elements.show()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		else:  # Unpause if already paused
-			#get_tree().call_group('cameras', 'unblur')
+			#get_tree().call_group('cameras', 'unblur')			
 			get_tree().call_group('main_menu', '_on_back_button_pressed')
 			$ui_elements.hide()
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED

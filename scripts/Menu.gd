@@ -531,7 +531,3 @@ func _on_language_option_item_selected(index):
 			TranslationServer.set_locale("EN")
 		1:
 			TranslationServer.set_locale("PL")
-		2:
-			TranslationServer.set_locale("DE")
-		3:
-			TranslationServer.set_locale("ES")

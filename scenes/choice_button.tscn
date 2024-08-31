@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bbasijc5hme3h"]
+
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_a3lfb"]
+[ext_resource type="Script" path="res://game/scripts/ChoiceButton.gd" id="2_8ftap"]
+[ext_resource type="Texture2D" uid="uid://bk5dwog1xkysl" path="res://assets/textures/ui/fake button.png" id="2_wsqbn"]
+
+[node name="ChoiceButton" type="Button"]
+offset_right = 8.0
+offset_bottom = 8.0
+theme = ExtResource("1_a3lfb")
+text = "MM"
+icon = ExtResource("2_wsqbn")
+flat = true
+alignment = 0
+script = ExtResource("2_8ftap")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

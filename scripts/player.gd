@@ -3,13 +3,16 @@ extends CharacterBody3D
 var texting_saving = "Deafult Value"
 
 @onready var camera_mount =  $camera_mount
-@onready var animation_player = $visuals/mixamo_base/AnimationPlayer
+#@onready var animation_player = $visuals/mixamo_base/AnimationPlayer
+@onready var animation_player = $visuals/hero/AnimationPlayer
 @onready var visuals = $visuals
+@onready var dialogue_box = $"../../DialogueBox"
+@onready var navigation_agent_3d = $NavigationAgent3D
+
 
 var SPEED = 2.5
 var isRunning = true
 var isLocked = false
-var allow_movement = true
 var user_prefs: UserPreferences
 
 const walking_speed = 1.5
@@ -28,13 +31,15 @@ func _input(event):
 	#if Input.is_action_just_pressed("ui_cancel"):
 		#get_tree().quit()
 		
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and Global.allow_movement:
 		rotate_y(deg_to_rad(-event.relative.x*user_prefs.mouse_sensitivity))
 		visuals.rotate_y(deg_to_rad(event.relative.x*user_prefs.mouse_sensitivity))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y*user_prefs.mouse_sensitivity))
 
 func _physics_process(delta):
-	if !allow_movement:
+	Global.mw_player_position = global_position
+	
+	if !Global.allow_movement:
 		return
 		
 	if Input.is_action_just_pressed('run') and isRunning == false:
@@ -55,11 +60,11 @@ func _physics_process(delta):
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
-		if isRunning == false and animation_player.current_animation != "walking":
-			animation_player.play("walking")
-		if isRunning == true and animation_player.current_animation != "running" and !isLocked:
-			animation_player.play("running")
-		if (animation_player.current_animation == "running" or animation_player.current_animation == "walking")  and isLocked:
+		if isRunning == false and animation_player.current_animation != "walk":
+			animation_player.play("walk")
+		if isRunning == true and animation_player.current_animation != "run" and !isLocked:
+			animation_player.play("run")
+		if (animation_player.current_animation == "run" or animation_player.current_animation == "walk")  and isLocked:
 			animation_player.play("idle")
 			
 		if !isLocked:
@@ -89,8 +94,6 @@ func _on_area_3d_area_entered(area):
 			
 func blur():
 	print('hello blur from a player') 
-
-
 
 func _on_makarena_body_entered(_body):
 	Global.scene_being_loaded = "res://game/scenes/world.tscn"

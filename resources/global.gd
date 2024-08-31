@@ -22,6 +22,13 @@ var saves_path = ("res://saves/")
 var save_slot = preload("res://game/scenes/save_slot.tscn")
 var is_about_to_load_game:bool #Whether the save slots are created for saving or loading; if saving - skip autosaves and quickloads
 var last_save_file_path:String
+var allow_movement = false #Allows for the player to move.
+var dialogue_box = null #Path to the dialogue box in a local scene. Should be established at the ready.
+var collider = null
+var state_var_dialogue = {
+	"has_met_demo": false,
+	"name": "Anthony"
+}
 
 func take_screenshot():
 	var viewport = get_viewport()
@@ -43,6 +50,7 @@ func save_game(vbox_container):
 	saved_game.adventure_mode = 'Exploration - Level'
 	saved_game.level = 3
 	saved_game.screenshot = screenshot
+	saved_game.state_var_dialogue = state_var_dialogue
 	
 	ResourceSaver.save(saved_game, current_save_file)
 	highest_save_number += 1
@@ -67,6 +75,7 @@ func overwrite_save_game(vbox_container):
 	saved_game.adventure_mode = 'Exploration - Level'
 	saved_game.level = 3
 	saved_game.screenshot = screenshot
+	saved_game.state_var_dialogue = state_var_dialogue
 	
 	ResourceSaver.save(saved_game, current_save_file)
 	highest_save_number += 1
@@ -95,6 +104,7 @@ func quick_save():
 	saved_game.adventure_mode = 'Exploration - Level'
 	saved_game.level = 3
 	saved_game.screenshot = screenshot
+	saved_game.state_var_dialogue = state_var_dialogue
 
 	ResourceSaver.save(saved_game, current_save_file)
 
@@ -111,6 +121,7 @@ func auto_save():
 	saved_game.adventure_mode = 'Exploration - Level'
 	saved_game.level = 3
 	saved_game.screenshot = screenshot
+	saved_game.state_var_dialogue = state_var_dialogue
 
 	ResourceSaver.save(saved_game, current_save_file)
 	

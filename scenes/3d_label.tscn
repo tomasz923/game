@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfgb2i7xnqxr3"]
+
+[ext_resource type="Script" path="res://game/scripts/3d_label.gd" id="1_xl18b"]
+
+[node name="Sprite3D" type="Sprite3D"]
+script = ExtResource("1_xl18b")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Label" type="Label" parent="SubViewport"]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "ff"
