@@ -62,10 +62,18 @@ func _on_ez_dialogue_custom_signal_received(value: String):
 		var variable_name = params[1]
 		var variable_value = params[2]
 		Global.state_var_dialogue[variable_name] = variable_value
+	elif params[0] == "cam":
+		var cam_num = params[1]
+		match cam_num:
+			"t": 
+				Global.talker_cam.current = true
+			"p":
+				Global.player_cam.current = true
 
 
 func _on_ez_dialogue_end_of_dialogue_reached():
-	Global.collider.is_talking = false
+	Global.talker.is_talking = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	Global.allow_movement = true
 	Global.dialogue_box.visible = false
+	Global.main_cam.current = true

@@ -2,12 +2,24 @@ extends CharacterBody3D
 
 var texting_saving = "Deafult Value"
 
+@onready var main_cam = $camera_mount/MainCam
 @onready var camera_mount =  $camera_mount
 #@onready var animation_player = $visuals/mixamo_base/AnimationPlayer
 @onready var animation_player = $visuals/hero/AnimationPlayer
 @onready var visuals = $visuals
 @onready var dialogue_box = $"../../DialogueBox"
 @onready var navigation_agent_3d = $NavigationAgent3D
+@onready var player_cam = $camera_mount/PlayerCam
+@onready var follower_positions = $FollowerPositions
+@onready var collision_shape_3d = $CollisionShape3D
+
+@onready var follower_position_one = $FollowerPositions/First/FollowerPositionOne
+@onready var view_one = $FollowerPositions/First/ViewOne
+@onready var follower_position_two = $FollowerPositions/Second/FollowerPositionTwo
+@onready var view_three = $FollowerPositions/Third/ViewThree
+@onready var follower_position_three = $FollowerPositions/Third/FollowerPositionThree
+
+
 
 
 var SPEED = 2.5
@@ -34,10 +46,11 @@ func _input(event):
 	if event is InputEventMouseMotion and Global.allow_movement:
 		rotate_y(deg_to_rad(-event.relative.x*user_prefs.mouse_sensitivity))
 		visuals.rotate_y(deg_to_rad(event.relative.x*user_prefs.mouse_sensitivity))
+		follower_positions.rotate_y(deg_to_rad(event.relative.x*user_prefs.mouse_sensitivity))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y*user_prefs.mouse_sensitivity))
 
 func _physics_process(delta):
-	Global.mw_player_position = global_position
+	Global.player_position = global_position
 	
 	if !Global.allow_movement:
 		return
@@ -69,6 +82,7 @@ func _physics_process(delta):
 			
 		if !isLocked:
 			visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(-input_dir.x, -input_dir.y), .5)
+			follower_positions.rotation.y = lerp_angle(follower_positions.rotation.y, atan2(-input_dir.x, -input_dir.y), .5)
 
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
@@ -81,21 +95,14 @@ func _physics_process(delta):
 	if !isLocked:
 		move_and_slide()
 
-func _on_area_3d_area_entered(area):
-	if area.name != 'makarena':
-		if area.name != 'Area3D':
-			Global.take_screenshot()
-			Global.auto_save()
-			Global.scene_being_loaded = "res://game/scenes/fightSceneOne.tscn"
-			var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
-			get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
-		else:
-				print('Saving...')
-			
-func blur():
-	print('hello blur from a player') 
+func _on_follower_position_one_body_entered(body):
+	if body is Follower:
+		body.arrived()
 
-func _on_makarena_body_entered(_body):
-	Global.scene_being_loaded = "res://game/scenes/world.tscn"
-	var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
-	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
+func _on_follower_position_two_body_entered(body):
+	if body is Follower:
+		body.arrived()
+
+func _on_follower_position_three_body_entered(body):
+	if body is Follower:
+		body.arrived()

@@ -1,0 +1,132 @@
+[gd_scene load_steps=9 format=3 uid="uid://dhud3at5jueto"]
+
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_coijg"]
+[ext_resource type="Script" path="res://game/scripts/dice.gd" id="1_h275q"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_tk3q8"]
+[ext_resource type="PackedScene" uid="uid://bhrdjid1v1buq" path="res://game/scenes/reel.tscn" id="3_d56lv"]
+[ext_resource type="Texture2D" uid="uid://lfmhxjcvnj0j" path="res://assets/textures/ui/white_500_90.png" id="3_v4icv"]
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="4_d8m6w"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tq8ai"]
+shader = ExtResource("1_coijg")
+shader_parameter/blur = 3.0
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_x6oss"]
+
+[node name="Dice" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_h275q")
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tq8ai")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlack" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.156863)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -490.0
+offset_right = 250.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.705882)
+
+[node name="DiceScreen" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -490.0
+offset_right = 250.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PointLight2D" type="PointLight2D" parent="DiceScreen"]
+position = Vector2(250, 47)
+scale = Vector2(1, 1.03333)
+blend_mode = 2
+range_item_cull_mask = 2
+texture = ExtResource("3_v4icv")
+
+[node name="Label" type="Label" parent="DiceScreen"]
+material = SubResource("CanvasItemMaterial_x6oss")
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 90.0
+grow_horizontal = 2
+text = "ROLL THE DICE"
+label_settings = ExtResource("2_tk3q8")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DiceScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -100.0
+offset_right = 100.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+alignment = 1
+
+[node name="Reel" parent="DiceScreen/HBoxContainer" instance=ExtResource("3_d56lv")]
+layout_mode = 2
+roll_duration_length = 1
+metadata/_edit_horizontal_guides_ = [1450.0]
+
+[node name="Reel2" parent="DiceScreen/HBoxContainer" instance=ExtResource("3_d56lv")]
+layout_mode = 2
+metadata/_edit_horizontal_guides_ = [1450.0]
+
+[node name="StartRolling" type="Button" parent="DiceScreen"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -33.0
+offset_top = -70.0
+offset_right = 33.0
+offset_bottom = -32.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("4_d8m6w")
+text = "ROLL"
+
+[connection signal="pressed" from="DiceScreen/StartRolling" to="." method="_on_start_rolling_pressed"]

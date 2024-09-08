@@ -274,7 +274,6 @@ func load_settings():
 func set_values():
 	#Screen Selected
 	#Omit if on SteamDeck 2DO
-	var window = get_window()
 	if user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
 		display_screen_settings.select(0)
 	else:

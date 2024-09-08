@@ -3,16 +3,15 @@ extends Node3D
 @onready var player = $map/player
 
 func _ready():
-	if Global.mw_player_position != null:
-		player.global_position = Global.mw_player_position
-		print(Global.mw_player_position)
-	else:
-		print("mw_player_position is null")
 	Global.current_scene = "res://game/scenes/world.tscn"
 	Global.dialogue_box = $DialogueBox
+	#Setting Cams
 	Global.allow_movement = true
 	Global.collider = null
-
+	Global.player_cam = player.player_cam
+	Global.main_cam = player.main_cam
+	Global.forward_vector = global_transform.basis.z
+	Global.behind_point = global_transform.origin - Global.forward_vector * 2
 
 func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):

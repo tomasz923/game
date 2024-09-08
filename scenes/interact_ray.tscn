@@ -10,6 +10,7 @@ outline_color = Color(0, 0, 0, 1)
 
 [node name="InteractRay" type="RayCast3D"]
 target_position = Vector3(0, 0, -4)
+collision_mask = 6
 script = ExtResource("1_f4ir0")
 
 [node name="LabelNode" type="Control" parent="."]

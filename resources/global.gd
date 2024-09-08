@@ -10,8 +10,7 @@ var save_file_being_loaded
 var quick_save_file_path
 #When overwriting a save file, this variable will hold the path to the file that has be removed later:
 var save_file_to_be_removed
-var mw_player_position:Vector3
-var temp_player_position:Vector3 #Player's position in the fight world:
+
 var current_scene:String 
 var screenshot:Image #Saved as a part of a save file
 var save_files
@@ -23,9 +22,23 @@ var save_slot = preload("res://game/scenes/save_slot.tscn")
 var is_about_to_load_game:bool #Whether the save slots are created for saving or loading; if saving - skip autosaves and quickloads
 var last_save_file_path:String
 var allow_movement = false #Allows for the player to move.
+
+var player_position: Vector3
+var forward_vector: Vector3
+var behind_point: Vector3
+
+#Dialogue
 var dialogue_box = null #Path to the dialogue box in a local scene. Should be established at the ready.
-var collider = null
-var state_var_dialogue = {
+var collider = null #The object which wich the Player's 3DRayCast is colliding so they can interact with.
+var talker = null #The object that the Player is talking to.
+
+#Cameras for Dialogue
+var main_cam = null
+var talker_cam = null
+var player_cam = null
+
+#Variables for Player's choices
+var state_var_dialogue = { #Variables for Player's choices
 	"has_met_demo": false,
 	"name": "Anthony"
 }
@@ -43,7 +56,6 @@ func save_game(vbox_container):
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
 	last_save_file_path = current_save_file
 	
-	saved_game.mw_player_position = mw_player_position
 	saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'Fake Save '+str(highest_save_number+1)
@@ -68,7 +80,6 @@ func overwrite_save_game(vbox_container):
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
 	last_save_file_path = current_save_file
 	
-	saved_game.mw_player_position = mw_player_position
 	saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'Fake Save '+str(highest_save_number+1)
@@ -97,7 +108,6 @@ func quick_save():
 	last_save_file_path = current_save_file
 	
 	# Make sure it is the same in all types of saves
-	saved_game.mw_player_position = mw_player_position
 	saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'Quick Save'
@@ -114,7 +124,6 @@ func auto_save():
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_autosave.tres"
 	
 	# Make sure it is the same in all types of saves
-	saved_game.mw_player_position = mw_player_position
 	saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'AutoSave'
@@ -133,7 +142,6 @@ func collect_save_files():
 		#dir_access.close()  # Close the directory access (important for resource management)
 			# Filter only savegame*.tres files
 		savegame_tres_files = []
-		var autosave_files_num = 0
 		for file in save_files:
 			if file.ends_with(".tres") and file.find("save") != -1:
 				savegame_tres_files.append(file)
@@ -194,6 +202,7 @@ func load_game():
 	Global.current_scene = saved_game.current_scene
 	Global.scene_being_loaded = Global.current_scene
 	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
+
 	
 #func reset_values():
 	#mw_player_position = null

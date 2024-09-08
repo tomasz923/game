@@ -3,6 +3,7 @@ class_name Interactable
 
 @onready var label = $Label
 @onready var animation_player = $visuals/model/AnimationPlayer
+@onready var talker_cam = $TalkerCam
 
 @export var label_content = "null"
 @export var interaction_animation: String
@@ -24,7 +25,7 @@ func look_at_player():
 	# Get the current rotation
 	var start_rotation = global_rotation
 	# Make the object look at the player immediately (to calculate target rotation)
-	look_at(Global.mw_player_position)
+	look_at(Global.player_position)
 	# Store the target rotation
 	var target_rotation = global_rotation
 	# Reset to start rotation
