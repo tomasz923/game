@@ -5,6 +5,7 @@ extends Node3D
 func _ready():
 	Global.current_scene = "res://game/scenes/world.tscn"
 	Global.dialogue_box = $DialogueBox
+	Global.dice_box = $DiceBox
 	#Setting Cams
 	Global.allow_movement = true
 	Global.collider = null

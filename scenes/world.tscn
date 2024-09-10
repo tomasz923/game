@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=32 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -13,6 +13,7 @@
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="9_xda2v"]
 [ext_resource type="PackedScene" uid="uid://chkq5elt8axwf" path="res://game/scenes/pink_guy.tscn" id="12_fw5yl"]
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
+[ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/blue_guy.tscn" id="14_t2ro3"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
@@ -181,6 +182,10 @@ mesh = SubResource("QuadMesh_jqkqf")
 surface_material_override/0 = SubResource("ShaderMaterial_q7514")
 
 [node name="DialogueBox" parent="." instance=ExtResource("12_iqn5y")]
+process_mode = 1
+visible = false
+
+[node name="DiceBox" parent="." instance=ExtResource("13_l85go")]
 process_mode = 1
 visible = false
 

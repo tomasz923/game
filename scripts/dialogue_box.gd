@@ -13,9 +13,7 @@ var awaiting_response: bool = false
 
 func _process(_delta):
 	if awaiting_response and Input.is_action_just_pressed("interact"):
-		awaiting_response = false
-		continue_button.visible = false
-		_on_choice_selected(0)
+		next_slide()
 
 func _start_dialogue(dialogue_file):
 	ez_dialogue.start_dialogue(dialogue_file, Global.state_var_dialogue)
@@ -48,7 +46,7 @@ func _on_ez_dialogue_dialogue_generated(response: DialogueResponse):
 		text_label.visible = true
 		add_text(response.text)
 	
-	if response.choices.is_empty():
+	if response.choices.is_empty() and !Global.is_rolling_dice_now:
 		awaiting_response = true
 		continue_button.visible = true
 		#add_choice('..')
@@ -58,18 +56,22 @@ func _on_ez_dialogue_dialogue_generated(response: DialogueResponse):
 
 func _on_ez_dialogue_custom_signal_received(value: String):
 	var params = value.split(",")
-	if params[0] == "set":
-		var variable_name = params[1]
-		var variable_value = params[2]
-		Global.state_var_dialogue[variable_name] = variable_value
-	elif params[0] == "cam":
-		var cam_num = params[1]
-		match cam_num:
-			"t": 
-				Global.talker_cam.current = true
-			"p":
-				Global.player_cam.current = true
-
+	match params[0]:
+		"set":
+			var variable_name = params[1]
+			var variable_value = params[2]
+			Global.state_var_dialogue[variable_name] = variable_value
+		"cam":
+			var cam_num = params[1]
+			match cam_num:
+				"t": 
+					Global.talker_cam.current = true
+				"p":
+					Global.player_cam.current = true
+		"dice":
+			Global.dice_box.ready_reels()
+			Global.dice_box.visible = true
+			Global.is_rolling_dice_now = true
 
 func _on_ez_dialogue_end_of_dialogue_reached():
 	Global.talker.is_talking = false
@@ -77,3 +79,8 @@ func _on_ez_dialogue_end_of_dialogue_reached():
 	Global.allow_movement = true
 	Global.dialogue_box.visible = false
 	Global.main_cam.current = true
+
+func next_slide():
+	awaiting_response = false
+	continue_button.visible = false
+	_on_choice_selected(0)

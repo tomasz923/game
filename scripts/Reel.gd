@@ -1,5 +1,7 @@
 extends Control
 
+signal roll_done(rolled_number: int)
+
 @export var roll_duration_length: int = 2
 
 @onready var reel_1 = $Reel1
@@ -8,7 +10,7 @@ extends Control
 var is_rolling: bool = false
 var is_getting_ready: bool = false
 var roll_duration: int = 2
-var roll_speed: int = 12
+var roll_speed: int = 18
 var rng: int
 var final_pos: int
 var stopping_pos: int
@@ -73,10 +75,12 @@ func _roll():
 	
 	if newPOS1 >= 575:
 		newPOS1 = -1405
+		#roll_speed -= 2
 	reel_1.position.y = newPOS1
 	
 	if newPOS2 >= 575:
 		newPOS2 = -1405 
+		#roll_speed -= 2
 		roll_duration -= 1
 	reel_2.position.y = newPOS2	
 	
@@ -108,6 +112,4 @@ func _stopRoll():
 	TWN.tween_property(another_slot, "position:y", another_pos, 1.5)
 
 	await TWN.finished
-	#rollDuration = roll_duration_length
-	#print("Reeel ID",reelID," reel Image ", finalSlot.name ," POS : ",finalPos, " RNJESUS :",rng)
-	#SigBank.rollFinished.emit(reelID,rng)
+	roll_done.emit(rng)

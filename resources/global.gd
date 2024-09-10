@@ -1,6 +1,7 @@
 extends Node
 
 var is_initial_load_ready = false
+var is_rolling_dice_now: bool = false
 #This variable checks if it is possible to save a game
 var is_eligible_for_saving : bool = true
 var scene_being_loaded
@@ -31,6 +32,7 @@ var behind_point: Vector3
 var dialogue_box = null #Path to the dialogue box in a local scene. Should be established at the ready.
 var collider = null #The object which wich the Player's 3DRayCast is colliding so they can interact with.
 var talker = null #The object that the Player is talking to.
+var dice_box = null #Path to the dice box in a local scene. Should be established at the ready.
 
 #Cameras for Dialogue
 var main_cam = null
@@ -40,7 +42,8 @@ var player_cam = null
 #Variables for Player's choices
 var state_var_dialogue = { #Variables for Player's choices
 	"has_met_demo": false,
-	"name": "Anthony"
+	"name": "Anthony",
+	"rolled_number": 0
 }
 
 func take_screenshot():

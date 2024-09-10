@@ -1,6 +1,6 @@
 [
 	{
-		"commands_raw": "$if has_met_demo{\nOh, it's you again...\n}\n\n$if !has_met_demo{\nNice to meet you how can I help you?\nsignal(set,has_met_demo,true)\n}\n\n---\nsignal(cam,p)\n?> Who are you? -> history\n?> Bye -> choice two\n",
+		"commands_raw": "$if has_met_demo{\nOh, it's you again...\n}\n\n$if !has_met_demo{\nNice to meet you how can I help you?\nsignal(set,has_met_demo,true)\n}\n\n---\nsignal(cam,p)\n?> Who are you? -> history\n?> Bye -> choice two\n?> [PERSUADE] I'm a bee -> bee_roll",
 		"gnode_name": "start",
 		"id": 0,
 		"name": "start",
@@ -37,6 +37,16 @@
 		"position": [
 			480,
 			120
+		]
+	},
+	{
+		"commands_raw": "signal(dice)\n---\n$if rolled_number < 7{\nNo you are not. Get out you liar!\n}\n\n$else{\n    $if rolled_number > 9{\n    Aaaah, a bee!\n    }\n    $else{\n    Hm... maybe your grandfather was, but you? I don't think so\n    }\n}\n---",
+		"gnode_name": "bee_roll",
+		"id": 4,
+		"name": "bee_roll",
+		"position": [
+			300,
+			220
 		]
 	}
 ]
