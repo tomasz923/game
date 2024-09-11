@@ -5,7 +5,7 @@ extends Control
 @onready var speaker_name = $TextureRect/SpeakerName
 @onready var choice_button_scn = preload("res://game/scenes/choice_button.tscn")
 @onready var ez_dialogue: EzDialogue = $DialogueHandler/EzDialogue
-@onready var script_file: JSON = preload("res://game/script/demo.json")
+@onready var script_file: JSON
 @onready var continue_button = $TextureRect/ContinueButton
 
 var choice_buttons: Array[Button] = []
@@ -69,7 +69,8 @@ func _on_ez_dialogue_custom_signal_received(value: String):
 				"p":
 					Global.player_cam.current = true
 		"dice":
-			Global.dice_box.ready_reels()
+			var which_dice_roll = params[1]
+			Global.dice_box.ready_reels(which_dice_roll)
 			Global.dice_box.visible = true
 			Global.is_rolling_dice_now = true
 

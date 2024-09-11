@@ -25,8 +25,8 @@ var last_save_file_path:String
 var allow_movement = false #Allows for the player to move.
 
 var player_position: Vector3
-var forward_vector: Vector3
-var behind_point: Vector3
+#var forward_vector: Vector3
+#var behind_point: Vector3
 
 #Dialogue
 var dialogue_box = null #Path to the dialogue box in a local scene. Should be established at the ready.
@@ -38,13 +38,23 @@ var dice_box = null #Path to the dice box in a local scene. Should be establishe
 var main_cam = null
 var talker_cam = null
 var player_cam = null
+var dice_rolls_data: Dictionary
 
 #Variables for Player's choices
 var state_var_dialogue = { #Variables for Player's choices
-	"has_met_demo": false,
+	"has_met_demo": false, #test
 	"name": "Anthony",
-	"rolled_number": 0
+	"rolled_number": 0,
+	"str": 2,
+	"test_1": 1,
+	"test_2": 1
 }
+
+func read_dice_rolls():
+	var file = "res://assets/json/dice_variables.json"
+	var json_as_text = FileAccess.get_file_as_string(file)
+	print('JSON as string: ', json_as_text)
+	dice_rolls_data = JSON.parse_string(json_as_text)
 
 func take_screenshot():
 	var viewport = get_viewport()

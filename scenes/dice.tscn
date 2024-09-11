@@ -158,6 +158,45 @@ text = "8"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="BonusesNode" type="Control" parent="DiceScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -23.5
+offset_right = 250.0
+offset_bottom = 201.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ListedBonuses" type="VBoxContainer" parent="DiceScreen/BonusesNode"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="DiceScreen/BonusesNode/ListedBonuses"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Label" type="Label" parent="DiceScreen/BonusesNode/ListedBonuses/HBoxContainer"]
+layout_mode = 2
+text = "+2"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="DiceScreen/BonusesNode/ListedBonuses/HBoxContainer"]
+layout_mode = 2
+text = "Warned about the tribunal."
+
 [connection signal="roll_done" from="DiceScreen/HBoxContainer/Reel" to="." method="_on_reel_roll_done"]
 [connection signal="roll_done" from="DiceScreen/HBoxContainer/Reel2" to="." method="_on_reel_2_roll_done"]
 [connection signal="pressed" from="DiceScreen/StartRolling" to="." method="_on_start_rolling_pressed"]

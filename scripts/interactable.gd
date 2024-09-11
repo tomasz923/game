@@ -9,7 +9,7 @@ class_name Interactable
 @export var interaction_animation: String
 @export var is_a_character: bool
 @export var is_talking: bool = false
-@export var script_file: JSON = preload("res://game/script/demo.json")
+@export var script_file: JSON
 
 func _ready():
 	label.text = label_content

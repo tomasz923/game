@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=33 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://assets/textures/grids/Green/texture_01.png" id="7_v04pi"]
 [ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu.tscn" id="9_u7f4u"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="9_xda2v"]
+[ext_resource type="JSON" path="res://assets/json/dialogues/demo.json" id="11_srbxb"]
 [ext_resource type="PackedScene" uid="uid://chkq5elt8axwf" path="res://game/scenes/pink_guy.tscn" id="12_fw5yl"]
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
 [ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
@@ -158,11 +159,13 @@ collision_mask = 3
 [node name="pink_guy2" parent="map" instance=ExtResource("12_fw5yl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.26673, -2.38419e-07, -0.0608395)
 label_content = "Pinko Dos"
+script_file = ExtResource("11_srbxb")
 
 [node name="pink_guy" parent="map" instance=ExtResource("12_fw5yl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.57007, 0, -0.0459981)
 label_content = "Pinko Uno"
 is_a_character = true
+script_file = ExtResource("11_srbxb")
 
 [node name="Area3D" type="Area3D" parent="map"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.13407, 0, -9.44414)
@@ -181,11 +184,11 @@ extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_jqkqf")
 surface_material_override/0 = SubResource("ShaderMaterial_q7514")
 
-[node name="DialogueBox" parent="." instance=ExtResource("12_iqn5y")]
+[node name="DiceBox" parent="." instance=ExtResource("13_l85go")]
 process_mode = 1
 visible = false
 
-[node name="DiceBox" parent="." instance=ExtResource("13_l85go")]
+[node name="DialogueBox" parent="." instance=ExtResource("12_iqn5y")]
 process_mode = 1
 visible = false
 

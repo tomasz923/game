@@ -11,8 +11,15 @@ func _ready():
 	Global.collider = null
 	Global.player_cam = player.player_cam
 	Global.main_cam = player.main_cam
-	Global.forward_vector = global_transform.basis.z
-	Global.behind_point = global_transform.origin - Global.forward_vector * 2
+	Global.read_dice_rolls()
+	print('here is the dice data: ', Global.dice_rolls_data['var1']['state_vars'])
+	
+	var temp = Global.dice_rolls_data['var1']['state_vars']
+	for n in temp:
+		print("List element numero ", n['state_var'])
+		#print("List elemnt numero ", n, " : ", str(temp[n]))
+	#Global.forward_vector = global_transform.basis.z
+	#Global.behind_point = global_transform.origin - Global.forward_vector * 2
 
 func _input(_event):
 	if Input.is_action_just_pressed("ui_cancel"):
