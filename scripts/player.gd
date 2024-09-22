@@ -23,7 +23,7 @@ var texting_saving = "Deafult Value"
 
 
 var SPEED = 2.5
-var isRunning = true
+@onready var isRunning = true
 var isLocked = false
 var user_prefs: UserPreferences
 

@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=3 uid="uid://daq3k7jcwjrxa"]
+
+[ext_resource type="Texture2D" uid="uid://bnunc3kwcuof2" path="res://assets/textures/ui/journal_background.png" id="1_drgrc"]
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_qx7so"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_ls5gp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sv8jc"]
+shader = ExtResource("1_qx7so")
+shader_parameter/blur = 3.0
+
+[node name="Journal" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_sv8jc")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlack" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -780.0
+offset_top = -400.0
+offset_right = 780.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_drgrc")
+
+[node name="QuestNames" type="ScrollContainer" parent="Background"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -770.0
+offset_top = -390.0
+offset_right = -273.0
+offset_bottom = 390.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="QuestNamesContainer" type="VBoxContainer" parent="Background/QuestNames"]
+layout_mode = 2
+theme_override_constants/separation = 25
+
+[node name="ActiveQuests" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/QuestNames/QuestNamesContainer/ActiveQuests"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 36
+text = "active_quests_label"
+
+[node name="DoneQuests" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/QuestNames/QuestNamesContainer/DoneQuests"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 36
+text = "done_quests_label"
+
+[node name="Other" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Background/QuestNames/QuestNamesContainer/Other"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 36
+text = "other_quests_label"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]

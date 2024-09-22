@@ -10,7 +10,7 @@ signal roll_done(rolled_number: int)
 var is_rolling: bool = false
 var is_getting_ready: bool = false
 var roll_duration: int = 2
-var roll_speed: int = 18
+var roll_speed: int = 20
 var rng: int
 var final_pos: int
 var stopping_pos: int
@@ -108,8 +108,8 @@ func _stopRoll():
 	elif final_slot == reel_1:
 		another_slot = reel_2#
 
-	TWN.tween_property(final_slot, "position:y", final_pos, 1.5)
-	TWN.tween_property(another_slot, "position:y", another_pos, 1.5)
+	TWN.tween_property(final_slot, "position:y", final_pos, 1.2)
+	TWN.tween_property(another_slot, "position:y", another_pos, 1.2)
 
 	await TWN.finished
 	roll_done.emit(rng)

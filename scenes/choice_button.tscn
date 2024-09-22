@@ -10,7 +10,6 @@ offset_bottom = 8.0
 theme = ExtResource("1_a3lfb")
 text = "MM"
 icon = ExtResource("2_wsqbn")
-flat = true
 alignment = 0
 script = ExtResource("2_8ftap")
 

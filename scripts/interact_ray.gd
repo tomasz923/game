@@ -1,6 +1,9 @@
 extends RayCast3D
 
 @onready var label = $LabelNode/Label
+@onready var animation_player = $"../../visuals/hero/AnimationPlayer"
+
+
 
 func _physics_process(_delta):
 	if is_colliding():
@@ -19,7 +22,7 @@ func _physics_process(_delta):
 				Global.talker.is_talking = true
 				label.visible = false
 				Global.talker.interaction()
-				start_conversation(Global.talker.script_file)
+				start_conversation(Global.talker.script_file, Global.talker.label_content)
 		else:
 			label.visible = false
 	else:
@@ -27,9 +30,11 @@ func _physics_process(_delta):
 		if Global.collider is Interactable:
 			Global.collider.label.visible = false
 
-func start_conversation(script_file):
+func start_conversation(script_file, name_label):
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Global.conversation_mode = true
 	Global.allow_movement = false
 	Global.dialogue_box.visible = true
-	Global.dialogue_box._start_dialogue(script_file)
+	Global.dialogue_box._start_dialogue(script_file, name_label)
 	Global.talker_cam.current = true
+	animation_player.play("idle")

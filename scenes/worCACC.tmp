@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=33 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -14,7 +14,6 @@
 [ext_resource type="JSON" path="res://assets/json/dialogues/demo.json" id="11_srbxb"]
 [ext_resource type="PackedScene" uid="uid://chkq5elt8axwf" path="res://game/scenes/pink_guy.tscn" id="12_fw5yl"]
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
-[ext_resource type="PackedScene" uid="uid://daq3k7jcwjrxa" path="res://game/scenes/journal.tscn" id="13_fpjo5"]
 [ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/blue_guy.tscn" id="14_t2ro3"]
 
@@ -159,12 +158,12 @@ collision_mask = 3
 
 [node name="pink_guy2" parent="map" instance=ExtResource("12_fw5yl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.26673, -2.38419e-07, -0.0608395)
-label_content = "Dos"
+label_content = "Pinko Dos"
 script_file = ExtResource("11_srbxb")
 
 [node name="pink_guy" parent="map" instance=ExtResource("12_fw5yl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.57007, 0, -0.0459981)
-label_content = "Uno"
+label_content = "Pinko Uno"
 is_a_character = true
 script_file = ExtResource("11_srbxb")
 
@@ -184,8 +183,6 @@ visible = false
 extra_cull_margin = 16384.0
 mesh = SubResource("QuadMesh_jqkqf")
 surface_material_override/0 = SubResource("ShaderMaterial_q7514")
-
-[node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 
 [node name="DiceBox" parent="." instance=ExtResource("13_l85go")]
 process_mode = 1

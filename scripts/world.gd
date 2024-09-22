@@ -1,6 +1,7 @@
 extends Node3D
 
 @onready var player = $map/player
+@onready var journal = $Journal
 
 func _ready():
 	Global.current_scene = "res://game/scenes/world.tscn"
@@ -12,17 +13,9 @@ func _ready():
 	Global.player_cam = player.player_cam
 	Global.main_cam = player.main_cam
 	Global.read_dice_rolls()
-	print('here is the dice data: ', Global.dice_rolls_data['var1']['state_vars'])
-	
-	var temp = Global.dice_rolls_data['var1']['state_vars']
-	for n in temp:
-		print("List element numero ", n['state_var'])
-		#print("List elemnt numero ", n, " : ", str(temp[n]))
-	#Global.forward_vector = global_transform.basis.z
-	#Global.behind_point = global_transform.origin - Global.forward_vector * 2
 
 func _input(_event):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and !Global.conversation_mode and !Global.journal_mode:
 		if not get_tree().paused:  # Check if not already paused
 			#get_tree().call_group('cameras', 'blur')
 			get_tree().paused = true
@@ -35,15 +28,21 @@ func _input(_event):
 			$ui_elements.hide()
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			get_tree().paused = false
+	elif Input.is_action_just_pressed("ui_cancel") and Global.journal_mode:
+		journal.visible = false
+	
 	if Input.is_action_just_pressed("quicksave") and Global.is_eligible_for_saving:
 		Global.take_screenshot()
 		Global.quick_save()
+	
 	if Input.is_action_just_pressed("quickload") and Global.quick_save_file_path != null:
 		Global.save_file_being_loaded = Global.quick_save_file_path
 		Global.load_game()
+	
+	if Input.is_action_just_pressed("journal"):
+		pass
 
 func  loading_game_locally():
-	print("TEMP: Successful load from world.tsc")
 	get_tree().paused = false
 	Global.load_game()
 

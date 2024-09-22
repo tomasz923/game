@@ -25,8 +25,6 @@ var last_save_file_path:String
 var allow_movement = false #Allows for the player to move.
 
 var player_position: Vector3
-#var forward_vector: Vector3
-#var behind_point: Vector3
 
 #Dialogue
 var dialogue_box = null #Path to the dialogue box in a local scene. Should be established at the ready.
@@ -39,15 +37,39 @@ var main_cam = null
 var talker_cam = null
 var player_cam = null
 var dice_rolls_data: Dictionary
+var journal_entries_data: Dictionary
+
+#Gameplay modes
+var conversation_mode: bool = false
+var journal_mode: bool = false
 
 #Variables for Player's choices
-var state_var_dialogue = { #Variables for Player's choices
+var state_var_dialogue: Dictionary = { #Variables for Player's choices
+	"talker": "ERROR",
 	"has_met_demo": false, #test
 	"name": "Anthony",
 	"rolled_number": 0,
-	"str": 2,
+	"str": 1,
 	"test_1": 1,
 	"test_2": 1
+}
+
+	#Journal Statuses:
+	#	0 - HIDDEN
+	#	1 - ACTIVE
+	#	2 - DONE
+	#	3 - FAILED
+	#	4 - OTHER
+var journal: Dictionary = {
+	'q_test_quest' = {
+		'status': 0, 
+		'updates': ['qi_test_quest']
+	}
+}
+
+#Dictionary for Moves and its Attribute
+var roll_types: Dictionary = {
+	"persuade": "str"
 }
 
 func read_dice_rolls():
@@ -55,6 +77,12 @@ func read_dice_rolls():
 	var json_as_text = FileAccess.get_file_as_string(file)
 	print('JSON as string: ', json_as_text)
 	dice_rolls_data = JSON.parse_string(json_as_text)
+
+func read_journ_entries():
+	var file = "res://assets/json/journal_entries.json"
+	var json_as_text = FileAccess.get_file_as_string(file)
+	print('JSON as string: ', json_as_text)
+	journal_entries_data = JSON.parse_string(json_as_text)
 
 func take_screenshot():
 	var viewport = get_viewport()
