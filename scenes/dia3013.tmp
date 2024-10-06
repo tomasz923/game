@@ -1,0 +1,226 @@
+[gd_scene load_steps=14 format=3 uid="uid://60bjoj4rgs0"]
+
+[ext_resource type="Texture2D" uid="uid://3fyra00t7b54" path="res://assets/textures/ui/dialogue_box.png" id="1_8bnqy"]
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_p6k7h"]
+[ext_resource type="Script" path="res://game/scripts/dialogue_box.gd" id="1_rm17e"]
+[ext_resource type="Texture2D" uid="uid://ds47egx5yr2cp" path="res://assets/textures/ui/black_bar.png" id="3_dqo34"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="3_tb8bg"]
+[ext_resource type="FontFile" uid="uid://pesmgdnexoep" path="res://assets/fonts/DroidSans-Bold.ttf" id="6_05mqt"]
+[ext_resource type="Texture2D" uid="uid://d12ixnhl46qgc" path="res://assets/textures/ui/black_gradient.png" id="7_8n8p3"]
+[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="7_celjk"]
+
+[sub_resource type="Animation" id="Animation_s46xh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContinueButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(990, 1050)]
+}
+
+[sub_resource type="Animation" id="Animation_npea3"]
+resource_name = "jumping_arrow"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ContinueButton:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.9, 1, 1.9),
+"transitions": PackedFloat32Array(0.8, 0.8, 0.8, 0.8),
+"update": 0,
+"values": [Vector2(960, 1050), Vector2(990, 1025), Vector2(990, 1025), Vector2(990, 1050)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0krl"]
+_data = {
+"RESET": SubResource("Animation_s46xh"),
+"jumping_arrow": SubResource("Animation_npea3")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjtxu"]
+shader = ExtResource("1_p6k7h")
+shader_parameter/blur = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyh5t"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 5.0
+
+[node name="DialogueBox" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rm17e")
+
+[node name="BlackBarUp" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 135.0
+grow_horizontal = 2
+texture = ExtResource("3_dqo34")
+
+[node name="BlackBarDown" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -960.0
+offset_top = -135.0
+offset_right = 960.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_dqo34")
+
+[node name="DialogueHandler" type="Control" parent="BlackBarDown"]
+anchors_preset = 0
+offset_top = -945.0
+offset_right = 40.0
+offset_bottom = -905.0
+
+[node name="EzDialogue" type="Node" parent="BlackBarDown/DialogueHandler"]
+script = ExtResource("7_celjk")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -550.0
+offset_top = -330.0
+offset_right = 550.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("1_8bnqy")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v0krl")
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_qjtxu")
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -958.0
+offset_top = -330.0
+offset_right = 962.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="DialogueVisuals" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -135.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
+
+[node name="GradientAndTextBox" type="VBoxContainer" parent="DialogueVisuals"]
+custom_minimum_size = Vector2(50, 0)
+layout_direction = 1
+layout_mode = 2
+theme_override_constants/separation = 15
+alignment = 1
+
+[node name="Name" type="Control" parent="DialogueVisuals/GradientAndTextBox"]
+custom_minimum_size = Vector2(50, 0)
+layout_direction = 1
+layout_mode = 2
+
+[node name="SpeakerName" type="Button" parent="DialogueVisuals/GradientAndTextBox/Name"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 0
+offset_left = 160.0
+offset_top = -35.0
+offset_right = 202.0
+offset_bottom = 11.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("6_05mqt")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fyh5t")
+disabled = true
+text = "TY"
+
+[node name="Gradient" type="Control" parent="DialogueVisuals/GradientAndTextBox"]
+layout_mode = 2
+
+[node name="GradientTexture" type="TextureRect" parent="DialogueVisuals/GradientAndTextBox/Gradient"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -30.0
+offset_bottom = 510.0
+grow_horizontal = 2
+texture = ExtResource("7_8n8p3")
+
+[node name="TextAndChoicesBox" type="VBoxContainer" parent="DialogueVisuals/GradientAndTextBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="Text" type="Label" parent="DialogueVisuals/GradientAndTextBox/TextAndChoicesBox"]
+custom_minimum_size = Vector2(20, 30)
+layout_mode = 2
+text = "vvvvvvvvvvvvvvvvvvvvvvvvvvv"
+label_settings = ExtResource("3_tb8bg")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ChoicesBox" type="VBoxContainer" parent="DialogueVisuals/GradientAndTextBox/TextAndChoicesBox"]
+layout_mode = 2
+
+[node name="ContinueButton" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -30.0
+offset_right = 64.0
+offset_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 0
+rotation = 1.5708
+scale = Vector2(0.7, 0.7)
+theme_override_font_sizes/font_size = 60
+text = ">"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="custom_signal_received" from="BlackBarDown/DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_custom_signal_received"]
+[connection signal="dialogue_generated" from="BlackBarDown/DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
+[connection signal="end_of_dialogue_reached" from="BlackBarDown/DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_end_of_dialogue_reached"]

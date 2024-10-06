@@ -10,4 +10,7 @@ offset_bottom = 8.0
 theme = ExtResource("1_bn4kv")
 text = "fgfdg"
 icon = ExtResource("2_cf4wu")
+alignment = 0
 script = ExtResource("3_73l5a")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

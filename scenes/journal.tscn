@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://daq3k7jcwjrxa"]
+[gd_scene load_steps=6 format=3 uid="uid://daq3k7jcwjrxa"]
 
+[ext_resource type="Script" path="res://game/scripts/journal.gd" id="1_3n3sv"]
 [ext_resource type="Texture2D" uid="uid://bnunc3kwcuof2" path="res://assets/textures/ui/journal_background.png" id="1_drgrc"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_qx7so"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_ls5gp"]
@@ -15,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_3n3sv")
 
 [node name="Shader" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_sv8jc")
@@ -66,33 +68,65 @@ horizontal_scroll_mode = 0
 
 [node name="QuestNamesContainer" type="VBoxContainer" parent="Background/QuestNames"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 30
 
 [node name="ActiveQuests" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Background/QuestNames/QuestNamesContainer/ActiveQuests"]
+[node name="ActiveQuestsLabel" type="Label" parent="Background/QuestNames/QuestNamesContainer/ActiveQuests"]
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ls5gp")
 theme_override_font_sizes/font_size = 36
 text = "active_quests_label"
+horizontal_alignment = 1
+
+[node name="ActiveQuestsList" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer/ActiveQuests"]
+layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="DoneQuests" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Background/QuestNames/QuestNamesContainer/DoneQuests"]
+[node name="DoneQuestsLabel" type="Label" parent="Background/QuestNames/QuestNamesContainer/DoneQuests"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ls5gp")
 theme_override_font_sizes/font_size = 36
 text = "done_quests_label"
+horizontal_alignment = 1
+
+[node name="DoneQuestsList" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer/DoneQuests"]
+layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="Other" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="Background/QuestNames/QuestNamesContainer/Other"]
+[node name="OtherLabel" type="Label" parent="Background/QuestNames/QuestNamesContainer/Other"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_ls5gp")
 theme_override_font_sizes/font_size = 36
 text = "other_quests_label"
+horizontal_alignment = 1
+
+[node name="OtherList" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer/Other"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Background"]
+layout_mode = 0
+offset_left = 540.0
+offset_top = 29.0
+offset_right = 1556.0
+offset_bottom = 748.0
+
+[node name="UpdatesList" type="VBoxContainer" parent="Background/ScrollContainer"]
+custom_minimum_size = Vector2(1000, 0)
+layout_mode = 2
+theme_override_constants/separation = 25
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

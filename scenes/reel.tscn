@@ -2,14 +2,13 @@
 
 [ext_resource type="Script" path="res://game/scripts/Reel.gd" id="1_jhthg"]
 [ext_resource type="Texture2D" uid="uid://b2ehlkbx6sdai" path="res://assets/textures/ui/dice.png" id="2_rmkvq"]
+[ext_resource type="Texture2D" uid="uid://bu6qacldl1ge0" path="res://assets/textures/ui/reel_mask.png" id="3_ktrlr"]
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_tfrtq"]
 light_mode = 2
 
 [sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q1ojs"]
 light_mode = 2
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ge63y"]
 
 [node name="Reel" type="Control"]
 layout_mode = 3
@@ -26,7 +25,7 @@ metadata/_edit_horizontal_guides_ = [1450.0, 620.0, 613.0, 462.0, -370.0, 1452.0
 
 [node name="Reel1" type="Sprite2D" parent="."]
 material = SubResource("CanvasItemMaterial_tfrtq")
-position = Vector2(0, -250)
+position = Vector2(0, -85)
 texture = ExtResource("2_rmkvq")
 
 [node name="Reel2" type="Sprite2D" parent="."]
@@ -35,6 +34,7 @@ position = Vector2(0, -1240)
 texture = ExtResource("2_rmkvq")
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
-position = Vector2(0, -2)
-scale = Vector2(44, 44)
-texture = SubResource("CompressedTexture2D_ge63y")
+position = Vector2(0.999983, -1.00001)
+scale = Vector2(1.06667, 1.00606)
+energy = 0.0
+texture = ExtResource("3_ktrlr")

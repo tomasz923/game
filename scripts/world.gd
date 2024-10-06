@@ -15,7 +15,7 @@ func _ready():
 	Global.read_dice_rolls()
 
 func _input(_event):
-	if Input.is_action_just_pressed("ui_cancel") and !Global.conversation_mode and !Global.journal_mode:
+	if Input.is_action_just_pressed("ui_cancel") and !Global.journal_mode and Global.pausable:
 		if not get_tree().paused:  # Check if not already paused
 			#get_tree().call_group('cameras', 'blur')
 			get_tree().paused = true
@@ -30,6 +30,9 @@ func _input(_event):
 			get_tree().paused = false
 	elif Input.is_action_just_pressed("ui_cancel") and Global.journal_mode:
 		journal.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		get_tree().paused = false
+		Global.journal_mode = false
 	
 	if Input.is_action_just_pressed("quicksave") and Global.is_eligible_for_saving:
 		Global.take_screenshot()
@@ -39,8 +42,18 @@ func _input(_event):
 		Global.save_file_being_loaded = Global.quick_save_file_path
 		Global.load_game()
 	
-	if Input.is_action_just_pressed("journal"):
-		pass
+	if Input.is_action_just_pressed("journal") and Global.pausable:
+		if not get_tree().paused and !Global.journal_mode:  # Check if not already paused
+			Global.journal_mode = true
+			get_tree().paused = true
+			journal.visible = true
+			journal.get_ready()
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif get_tree().paused and Global.journal_mode:
+			Global.journal_mode = false
+			get_tree().paused = false
+			journal.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func  loading_game_locally():
 	get_tree().paused = false
@@ -50,8 +63,7 @@ func take_players_positions():
 	Global.mw_player_position = $map/player.global_position
 
 func continue_game():
-	#get_tree().call_group('cameras', 'unblur')
-	get_tree().call_group('main_menu', '_on_back_button_pressed')
+	get_tree().call_group('main_menu', '_on_back_utton_pressed')
 	$ui_elements.hide()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	get_tree().paused = false

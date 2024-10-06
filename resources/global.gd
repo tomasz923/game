@@ -3,7 +3,7 @@ extends Node
 var is_initial_load_ready = false
 var is_rolling_dice_now: bool = false
 #This variable checks if it is possible to save a game
-var is_eligible_for_saving : bool = true
+var is_eligible_for_saving: bool = true
 var scene_being_loaded
 #This variable holds a path to a fiel that is about to ba loaded. It changes when clciking on a save slot in a loading mode:
 var save_file_being_loaded
@@ -40,8 +40,8 @@ var dice_rolls_data: Dictionary
 var journal_entries_data: Dictionary
 
 #Gameplay modes
-var conversation_mode: bool = false
 var journal_mode: bool = false
+var pausable: bool = true
 
 #Variables for Player's choices
 var state_var_dialogue: Dictionary = { #Variables for Player's choices
@@ -62,8 +62,16 @@ var state_var_dialogue: Dictionary = { #Variables for Player's choices
 	#	4 - OTHER
 var journal: Dictionary = {
 	'q_test_quest' = {
-		'status': 0, 
-		'updates': ['qi_test_quest']
+		'status': 1, 
+		'updates': ['qi_test_quest', '2', '3']
+	},
+	'q_test_quest_2' = {
+		'status': 2, 
+		'updates': ['qi_test_quest_2', '0']
+	},
+	'q_test_quest_3' = {
+		'status': 3, 
+		'updates': ['qi_test_quest_3', '4']
 	}
 }
 
@@ -75,13 +83,13 @@ var roll_types: Dictionary = {
 func read_dice_rolls():
 	var file = "res://assets/json/dice_variables.json"
 	var json_as_text = FileAccess.get_file_as_string(file)
-	print('JSON as string: ', json_as_text)
+	#print('JSON as string: ', json_as_text)
 	dice_rolls_data = JSON.parse_string(json_as_text)
 
 func read_journ_entries():
 	var file = "res://assets/json/journal_entries.json"
 	var json_as_text = FileAccess.get_file_as_string(file)
-	print('JSON as string: ', json_as_text)
+	#print('JSON as string: ', json_as_text)
 	journal_entries_data = JSON.parse_string(json_as_text)
 
 func take_screenshot():
@@ -190,8 +198,8 @@ func collect_save_files():
 				#save_file_number = max(save_file_number, save_number)
 		
 		savegame_tres_files.reverse()
-		print("Here we go:")
-		print(savegame_tres_files)
+		#print("Here we go:")
+		#print(savegame_tres_files)
 		
 		# Extract save numbers (assuming numbering starts from savegame1.tres)
 		for file in savegame_tres_files:
@@ -214,12 +222,12 @@ func load_save_slots(vbox_container):
 		if file.begins_with("slot") and file.ends_with(".tres"):
 			if file.ends_with("_quicksave.tres"):
 				quick_save_file_path = "res://saves/" + file
-				print("Here is the quicksave file:" + quick_save_file_path)
+				#print("Here is the quicksave file:" + quick_save_file_path)
 			if file.ends_with("_autosave.tres"):
 				autosave_files_num += 1
-				print("Number of autosave files: " + str(autosave_files_num))
+				#print("Number of autosave files: " + str(autosave_files_num))
 				if autosave_files_num > 4:
-					print("TEMP: This file should have been removed: " + "res://saves/" + file)
+					#print("TEMP: This file should have been removed: " + "res://saves/" + file)
 					DirAccess.remove_absolute("res://saves/" + file)
 					continue  
 			# Load the save slot scene

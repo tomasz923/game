@@ -69,12 +69,12 @@ func _ready()	:
 	add_resolutions()
 	add_screens()
 	if Global.is_initial_load_ready:
-		print('Everything was already loaded')
+		#print('Everything was already loaded')
 		set_values()
 	else:
 		#Global.temp_debugging()
 		load_settings()
-		print('Successul load')
+		#print('Successul load')
 		Global.is_initial_load_ready = true
 
 #func _physics_process(_delta):
@@ -118,7 +118,8 @@ func _on_new_game_pressed() -> void:
 		var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
 		get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
 	else:
-		print('fuck off')
+		#print('fuck off')
+		pass
 
 func _on_load_game_pressed():
 	new_save_slot_button.visible = false
@@ -207,7 +208,7 @@ func load_settings():
 	
 	#V-Sync
 	vsync_settings.select(user_prefs.vsync_settings_selected)
-	print(DisplayServer.get_screen_count())
+	#print(DisplayServer.get_screen_count())
 	match user_prefs.vsync_settings_selected:
 		0:
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)

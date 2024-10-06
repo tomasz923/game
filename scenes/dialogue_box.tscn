@@ -1,53 +1,145 @@
-[gd_scene load_steps=11 format=3 uid="uid://60bjoj4rgs0"]
+[gd_scene load_steps=17 format=3 uid="uid://60bjoj4rgs0"]
 
 [ext_resource type="Texture2D" uid="uid://3fyra00t7b54" path="res://assets/textures/ui/dialogue_box.png" id="1_8bnqy"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_p6k7h"]
 [ext_resource type="Script" path="res://game/scripts/dialogue_box.gd" id="1_rm17e"]
-[ext_resource type="LabelSettings" uid="uid://d0tfi6nk5xtnh" path="res://game/resources/dialogue_names.tres" id="3_p2mlc"]
+[ext_resource type="Texture2D" uid="uid://ds47egx5yr2cp" path="res://assets/textures/ui/black_bar.png" id="3_dqo34"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="3_tb8bg"]
+[ext_resource type="Texture2D" uid="uid://d12ixnhl46qgc" path="res://assets/textures/ui/black_gradient.png" id="7_8n8p3"]
 [ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="7_celjk"]
+[ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="8_jlfl7"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjtxu"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mtflb"]
 shader = ExtResource("1_p6k7h")
-shader_parameter/blur = 3.0
+shader_parameter/blur = 0.0
 
 [sub_resource type="Animation" id="Animation_s46xh"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect/ContinueButton:position")
+tracks/0/path = NodePath("BackgroundBlack:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(592, 255)]
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shader:material:shader_parameter/blur")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ContinueButton:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(941.5, 1025)]
+}
+
+[sub_resource type="Animation" id="Animation_2r57g"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundBlack:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(3, 3),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shader:material:shader_parameter/blur")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(3, 3),
+"update": 0,
+"values": [0.0, 3.0]
+}
+
+[sub_resource type="Animation" id="Animation_bumfw"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BackgroundBlack:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(3, 3),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Shader:material:shader_parameter/blur")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(3, 3),
+"update": 0,
+"values": [3.0, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_npea3"]
 resource_name = "jumping_arrow"
-length = 2.0
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("TextureRect/ContinueButton:position")
+tracks/0/path = NodePath("ContinueButton:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.9, 1, 1.9),
-"transitions": PackedFloat32Array(0.8, 0.8, 0.8, 0.8),
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(592, 245), Vector2(592, 235), Vector2(592, 235), Vector2(592, 245)]
+"values": [Vector2(0, 1025), Vector2(0, 1032), Vector2(0, 1032), Vector2(0, 1025)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0krl"]
 _data = {
 "RESET": SubResource("Animation_s46xh"),
+"fade_in": SubResource("Animation_2r57g"),
+"fade_out": SubResource("Animation_bumfw"),
 "jumping_arrow": SubResource("Animation_npea3")
 }
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyh5t"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qjtxu"]
+shader = ExtResource("1_p6k7h")
+shader_parameter/blur = 3.0
 
 [node name="DialogueBox" type="Control"]
 layout_mode = 3
@@ -57,23 +149,160 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rm17e")
+metadata/_edit_vertical_guides_ = [960.0, 195.0, 1622.0]
 
-[node name="ColorRect" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_qjtxu")
+[node name="BackgroundBlack" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_mtflb")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = 4.0
+offset_right = -1.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackBarUp" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 135.0
+grow_horizontal = 2
+texture = ExtResource("3_dqo34")
+
+[node name="BlackBarDown" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -84.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("3_dqo34")
+expand_mode = 2
+
+[node name="DialogueHandler" type="Control" parent="BlackBarDown"]
+anchors_preset = 0
+offset_top = -945.0
+offset_right = 40.0
+offset_bottom = -905.0
+
+[node name="EzDialogue" type="Node" parent="BlackBarDown/DialogueHandler"]
+script = ExtResource("7_celjk")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_v0krl")
+}
+
+[node name="ContinueButton" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -550.0
-offset_top = -330.0
-offset_right = 550.0
-offset_bottom = -30.0
+offset_left = 941.5
+offset_top = 1025.0
+offset_right = 966.5
+offset_bottom = 1080.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_font_sizes/font_size = 40
+text = "V"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Text" type="Label" parent="."]
+custom_minimum_size = Vector2(20, 60)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -660.0
+offset_top = -120.0
+offset_right = 660.0
+offset_bottom = -60.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "vvvvvvvvvvvvvvvvvvvvvvvvvvv"
+label_settings = ExtResource("3_tb8bg")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="ChoicesContainer" type="ScrollContainer" parent="."]
+custom_minimum_size = Vector2(0, 144)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_top = -152.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+horizontal_scroll_mode = 0
+
+[node name="ChoicesBox" type="VBoxContainer" parent="ChoicesContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 6
+theme_override_constants/separation = 3
+
+[node name="Name" type="Control" parent="."]
+custom_minimum_size = Vector2(50, 0)
+layout_direction = 1
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 1920.0
+grow_vertical = 0
+
+[node name="SpeakerName" type="Button" parent="Name"]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 125.0
+offset_top = -189.0
+offset_right = 265.0
+offset_bottom = -143.0
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("8_jlfl7")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_fyh5t")
+disabled = true
+text = "TY"
+
+[node name="DialogueHandler" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EzDialogue" type="Node" parent="DialogueHandler"]
+script = ExtResource("7_celjk")
 
 [node name="TextureRect" type="TextureRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -88,94 +317,99 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("1_8bnqy")
 
-[node name="ColorRect" type="ColorRect" parent="TextureRect"]
-layout_mode = 0
-offset_top = -57.0
-offset_right = 140.0
-color = Color(1, 1, 1, 0.701961)
-
-[node name="SpeakerName" type="Label" parent="TextureRect"]
-layout_mode = 1
-offset_left = 13.0
-offset_top = -57.0
-offset_right = 125.0
-text = "Na"
-label_settings = ExtResource("3_p2mlc")
-vertical_alignment = 1
-
-[node name="ContinueButton" type="Label" parent="TextureRect"]
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_qjtxu")
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 42.0
-offset_top = -45.0
-offset_right = 91.0
-offset_bottom = 38.001
+offset_left = -958.0
+offset_top = -330.0
+offset_right = 962.0
+offset_bottom = -30.0
 grow_horizontal = 2
 grow_vertical = 0
-rotation = 1.5708
-theme_override_font_sizes/font_size = 60
-text = ">"
-horizontal_alignment = 1
-vertical_alignment = 1
 
-[node name="ContinueButton2" type="Label" parent="TextureRect"]
+[node name="Gradient" type="Control" parent="."]
+visible = false
+layout_mode = 2
+anchors_preset = 0
+offset_left = 302.0
+offset_top = 928.0
+offset_right = 1622.0
+offset_bottom = 928.0
+
+[node name="GradientTexture" type="TextureRect" parent="Gradient"]
 visible = false
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -272.0
-offset_top = -487.0
-offset_right = 545.0
-offset_bottom = -1.0
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -302.0
+offset_top = -20.0
+offset_right = 298.0
+offset_bottom = 520.0
 grow_horizontal = 2
-grow_vertical = 0
-theme_override_font_sizes/font_size = 128
-text = "THE END"
-horizontal_alignment = 1
-vertical_alignment = 1
+texture = ExtResource("7_8n8p3")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="TextureRect"]
+[node name="ColorRect" type="ColorRect" parent="Gradient"]
+visible = false
+custom_minimum_size = Vector2(1620, 540)
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -760.0
+offset_top = 20.0
+offset_right = 760.0
+offset_bottom = 560.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 1)
+
+[node name="DialogueVisuals" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 21.0
-offset_top = 13.0
-offset_right = -19.0
-offset_bottom = -11.0
-theme_override_constants/separation = 7
+offset_left = 302.0
+offset_top = -153.0
+offset_right = -298.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/separation = 20
 
-[node name="Text" type="Label" parent="TextureRect/VBoxContainer"]
-custom_minimum_size = Vector2(1060, 30)
+[node name="Control" type="Control" parent="DialogueVisuals"]
 layout_mode = 2
-text = ":\\cvbv"
-label_settings = ExtResource("3_tb8bg")
-autowrap_mode = 2
 
-[node name="DialogueHandler" type="Control" parent="."]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="TextAndChoicesBox" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 302.0
+offset_top = 975.0
+offset_right = 1622.0
+offset_bottom = 975.0
+alignment = 1
 
-[node name="EzDialogue" type="Node" parent="DialogueHandler"]
-script = ExtResource("7_celjk")
+[node name="GradientAndTextBox" type="VBoxContainer" parent="."]
+visible = false
+custom_minimum_size = Vector2(50, 0)
+layout_direction = 1
+layout_mode = 2
+offset_left = 302.0
+offset_top = 975.0
+offset_right = 1622.0
+offset_bottom = 975.0
+theme_override_constants/separation = 30
+alignment = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_v0krl")
-}
-
-[node name="Timer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 0.15
-
+[connection signal="custom_signal_received" from="BlackBarDown/DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_custom_signal_received"]
+[connection signal="dialogue_generated" from="BlackBarDown/DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
+[connection signal="end_of_dialogue_reached" from="BlackBarDown/DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_end_of_dialogue_reached"]
 [connection signal="custom_signal_received" from="DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_custom_signal_received"]
 [connection signal="dialogue_generated" from="DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_dialogue_generated"]
 [connection signal="end_of_dialogue_reached" from="DialogueHandler/EzDialogue" to="." method="_on_ez_dialogue_end_of_dialogue_reached"]

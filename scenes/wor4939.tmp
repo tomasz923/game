@@ -191,7 +191,6 @@ visible = false
 [node name="DialogueBox" parent="." instance=ExtResource("12_iqn5y")]
 process_mode = 1
 visible = false
-metadata/_edit_vertical_guides_ = [960.0]
 
 [node name="DiceBox" parent="." instance=ExtResource("13_l85go")]
 process_mode = 1

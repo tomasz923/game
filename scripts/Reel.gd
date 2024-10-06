@@ -7,10 +7,11 @@ signal roll_done(rolled_number: int)
 @onready var reel_1 = $Reel1
 @onready var reel_2 = $Reel2
 
+
 var is_rolling: bool = false
 var is_getting_ready: bool = false
 var roll_duration: int = 2
-var roll_speed: int = 20
+var roll_speed: int = 30
 var rng: int
 var final_pos: int
 var stopping_pos: int
@@ -24,6 +25,7 @@ func _ready():
 	reel_2.position.y = -1405
 	roll_duration = roll_duration_length
 	rng = randi_range(1,6)
+	#rng = 4
 	match rng:
 		1:
 			final_pos = 410
@@ -43,7 +45,7 @@ func _ready():
 		4:
 			final_pos = -85
 			stopping_pos = -415
-			final_slot = reel_2
+			final_slot = reel_1
 			another_pos = final_pos + 990
 		5: 
 			final_pos = -250

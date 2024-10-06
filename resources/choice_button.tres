@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://ciylluo3y3lru"]
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://ciylluo3y3lru"]
 
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_ov7pk"]
 
@@ -9,28 +9,38 @@ expand_margin_right = 20.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ock4w"]
 bg_color = Color(1, 1, 1, 0.313726)
-expand_margin_left = 20.0
-expand_margin_right = 20.0
+border_width_left = 20
+border_width_right = 20
+border_color = Color(1, 1, 1, 0.313726)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_en16f"]
 bg_color = Color(1, 1, 1, 0.784314)
-expand_margin_left = 20.0
-expand_margin_right = 20.0
+border_width_left = 20
+border_width_right = 20
+border_color = Color(1, 1, 1, 0.784314)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_clent"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-expand_margin_left = 20.0
-expand_margin_right = 20.0
+bg_color = Color(1, 1, 1, 0.313726)
+border_width_left = 20
+border_width_right = 20
+border_color = Color(1, 1, 1, 0.313726)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qlad8"]
 bg_color = Color(1, 1, 1, 1)
-expand_margin_left = 20.0
-expand_margin_right = 20.0
+border_width_left = 20
+border_width_right = 20
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pt10e"]
+
+[sub_resource type="ImageTexture" id="ImageTexture_0u3qe"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g47uj"]
 
 [resource]
 default_font = ExtResource("2_ov7pk")
 default_font_size = 0
-Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_color = Color(0, 0, 0, 1)
 Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
 Button/colors/font_focus_color = Color(1, 1, 1, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
@@ -46,10 +56,18 @@ Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
 Button/constants/h_separation = 10
 Button/constants/icon_max_width = 0
 Button/constants/outline_size = 0
-Button/font_sizes/font_size = 32
+Button/font_sizes/font_size = 18
 Button/fonts/font = ExtResource("2_ov7pk")
 Button/styles/disabled = SubResource("StyleBoxFlat_4x4jx")
 Button/styles/focus = SubResource("StyleBoxFlat_ock4w")
 Button/styles/hover = SubResource("StyleBoxFlat_en16f")
 Button/styles/normal = SubResource("StyleBoxFlat_clent")
 Button/styles/pressed = SubResource("StyleBoxFlat_qlad8")
+ScrollContainer/styles/panel = SubResource("StyleBoxEmpty_pt10e")
+VScrollBar/icons/decrement = SubResource("ImageTexture_0u3qe")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_0u3qe")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_0u3qe")
+VScrollBar/icons/increment = SubResource("ImageTexture_0u3qe")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_0u3qe")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_0u3qe")
+VScrollBar/styles/grabber = SubResource("StyleBoxEmpty_g47uj")

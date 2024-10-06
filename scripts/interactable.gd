@@ -16,28 +16,24 @@ func _ready():
 	add_to_group("labeled_objects")
 	#label.visible = false
 
-func _physics_process(_delta):
-	if is_talking:
-		look_at_player()
-		#look_at(Global.mw_player_position)
 
-func look_at_player():
-	# Get the current rotation
-	var start_rotation = global_rotation
-	# Make the object look at the player immediately (to calculate target rotation)
-	look_at(Global.player_position)
-	# Store the target rotation
-	var target_rotation = global_rotation
-	# Reset to start rotation
-	global_rotation = start_rotation
-	# Create a tween to smoothly rotate to the target
-	#tween.stop_all()  # Stop any existing tweens
-	var tween = create_tween()
-	tween.tween_property(self, "global_rotation", target_rotation, 1).set_trans(Tween.TRANS_LINEAR)
+#func look_at_player():
+	## Get the current rotation
+	#var start_rotation = global_rotation
+	## Make the object look at the player immediately (to calculate target rotation)
+	#look_at(Global.player_position)
+	## Store the target rotation
+	#var target_rotation = global_rotation
+	## Reset to start rotation
+	#global_rotation = start_rotation
+	## Create a tween to smoothly rotate to the target
+	##tween.stop_all()  # Stop any existing tweens
+	#var tween = create_tween()
+	#tween.tween_property(self, "global_rotation", target_rotation, 1).set_trans(Tween.TRANS_LINEAR)
 
 func interaction():
 	if is_a_character:
-		animation_player.play("jump")
+		look_at(Global.player_position)
 
 func show_label():
 	label.visible = true

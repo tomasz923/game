@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdjn3kaaq30rs"]
+
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="1_onoqk"]
+[ext_resource type="Script" path="res://game/scripts/QuestUpdate.gd" id="1_qyda4"]
+
+[node name="QuestUpdate" type="Label"]
+custom_minimum_size = Vector2(900, 0)
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_onoqk")
+theme_override_font_sizes/font_size = 24
+autowrap_mode = 2
+script = ExtResource("1_qyda4")

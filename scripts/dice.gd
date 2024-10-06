@@ -3,7 +3,7 @@ extends Control
 @onready var reel = $DiceScreen/HBoxContainer/Reel
 @onready var reel_2 = $DiceScreen/HBoxContainer/Reel2
 @onready var start_rolling = $DiceScreen/StartRolling
-@onready var ok_button = $DiceScreen/OkButton
+@onready var ok_button = $DiceScreen/OKButtonContainer/OkButton
 @onready var bonus_label_scn = preload("res://game/scenes/bonus_label.tscn")
 @onready var listed_bonuses = $DiceScreen/BonusesNode/ListedBonuses
 @onready var label = $DiceScreen/Label
@@ -16,6 +16,8 @@ extends Control
 @onready var success_chance = $DiceScreen/ChancesHBox/SuccessChance
 @onready var result_backg = $DiceScreen/ResultShow/ResultBackg
 @onready var result_label = $DiceScreen/ResultShow/ResultBackg/VBoxContainer/ResultLabel
+@onready var ok_button_container = $DiceScreen/OKButtonContainer
+
 #@onready var result_number = $DiceScreen/ResultShow/ResultBackg/VBoxContainer/ResultNumber
 
 #@onready var success_theme_chance = preload("res://game/resources/chances_success.tres")
@@ -38,6 +40,7 @@ var current_dice_roll: Dictionary
 var rolling_for: String
 var attribute: String
 var new_container: HBoxContainer
+var viewport
 
 var prob_table: Array = [
 	[2, 2.77777777778],
@@ -55,6 +58,9 @@ var prob_table: Array = [
 
 
 func ready_reels(which_dice_roll):
+	viewport = get_viewport()
+	dice_screen.position.x = DisplayServer.screen_get_size().x/2 - 250
+	
 	for n in listed_bonuses.get_children():
 		listed_bonuses.remove_child(n)
 		n.queue_free() 
@@ -68,7 +74,7 @@ func ready_reels(which_dice_roll):
 	reel._ready()
 	reel_2._ready()
 	start_rolling.visible = true
-	ok_button.visible = false
+	ok_button_container.visible = false
 	#chances_h_box.visible = true #Not needed for such rolls
 	bonuses_node.visible = true
 	is_roll_one_done = false
@@ -85,9 +91,9 @@ func ready_reels(which_dice_roll):
 	list_bonuses()
 	#calculate_chances() #No chances visible needed for such rolls
 	
-	animation_player.play("fade_in")
+	#animation_player.play("fade_in")
 	var TWN = create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
-	TWN.tween_property(dice_screen, "position:y", 265, 1.0)
+	TWN.tween_property(dice_screen, "position:y", 155, 1.0)
 	
 func count_bonus():
 	if Global.state_var_dialogue[attribute] != 0:
@@ -183,18 +189,22 @@ func show_results():
 		result_label.text = 'label_roll_result_complications'
 	#result_number.text = str(result)
 	var TWN = create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
-	TWN.tween_property(result_backg, "position:y", 20, 1.5)
+	TWN.tween_property(result_backg, "position:y", 20, 1.0)
 	await TWN.finished
 	#result.text = str(first_number + second_number + total_bonus)
 	#result.visible = true
-	ok_button.visible = true
+	ok_button_container.visible = true
+	TWN = create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
+	TWN.tween_property(ok_button, "position:y", 14, 1.0)
+	
 
 func _on_ok_button_pressed():
 	var TWN = create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
 	Global.is_rolling_dice_now = false
 	Global.dialogue_box.next_slide()
-	Global.dialogue_box.visible = true
-	animation_player.play("fade_out")
+	Global.dialogue_box.fade_out()
+	#Global.dialogue_box.visible = true
+	#animation_player.play("fade_out")
 	TWN.tween_property(dice_screen, "position:y", -665, 1.0)
 	await TWN.finished
 	Global.dice_box.visible = false

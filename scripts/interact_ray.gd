@@ -32,7 +32,7 @@ func _physics_process(_delta):
 
 func start_conversation(script_file, name_label):
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-	Global.conversation_mode = true
+	Global.pausable = false
 	Global.allow_movement = false
 	Global.dialogue_box.visible = true
 	Global.dialogue_box._start_dialogue(script_file, name_label)
