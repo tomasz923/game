@@ -1,2 +1,2 @@
 extends Label
-class_name QuestLabel
+class_name QuestUpdate

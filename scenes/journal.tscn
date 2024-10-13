@@ -1,13 +1,26 @@
-[gd_scene load_steps=6 format=3 uid="uid://daq3k7jcwjrxa"]
+[gd_scene load_steps=9 format=3 uid="uid://daq3k7jcwjrxa"]
 
 [ext_resource type="Script" path="res://game/scripts/journal.gd" id="1_3n3sv"]
-[ext_resource type="Texture2D" uid="uid://bnunc3kwcuof2" path="res://assets/textures/ui/journal_background.png" id="1_drgrc"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_qx7so"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_ls5gp"]
+[ext_resource type="PackedScene" uid="uid://gwcfrnwhoqyu" path="res://game/scenes/journal_quest.tscn" id="4_gi1i4"]
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="5_vdm4k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_sv8jc"]
 shader = ExtResource("1_qx7so")
 shader_parameter/blur = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l7kxy"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wwdwv"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_left = 10.0
+expand_margin_top = 5.0
+expand_margin_right = 10.0
+expand_margin_bottom = 5.0
 
 [node name="Journal" type="Control"]
 layout_mode = 3
@@ -36,97 +49,225 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 0.313726)
 
-[node name="Background" type="TextureRect" parent="."]
+[node name="BlackBox" type="ColorRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -780.0
-offset_top = -400.0
-offset_right = 780.0
-offset_bottom = 400.0
+offset_left = -295.0
+offset_top = -370.0
+offset_right = 295.0
+offset_bottom = 370.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_drgrc")
+color = Color(0, 0, 0, 1)
 
-[node name="QuestNames" type="ScrollContainer" parent="Background"]
+[node name="UpdatesContainer" type="ScrollContainer" parent="BlackBox"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -770.0
-offset_top = -390.0
-offset_right = -273.0
-offset_bottom = 390.0
+offset_left = -294.0
+offset_top = -345.0
+offset_right = 295.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="QuestNamesContainer" type="VBoxContainer" parent="Background/QuestNames"]
+[node name="UpdatesList" type="VBoxContainer" parent="BlackBox/UpdatesContainer"]
 layout_mode = 2
+size_flags_horizontal = 6
 theme_override_constants/separation = 30
 
-[node name="ActiveQuests" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
+[node name="QuestNames" type="ScrollContainer" parent="BlackBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -344.0
+offset_right = 295.0
+offset_bottom = 296.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="QuestNamesContainer" type="VBoxContainer" parent="BlackBox/QuestNames"]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/separation = 15
+
+[node name="ActiveQuests" type="VBoxContainer" parent="BlackBox/QuestNames/QuestNamesContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme_override_constants/separation = 10
+theme_override_constants/separation = 0
 
-[node name="ActiveQuestsLabel" type="Label" parent="Background/QuestNames/QuestNamesContainer/ActiveQuests"]
-custom_minimum_size = Vector2(500, 0)
+[node name="Divider" type="Control" parent="BlackBox/QuestNames/QuestNamesContainer/ActiveQuests"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-theme_override_fonts/font = ExtResource("2_ls5gp")
-theme_override_font_sizes/font_size = 36
-text = "active_quests_label"
-horizontal_alignment = 1
 
-[node name="ActiveQuestsList" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer/ActiveQuests"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="DoneQuests" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="DoneQuestsLabel" type="Label" parent="Background/QuestNames/QuestNamesContainer/DoneQuests"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_ls5gp")
-theme_override_font_sizes/font_size = 36
-text = "done_quests_label"
-horizontal_alignment = 1
-
-[node name="DoneQuestsList" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer/DoneQuests"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="Other" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer"]
-layout_mode = 2
-theme_override_constants/separation = 10
-
-[node name="OtherLabel" type="Label" parent="Background/QuestNames/QuestNamesContainer/Other"]
-layout_mode = 2
-theme_override_fonts/font = ExtResource("2_ls5gp")
-theme_override_font_sizes/font_size = 36
-text = "other_quests_label"
-horizontal_alignment = 1
-
-[node name="OtherList" type="VBoxContainer" parent="Background/QuestNames/QuestNamesContainer/Other"]
-layout_mode = 2
-theme_override_constants/separation = 20
-
-[node name="ScrollContainer" type="ScrollContainer" parent="Background"]
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/QuestNames/QuestNamesContainer/ActiveQuests/Divider"]
+custom_minimum_size = Vector2(400, 4)
 layout_mode = 0
-offset_left = 540.0
-offset_top = 29.0
-offset_right = 1556.0
-offset_bottom = 748.0
+offset_top = 28.0
+offset_right = 400.0
+offset_bottom = 32.0
 
-[node name="UpdatesList" type="VBoxContainer" parent="Background/ScrollContainer"]
-custom_minimum_size = Vector2(1000, 0)
+[node name="QuestTypeLabel" type="Button" parent="BlackBox/QuestNames/QuestNamesContainer/ActiveQuests/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/disabled = SubResource("StyleBoxFlat_l7kxy")
+disabled = true
+text = "active_quests_label"
+
+[node name="ActiveQuestsList" type="VBoxContainer" parent="BlackBox/QuestNames/QuestNamesContainer/ActiveQuests"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 10
+
+[node name="Button" parent="BlackBox/QuestNames/QuestNamesContainer/ActiveQuests/ActiveQuestsList" instance=ExtResource("4_gi1i4")]
+layout_mode = 2
+text = "Where is Trevor?"
+
+[node name="DoneQuests" type="VBoxContainer" parent="BlackBox/QuestNames/QuestNamesContainer"]
+layout_mode = 2
+
+[node name="Divider" type="Control" parent="BlackBox/QuestNames/QuestNamesContainer/DoneQuests"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/QuestNames/QuestNamesContainer/DoneQuests/Divider"]
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 0
+offset_top = 28.0
+offset_right = 400.0
+offset_bottom = 32.0
+
+[node name="QuestTypeLabel" type="Button" parent="BlackBox/QuestNames/QuestNamesContainer/DoneQuests/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/disabled = SubResource("StyleBoxFlat_l7kxy")
+disabled = true
+text = "done_quests_label"
+
+[node name="DoneQuestsList" type="VBoxContainer" parent="BlackBox/QuestNames/QuestNamesContainer/DoneQuests"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Other" type="VBoxContainer" parent="BlackBox/QuestNames/QuestNamesContainer"]
+layout_mode = 2
+
+[node name="Divider" type="Control" parent="BlackBox/QuestNames/QuestNamesContainer/Other"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/QuestNames/QuestNamesContainer/Other/Divider"]
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 0
+offset_top = 28.0
+offset_right = 400.0
+offset_bottom = 32.0
+
+[node name="QuestTypeLabel" type="Button" parent="BlackBox/QuestNames/QuestNamesContainer/Other/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/disabled = SubResource("StyleBoxFlat_l7kxy")
+disabled = true
+text = "other_quests_label"
+
+[node name="OtherList" type="VBoxContainer" parent="BlackBox/QuestNames/QuestNamesContainer/Other"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="BackButton" type="Button" parent="BlackBox"]
+visible = false
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -62.0
+offset_top = -60.0
+offset_right = 60.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 0
+theme = ExtResource("5_vdm4k")
+theme_override_font_sizes/font_size = 28
+text = "back_label"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="JournalLabel" type="Button" parent="."]
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -265.0
+offset_top = -406.0
+offset_right = -125.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_ls5gp")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_wwdwv")
+disabled = true
+text = "JOURNAL
+"
+
+[connection signal="pressed" from="BlackBox/BackButton" to="." method="_on_back_button_pressed"]

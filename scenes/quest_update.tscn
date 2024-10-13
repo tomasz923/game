@@ -4,10 +4,13 @@
 [ext_resource type="Script" path="res://game/scripts/QuestUpdate.gd" id="1_qyda4"]
 
 [node name="QuestUpdate" type="Label"]
-custom_minimum_size = Vector2(900, 0)
+custom_minimum_size = Vector2(540, 0)
 offset_right = 40.0
 offset_bottom = 23.0
+theme_override_constants/line_spacing = 5
 theme_override_fonts/font = ExtResource("1_onoqk")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
+text = "It's very nice of you to test this game. You should see three places in front of you. Each offers different obstacles. You can approach them in any order, but the order you choose to do them will affect the gameplay. Good luck!"
+horizontal_alignment = 3
 autowrap_mode = 2
 script = ExtResource("1_qyda4")

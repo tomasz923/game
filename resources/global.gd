@@ -31,6 +31,7 @@ var dialogue_box = null #Path to the dialogue box in a local scene. Should be es
 var collider = null #The object which wich the Player's 3DRayCast is colliding so they can interact with.
 var talker = null #The object that the Player is talking to.
 var dice_box = null #Path to the dice box in a local scene. Should be established at the ready.
+var pop_up = null #Path to the notification node in a local scene. Should be established at the ready.
 
 #Cameras for Dialogue
 var main_cam = null
@@ -51,7 +52,9 @@ var state_var_dialogue: Dictionary = { #Variables for Player's choices
 	"rolled_number": 0,
 	"str": 1,
 	"test_1": 1,
-	"test_2": 1
+	"test_2": 1,
+	'the_quest_is_active': false,
+	'the_quest_is_done': false
 }
 
 	#Journal Statuses:
@@ -63,7 +66,7 @@ var state_var_dialogue: Dictionary = { #Variables for Player's choices
 var journal: Dictionary = {
 	'q_test_quest' = {
 		'status': 1, 
-		'updates': ['qi_test_quest', '2', '3']
+		'updates': ['qi_test_quest', 'NARR_INTRO_02', 'NARR_INTRO_01' , 'qi_test_quest', 'NARR_INTRO_02', 'NARR_INTRO_01', 'qi_test_quest', 'NARR_INTRO_02', 'NARR_INTRO_01']
 	},
 	'q_test_quest_2' = {
 		'status': 2, 

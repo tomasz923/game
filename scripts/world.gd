@@ -2,11 +2,14 @@ extends Node3D
 
 @onready var player = $map/player
 @onready var journal = $Journal
+@onready var ray_cast_3d = $RayCast3D
+@onready var blue_guy_3 = $blue_guy3
 
 func _ready():
 	Global.current_scene = "res://game/scenes/world.tscn"
 	Global.dialogue_box = $DialogueBox
 	Global.dice_box = $DiceBox
+	Global.pop_up = $Notification
 	#Setting Cams
 	Global.allow_movement = true
 	Global.collider = null
@@ -22,6 +25,8 @@ func _input(_event):
 			Global.take_screenshot()
 			$ui_elements.show()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			print('DEBUG: ', ray_cast_3d.get_collision_point())
+			blue_guy_3.position = ray_cast_3d.get_collision_point()
 		else:  # Unpause if already paused
 			#get_tree().call_group('cameras', 'unblur')			
 			get_tree().call_group('main_menu', '_on_back_button_pressed')
@@ -55,7 +60,7 @@ func _input(_event):
 			journal.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
-func  loading_game_locally():
+func loading_game_locally():
 	get_tree().paused = false
 	Global.load_game()
 

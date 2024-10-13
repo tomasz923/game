@@ -108,6 +108,15 @@ func _on_ez_dialogue_end_of_dialogue_reached():
 	Global.allow_movement = true
 	Global.dialogue_box.visible = false
 	Global.main_cam.current = true
+	#TEMP_START
+	Global.pop_up.labels_list.append('label_1')
+	Global.pop_up.texts_list.append('label_1_text')
+	Global.pop_up.labels_list.append('label_2')
+	Global.pop_up.texts_list.append('label_2_text')
+	Global.pop_up.labels_list.append('label_3')
+	Global.pop_up.texts_list.append('label_3_text')
+	if Global.pop_up.is_moving == false:
+		Global.pop_up.play_pop_up()
 
 func _on_ez_dialogue_custom_signal_received(value):
 	var params = value.split(",")
@@ -130,6 +139,23 @@ func _on_ez_dialogue_custom_signal_received(value):
 			fade_in()
 			Global.dice_box.visible = true
 			Global.is_rolling_dice_now = true
+		"update_journal":
+			var quest_name = params[1]
+			var quest_update = params[2]
+			#show update here
+			if not quest_name in Global.journal:
+				Global.journal[quest_name] = {
+					'status' = 1,
+					'updates' = []
+				}
+				Global.journal[quest_name]['updates'].append(quest_update)
+			elif not quest_update in Global.journal[quest_name]['updates'] and Global.journal[quest_name]['status'] == 1:
+				Global.journal[quest_name]['updates'].append(quest_update)
+		"close_quest":
+			var quest_name = params[1]
+			var quest_update = params[2]
+			Global.journal[quest_name]['updates'].append(quest_update)
+			Global.journal[quest_name]['status'] = 2
 
 func fade_out():
 	animation_player.play("fade_out")
