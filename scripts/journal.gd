@@ -17,14 +17,17 @@ extends Control
 @onready var quest_names = $BlackBox/QuestNames
 @onready var back_button = $BlackBox/BackButton
 
-@onready var journal_label = $JournalLabel
-
 const JOURNAL_BAR = preload("res://assets/textures/ui/journal_bar.png")
 const journal_quest = preload("res://game/scenes/journal_quest.tscn")
 const quest_update = preload("res://game/scenes/quest_update.tscn")
 var num: int = 0
 
+@onready var color_rect = $MainLabelContainer/ColorRect
+@onready var main_label = $MainLabelContainer/ColorRect/MainLabel
+
+
 func get_ready():
+	color_rect.custom_minimum_size.x = main_label.size.x + 20
 	clear_quest_lists()
 	clear_quest_updates()
 	_on_back_button_pressed()

@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctlkfnmoybcqk"]
+
+[ext_resource type="Texture2D" uid="uid://dj3e5dl8v71ow" path="res://assets/textures/move_icons/sword_icon_temp.png" id="1_0j5bm"]
+[ext_resource type="Theme" uid="uid://ckegye7rc3uxy" path="res://game/resources/locked_move_button.tres" id="1_m6fkp"]
+[ext_resource type="Script" path="res://game/scenes/move_button.gd" id="3_xo18u"]
+
+[node name="MoveButton" type="Button"]
+custom_minimum_size = Vector2(60, 60)
+offset_right = 60.0
+offset_bottom = 60.0
+theme = ExtResource("1_m6fkp")
+icon = ExtResource("1_0j5bm")
+icon_alignment = 1
+script = ExtResource("3_xo18u")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

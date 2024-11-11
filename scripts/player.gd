@@ -9,7 +9,7 @@ var texting_saving = "Deafult Value"
 @onready var visuals = $visuals
 @onready var dialogue_box = $"../../DialogueBox"
 @onready var navigation_agent_3d = $NavigationAgent3D
-@onready var player_cam = $camera_mount/PlayerCam
+@onready var player_cam = $PlayerCam
 @onready var follower_positions = $FollowerPositions
 @onready var collision_shape_3d = $CollisionShape3D
 
@@ -19,7 +19,8 @@ var texting_saving = "Deafult Value"
 @onready var view_three = $FollowerPositions/Third/ViewThree
 @onready var follower_position_three = $FollowerPositions/Third/FollowerPositionThree
 
-
+#Weapons
+@onready var back_container = $visuals/hero/Armature/Skeleton3D/BackBone/BackContainer
 
 
 var SPEED = 2.5
@@ -104,5 +105,14 @@ func _on_follower_position_two_body_entered(body):
 		body.arrived()
 
 func _on_follower_position_three_body_entered(body):
+	if body is Follower:
+		body.arrived()
+
+#func _on_area_3d_body_exited(body):
+	#print('DEBUG: ', body, ' has entered the area.')
+	#if body is Follower:
+		#body.arrived()
+
+func _on_personal_space_body_entered(body):
 	if body is Follower:
 		body.arrived()

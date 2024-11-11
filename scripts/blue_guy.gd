@@ -28,13 +28,14 @@ var is_looking: bool = false
 
 func _process(_delta):
 	if is_moving:
-		animation_player.play("running")
+		animation_player.play("run")
 		match FollowerNumber:
 			0:
 				destination = target.follower_position_one.global_position
 				update_target_position(destination)
 			1:
-				destination = target.follower_position_two.global_position
+				destination = target.global_position
+				#destination = target.follower_position_two.global_position
 				update_target_position(destination)
 			2:
 				destination = target.follower_position_three.global_position

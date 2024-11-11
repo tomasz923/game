@@ -32,6 +32,8 @@ var collider = null #The object which wich the Player's 3DRayCast is colliding s
 var talker = null #The object that the Player is talking to.
 var dice_box = null #Path to the dice box in a local scene. Should be established at the ready.
 var pop_up = null #Path to the notification node in a local scene. Should be established at the ready.
+var moves_menu = null #Path to the moves node in a local scene. Should be established at the ready.
+var just_finished_talking: bool = false
 
 #Cameras for Dialogue
 var main_cam = null
@@ -41,8 +43,37 @@ var dice_rolls_data: Dictionary
 var journal_entries_data: Dictionary
 
 #Gameplay modes
-var journal_mode: bool = false
+var current_ui_mode: String = "none"
 var pausable: bool = true
+
+#Inventory
+var inventory: Array = []
+
+#Team Data
+var team_var: Dictionary = {
+	"current_comp": ['wren', 'you', 'jeff', 'casy'],
+	"wren_character_sheet": {
+		"second_bar_type": null,
+		"ability_scores": [2, 1, 1, 0, 0, -1],
+		"bonds": []
+		},
+	"you_character_sheet": {
+		"second_bar_type": null,
+		"ability_scores": [3, 1, 1, 0, -1, -1],
+		"bonds": []
+		},
+	"jeff_character_sheet": {
+		"second_bar_type": null,
+		"ability_scores": [3, 1, 1, 0, -1, -1],
+		"bonds": []
+		},
+	"casy_character_sheet": {
+		"second_bar_type": 'cs_memory_slots_label',
+		"ability_scores": [3, 1, 1, 0, -1, -1],
+		"bonds": []
+		}
+	}
+
 
 #Variables for Player's choices
 var state_var_dialogue: Dictionary = { #Variables for Player's choices

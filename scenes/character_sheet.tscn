@@ -1,0 +1,824 @@
+[gd_scene load_steps=13 format=3 uid="uid://c3qdy0gtu161l"]
+
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_n2krt"]
+[ext_resource type="Script" path="res://game/scenes/character_sheet.gd" id="1_nbu2b"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_kr864"]
+[ext_resource type="LabelSettings" uid="uid://txax5awra7th" path="res://game/resources/cs_info.tres" id="4_5ggi7"]
+[ext_resource type="LabelSettings" uid="uid://bdlyarf5s7c0o" path="res://game/resources/progress_bar_numbers.tres" id="5_t5fug"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_5onkd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6b8mo"]
+shader = ExtResource("1_n2krt")
+shader_parameter/blur = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q7q6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0j1k"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhrtk"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4rpl"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pxsfe"]
+font = ExtResource("2_kr864")
+font_size = 24
+
+[node name="CharacterSheet" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_nbu2b")
+metadata/_edit_vertical_guides_ = [665.0, 685.0]
+metadata/_edit_horizontal_guides_ = [170.0, 185.0]
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6b8mo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlack" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="BlackBox" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -295.0
+offset_top = -370.0
+offset_right = 295.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Stats" type="Control" parent="BlackBox"]
+anchors_preset = 0
+offset_left = 45.0
+offset_top = 110.0
+offset_right = 545.0
+offset_bottom = 730.0
+
+[node name="StatsContainer" type="VBoxContainer" parent="BlackBox/Stats"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VitalsContainer" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer"]
+custom_minimum_size = Vector2(0, 144)
+layout_mode = 2
+
+[node name="Divider" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Stats/StatsContainer/VitalsContainer/Divider"]
+custom_minimum_size = Vector2(500, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelContainer" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackColorRect" type="ColorRect" parent="BlackBox/Stats/StatsContainer/VitalsContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -15.0
+offset_right = 115.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -11.5
+offset_right = 66.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+text = "cs_gen_info_label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LevelContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LevelLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/LevelContainer"]
+layout_mode = 2
+text = "cs_level_label"
+label_settings = ExtResource("4_5ggi7")
+vertical_alignment = 1
+
+[node name="CharacterLevelLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/LevelContainer"]
+layout_mode = 2
+text = "1
+"
+label_settings = ExtResource("4_5ggi7")
+
+[node name="ClassContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="ClassLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/ClassContainer"]
+layout_mode = 2
+text = "cs_class_label"
+label_settings = ExtResource("4_5ggi7")
+vertical_alignment = 1
+
+[node name="CharacterClassLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/ClassContainer"]
+layout_mode = 2
+text = "Ranger"
+label_settings = ExtResource("4_5ggi7")
+
+[node name="XPContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="XPLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer"]
+layout_mode = 2
+text = "cs_xp_label"
+label_settings = ExtResource("4_5ggi7")
+
+[node name="Bar" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer"]
+layout_mode = 2
+
+[node name="Numbers" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="XPBar" type="ProgressBar" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer/Bar/Numbers"]
+layout_mode = 2
+offset_right = 74.0
+offset_bottom = 15.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_3q7q6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a0j1k")
+max_value = 15.0
+step = 1.0
+value = 12.0
+show_percentage = false
+
+[node name="XPNumbersContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer/Bar/Numbers/XPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="CurrentXPLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer/Bar/Numbers/XPBar/XPNumbersContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "15
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="SlashXPLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer/Bar/Numbers/XPBar/XPNumbersContainer"]
+layout_mode = 2
+text = "/
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="MaxXPLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/XPContainer/Bar/Numbers/XPBar/XPNumbersContainer"]
+layout_mode = 2
+text = "15
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="HealthContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="HealthLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer"]
+layout_mode = 2
+text = "cs_energy_label"
+label_settings = ExtResource("4_5ggi7")
+
+[node name="Bar" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer"]
+layout_mode = 2
+
+[node name="Numbers" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer/Bar/Numbers"]
+layout_mode = 2
+offset_right = 74.0
+offset_bottom = 15.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_3q7q6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a0j1k")
+max_value = 15.0
+step = 1.0
+value = 12.0
+show_percentage = false
+
+[node name="HealthNumbersContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer/Bar/Numbers/HealthBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="CurrentHealthLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer/Bar/Numbers/HealthBar/HealthNumbersContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "15
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="SlashHealthLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer/Bar/Numbers/HealthBar/HealthNumbersContainer"]
+layout_mode = 2
+text = "/
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="MaxHealthLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/HealthContainer/Bar/Numbers/HealthBar/HealthNumbersContainer"]
+layout_mode = 2
+text = "15
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="SpecialSlotsContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="SpecialSlotLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer"]
+layout_mode = 2
+text = "cs_proc_u_label"
+label_settings = ExtResource("4_5ggi7")
+
+[node name="Bar" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer"]
+layout_mode = 2
+
+[node name="Numbers" type="Control" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer/Bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpecialSlotsBar" type="ProgressBar" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer/Bar/Numbers"]
+custom_minimum_size = Vector2(10, 15)
+layout_mode = 2
+offset_right = 66.0
+offset_bottom = 15.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_3q7q6")
+theme_override_styles/fill = SubResource("StyleBoxFlat_a0j1k")
+max_value = 15.0
+step = 1.0
+value = 12.0
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer/Bar/Numbers/SpecialSlotsBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -13.5
+offset_right = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="CurrentSpecialSlotsLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer/Bar/Numbers/SpecialSlotsBar/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "15
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="SlashSpecialSlotsLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer/Bar/Numbers/SpecialSlotsBar/HBoxContainer"]
+layout_mode = 2
+text = "/
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="MaxSpecialSlotsLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/SpecialSlotsContainer/Bar/Numbers/SpecialSlotsBar/HBoxContainer"]
+layout_mode = 2
+text = "15
+"
+label_settings = ExtResource("5_t5fug")
+
+[node name="AbilitiesContainer" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer"]
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+
+[node name="Divider" type="Control" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/Divider"]
+custom_minimum_size = Vector2(500, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -20.5
+offset_right = 106.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nhrtk")
+disabled = true
+
+[node name="LabelContainer" type="Control" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -14.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackColorRect" type="ColorRect" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -15.0
+offset_right = 115.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -11.5
+offset_right = 66.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+text = "cs_abiilities_label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FirstRow" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Strength" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow"]
+layout_mode = 2
+
+[node name="StrengthBonus" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow/Strength"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+disabled = true
+text = "3"
+
+[node name="StrengthLabel" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow/Strength"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 20
+text = "cs_str_short"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Dexterity" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow"]
+layout_mode = 2
+
+[node name="DexterityBonus" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow/Dexterity"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+disabled = true
+text = "1"
+
+[node name="DexterityLabel" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow/Dexterity"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 20
+text = "cs_dex_short"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Constitution" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow"]
+layout_mode = 2
+
+[node name="ConstitutionBonus" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow/Constitution"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+disabled = true
+text = "3"
+
+[node name="ConstitutionLabel" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/FirstRow/Constitution"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 20
+text = "cs_con_short"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SecondRow" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 60
+alignment = 1
+
+[node name="Processing" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow"]
+layout_mode = 2
+
+[node name="ProcessingBonus" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Processing"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+disabled = true
+text = "3"
+
+[node name="ProcessingLabel" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Processing"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 20
+text = "cs_pro_short"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Memory" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow"]
+layout_mode = 2
+
+[node name="MemoryBonus" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Memory"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+disabled = true
+text = "1"
+
+[node name="MemoryLabel" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Memory"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 20
+text = "cs_mem_short"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Charisma" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow"]
+layout_mode = 2
+
+[node name="CharismaBonus" type="Button" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Charisma"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+disabled = true
+text = "3"
+
+[node name="CharismaLabel" type="Label" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Charisma"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 20
+text = "cs_cha_short"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BondsContainer" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Divider" type="Control" parent="BlackBox/Stats/StatsContainer/BondsContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Stats/StatsContainer/BondsContainer/Divider"]
+custom_minimum_size = Vector2(500, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelContainer" type="Control" parent="BlackBox/Stats/StatsContainer/BondsContainer/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -14.0
+offset_right = 20.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackColorRect" type="ColorRect" parent="BlackBox/Stats/StatsContainer/BondsContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -15.0
+offset_right = 115.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -19.0
+offset_right = 85.0
+offset_bottom = 19.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+text = "cs_bonds_label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BondsListed" type="VBoxContainer" parent="BlackBox/Stats/StatsContainer/BondsContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
+layout_mode = 2
+text = "1. This is a temporary bond."
+label_settings = SubResource("LabelSettings_pxsfe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
+layout_mode = 2
+text = "2. This is a temporary bond."
+label_settings = SubResource("LabelSettings_pxsfe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
+layout_mode = 2
+text = "3. This is a temporary bond."
+label_settings = SubResource("LabelSettings_pxsfe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
+layout_mode = 2
+text = "4. This is a temporary bond."
+label_settings = SubResource("LabelSettings_pxsfe")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="BlackBox/Stats/StatsContainer"]
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox"]
+custom_minimum_size = Vector2(590, 4)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -295.0
+offset_top = 100.0
+offset_right = 295.0
+offset_bottom = 104.0
+grow_horizontal = 2
+
+[node name="CharacterBar" type="Control" parent="BlackBox"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="CharacterButtonsContainer" type="HBoxContainer" parent="BlackBox/CharacterBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CharacterButton1" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "WREN"
+
+[node name="CharacterButton2" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "JEFF"
+
+[node name="CharacterButton3" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "CASY"
+
+[node name="CharacterButton4" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "YOU"
+
+[node name="MainLabelContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainLabelContainer"]
+layout_mode = 0
+offset_left = -255.0
+offset_top = -391.0
+offset_right = -35.0
+offset_bottom = -335.0
+
+[node name="MainLabel" type="Label" parent="MainLabelContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 32
+text = "cs_character_sheet_label"

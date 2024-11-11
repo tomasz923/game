@@ -12,10 +12,11 @@ func _physics_process(_delta):
 			if Global.collider is Interactable:
 				Global.collider.label.visible = false
 			Global.collider = collider
-		if collider is Interactable and !collider.is_talking:
+		if collider is Interactable and !collider.is_talking and !Global.just_finished_talking:
 			label.visible = true
 			collider.label.visible = true
-			if Input.is_action_just_pressed("interact") and collider.is_a_character and !collider.is_talking:
+			if Input.is_action_just_pressed("interact") and collider.is_a_character and !collider.is_talking and !Global.just_finished_talking:
+				Global.just_finished_talking = true
 				Global.talker = collider
 				Global.talker_cam = collider.talker_cam
 				Global.talker.label.visible = false
@@ -29,6 +30,7 @@ func _physics_process(_delta):
 		label.visible = false
 		if Global.collider is Interactable:
 			Global.collider.label.visible = false
+		Global.just_finished_talking = false
 
 func start_conversation(script_file, name_label):
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

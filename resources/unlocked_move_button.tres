@@ -1,0 +1,28 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://c385brxrt6tny"]
+
+[ext_resource type="Texture2D" uid="uid://c0w78wdbfvv27" path="res://assets/textures/move_icons/unlocked_move_pressed.png" id="1_mjr1v"]
+[ext_resource type="Texture2D" uid="uid://oync2txohi00" path="res://assets/textures/move_icons/unlocked_move_hover.png" id="2_15opg"]
+[ext_resource type="Texture2D" uid="uid://hmbx60hshxkd" path="res://assets/textures/move_icons/unlocked_move_normal.png" id="2_vktg8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ol3t7"]
+texture = ExtResource("1_mjr1v")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_li4r7"]
+texture = ExtResource("2_15opg")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iadak"]
+texture = ExtResource("2_vktg8")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_06r4v"]
+texture = ExtResource("1_mjr1v")
+
+[resource]
+Button/colors/icon_focus_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_color = Color(0, 0, 0, 1)
+Button/colors/icon_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/icon_normal_color = Color(0, 0, 0, 1)
+Button/colors/icon_pressed_color = Color(0, 0, 0, 1)
+Button/styles/focus = SubResource("StyleBoxTexture_ol3t7")
+Button/styles/hover = SubResource("StyleBoxTexture_li4r7")
+Button/styles/normal = SubResource("StyleBoxTexture_iadak")
+Button/styles/pressed = SubResource("StyleBoxTexture_06r4v")

@@ -1,0 +1,440 @@
+[gd_scene load_steps=7 format=3 uid="uid://c3qdy0gtu161l"]
+
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_n2krt"]
+[ext_resource type="Script" path="res://game/scripts/moves.gd" id="1_te3uo"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_kr864"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_5onkd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6b8mo"]
+shader = ExtResource("1_n2krt")
+shader_parameter/blur = 3.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhrtk"]
+bg_color = Color(0, 0, 0, 1)
+expand_margin_left = 10.0
+expand_margin_right = 10.0
+
+[node name="Moves" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_te3uo")
+metadata/_edit_horizontal_guides_ = [855.0, 345.0, 373.0, 170.0, 185.0]
+metadata/_edit_vertical_guides_ = [370.0, 410.0]
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6b8mo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlack" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="BlackBox" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -370.0
+offset_right = 590.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Moves" type="Control" parent="BlackBox"]
+anchors_preset = 0
+offset_left = 45.0
+offset_top = 110.0
+offset_right = 545.0
+offset_bottom = 730.0
+
+[node name="MovesContainer" type="VBoxContainer" parent="BlackBox/Moves"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 66.0
+offset_bottom = -46.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="BasicMoves" type="VBoxContainer" parent="BlackBox/Moves/MovesContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="Divider" type="Control" parent="BlackBox/Moves/MovesContainer/BasicMoves"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Moves/MovesContainer/BasicMoves/Divider"]
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelContainer" type="Control" parent="BlackBox/Moves/MovesContainer/BasicMoves/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackColorRect" type="ColorRect" parent="BlackBox/Moves/MovesContainer/BasicMoves/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -15.0
+offset_right = 115.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="BlackBox/Moves/MovesContainer/BasicMoves/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -11.5
+offset_right = 66.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+text = "BASIC MOVES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BasicMovesListed" type="HBoxContainer" parent="BlackBox/Moves/MovesContainer/BasicMoves"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StartingMoves" type="VBoxContainer" parent="BlackBox/Moves/MovesContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Divider" type="Control" parent="BlackBox/Moves/MovesContainer/StartingMoves"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Moves/MovesContainer/StartingMoves/Divider"]
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Button" parent="BlackBox/Moves/MovesContainer/StartingMoves/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -20.5
+offset_right = 106.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nhrtk")
+disabled = true
+text = "Abilities
+"
+
+[node name="AdvancedMoves" type="VBoxContainer" parent="BlackBox/Moves/MovesContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Divider" type="Control" parent="BlackBox/Moves/MovesContainer/AdvancedMoves"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Moves/MovesContainer/AdvancedMoves/Divider"]
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Button" parent="BlackBox/Moves/MovesContainer/AdvancedMoves/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -106.0
+offset_top = -20.5
+offset_right = 106.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+theme_override_styles/disabled = SubResource("StyleBoxFlat_nhrtk")
+disabled = true
+text = "Bonds
+"
+
+[node name="Description" type="Control" parent="BlackBox"]
+visible = false
+anchors_preset = 0
+offset_left = 635.0
+offset_top = 110.0
+offset_right = 1135.0
+offset_bottom = 730.0
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="BlackBox/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 66.0
+offset_bottom = -44.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Divider" type="Control" parent="BlackBox/Description/DescriptionContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Description/DescriptionContainer/Divider"]
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelContainer" type="Control" parent="BlackBox/Description/DescriptionContainer/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackColorRect" type="ColorRect" parent="BlackBox/Description/DescriptionContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -15.0
+offset_right = 115.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="MoveNameLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -11.5
+offset_right = 66.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 28
+text = "DESCRIPTION"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MoveDescriptionLabel" type="Label" parent="BlackBox/Description/DescriptionContainer"]
+custom_minimum_size = Vector2(500, 400)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_kr864")
+text = "When you closely study a situation or person, roll+Wis. 
+
+On a 10+, ask the GM 3 questions from the list below.
+ On a 7–9, ask 1.
+
+Either way, take +1 forward when acting on the answers."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox"]
+custom_minimum_size = Vector2(1180, 4)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -590.0
+offset_top = 100.0
+offset_right = 590.0
+offset_bottom = 104.0
+grow_horizontal = 2
+
+[node name="CharacterBar" type="Control" parent="BlackBox"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="CharacterButtonsContainer" type="HBoxContainer" parent="BlackBox/CharacterBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CharacterButton1" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "WREN"
+
+[node name="CharacterButton2" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "JEFF"
+
+[node name="CharacterButton3" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "CASY"
+
+[node name="CharacterButton4" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+text = "YOU"
+
+[node name="MainLabelContainer" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MainLabelContainer"]
+layout_mode = 0
+offset_left = -550.0
+offset_top = -411.0
+offset_right = -330.0
+offset_bottom = -355.0
+
+[node name="MainLabel" type="Label" parent="MainLabelContainer/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_kr864")
+theme_override_font_sizes/font_size = 32
+text = "mv_moves_label"
