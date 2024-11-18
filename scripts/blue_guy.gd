@@ -1,35 +1,70 @@
 extends CharacterBody3D
 class_name Follower
 
-enum Followers {
-	Wren,
-	Moss,
-	Jett,
-}
-
 enum FollowerOrder {
-	First,
-	Second,
-	Third,
+	FIRST,
+	SECOND,
+	THIRD,
 }
 
-#@export var spells: Array[SpellType] = []
-@export var FollowerNumber: FollowerOrder 
-@export var Name: Followers
+enum CharacterClass {
+	MONK, #0
+	CLERIC, #1
+	HACKER, #2
+	ROGUE, #3
+	TANK, #4
+	RANGER #5
+}
+
+enum SecondBar {
+	NONE, #0
+	MEMORY, #1
+	PROCESSING_CORES #2
+}
+
+
+
+@export_category("General")
+@export var follower_number: FollowerOrder 
+@export var follower_name: String 
+@export var second_bar_type: SecondBar
+@export var character_class: CharacterClass
+@export var basic_damage: int = 4
+@export var current_health: int = 10
+@export var bonds: Array = []
+
+@export_category("Equipment")
+@export var melee: InventoryItem = load("res://game/inventory_items/warhammer.tres")
+@export var ranged: InventoryItem
+@export var shield: InventoryItem
+@export var protection: InventoryItem
+
+@export_category("Attributes")
+@export var strength: int = 0
+@export var dexterity: int = 0
+@export var endurance: int = 0
+@export var processing: int = 0
+@export var memory: int = 0
+@export var charisma: int = 0
+
 @onready var navigation_agent_3d = $NavigationAgent3D
 @onready var animation_player = $visuals/AnimationPlayer
 
 var is_moving: bool = false
-var SPEED: float = 2.5
+var SPEED: float = 3.5
 var target: CharacterBody3D
 var destination: Vector3
 var is_looking: bool = false
+
+#WeaponContainers
+@onready var back_container = $visuals/Armature/Skeleton3D/BackBone/BackContainer
+@onready var hips_container = $visuals/Armature/Skeleton3D/HipsBone/HipsContainer
 
 
 func _process(_delta):
 	if is_moving:
 		animation_player.play("run")
-		match FollowerNumber:
+		match follower_number:
 			0:
 				destination = target.follower_position_one.global_position
 				update_target_position(destination)
@@ -99,7 +134,24 @@ func _on_area_3d_body_exited(body):
 
 func arrived():
 	is_moving = false
-	#rotation = target.rotation
+
+func change_equipment():
+	var new_weapon
+	lose_all_weapons()
+	if melee != null:
+		new_weapon = melee.model_scene.instantiate()
+		if melee.type == 0:
+			hips_container.add_child(new_weapon)
+		else:
+			back_container.add_child(new_weapon)
+
+func lose_all_weapons():
+	for n in hips_container.get_children():
+		hips_container.remove_child(n)
+		n.queue_free()
+	for n in back_container.get_children():
+		back_container.remove_child(n)
+		n.queue_free()
 ########################################################################################
 
 

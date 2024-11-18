@@ -5,12 +5,19 @@
 
 [resource]
 script = ExtResource("1_01guh")
-item_name = "maul_demo"
+item_name = "MAUL_DEMO"
 item_description = "darthi it, baby"
 type = 1
 weight = 0
 damage_bonus = 0
-puncture = 0
+piercing = 0
+ammo = 0
 value = 0
 can_be_sold = true
 model_scene = ExtResource("1_1hwdl")
+forceful = false
+ignores_protection = false
+messy = false
+precise = false
+relaod = false
+stun = false

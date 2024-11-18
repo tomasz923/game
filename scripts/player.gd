@@ -1,6 +1,42 @@
 extends CharacterBody3D
+class_name Hero
 
-var texting_saving = "Deafult Value"
+enum CharacterClass {
+	MONK, #0
+	CLERIC, #1
+	HACKER, #2
+	ROGUE, #3
+	TANK, #4
+	RANGER #5
+}
+
+enum SecondBar {
+	NONE, #0
+	MEMORY, #1
+	PROCESSING_CORES #2
+}
+
+@export_category("General")
+@export var second_bar_type: SecondBar
+@export var character_class: CharacterClass
+@export var basic_damage: int = 4
+@export var current_health: int = 10
+@export var bonds: Array = []
+
+@export_category("Equipment")
+@export var melee: InventoryItem
+@export var ranged: InventoryItem
+@export var shield: InventoryItem
+@export var protection: InventoryItem
+
+@export_category("Attributes")
+@export var strength: int = 0
+@export var dexterity: int = 0
+@export var endurance: int = 0
+@export var processing: int = 0
+@export var memory: int = 0
+@export var charisma: int = 0
+
 
 @onready var main_cam = $camera_mount/MainCam
 @onready var camera_mount =  $camera_mount
@@ -21,6 +57,7 @@ var texting_saving = "Deafult Value"
 
 #Weapons
 @onready var back_container = $visuals/hero/Armature/Skeleton3D/BackBone/BackContainer
+@onready var hips_container = $visuals/hero/Armature/Skeleton3D/HipsBone/HipsContainer
 
 
 var SPEED = 2.5
@@ -31,7 +68,6 @@ var user_prefs: UserPreferences
 const walking_speed = 1.5
 const running_speed = 3.5
 const rotation_speed = 10
-
 
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -116,3 +152,18 @@ func _on_follower_position_three_body_entered(body):
 func _on_personal_space_body_entered(body):
 	if body is Follower:
 		body.arrived()
+
+func change_equipment():
+	var new_weapon
+	if melee != null:
+		for n in hips_container.get_children():
+			hips_container.remove_child(n)
+			n.queue_free()
+		for n in back_container.get_children():
+			back_container.remove_child(n)
+			n.queue_free()
+		new_weapon = melee.model_scene.instantiate()
+		if melee.type == 0:
+			hips_container.add_child(new_weapon)
+		else:
+			back_container.add_child(new_weapon)

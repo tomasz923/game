@@ -33,7 +33,9 @@ var talker = null #The object that the Player is talking to.
 var dice_box = null #Path to the dice box in a local scene. Should be established at the ready.
 var pop_up = null #Path to the notification node in a local scene. Should be established at the ready.
 var moves_menu = null #Path to the moves node in a local scene. Should be established at the ready.
+var inventory = null
 var just_finished_talking: bool = false
+
 
 #Cameras for Dialogue
 var main_cam = null
@@ -46,23 +48,32 @@ var journal_entries_data: Dictionary
 var current_ui_mode: String = "none"
 var pausable: bool = true
 
-#Inventory
-var inventory: Array = []
+#Local Team 
+var hero_character
+var first_character
+var second_character
+var third_character
 
 #Team Data
 var team_var: Dictionary = {
-	"current_comp": ['wren', 'you', 'jeff', 'casy'],
+	"current_comp": ['wren', 'jett', 'casy'],
 	"wren_character_sheet": {
 		"second_bar_type": null,
 		"ability_scores": [2, 1, 1, 0, 0, -1],
-		"bonds": []
+		"bonds": [],
+		"eq": {
+			"melee": null,
+			"distant": null,
+			"shield": null,
+			"protection": null
+		}
 		},
 	"you_character_sheet": {
 		"second_bar_type": null,
 		"ability_scores": [3, 1, 1, 0, -1, -1],
 		"bonds": []
 		},
-	"jeff_character_sheet": {
+	"jett_character_sheet": {
 		"second_bar_type": null,
 		"ability_scores": [3, 1, 1, 0, -1, -1],
 		"bonds": []

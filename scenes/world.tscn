@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=31 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -15,7 +15,9 @@
 [ext_resource type="PackedScene" uid="uid://daq3k7jcwjrxa" path="res://game/scenes/journal.tscn" id="13_fpjo5"]
 [ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/blue_guy.tscn" id="14_t2ro3"]
+[ext_resource type="PackedScene" uid="uid://cpodaffdvrac8" path="res://game/scenes/inventory.tscn" id="15_cy5ol"]
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
+[ext_resource type="PackedScene" uid="uid://fs2uoc0e4bts" path="res://game/scenes/character_sheet.tscn" id="16_gnj8n"]
 [ext_resource type="PackedScene" uid="uid://c3qdy0gtu161l" path="res://game/scenes/moves.tscn" id="17_w7sj6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
@@ -152,7 +154,10 @@ offset_bottom = -20.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="CharacterSheet" parent="." instance=ExtResource("17_w7sj6")]
+[node name="Inventory" parent="." instance=ExtResource("15_cy5ol")]
+visible = false
+
+[node name="CharacterSheet" parent="." instance=ExtResource("16_gnj8n")]
 visible = false
 
 [node name="Moves" parent="." instance=ExtResource("17_w7sj6")]
@@ -165,16 +170,22 @@ visible = false
 [node name="blue_guy" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
 collision_layer = 18
+follower_name = "WREN"
+basic_damage = 6
 
 [node name="blue_guy2" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
 collision_layer = 34
-FollowerNumber = 1
+follower_number = 1
+follower_name = "CASY"
+basic_damage = 8
 
 [node name="blue_guy3" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
 collision_layer = 66
-FollowerNumber = 2
+follower_number = 2
+follower_name = "JETT"
+basic_damage = 10
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.510706, 2.7027, -5.65491)

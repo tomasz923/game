@@ -1,30 +1,30 @@
-[gd_scene load_steps=13 format=3 uid="uid://c3qdy0gtu161l"]
+[gd_scene load_steps=13 format=3 uid="uid://fs2uoc0e4bts"]
 
+[ext_resource type="Script" path="res://game/scripts/CharacterSheet.gd" id="1_f6fyq"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_n2krt"]
-[ext_resource type="Script" path="res://game/scenes/character_sheet.gd" id="1_nbu2b"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_kr864"]
 [ext_resource type="LabelSettings" uid="uid://txax5awra7th" path="res://game/resources/cs_info.tres" id="4_5ggi7"]
 [ext_resource type="LabelSettings" uid="uid://bdlyarf5s7c0o" path="res://game/resources/progress_bar_numbers.tres" id="5_t5fug"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="6_5onkd"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6b8mo"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_di73d"]
 shader = ExtResource("1_n2krt")
 shader_parameter/blur = 3.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q7q6"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tfb8e"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a0j1k"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lxs8l"]
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nhrtk"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_li6m5"]
 bg_color = Color(0, 0, 0, 1)
 expand_margin_left = 10.0
 expand_margin_right = 10.0
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a4rpl"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kp14j"]
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_pxsfe"]
+[sub_resource type="LabelSettings" id="LabelSettings_xl5hj"]
 font = ExtResource("2_kr864")
 font_size = 24
 
@@ -35,12 +35,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_nbu2b")
-metadata/_edit_vertical_guides_ = [665.0, 685.0]
-metadata/_edit_horizontal_guides_ = [170.0, 185.0]
+script = ExtResource("1_f6fyq")
 
 [node name="Shader" type="ColorRect" parent="."]
-material = SubResource("ShaderMaterial_6b8mo")
+material = SubResource("ShaderMaterial_di73d")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -174,6 +172,22 @@ text = "1
 "
 label_settings = ExtResource("4_5ggi7")
 
+[node name="DamageContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="DamageLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/DamageContainer"]
+layout_mode = 2
+text = "cs_damage_label"
+label_settings = ExtResource("4_5ggi7")
+vertical_alignment = 1
+
+[node name="CharacterDamageLabel" type="Label" parent="BlackBox/Stats/StatsContainer/VitalsContainer/DamageContainer"]
+layout_mode = 2
+text = "1d6
+"
+label_settings = ExtResource("4_5ggi7")
+
 [node name="ClassContainer" type="HBoxContainer" parent="BlackBox/Stats/StatsContainer/VitalsContainer"]
 layout_mode = 2
 theme_override_constants/separation = 15
@@ -222,8 +236,8 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_kr864")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/background = SubResource("StyleBoxFlat_3q7q6")
-theme_override_styles/fill = SubResource("StyleBoxFlat_a0j1k")
+theme_override_styles/background = SubResource("StyleBoxFlat_tfb8e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lxs8l")
 max_value = 15.0
 step = 1.0
 value = 12.0
@@ -290,8 +304,8 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_kr864")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/background = SubResource("StyleBoxFlat_3q7q6")
-theme_override_styles/fill = SubResource("StyleBoxFlat_a0j1k")
+theme_override_styles/background = SubResource("StyleBoxFlat_tfb8e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lxs8l")
 max_value = 15.0
 step = 1.0
 value = 12.0
@@ -359,8 +373,8 @@ size_flags_vertical = 4
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_kr864")
 theme_override_font_sizes/font_size = 24
-theme_override_styles/background = SubResource("StyleBoxFlat_3q7q6")
-theme_override_styles/fill = SubResource("StyleBoxFlat_a0j1k")
+theme_override_styles/background = SubResource("StyleBoxFlat_tfb8e")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lxs8l")
 max_value = 15.0
 step = 1.0
 value = 12.0
@@ -436,7 +450,7 @@ theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("2_kr864")
 theme_override_font_sizes/font_size = 28
-theme_override_styles/disabled = SubResource("StyleBoxFlat_nhrtk")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_li6m5")
 disabled = true
 
 [node name="LabelContainer" type="Control" parent="BlackBox/Stats/StatsContainer/AbilitiesContainer/Divider"]
@@ -500,7 +514,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kp14j")
 disabled = true
 text = "3"
 
@@ -520,7 +534,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kp14j")
 disabled = true
 text = "1"
 
@@ -540,7 +554,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kp14j")
 disabled = true
 text = "3"
 
@@ -565,7 +579,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kp14j")
 disabled = true
 text = "3"
 
@@ -585,7 +599,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kp14j")
 disabled = true
 text = "1"
 
@@ -605,7 +619,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 32
-theme_override_styles/disabled = SubResource("StyleBoxFlat_a4rpl")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_kp14j")
 disabled = true
 text = "3"
 
@@ -694,28 +708,28 @@ layout_mode = 2
 [node name="Label" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
 layout_mode = 2
 text = "1. This is a temporary bond."
-label_settings = SubResource("LabelSettings_pxsfe")
+label_settings = SubResource("LabelSettings_xl5hj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label2" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
 layout_mode = 2
 text = "2. This is a temporary bond."
-label_settings = SubResource("LabelSettings_pxsfe")
+label_settings = SubResource("LabelSettings_xl5hj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label3" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
 layout_mode = 2
 text = "3. This is a temporary bond."
-label_settings = SubResource("LabelSettings_pxsfe")
+label_settings = SubResource("LabelSettings_xl5hj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Label4" type="Label" parent="BlackBox/Stats/StatsContainer/BondsContainer/BondsListed"]
 layout_mode = 2
 text = "4. This is a temporary bond."
-label_settings = SubResource("LabelSettings_pxsfe")
+label_settings = SubResource("LabelSettings_xl5hj")
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -749,8 +763,18 @@ anchor_bottom = 1.0
 offset_top = 15.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 50
 alignment = 1
+
+[node name="HeroButton" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_5onkd")
+theme_override_font_sizes/font_size = 24
+toggle_mode = true
+button_pressed = true
+text = "YOU"
 
 [node name="CharacterButton1" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
 layout_mode = 2
@@ -758,7 +782,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("6_5onkd")
 theme_override_font_sizes/font_size = 24
-text = "WREN"
+toggle_mode = true
+text = "XXX"
 
 [node name="CharacterButton2" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
 layout_mode = 2
@@ -766,7 +791,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("6_5onkd")
 theme_override_font_sizes/font_size = 24
-text = "JEFF"
+toggle_mode = true
+text = "YYY"
 
 [node name="CharacterButton3" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
 layout_mode = 2
@@ -774,15 +800,8 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("6_5onkd")
 theme_override_font_sizes/font_size = 24
-text = "CASY"
-
-[node name="CharacterButton4" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("6_5onkd")
-theme_override_font_sizes/font_size = 24
-text = "YOU"
+toggle_mode = true
+text = "ZZZ"
 
 [node name="MainLabelContainer" type="Control" parent="."]
 layout_mode = 1
@@ -822,3 +841,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_kr864")
 theme_override_font_sizes/font_size = 32
 text = "cs_character_sheet_label"
+
+[connection signal="pressed" from="BlackBox/CharacterBar/CharacterButtonsContainer/HeroButton" to="." method="_on_hero_button_pressed"]
+[connection signal="pressed" from="BlackBox/CharacterBar/CharacterButtonsContainer/CharacterButton1" to="." method="_on_character_button_1_pressed"]
+[connection signal="pressed" from="BlackBox/CharacterBar/CharacterButtonsContainer/CharacterButton2" to="." method="_on_character_button_2_pressed"]
+[connection signal="pressed" from="BlackBox/CharacterBar/CharacterButtonsContainer/CharacterButton3" to="." method="_on_character_button_3_pressed"]

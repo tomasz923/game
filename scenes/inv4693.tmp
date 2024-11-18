@@ -1,0 +1,404 @@
+[gd_scene load_steps=9 format=3 uid="uid://cpodaffdvrac8"]
+
+[ext_resource type="Script" path="res://game/scripts/Inventory.gd" id="1_pcm05"]
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="2_y1wt2"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="3_qo5sd"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="4_7omk8"]
+[ext_resource type="LabelSettings" uid="uid://wsb2cp1ta44k" path="res://game/resources/inv_label_settings.tres" id="4_cdt8d"]
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="4_qyyqx"]
+[ext_resource type="Texture2D" uid="uid://ca081xgym58hx" path="res://assets/textures/item_icons/1h_weapon.png" id="6_b817e"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mot02"]
+shader = ExtResource("2_y1wt2")
+shader_parameter/blur = 3.0
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pcm05")
+metadata/_edit_vertical_guides_ = [370.0, 410.0, 960.0]
+metadata/_edit_horizontal_guides_ = [170.0, 185.0, 785.0, 274.0, 304.0, 910.0, 880.0, 850.0, 819.0]
+
+[node name="Shader" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_mot02")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BackgroundBlack" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="BlackBox" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -590.0
+offset_top = -370.0
+offset_right = 590.0
+offset_bottom = 370.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ItemsContainer" type="ScrollContainer" parent="BlackBox"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -549.0
+offset_top = -236.0
+offset_bottom = 248.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemsListed" type="VBoxContainer" parent="BlackBox/ItemsContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="Button" type="Button" parent="BlackBox/ItemsContainer/ItemsListed"]
+layout_mode = 2
+text = "defdfw"
+
+[node name="Description" type="Control" parent="BlackBox"]
+anchors_preset = 0
+offset_left = 635.0
+offset_top = 103.0
+offset_right = 1135.0
+offset_bottom = 730.0
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="BlackBox/Description"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -2.0
+offset_top = 18.0
+offset_right = 2.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 200
+
+[node name="Divider" type="Control" parent="BlackBox/Description/DescriptionContainer"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox/Description/DescriptionContainer/Divider"]
+visible = false
+custom_minimum_size = Vector2(400, 4)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -2.0
+offset_right = 200.0
+offset_bottom = 2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="LabelContainer" type="Control" parent="BlackBox/Description/DescriptionContainer/Divider"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -15.0
+offset_right = 20.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackColorRect" type="ColorRect" parent="BlackBox/Description/DescriptionContainer/Divider/LabelContainer"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -115.0
+offset_top = -15.0
+offset_right = 115.0
+offset_bottom = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="ItemNameLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/Divider/LabelContainer"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.483
+anchor_right = 0.512
+anchor_bottom = 0.5
+offset_left = -66.0
+offset_top = -17.49
+offset_right = 66.52
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("3_qo5sd")
+theme_override_font_sizes/font_size = 28
+text = "MAUL"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ActualDescriptionContainer" type="VBoxContainer" parent="BlackBox/Description/DescriptionContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer"]
+layout_mode = 2
+
+[node name="LabelsContainer" type="VBoxContainer" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="EmptyLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/LabelsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="EmptyLabel2" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/LabelsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="FirstLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/LabelsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "inv_extra_damage_label"
+label_settings = ExtResource("4_cdt8d")
+
+[node name="SecondLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/LabelsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "inv_puncture_label"
+label_settings = ExtResource("4_cdt8d")
+
+[node name="ThirdLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/LabelsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "inv_other_label"
+label_settings = ExtResource("4_cdt8d")
+
+[node name="FourthLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/LabelsContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "inv_other_label"
+label_settings = ExtResource("4_cdt8d")
+
+[node name="ValuesContainer" type="VBoxContainer" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="EmptyLabel" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/ValuesContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="EmptyLabel2" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/ValuesContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+
+[node name="FirstValue" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/ValuesContainer"]
+layout_mode = 2
+text = "+1"
+label_settings = ExtResource("4_cdt8d")
+horizontal_alignment = 2
+
+[node name="SecondValue" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/ValuesContainer"]
+layout_mode = 2
+text = "3"
+label_settings = ExtResource("4_cdt8d")
+horizontal_alignment = 2
+
+[node name="ThirdValue" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/ValuesContainer"]
+layout_mode = 2
+text = "None"
+label_settings = ExtResource("4_cdt8d")
+horizontal_alignment = 2
+
+[node name="FourthValue" type="Label" parent="BlackBox/Description/DescriptionContainer/ActualDescriptionContainer/HBoxContainer/ValuesContainer"]
+visible = false
+layout_mode = 2
+text = "12"
+label_settings = ExtResource("4_cdt8d")
+horizontal_alignment = 2
+
+[node name="ExtraDescription" type="Label" parent="BlackBox/Description"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -252.0
+offset_top = -199.0
+offset_right = 252.0
+offset_bottom = -115.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "dhfjkdshfjkdshjkfhdshfjsdhf dsfksdhf dshf fdsjhf dsdsjkf jkdshf ds f  dfdsf kdjshfd sfhdjshf jsh fjdsf  fjdhfjdsf dshf dsf dshfj dsfh sha hf dh hds hjh fkjhds hf"
+horizontal_alignment = 3
+autowrap_mode = 2
+
+[node name="Button" type="Control" parent="BlackBox/Description"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -45.0
+offset_top = -111.0
+offset_right = 45.0
+offset_bottom = -21.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Button" type="Button" parent="BlackBox/Description/Button"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -68.5
+offset_top = -15.5
+offset_right = 68.5
+offset_bottom = 15.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_qyyqx")
+toggle_mode = true
+text = "inv_equp_button"
+
+[node name="TextureRect" type="TextureRect" parent="BlackBox/Description"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = -240.0
+offset_right = 118.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_b817e")
+expand_mode = 1
+
+[node name="WhiteBar" type="ColorRect" parent="BlackBox"]
+custom_minimum_size = Vector2(1180, 4)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -590.0
+offset_top = 100.0
+offset_right = 590.0
+offset_bottom = 104.0
+grow_horizontal = 2
+
+[node name="CharacterBar" type="Control" parent="BlackBox"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+
+[node name="CharacterButtonsContainer" type="HBoxContainer" parent="BlackBox/CharacterBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="CharacterButton1" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_7omk8")
+theme_override_font_sizes/font_size = 24
+text = "WREN"
+
+[node name="CharacterButton2" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_7omk8")
+theme_override_font_sizes/font_size = 24
+text = "JEFF"
+
+[node name="CharacterButton3" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_7omk8")
+theme_override_font_sizes/font_size = 24
+text = "CASY"
+
+[node name="CharacterButton4" type="Button" parent="BlackBox/CharacterBar/CharacterButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_7omk8")
+theme_override_font_sizes/font_size = 24
+text = "YOU"
+
+[node name="ColorRect" type="ColorRect" parent="BlackBox"]
+layout_mode = 0
+offset_left = 40.0
+offset_top = -41.0
+offset_right = 260.0
+offset_bottom = 15.0
+
+[node name="MainLabel" type="Label" parent="BlackBox/ColorRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_qo5sd")
+theme_override_font_sizes/font_size = 32
+text = "inv_main_label"

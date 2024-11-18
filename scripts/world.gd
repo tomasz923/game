@@ -8,13 +8,20 @@ extends Node3D
 @onready var blue_guy = $blue_guy
 @onready var moves = $Moves
 @onready var debug_lbael = $DEBUG/DebugLbael
+@onready var inventory = $Inventory
 
 func _ready():
 	Global.current_scene = "res://game/scenes/world.tscn"
 	Global.moves_menu = $Moves
 	Global.dialogue_box = $DialogueBox
 	Global.dice_box = $DiceBox
+	Global.inventory = $Inventory
 	Global.pop_up = $Notification
+	#Assigning characters
+	Global.hero_character = $map/player
+	Global.first_character = $blue_guy
+	Global.second_character = $blue_guy2
+	Global.third_character = $blue_guy3
 	#Setting Cams
 	Global.allow_movement = true
 	Global.collider = null
@@ -56,6 +63,11 @@ func _input(_event):
 			Global.current_ui_mode = "none"
 		elif Input.is_action_just_pressed("ui_cancel") and Global.current_ui_mode == "moves":
 			moves.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			get_tree().paused = false
+			Global.current_ui_mode = "none"
+		elif Input.is_action_just_pressed("ui_cancel") and Global.current_ui_mode == "inventory":
+			inventory.visible = false
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 			get_tree().paused = false
 			Global.current_ui_mode = "none"
@@ -112,6 +124,22 @@ func _input(_event):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		else:
 			pass
+			
+	
+	if Input.is_action_just_pressed("inventory") and Global.pausable:
+		if Global.current_ui_mode == "none":  # Check if not already paused
+			Global.current_ui_mode = "inventory"
+			get_tree().paused = true
+			inventory.visible = true
+			inventory.get_ready()
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		elif Global.current_ui_mode == "inventory":
+			Global.current_ui_mode = "none"
+			get_tree().paused = false
+			inventory.visible = false
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		else:
+			pass
 	
 func loading_game_locally():
 	get_tree().paused = false
@@ -138,14 +166,14 @@ func check_distance():
 		var min_dist = min(bg3_ps1_dist, bg3_ps3_dist, bg1_ps1_dist, bg1_ps3_dist)
 		
 		if bg3_ps1_dist == min_dist:
-			blue_guy_3.FollowerNumber = 0
-			blue_guy.FollowerNumber = 2
+			blue_guy_3.follower_number = 0
+			blue_guy.follower_number = 2
 		elif bg3_ps3_dist == min_dist:
-			blue_guy_3.FollowerNumber = 2
-			blue_guy.FollowerNumber = 0
+			blue_guy_3.follower_number = 2
+			blue_guy.follower_number = 0
 		elif bg1_ps1_dist == min_dist:
-			blue_guy_3.FollowerNumber = 2
-			blue_guy.FollowerNumber = 0
+			blue_guy_3.follower_number = 2
+			blue_guy.follower_number = 0
 		else:
-			blue_guy_3.FollowerNumber = 0
-			blue_guy.FollowerNumber = 2		
+			blue_guy_3.follower_number = 0
+			blue_guy.follower_number = 2
