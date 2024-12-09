@@ -17,17 +17,22 @@ enum SecondBar {
 }
 
 @export_category("General")
+@export var follower_name: String = 'HERO'
 @export var second_bar_type: SecondBar
 @export var character_class: CharacterClass
-@export var basic_damage: int = 4
+@export_range(4, 20, 2) var basic_damage: int = 4
 @export var current_health: int = 10
-@export var bonds: Array = []
+@export var protection: int = 0
+@export var max_health: int 
+#@export var bonds: Array[Resource] = []
+@export var status_effects: Array[Resource] = []
+@export var moves: Array[Resource] = []
 
 @export_category("Equipment")
 @export var melee: InventoryItem
 @export var ranged: InventoryItem
 @export var shield: InventoryItem
-@export var protection: InventoryItem
+@export var spray: InventoryItem
 
 @export_category("Attributes")
 @export var strength: int = 0
@@ -37,11 +42,10 @@ enum SecondBar {
 @export var memory: int = 0
 @export var charisma: int = 0
 
-
+@onready var model = $visuals/Model
 @onready var main_cam = $camera_mount/MainCam
 @onready var camera_mount =  $camera_mount
-#@onready var animation_player = $visuals/mixamo_base/AnimationPlayer
-@onready var animation_player = $visuals/hero/AnimationPlayer
+@onready var animation_player = model.animation_player
 @onready var visuals = $visuals
 @onready var dialogue_box = $"../../DialogueBox"
 @onready var navigation_agent_3d = $NavigationAgent3D
@@ -55,10 +59,9 @@ enum SecondBar {
 @onready var view_three = $FollowerPositions/Third/ViewThree
 @onready var follower_position_three = $FollowerPositions/Third/FollowerPositionThree
 
-#Weapons
-@onready var back_container = $visuals/hero/Armature/Skeleton3D/BackBone/BackContainer
-@onready var hips_container = $visuals/hero/Armature/Skeleton3D/HipsBone/HipsContainer
-
+#Hexagon
+@onready var hexagon_animation_player = $AnimationPlayer
+@onready var hexagon = $Hexagon
 
 var SPEED = 2.5
 @onready var isRunning = true
@@ -75,6 +78,8 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 func _ready():
 	user_prefs = UserPreferences.load_or_create()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	get_max_health()
+	get_protection()
 	
 func _input(event):
 	#if Input.is_action_just_pressed("ui_cancel"):
@@ -85,6 +90,22 @@ func _input(event):
 		visuals.rotate_y(deg_to_rad(event.relative.x*user_prefs.mouse_sensitivity))
 		follower_positions.rotate_y(deg_to_rad(event.relative.x*user_prefs.mouse_sensitivity))
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y*user_prefs.mouse_sensitivity))
+
+func get_max_health():
+	match endurance:
+		-1:
+			max_health = 14
+		0:
+			max_health = 19
+		1:
+			max_health = 23
+		2:
+			max_health = 26
+		3:
+			max_health = 28
+
+func get_protection():
+	protection = 2
 
 func _physics_process(delta):
 	Global.player_position = global_position
@@ -156,14 +177,32 @@ func _on_personal_space_body_entered(body):
 func change_equipment():
 	var new_weapon
 	if melee != null:
-		for n in hips_container.get_children():
-			hips_container.remove_child(n)
+		for n in model.hips_container.get_children():
+			model.hips_container.remove_child(n)
 			n.queue_free()
-		for n in back_container.get_children():
-			back_container.remove_child(n)
+		for n in model.back_container.get_children():
+			model.back_container.remove_child(n)
 			n.queue_free()
 		new_weapon = melee.model_scene.instantiate()
 		if melee.type == 0:
-			hips_container.add_child(new_weapon)
+			model.hips_container.add_child(new_weapon)
 		else:
-			back_container.add_child(new_weapon)
+			model.back_container.add_child(new_weapon)
+
+func arrived():
+	animation_player.play('idle')
+
+func get_in_combat():
+	if ranged == null:
+		model.hips_container.visible = false
+		match melee.type:
+			melee.ItemType.WEAPON_1H:
+				model.right_hand_container.visible = true
+				var equipped_weapon = melee.model_scene.instantiate()
+				for n in model.right_hand_container.get_children():
+					model.right_hand_container.remove_child(n)
+					n.queue_free()
+				model.right_hand_container.add_child(equipped_weapon)
+				model.animation_player.play("1h_idle")
+	else:
+		pass

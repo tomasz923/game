@@ -1,0 +1,136 @@
+[gd_scene load_steps=5 format=3 uid="uid://ctvucajwtawka"]
+
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_ngboe"]
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="2_b6250"]
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="2_widno"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nd2dy"]
+shader = ExtResource("2_b6250")
+shader_parameter/blur = 3.0
+
+[node name="MovesPanel" type="Control"]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1220.0
+offset_bottom = -880.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_nd2dy")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_widno")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -333.0
+offset_top = -90.0
+offset_right = 346.0
+offset_bottom = 91.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
+custom_minimum_size = Vector2(661, 181)
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(330, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Hack And Slash"
+
+[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button4" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button5" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(330, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button5" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"
+
+[node name="Button4" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+theme = ExtResource("1_ngboe")
+theme_override_font_sizes/font_size = 28
+text = "Example"

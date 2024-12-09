@@ -3,11 +3,9 @@ extends Node3D
 @onready var player = $map/player
 @onready var journal = $Journal
 @onready var character_sheet = $CharacterSheet
-@onready var ray_cast_3d = $RayCast3D
 @onready var blue_guy_3 = $blue_guy3
 @onready var blue_guy = $blue_guy
 @onready var moves = $Moves
-@onready var debug_lbael = $DEBUG/DebugLbael
 @onready var inventory = $Inventory
 
 func _ready():
@@ -28,12 +26,15 @@ func _ready():
 	Global.player_cam = player.player_cam
 	Global.main_cam = player.main_cam
 	Global.read_dice_rolls()
+	Global.read_team_data()
 
-func _process(delta):
+func _process(_delta):
+	# The code is checking all the time the distance of the first and the third followe
+	# so they always follow the spot closes to them even when the player is turning
 	check_distance()
-	debug_lbael.text = 'DEBUG: Current just_finished_talking value: ' + str(Global.just_finished_talking)
 
 func _input(_event):
+	#TO REWRITE
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Global.current_ui_mode == "none" and Global.pausable:  # Check if not already paused
 			#get_tree().call_group('cameras', 'blur')
@@ -42,8 +43,7 @@ func _input(_event):
 			Global.take_screenshot()
 			$ui_elements.show()
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
-			print('DEBUG: ', ray_cast_3d.get_collision_point())
-			blue_guy_3.position = ray_cast_3d.get_collision_point()
+			#blue_guy_3.position = ray_cast_3d.get_collision_point()
 		elif Global.current_ui_mode == "main_menu":  # Unpause if already paused
 			#get_tree().call_group('cameras', 'unblur')			
 			get_tree().call_group('main_menu', '_on_back_button_pressed')
@@ -96,6 +96,7 @@ func _input(_event):
 			pass
 	
 	if Input.is_action_just_pressed("character_sheet") and Global.pausable:
+		Global.read_team_data()
 		if Global.current_ui_mode == "none":  # Check if not already paused
 			Global.current_ui_mode = "character_sheet"
 			get_tree().paused = true

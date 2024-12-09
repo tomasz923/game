@@ -1,0 +1,164 @@
+[gd_scene load_steps=5 format=3 uid="uid://rtwiby6sj4ro"]
+
+[ext_resource type="Script" path="res://game/scripts/combat_scene.gd" id="1_xgfvd"]
+[ext_resource type="PackedScene" uid="uid://ctvucajwtawka" path="res://game/scenes/moves_panel.tscn" id="2_nvigt"]
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="3_7kdxj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_uxlsf"]
+height = 4.0
+radius = 8.0
+
+[node name="CombatScene" type="Node3D"]
+script = ExtResource("1_xgfvd")
+
+[node name="DangerZone" type="Area3D" parent="."]
+monitorable = false
+
+[node name="CollisionDome" type="CollisionShape3D" parent="DangerZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("CylinderShape3D_uxlsf")
+
+[node name="Allies" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="FriendlyFourthRay" type="RayCast3D" parent="Allies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 2.1)
+target_position = Vector3(0, -4, 0)
+
+[node name="FriendlyThirdRay" type="RayCast3D" parent="Allies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0.7)
+target_position = Vector3(0, -4, 0)
+
+[node name="FriendlySecondRay" type="RayCast3D" parent="Allies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -0.7)
+target_position = Vector3(0, -4, 0)
+
+[node name="FriendlyFirstRay" type="RayCast3D" parent="Allies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -2.1)
+target_position = Vector3(0, -4, 0)
+
+[node name="EvenEnemiesRays" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+visible = false
+
+[node name="EnemyFirstRay" type="RayCast3D" parent="EvenEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemySecondRay" type="RayCast3D" parent="EvenEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemyThirdRay" type="RayCast3D" parent="EvenEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemyFourthRay" type="RayCast3D" parent="EvenEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -3)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemyFithRay" type="RayCast3D" parent="EvenEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemySixthRay" type="RayCast3D" parent="EvenEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 5)
+target_position = Vector3(0, -4, 0)
+
+[node name="OddEnemiesRays" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
+
+[node name="EnemyFirstRay" type="RayCast3D" parent="OddEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemySecondRay" type="RayCast3D" parent="OddEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemyThirdRay" type="RayCast3D" parent="OddEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemyFourthRay" type="RayCast3D" parent="OddEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -3)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemyFifth" type="RayCast3D" parent="OddEnemiesRays"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 5)
+target_position = Vector3(0, -4, 0)
+
+[node name="EnemiesInCombat" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.90867, 0, 0)
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(-4.36683e-08, 0.537962, -0.842969, 1.94096e-09, 0.842969, 0.537962, 1, 2.18557e-08, -3.78552e-08, -3.9491, 2.66538, 0)
+
+[node name="UI" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MovesPanel" parent="UI" instance=ExtResource("2_nvigt")]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+offset_left = -350.0
+offset_top = -235.0
+offset_right = 350.0
+offset_bottom = -35.0
+grow_vertical = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/MovesPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="ButtonTurn" type="Button" parent="UI/MovesPanel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("3_7kdxj")
+text = "NEXT"
+
+[node name="LabelTurn" type="Label" parent="UI/MovesPanel/VBoxContainer"]
+layout_mode = 2
+text = "It is XYZ turn."
+horizontal_alignment = 1
+
+[node name="Allies" type="VBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(355, 0)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 40.0
+grow_vertical = 0
+theme_override_constants/separation = -2
+
+[node name="Enemies" type="VBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(355, 0)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -355.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = -2
+
+[connection signal="body_entered" from="DangerZone" to="." method="_on_danger_zone_body_entered"]
+[connection signal="pressed" from="UI/MovesPanel/VBoxContainer/ButtonTurn" to="." method="_on_button_turn_pressed"]

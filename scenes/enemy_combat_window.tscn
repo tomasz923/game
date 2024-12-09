@@ -1,0 +1,151 @@
+[gd_scene load_steps=9 format=3 uid="uid://d0y7uyb2gwh5c"]
+
+[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_1r31k"]
+[ext_resource type="Script" path="res://game/scripts/enemy_combat_window.gd" id="1_3gxvg"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_3koaq"]
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="3_and7q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_13ggm"]
+shader = ExtResource("1_1r31k")
+shader_parameter/blur = 3.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nrpym"]
+shader = ExtResource("1_1r31k")
+shader_parameter/blur = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_08rim"]
+bg_color = Color(0.6, 0.6, 0.6, 0.313726)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kawev"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="EnemyCombatWindow" type="Control"]
+custom_minimum_size = Vector2(355, 90)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1565.0
+offset_bottom = -990.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3gxvg")
+metadata/_edit_horizontal_guides_ = [45.0]
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_13ggm")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_and7q")
+
+[node name="Shader" type="ColorRect" parent="."]
+visible = false
+material = SubResource("ShaderMaterial_nrpym")
+custom_minimum_size = Vector2(355, 90)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+modulate = Color(0.596078, 0.290196, 0.262745, 1)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -173.0
+offset_top = -4.0
+offset_right = 173.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_3koaq")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_08rim")
+theme_override_styles/fill = SubResource("StyleBoxFlat_kawev")
+max_value = 69.0
+step = 1.0
+value = 12.0
+fill_mode = 1
+show_percentage = false
+
+[node name="NameContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -234.0
+offset_right = -4.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/separation = 0
+alignment = 2
+
+[node name="NameLabel" type="Label" parent="NameContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3koaq")
+theme_override_font_sizes/font_size = 28
+text = "Name"
+horizontal_alignment = 2
+
+[node name="BasicStats" type="HBoxContainer" parent="."]
+layout_mode = 1
+offset_left = 6.0
+offset_right = 179.0
+offset_bottom = 39.0
+theme_override_constants/separation = 10
+
+[node name="HealthContainer" type="HBoxContainer" parent="BasicStats"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Symbol" type="Label" parent="BasicStats/HealthContainer"]
+layout_mode = 2
+text = "EP"
+horizontal_alignment = 1
+
+[node name="HealthValue" type="Label" parent="BasicStats/HealthContainer"]
+custom_minimum_size = Vector2(28, 33)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3koaq")
+theme_override_font_sizes/font_size = 28
+text = "21
+"
+vertical_alignment = 1
+
+[node name="ProtectionContainer" type="HBoxContainer" parent="BasicStats"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="Symbol" type="Label" parent="BasicStats/ProtectionContainer"]
+layout_mode = 2
+text = "PR"
+horizontal_alignment = 1
+
+[node name="ProtectionValue" type="Label" parent="BasicStats/ProtectionContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_3koaq")
+theme_override_font_sizes/font_size = 28
+text = "8
+"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -38,16 +38,6 @@ extends Control
 @onready var charisma_bonus = $BlackBox/Stats/StatsContainer/AbilitiesContainer/SecondRow/Charisma/CharismaBonus
 
 
-
-enum CharacterClass {
-	MONK, #0
-	CLERIC, #1
-	HACKER, #2
-	ROGUE, #3
-	TANK, #4
-	RANGER #5
-}
-
 var current_teammate = null
 
 func get_ready():
@@ -60,7 +50,6 @@ func get_ready():
 
 func crop_progress_bar():
 	var labels_size: int = max(damage_label.size.x, class_label.size.x, health_label.size.x, special_slot_label.size.x, level_label.size.x, xp_label.size.x)
-	print('DEBUG: Max label size is: ', labels_size)
 	for label in [damage_label, class_label, health_label, special_slot_label, level_label, xp_label]:
 		label.custom_minimum_size.x = labels_size
 	health_bar.custom_minimum_size.x = 485 - labels_size
@@ -120,18 +109,20 @@ func set_character_names():
 func populate_character_sheet_data():
 	character_damage_label.text = "1d" + str(current_teammate.basic_damage)
 	match current_teammate.character_class:
-		CharacterClass.MONK:
-			character_class_label.text  = "cs_class_templar"
-		CharacterClass.CLERIC:
-			character_class_label.text  = "cs_class_cleric"
-		CharacterClass.HACKER:
+		Global.CharacterClass.PROTECTOR:
+			character_class_label.text  = "cs_class_protector"
+		Global.CharacterClass.PREACHER:
+			character_class_label.text  = "cs_class_preacher"
+		Global.CharacterClass.HACKER:
 			character_class_label.text  = "cs_class_hacker"
-		CharacterClass.ROGUE:
-			character_class_label.text  = "cs_class_rogue"
-		CharacterClass.TANK:
-			character_class_label.text  = "cs_class_tank"
-		CharacterClass.RANGER:
-			character_class_label.text  = "cs_class_ranger"
+		Global.CharacterClass.OPERATIVE:
+			character_class_label.text  = "cs_class_operative"
+		Global.CharacterClass.MILITANT:
+			character_class_label.text  = "cs_class_militant"
+		Global.CharacterClass.SCOUT:
+			character_class_label.text  = "cs_class_scout"
+		Global.CharacterClass.NONE:
+			character_class_label.text  = "cs_class_none"
 	
 	strength_bonus.text = str(current_teammate.strength)
 	dexterity_bonus.text = str(current_teammate.dexterity)
@@ -139,23 +130,10 @@ func populate_character_sheet_data():
 	processing_bonus.text = str(current_teammate.processing)
 	memory_bonus.text = str(current_teammate.memory)
 	charisma_bonus.text = str(current_teammate.charisma)
+
+	current_health_label.text = str(current_teammate.current_health)
+	health_bar.value = current_teammate.current_health
 			
 	health_bar.value = current_teammate.current_health
-	match current_teammate.endurance:
-		-1:
-			max_health_label.text = "14"
-			health_bar.max_value = 14
-		0:
-			max_health_label.text = "19"
-			health_bar.max_value = 19
-		1:
-			max_health_label.text = "23"
-			health_bar.max_value = 23
-		2:
-			max_health_label.text = "26"
-			health_bar.max_value = 26
-		3:
-			max_health_label.text = "28"
-			health_bar.max_value = 28
-		
-
+	max_health_label.text = str(current_teammate.max_health)
+	health_bar.max_value = current_teammate.max_health

@@ -1,7 +1,7 @@
 extends RayCast3D
 
 @onready var label = $LabelNode/Label
-@onready var animation_player = $"../../visuals/hero/AnimationPlayer"
+#@onready var animation_player = $"../../visuals/hero/AnimationPlayer"
 
 
 
@@ -39,4 +39,4 @@ func start_conversation(script_file, name_label):
 	Global.dialogue_box.visible = true
 	Global.dialogue_box._start_dialogue(script_file, name_label)
 	Global.talker_cam.current = true
-	animation_player.play("idle")
+	#animation_player.play("idle")

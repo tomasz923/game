@@ -46,7 +46,6 @@ func add_choice(choice_text: String):
 	choices_box.add_child(button_obj)
 	if button_obj.size.x > choice_len:
 		choice_len = int(button_obj.size.x)
-		print('DEBUG: The longest size is now: ', choice_len)
 
 func _on_choice_selected(choice_index: int):
 	#AWAIT and disable buttons

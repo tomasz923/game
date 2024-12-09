@@ -38,7 +38,6 @@ var current_item_position: int
 func _ready():
 	item = load("res://game/inventory_items/maul.tres")
 	debug_array.append(item)
-	item = load("res://game/inventory_items/warhammer.tres")
 	debug_array.append(item)
 
 func get_ready():

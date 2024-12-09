@@ -1,5 +1,25 @@
 extends Node
 
+enum SecondBar {
+	NONE, #0
+	MEMORY, #1
+	PROCESSING_CORES #2
+}
+
+enum CharacterClass {
+	PREACHER, #0
+	PROTECTOR, #1
+	HACKER, #2
+	OPERATIVE, #3
+	MILITANT, #4
+	SCOUT, #5
+	NONE
+}
+
+enum EnemyType {
+	DECOY
+}
+
 var is_initial_load_ready = false
 var is_rolling_dice_now: bool = false
 #This variable checks if it is possible to save a game
@@ -54,35 +74,64 @@ var first_character
 var second_character
 var third_character
 
+#Combat Order
+var shuffled_allies
+
 #Team Data
-var team_var: Dictionary = {
-	"current_comp": ['wren', 'jett', 'casy'],
-	"wren_character_sheet": {
-		"second_bar_type": null,
-		"ability_scores": [2, 1, 1, 0, 0, -1],
+var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
+	"current_comp": ['HERO', 'JETT', 'WREN', 'CASY'],
+	"WREN": {
+		"second_bar_type": SecondBar.NONE,
+		"ability_scores": [2, 1, -1, 0, 0, -1],
+		"current_health": 10,
+		"character_class": CharacterClass.MILITANT,
 		"bonds": [],
 		"eq": {
-			"melee": null,
-			"distant": null,
+			"melee": load("res://game/inventory_items/warhammer.tres"),
+			"ranged": null,
 			"shield": null,
-			"protection": null
+			"spray": null
 		}
 		},
-	"you_character_sheet": {
-		"second_bar_type": null,
-		"ability_scores": [3, 1, 1, 0, -1, -1],
-		"bonds": []
-		},
-	"jett_character_sheet": {
-		"second_bar_type": null,
-		"ability_scores": [3, 1, 1, 0, -1, -1],
-		"bonds": []
-		},
-	"casy_character_sheet": {
-		"second_bar_type": 'cs_memory_slots_label',
-		"ability_scores": [3, 1, 1, 0, -1, -1],
-		"bonds": []
+	"HERO": {
+		"second_bar_type": SecondBar.NONE,
+		"character_class": CharacterClass.NONE,
+		"ability_scores": [3, 1, 0, 0, -1, -1],
+		"current_health": 10,
+		"bonds": [],
+		"eq": {
+			"melee": load("res://game/inventory_items/warhammer.tres"),
+			"ranged": null,
+			"shield": null,
+			"spray": null
 		}
+		},
+	"JETT": {
+		"second_bar_type": SecondBar.NONE,
+		"character_class": CharacterClass.SCOUT,
+		"current_health": 10,
+		"ability_scores": [3, 1, 1, 0, -1, -1],
+		"bonds": [],
+		"eq": {
+			"melee": load("res://game/inventory_items/warhammer.tres"),
+			"ranged": null,
+			"shield": null,
+			"spray": null
+		}
+		},
+	"CASY": {
+		"second_bar_type": SecondBar.MEMORY,
+		"current_health": 10,
+		"character_class": CharacterClass.PREACHER,
+		"ability_scores": [3, 1, 2, 0, -1, -1],
+		"bonds": [],
+		"eq": {
+			"melee": load("res://game/inventory_items/warhammer.tres"),
+			"ranged": null,
+			"shield": null,
+			"spray": null
+		}
+	}
 	}
 
 
@@ -296,6 +345,32 @@ func load_game():
 	Global.current_scene = saved_game.current_scene
 	Global.scene_being_loaded = Global.current_scene
 	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
+
+func read_team_data():
+	var characters_list: Array = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
+	var current_num: int = 0
+	for character in characters_list:
+		var character_name = team_var["current_comp"][current_num]
+		var character_data = team_var[character_name]
+		
+		character.follower_name = character_name
+		character.character_class = character_data["character_class"]
+		character.current_health = character_data["current_health"]
+		character.melee = character_data["eq"]["melee"]
+		character.ranged = character_data["eq"]["ranged"]
+		character.shield = character_data["eq"]["shield"]
+		character.spray = character_data["eq"]["spray"]
+		
+		character.strength = character_data["ability_scores"][0]
+		character.dexterity = character_data["ability_scores"][1]
+		character.endurance = character_data["ability_scores"][2]
+		character.processing = character_data["ability_scores"][3]
+		character.memory = character_data["ability_scores"][4]
+		character.charisma = character_data["ability_scores"][5]
+		
+		current_num +=1
+		character.change_equipment()
+		character.get_max_health()
 
 	
 #func reset_values():

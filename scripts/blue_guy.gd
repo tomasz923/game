@@ -8,12 +8,13 @@ enum FollowerOrder {
 }
 
 enum CharacterClass {
-	MONK, #0
-	CLERIC, #1
+	PREACHER, #0
+	PROTECTOR, #1
 	HACKER, #2
-	ROGUE, #3
-	TANK, #4
-	RANGER #5
+	OPERATIVE, #3
+	MILITANT, #4
+	SCOUT, #5
+	NONE
 }
 
 enum SecondBar {
@@ -29,15 +30,19 @@ enum SecondBar {
 @export var follower_name: String 
 @export var second_bar_type: SecondBar
 @export var character_class: CharacterClass
-@export var basic_damage: int = 4
+@export_range(4, 20, 2) var basic_damage: int = 4
 @export var current_health: int = 10
-@export var bonds: Array = []
+@export var protection: int = 0
+@export var max_health: int = 10
+#@export var bonds: Array = []
+@export var status_effects: Array[Resource] = []
+@export var moves: Array = []
 
 @export_category("Equipment")
-@export var melee: InventoryItem = load("res://game/inventory_items/warhammer.tres")
+@export var melee: InventoryItem 
 @export var ranged: InventoryItem
 @export var shield: InventoryItem
-@export var protection: InventoryItem
+@export var spray: InventoryItem
 
 @export_category("Attributes")
 @export var strength: int = 0
@@ -47,22 +52,27 @@ enum SecondBar {
 @export var memory: int = 0
 @export var charisma: int = 0
 
+@onready var model = $Visuals/Model
 @onready var navigation_agent_3d = $NavigationAgent3D
-@onready var animation_player = $visuals/AnimationPlayer
+@onready var animation_player = model.animation_player
+
+#Hexagon
+@onready var hexagon = $Hexagon
+@onready var hexagon_animation_player = $AnimationPlayer
 
 var is_moving: bool = false
 var SPEED: float = 3.5
 var target: CharacterBody3D
 var destination: Vector3
 var is_looking: bool = false
+var in_combat: bool = false
 
-#WeaponContainers
-@onready var back_container = $visuals/Armature/Skeleton3D/BackBone/BackContainer
-@onready var hips_container = $visuals/Armature/Skeleton3D/HipsBone/HipsContainer
-
+func _ready():
+	get_max_health()
+	get_protection()
 
 func _process(_delta):
-	if is_moving:
+	if is_moving and !in_combat:
 		animation_player.play("run")
 		match follower_number:
 			0:
@@ -81,15 +91,12 @@ func _process(_delta):
 		var next_location = navigation_agent_3d.get_next_path_position()
 		var new_velocity = (next_location - current_location).normalized() * SPEED
 		
-		#var direction = next_location - current_location
-		#var target_rotation = atan2(direction.x, -direction.y)
-		#rotation.y = lerp_angle(rotation.y, target_rotation, 0.5)
 
 		velocity = new_velocity
 		move_and_slide()
 		look_at_spot()
 
-	else:
+	elif !is_moving and !in_combat:
 		animation_player.play("idle")
 
 func look_at_spot():
@@ -126,7 +133,8 @@ func update_target_position(target_position):
 
 func _on_area_3d_body_exited(body):
 	target = body
-	is_moving = true
+	if Global.allow_movement:
+		is_moving = true
 	#look_at_spot()
 	#if body is CharacterBody3D:
 		#print("CharacterBody3D exited the area!")
@@ -134,6 +142,22 @@ func _on_area_3d_body_exited(body):
 
 func arrived():
 	is_moving = false
+	
+func get_max_health():
+	match endurance:
+		-1:
+			max_health = 14
+		0:
+			max_health = 19
+		1:
+			max_health = 23
+		2:
+			max_health = 26
+		3:
+			max_health = 28
+
+func get_protection():
+	protection = 2
 
 func change_equipment():
 	var new_weapon
@@ -141,114 +165,30 @@ func change_equipment():
 	if melee != null:
 		new_weapon = melee.model_scene.instantiate()
 		if melee.type == 0:
-			hips_container.add_child(new_weapon)
+			model.hips_container.add_child(new_weapon)
 		else:
-			back_container.add_child(new_weapon)
+			model.back_container.add_child(new_weapon)
 
 func lose_all_weapons():
-	for n in hips_container.get_children():
-		hips_container.remove_child(n)
+	for n in model.hips_container.get_children():
+		model.hips_container.remove_child(n)
 		n.queue_free()
-	for n in back_container.get_children():
-		back_container.remove_child(n)
+	for n in model.back_container.get_children():
+		model.back_container.remove_child(n)
 		n.queue_free()
-########################################################################################
 
-
-
-
-#Gravity
-#var gravity = 15 
-##Idle rotation
-#var xlocation = randf_range(-360,360)
-#var zlocation = randf_range(-360,360)
-##Folowing player:
-#var is_following: bool = false
-##Player escape event
-#var player_escape = false
-##Face direction of player
-#var target = null
-#var rot_speed = 0.05
-##Map navigation
-#@onready var agent: NavigationAgent3D = $NavigationAgent3D
-#@onready var animation_player = $visuals/AnimationPlayer
-##@onready var target_location: Node = $"../Player"
-#var speed = 50
-##var minimum_speed = 3
-##var idle_speed = rand_range(minimum_speed, speed)
-##var move_or_not = [true, false]
-##var start_move = move_or_not[randi() % move_or_not.size()]
-#
-#func _on_area_3d_body_exited(body):
-	#target = body
-	#rot_speed = 0.1
-	#is_following = true
-#
-##func _on_Area_body_entered(body):
- ##if body.name == ("Player"):
-  ##rot_speed = 0.1
-  ##harass = true
-#
-#func _process(delta):
-	#if is_following:
-		#if target != null:
-		##face direction of player
-			#animation_player.play("running")
-			#var global_pos = self.global_transform.origin
-			#var target_pos = target.global_transform.origin
-			#var wtransform = self.global_transform.looking_at(Vector3(target_pos.x, global_pos.y, target_pos.z), Vector3.UP)
-			#var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), rot_speed)
-			#self.global_transform = Transform3D(Basis(wrotation), global_pos)
-	#
-		##Set player location:
-		#agent.set_target_position(target.transform.origin)
-		##Move to the player
-		#var next = agent.get_next_path_position()
-		#var velocity = (next - transform.origin).normalized() * speed  * delta
-		#move_and_collide(velocity)
-	##elif player_escape == false:
-		###idle action
-		##var global_pos = self.global_transform.origin
-		##var wtransform = self.global_transform.looking_at(Vector3(xlocation, global_pos.y, zlocation), Vector3.UP)
-		##var wrotation = Quat(global_transform.basis).slerp(Quat(wtransform.basis), rot_speed)
-		##self.global_transform = Transform(Basis(wrotation), global_pos)
-		##if start_move == true:
-		##var velocity = global_transform.basis.z.normalized() * idle_speed * delta
-		##move_and_collide(-velocity)
-	#elif target != null:
-	##enemy looks at player when player escape
-		#animation_player.play("idle")
-		#var global_pos = self.global_transform.origin
-		#var target_pos = target.global_transform.origin
-		#var wtransform = self.global_transform.looking_at(Vector3(target_pos.x, global_pos.y, target_pos.z), Vector3.UP)
-		#var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), rot_speed)
-		#self.global_transform = Transform3D(Basis(wrotation), global_pos)
-  #
-	#if not is_on_floor():
-		#move_and_collide(-global_transform.basis.y.normalized() * gravity * delta)
-#
-##func _on_Area_body_exited(body):
- ##if body.name == ("Player"):
-  ##rot_speed = 0.05
-  ##harass = false
-  ###when player escape enemy wait and look at player
-  ##player_escape = true
-  ##$Timer2.start()
-#
-##timer for random looking
-##func _on_Timer_timeout():
- ##$Timer.set_wait_time(rand_range(4,8))
- ##xlocation = rand_range(-360,360) 
- ##zlocation = rand_range(-360,360)
- ###random speed of idle move
- ##idle_speed = rand_range(minimum_speed, speed)
- ###enemy will move or just look around
- ##start_move = move_or_not[randi() % move_or_not.size()]
- ##$Timer.start()
-#
-##func _on_NavigationAgent_velocity_computed(safe_velocity):
-	##move_and_collide(safe_velocity)
-#
-#
-#func _on_navigation_agent_3d_velocity_computed(safe_velocity):
-	#move_and_collide(safe_velocity)
+func get_in_combat():
+	in_combat = true
+	if ranged == null:
+		model.hips_container.visible = false
+		match melee.type:
+			melee.ItemType.WEAPON_1H:
+				model.right_hand_container.visible = true
+				var equipped_weapon = melee.model_scene.instantiate()
+				for n in model.right_hand_container.get_children():
+					model.right_hand_container.remove_child(n)
+					n.queue_free()
+				model.right_hand_container.add_child(equipped_weapon)
+				model.animation_player.play("1h_idle")
+	else:
+		pass
