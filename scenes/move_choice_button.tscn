@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtla6fo70xova"]
+
+[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_g6b5j"]
+[ext_resource type="Script" path="res://game/scripts/move_choice_button.gd" id="2_g0aen"]
+
+[node name="MoveChoiceButton" type="Button"]
+custom_minimum_size = Vector2(325, 0)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("1_g6b5j")
+theme_override_font_sizes/font_size = 28
+text = "ABC"
+script = ExtResource("2_g0aen")
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

@@ -1,10 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dimbub6bjxk82"]
+[gd_scene load_steps=7 format=3 uid="uid://dimbub6bjxk82"]
 
-[ext_resource type="Texture2D" uid="uid://c3apq2mp84auf" path="res://assets/textures/ui/pop_up_window.png" id="1_00hvy"]
 [ext_resource type="Script" path="res://game/scripts/popup_window.gd" id="1_7ckyy"]
-[ext_resource type="Texture2D" uid="uid://dwjoboamh218k" path="res://happy_people.jpg" id="2_5s32r"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_ixgj4"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="2_q5ejx"]
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="3_ax8kh"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="4_eeao2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ecnno"]
@@ -20,23 +19,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_7ckyy")
 
-[node name="background2" type="TextureRect" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -400.0
-offset_top = -266.5
-offset_right = 400.0
-offset_bottom = 266.5
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource("2_5s32r")
-
-[node name="blur" type="ColorRect" parent="."]
+[node name="Blur" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_ecnno")
 layout_mode = 1
 anchors_preset = 8
@@ -44,29 +27,34 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
-offset_top = -200.0
-offset_right = 320.0
-offset_bottom = 200.0
+offset_left = -323.0
+offset_top = -198.0
+offset_right = 323.0
+offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="background" type="TextureRect" parent="."]
+[node name="Background" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(640, 400)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -320.0
+offset_left = -325.0
 offset_top = -200.0
-offset_right = 320.0
+offset_right = 325.0
 offset_bottom = 200.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("1_00hvy")
+texture = ExtResource("3_ax8kh")
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
 
-[node name="label" type="Label" parent="."]
+[node name="Title" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -81,7 +69,7 @@ label_settings = ExtResource("2_ixgj4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="text" type="Label" parent="."]
+[node name="Text" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -100,7 +88,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="hbox" type="HBoxContainer" parent="."]
+[node name="OptionsContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -116,14 +104,14 @@ grow_vertical = 0
 theme_override_constants/separation = 50
 alignment = 1
 
-[node name="yes_button" type="Button" parent="hbox"]
+[node name="yes_button" type="Button" parent="OptionsContainer"]
 layout_mode = 2
 theme = ExtResource("4_eeao2")
 text = "yes"
 
-[node name="no_button" type="Button" parent="hbox"]
+[node name="no_button" type="Button" parent="OptionsContainer"]
 layout_mode = 2
 theme = ExtResource("4_eeao2")
 text = "no"
 
-[connection signal="pressed" from="hbox/yes_button" to="." method="_on_yes_button_pressed"]
+[connection signal="pressed" from="OptionsContainer/yes_button" to="." method="_on_yes_button_pressed"]

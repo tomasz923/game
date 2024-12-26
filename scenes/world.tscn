@@ -73,7 +73,6 @@ process_mode = 3
 script = ExtResource("1_2ccfw")
 
 [node name="Specs" parent="." instance=ExtResource("2_vvsx5")]
-visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmj8b")
@@ -138,8 +137,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38452, 0, 0)
 is_a_trap = true
 first_enemy_model = ExtResource("21_m3ehy")
 second_enemy_model = ExtResource("21_m3ehy")
+third_enemy_model = ExtResource("21_m3ehy")
+fourth_enemy_model = ExtResource("21_m3ehy")
+fifth_enemy_model = ExtResource("21_m3ehy")
 first_enemy_stats = ExtResource("22_lkfh3")
 second_enemy_stats = ExtResource("22_lkfh3")
+third_enemy_stats = ExtResource("22_lkfh3")
+fourth_enemy_stats = ExtResource("22_lkfh3")
+fifth_enemy_stats = ExtResource("22_lkfh3")
 
 [node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 visible = false
@@ -157,9 +162,8 @@ visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
-offset_left = 3.0
 offset_top = -20.0
-offset_right = 3.0
+offset_right = 0.0
 offset_bottom = -20.0
 grow_horizontal = 1
 grow_vertical = 1

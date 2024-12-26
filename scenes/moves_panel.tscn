@@ -1,34 +1,100 @@
-[gd_scene load_steps=5 format=3 uid="uid://ctvucajwtawka"]
+[gd_scene load_steps=14 format=3 uid="uid://ctvucajwtawka"]
 
-[ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_ngboe"]
+[ext_resource type="Script" path="res://game/scripts/moves_panel.gd" id="1_fcl20"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="2_b6250"]
 [ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="2_widno"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="4_1kihy"]
+[ext_resource type="PackedScene" uid="uid://bbasijc5hme3h" path="res://game/scenes/choice_button.tscn" id="5_3f82i"]
+[ext_resource type="LabelSettings" uid="uid://cvwem8rp6u724" path="res://game/resources/mvp_bonus_numbers_label.tres" id="5_v81ow"]
+[ext_resource type="LabelSettings" uid="uid://bh306va5id613" path="res://game/resources/bonus_numbers_label_red.tres" id="6_5nh3f"]
+[ext_resource type="LabelSettings" uid="uid://b2xxlmnkrik4o" path="res://game/resources/mvp_bonus_numbers_label_red.tres" id="7_tyw5x"]
+[ext_resource type="LabelSettings" uid="uid://byji7hkjaoh0o" path="res://game/resources/bonus_numbers_label_yellow.tres" id="8_s6p87"]
+[ext_resource type="LabelSettings" uid="uid://c7mhhq7j56lf1" path="res://game/resources/mvp_bonus_numbers_label_yellow.tres" id="9_hteih"]
+[ext_resource type="LabelSettings" uid="uid://734vcuht0pls" path="res://game/resources/bonus_numbers_label_green.tres" id="10_ybk2f"]
+[ext_resource type="LabelSettings" uid="uid://bs71x4i4snnpr" path="res://game/resources/mvp_bonus_numbers_label_green.tres" id="11_75cup"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nd2dy"]
 shader = ExtResource("2_b6250")
 shader_parameter/blur = 3.0
 
 [node name="MovesPanel" type="Control"]
-custom_minimum_size = Vector2(700, 200)
+custom_minimum_size = Vector2(1054, 200)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -1220.0
+offset_right = -866.0
 offset_bottom = -880.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_fcl20")
+metadata/_edit_vertical_guides_ = [510.0, 175.0, 179.0, 879.0, 188.0, 867.0]
+metadata/_edit_horizontal_guides_ = [200.0, 204.0, 25.0]
 
-[node name="Blur" type="ColorRect" parent="."]
+[node name="UpperBlurs" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="LeftUnblur" type="ColorRect" parent="UpperBlurs"]
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="LeftBlur" type="ColorRect" parent="UpperBlurs"]
+visible = false
 material = SubResource("ShaderMaterial_nd2dy")
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 2
+
+[node name="MainBlur" type="ColorRect" parent="UpperBlurs"]
+material = SubResource("ShaderMaterial_nd2dy")
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+
+[node name="RightBlur" type="ColorRect" parent="UpperBlurs"]
+visible = false
+material = SubResource("ShaderMaterial_nd2dy")
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 2
+
+[node name="RightUnblur" type="ColorRect" parent="UpperBlurs"]
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="BottomBlur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_nd2dy")
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -348.0
+offset_top = 4.0
+offset_right = 352.0
+offset_bottom = 54.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="UpperPanels" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = 4.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="LeftPanelContainer" type="Control" parent="UpperPanels"]
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 2
+
+[node name="LeftPanel" type="NinePatchRect" parent="UpperPanels/LeftPanelContainer"]
+visible = false
+custom_minimum_size = Vector2(175, 200)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,101 +102,356 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_widno")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
 
-[node name="ScrollContainer" type="ScrollContainer" parent="."]
+[node name="Label" type="Label" parent="UpperPanels/LeftPanelContainer/LeftPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -10.0
+offset_top = 2.0
+offset_right = 10.0
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 24
+text = "mvp_damages_label"
+horizontal_alignment = 1
+
+[node name="Bonuses" type="VBoxContainer" parent="UpperPanels/LeftPanelContainer/LeftPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 29.0
+offset_right = -6.0
+offset_bottom = -7.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="MainPanel" type="NinePatchRect" parent="UpperPanels"]
+custom_minimum_size = Vector2(700, 200)
+layout_mode = 2
+texture = ExtResource("2_widno")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="MoveInfo" type="VBoxContainer" parent="UpperPanels/MainPanel"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 1
+offset_left = 4.0
+offset_right = 694.0
+offset_bottom = 169.0
+
+[node name="MovesName" type="Label" parent="UpperPanels/MainPanel/MoveInfo"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 26
+text = "move name"
+horizontal_alignment = 1
+
+[node name="Control" type="Control" parent="UpperPanels/MainPanel/MoveInfo"]
+custom_minimum_size = Vector2(680, 22)
+layout_mode = 2
+
+[node name="ExtraMoveInfoChances" type="HBoxContainer" parent="UpperPanels/MainPanel/MoveInfo/Control"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -685.0
+offset_top = -11.0
+offset_right = -6.0
+offset_bottom = 11.0
+grow_horizontal = 0
+grow_vertical = 2
+alignment = 2
+
+[node name="ExpectedOutcomeString" type="Label" parent="UpperPanels/MainPanel/MoveInfo/Control/ExtraMoveInfoChances"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "mvp_exp_out_label"
+horizontal_alignment = 2
+
+[node name="ExpectedOutcomeValue" type="Label" parent="UpperPanels/MainPanel/MoveInfo/Control/ExtraMoveInfoChances"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.745098, 0, 0, 1)
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "6-"
+label_settings = ExtResource("5_v81ow")
+
+[node name="ExtraMoveInfoDamage" type="HBoxContainer" parent="UpperPanels/MainPanel/MoveInfo/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 6.0
+offset_top = -11.0
+offset_right = 682.0
+offset_bottom = 11.0
+grow_vertical = 2
+
+[node name="ExpectedDamageString" type="Label" parent="UpperPanels/MainPanel/MoveInfo/Control/ExtraMoveInfoDamage"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "mvp_exp_dmg_label"
+
+[node name="ExpectedDamageValue" type="Label" parent="UpperPanels/MainPanel/MoveInfo/Control/ExtraMoveInfoDamage"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "1 - 8"
+
+[node name="MovesDescription" type="Control" parent="UpperPanels/MainPanel/MoveInfo"]
+custom_minimum_size = Vector2(690, 105)
+layout_mode = 2
+
+[node name="Description" type="Label" parent="UpperPanels/MainPanel/MoveInfo/MovesDescription"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_right = -7.0
+offset_bottom = 28.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "move description"
+horizontal_alignment = 3
+vertical_alignment = 1
+autowrap_mode = 2
+clip_text = true
+text_overrun_behavior = 4
+
+[node name="ScrollContainer" type="ScrollContainer" parent="UpperPanels/MainPanel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -333.0
-offset_top = -90.0
-offset_right = 346.0
-offset_bottom = 91.0
+offset_left = -332.5
+offset_top = -90.5
+offset_right = 332.5
+offset_bottom = 90.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ScrollContainer"]
-custom_minimum_size = Vector2(661, 181)
+[node name="MovesContainer" type="HBoxContainer" parent="UpperPanels/MainPanel/ScrollContainer"]
+custom_minimum_size = Vector2(662, 181)
 layout_mode = 2
 theme_override_constants/separation = 6
 alignment = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+[node name="Odd" type="VBoxContainer" parent="UpperPanels/MainPanel/ScrollContainer/MovesContainer"]
+layout_mode = 2
+
+[node name="Even" type="VBoxContainer" parent="UpperPanels/MainPanel/ScrollContainer/MovesContainer"]
+layout_mode = 2
+
+[node name="RightPanelContainer" type="Control" parent="UpperPanels"]
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 2
+
+[node name="RightPanel" type="NinePatchRect" parent="UpperPanels/RightPanelContainer"]
+custom_minimum_size = Vector2(175, 200)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_widno")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="Label" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = -10.5
+offset_top = 2.0
+offset_right = 10.5
+offset_bottom = 31.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 24
+text = "mvp_modifiers_label"
+horizontal_alignment = 1
+
+[node name="Bonuses" type="VBoxContainer" parent="UpperPanels/RightPanelContainer/RightPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 6.0
+offset_top = 29.0
+offset_right = -6.0
+offset_bottom = -54.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Chances" type="HBoxContainer" parent="UpperPanels/RightPanelContainer/RightPanel"]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 141.0
+offset_right = 169.0
+offset_bottom = 197.0
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="FailContainer" type="VBoxContainer" parent="UpperPanels/RightPanelContainer/RightPanel/Chances"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="FailChance" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel/Chances/FailContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 26
+text = "30%"
+label_settings = ExtResource("6_5nh3f")
+horizontal_alignment = 1
+
+[node name="FailResult" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel/Chances/FailContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "6-"
+label_settings = ExtResource("7_tyw5x")
+horizontal_alignment = 1
+
+[node name="PartialSuccessContainer" type="VBoxContainer" parent="UpperPanels/RightPanelContainer/RightPanel/Chances"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="PartialSuccessChance" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel/Chances/PartialSuccessContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 26
+text = "30%"
+label_settings = ExtResource("8_s6p87")
+horizontal_alignment = 1
+
+[node name="PartialSucsessResult" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel/Chances/PartialSuccessContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "7-9"
+label_settings = ExtResource("9_hteih")
+horizontal_alignment = 1
+
+[node name="SuccessContainer" type="VBoxContainer" parent="UpperPanels/RightPanelContainer/RightPanel/Chances"]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1
+
+[node name="SuccessChance" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel/Chances/SuccessContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 26
+text = "30%"
+label_settings = ExtResource("10_ybk2f")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SuccessResult" type="Label" parent="UpperPanels/RightPanelContainer/RightPanel/Chances/SuccessContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "10+"
+label_settings = ExtResource("11_75cup")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BottomPanel" type="NinePatchRect" parent="."]
+custom_minimum_size = Vector2(700, 50)
+layout_mode = 0
+offset_left = 179.0
+offset_top = 204.0
+offset_right = 879.0
+offset_bottom = 234.0
+texture = ExtResource("2_widno")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="ChooseMoveLabel" type="Label" parent="BottomPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("4_1kihy")
+theme_override_font_sizes/font_size = 18
+text = "mvp_choose_move_label"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ButtonsContainer" type="HBoxContainer" parent="BottomPanel"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HideLeftPanelButton" parent="BottomPanel/ButtonsContainer" instance=ExtResource("5_3f82i")]
 visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "mvp_hide_left_panel_button"
+script = null
 
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(330, 0)
+[node name="ShowLeftPanelButton" parent="BottomPanel/ButtonsContainer" instance=ExtResource("5_3f82i")]
 layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Hack And Slash"
+theme_override_font_sizes/font_size = 22
+text = "mvp_show_left_panel_button"
+script = null
 
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
-
-[node name="Button4" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
-
-[node name="Button5" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="ScrollContainer/HBoxContainer"]
+[node name="HideRightPanelButton" parent="BottomPanel/ButtonsContainer" instance=ExtResource("5_3f82i")]
 visible = false
 layout_mode = 2
+theme_override_font_sizes/font_size = 22
+text = "mvp_hide_right_panel_button"
+script = null
 
-[node name="Button" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(330, 0)
+[node name="ShowRightPanelButton" parent="BottomPanel/ButtonsContainer" instance=ExtResource("5_3f82i")]
 layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
+theme_override_font_sizes/font_size = 22
+text = "mvp_show_right_panel_button"
+script = null
 
-[node name="Button5" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(280, 0)
+[node name="GoBackButton" parent="BottomPanel/ButtonsContainer" instance=ExtResource("5_3f82i")]
+visible = false
 layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
+theme_override_font_sizes/font_size = 22
+text = "Go Back"
+script = null
 
-[node name="Button2" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
-
-[node name="Button3" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
-
-[node name="Button4" type="Button" parent="ScrollContainer/HBoxContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(280, 0)
-layout_mode = 2
-theme = ExtResource("1_ngboe")
-theme_override_font_sizes/font_size = 28
-text = "Example"
+[connection signal="pressed" from="BottomPanel/ButtonsContainer/HideLeftPanelButton" to="." method="_on_hide_left_panel_button_pressed"]
+[connection signal="pressed" from="BottomPanel/ButtonsContainer/ShowLeftPanelButton" to="." method="_on_show_left_panel_button_pressed"]
+[connection signal="pressed" from="BottomPanel/ButtonsContainer/HideRightPanelButton" to="." method="_on_hide_right_panel_button_pressed"]
+[connection signal="pressed" from="BottomPanel/ButtonsContainer/ShowRightPanelButton" to="." method="_on_show_right_panel_button_pressed"]

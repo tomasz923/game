@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dxm5eq6mww0f1"]
+
+[ext_resource type="LabelSettings" uid="uid://bh306va5id613" path="res://game/resources/bonus_numbers_label_red.tres" id="1_tpacd"]
+[ext_resource type="Script" path="res://game/scripts/bonus_label.gd" id="2_ylemm"]
+
+[node name="MoveBonusLabel" type="Label"]
+offset_right = 23.0
+offset_bottom = 29.0
+theme_override_font_sizes/font_size = 6
+label_settings = ExtResource("1_tpacd")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_ylemm")

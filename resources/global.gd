@@ -6,6 +6,12 @@ enum SecondBar {
 	PROCESSING_CORES #2
 }
 
+enum MoveType {
+	DAMAGE, 
+	HEAL, 
+	OTHER
+}
+
 enum CharacterClass {
 	PREACHER, #0
 	PROTECTOR, #1
@@ -20,6 +26,7 @@ enum EnemyType {
 	DECOY
 }
 
+var user_prefs: UserPreferences
 var is_initial_load_ready = false
 var is_rolling_dice_now: bool = false
 #This variable checks if it is possible to save a game
@@ -74,8 +81,9 @@ var first_character
 var second_character
 var third_character
 
-#Combat Order
-var shuffled_allies
+#Combat 
+var shuffled_allies: Array
+var turn_order: int
 
 #Team Data
 var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
@@ -96,7 +104,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 	"HERO": {
 		"second_bar_type": SecondBar.NONE,
 		"character_class": CharacterClass.NONE,
-		"ability_scores": [3, 1, 0, 0, -1, -1],
+		"ability_scores": [1, 1, 0, 0, -1, -1],
 		"current_health": 10,
 		"bonds": [],
 		"eq": {
@@ -110,7 +118,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 		"second_bar_type": SecondBar.NONE,
 		"character_class": CharacterClass.SCOUT,
 		"current_health": 10,
-		"ability_scores": [3, 1, 1, 0, -1, -1],
+		"ability_scores": [0, 1, 1, 0, -1, -1],
 		"bonds": [],
 		"eq": {
 			"melee": load("res://game/inventory_items/warhammer.tres"),
@@ -123,7 +131,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 		"second_bar_type": SecondBar.MEMORY,
 		"current_health": 10,
 		"character_class": CharacterClass.PREACHER,
-		"ability_scores": [3, 1, 2, 0, -1, -1],
+		"ability_scores": [-1, 1, 2, 0, -1, -1],
 		"bonds": [],
 		"eq": {
 			"melee": load("res://game/inventory_items/warhammer.tres"),

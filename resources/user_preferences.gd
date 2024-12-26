@@ -16,6 +16,10 @@ class_name UserPreferences extends Resource
 @export var ui_volume: float = 1.0
 @export var voice_volume: float = 1.0
 
+#Combat UI
+@export var mvp_left_panel_visible: bool = false
+@export var mvp_right_panel_visible: bool = false
+
 func save() -> void:
 	ResourceSaver.save(self, "res://saves/user_prefs.tres")
 

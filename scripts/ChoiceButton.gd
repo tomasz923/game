@@ -1,6 +1,7 @@
 class_name ChoiceButton extends Button
 
-@onready var choice_index 
+#Dialogue Choices
+@onready var choice_index: int 
 
 signal choice_selected(choice_index)
 

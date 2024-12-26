@@ -45,10 +45,6 @@ var all_enemies: Array = [first_enemy, second_enemy, third_enemy, fourth_enemy, 
 var friendly_rays: Array = []
 var all_allies: Array = []
 
-#Debug Turns
-@onready var button_turn = $UI/MovesPanel/VBoxContainer/ButtonTurn
-@onready var label_turn = $UI/MovesPanel/VBoxContainer/LabelTurn
-
 #ENEMY POSITIONS
 @onready var even_enemies_rays = $EvenEnemiesRays
 @onready var odd_enemies_rays = $OddEnemiesRays
@@ -58,11 +54,30 @@ var all_allies: Array = []
 @onready var allies_ui = $UI/Allies
 @onready var enemies_ui = $UI/Enemies
 @onready var ui = $UI
+@onready var moves_panel = $UI/MovesPanel
 const CHARACTER_COMBAT_WINDOW = preload("res://game/scenes/character_combat_window.tscn")
 const ENEMY_COMBAT_WINDOW = preload("res://game/scenes/enemy_combat_window.tscn")
+const MOVE_CHOICE_BUTTON = preload("res://game/scenes/move_choice_button.tscn")
+const BONUS_LABEL = preload("res://game/scenes/move_bonus_label.tscn")
 
-#Combat order
-var turn_order: int
+#Combat Pipeline
+var current_move
+var prob_table: Array = [
+	[2, 2.78],
+	[3, 5.56],
+	[4, 8.33],
+	[5, 11.11],
+	[6, 13.89],
+	[7, 16.66],
+	[8, 13.89],
+	[9, 11.11],
+	[10, 8.33],
+	[11, 5.56],
+	[12, 2.78]
+]
+@export_category("Moves")
+#Basic Moves
+@export var basic_moves_array: Array[Resource]
 
 func _ready():
 	friendly_rays = [friendly_first_ray, friendly_second_ray, friendly_third_ray, friendly_fourth_ray]
@@ -71,10 +86,10 @@ func _ready():
 		danger_zone.visible = false
 
 func trigger_combat():
+	Global.turn_order = -1
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ui.visible = true
 	camera.current = true
-	turn_order = -1
 	all_allies = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
 	Global.allow_movement = false
 	#combat_was_triggerred.emit(combat_id)
@@ -90,6 +105,7 @@ func assign_allied_slots():
 		#all_allies[i].arrived()
 		var current_ray = friendly_rays[i]
 		all_allies[i].position = current_ray.get_collision_point()
+		all_allies[i].int_id = i
 		all_allies[i].look_at(current_ray.get_collision_point() + Vector3(6.0, 0.0, 0.0))
 		all_allies[i].get_in_combat()
 		
@@ -137,6 +153,7 @@ func spawn_enemies():
 		new_enemy.name = "enemy_" + str(i)
 		new_enemy.enemy_stats = enemy_statistics[i]
 		new_enemy.enemy_model = enemy_models[i]
+		new_enemy.int_id = i 
 		
 		enemies_in_combat.add_child(new_enemy)
 		var node_to_change = get_node("EnemiesInCombat/" + "enemy_" + str(i))
@@ -157,18 +174,104 @@ func spawn_enemies():
 		node_to_change.protection_value.text =str(enemy_statistics[i].protection)
 
 func initiate_next_turn():
-	Global.shuffled_allies[turn_order].hexagon.visible = false
-	if turn_order > 2:
-		turn_order = 0
-	else:
-		turn_order += 1
-	label_turn.text = 'It is now the turn of  ' + str(Global.shuffled_allies[turn_order].follower_name)
-	Global.shuffled_allies[turn_order].hexagon.visible = true
-	Global.shuffled_allies[turn_order].hexagon_animation_player.play("hexagon_pulsating")
+	#Declaring variables
+	var character_window_to_change
 	
-	for status in Global.shuffled_allies[turn_order].status_effects:
-		if status != null and status.has_method("trigger_effect"):
-			status.trigger_effect(Global.shuffled_allies[turn_order])
+	#Changes to the ending character before moving on
+	Global.shuffled_allies[Global.turn_order].hexagon.visible = false
+	if Global.turn_order > -1:
+		character_window_to_change = get_node("UI/Allies/" + "view_" + str(Global.turn_order))
+		character_window_to_change.active_triangle.visible = false
+		
+	#Changing number of the current turn
+	elif Global.turn_order > 2:
+		Global.turn_order = 0
+	else:
+		Global.turn_order += 1
+	
+	#Changes to the current character
+	character_window_to_change = get_node("UI/Allies/" + "view_" + str(Global.turn_order))
+	character_window_to_change.active_triangle.visible = true
+	Global.shuffled_allies[Global.turn_order].hexagon.visible = true
+	Global.shuffled_allies[Global.turn_order].hexagon_animation_player.play("hexagon_pulsating")
+	
+	#Load the moves
+	var even_or_odd: int = 0
+	for move in basic_moves_array:
+		var new_move_choice = MOVE_CHOICE_BUTTON.instantiate()
+		new_move_choice.move = move
+		new_move_choice.text = move.move_name
+		new_move_choice.forward_move_data.connect(_on_forward_move_data)
+		even_or_odd += 1
+		if even_or_odd % 2 == 0:
+			moves_panel.even.add_child(new_move_choice)
+		else:
+			moves_panel.odd.add_child(new_move_choice)
 
-func _on_button_turn_pressed():
-	initiate_next_turn()
+func _on_forward_move_data(move: Resource, bonus_array: Array):
+	var new_container
+	var total_bonus: int = 0
+	var success_prob: float = 0.0
+	var failure_prob: float = 0.0
+	var complication_prob: float = 0.0
+	
+	current_move = move
+	if Global.user_prefs.mvp_right_panel_visible:
+		moves_panel._on_show_right_panel_button_pressed()
+	if Global.user_prefs.mvp_left_panel_visible:
+		moves_panel._on_show_left_panel_button_pressed()
+	moves_panel.scroll_container.visible = false
+	moves_panel.move_info.visible = true
+	moves_panel.choose_move_label.visible = false
+	moves_panel.buttons_container.visible = true
+	moves_panel.moves_name.text = move.move_name
+	moves_panel.description.text = move.description
+	
+	for bonus in bonus_array:
+		new_container = HBoxContainer.new()
+		new_container.alignment = BoxContainer.ALIGNMENT_CENTER
+		create_bonus_number(bonus[1], new_container)
+		create_bonus_description(bonus[0], new_container)
+		moves_panel.bonuses.add_child(new_container)
+	
+	for bonus in bonus_array:
+		total_bonus += bonus[1]
+	
+	var debug_int: float = 0.0
+	for row in prob_table:
+		debug_int += row[1]
+	print(debug_int)
+	
+	for row in prob_table:
+		if row[0] + total_bonus > 9:
+			success_prob += row[1]
+		elif row[0] + total_bonus < 7:
+			failure_prob += row[1]
+		else:
+			complication_prob += row[1]
+	
+	moves_panel.show_chances(failure_prob, complication_prob, success_prob)
+	print('DEBUG Raw probabilities: ')
+	print(failure_prob, complication_prob, success_prob)
+
+func create_bonus_number(number: int, container: HBoxContainer):
+	var bonus_label: BonusLabel = BONUS_LABEL.instantiate()
+	if int(number) > 0:
+		bonus_label.text = "+" + str(number)
+	else:
+		bonus_label.text = str(number)
+	bonus_label.bonus_number(true)
+	#bonus_label.add_theme_font_size_override("font_size", 8)
+	container.add_child(bonus_label)
+
+func create_bonus_description(description: String, container: HBoxContainer):
+	var bonus_label: BonusLabel = BONUS_LABEL.instantiate()
+	bonus_label.text = description
+	bonus_label.bonus_description(true)
+	#bonus_label.add_theme_font_size_override("font_size", 8)
+	container.add_child(bonus_label)
+	
+	#Check for existing sttaus effects
+	#for status in Global.shuffled_allies[turn_order].status_effects:
+		#if status != null and status.has_method("trigger_effect"):
+			#status.trigger_effect(Global.shuffled_allies[turn_order])

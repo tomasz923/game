@@ -1,13 +1,12 @@
 extends Label
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass  # Replace with function body.
-
+#FPS
+const TIMER_LIMIT = 2.0
+var timer = 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta):
-	# Assuming Engine.get_frames_per_second() is still available
-	set_text(str(Engine.get_frames_per_second()))
-
+func _process(delta):
+	timer += delta
+	if timer > TIMER_LIMIT: # Prints every 2 seconds
+		timer = 0.0
+		set_text("FPS: " + str(Engine.get_frames_per_second()))

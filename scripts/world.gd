@@ -28,7 +28,7 @@ func _ready():
 	Global.read_dice_rolls()
 	Global.read_team_data()
 
-func _process(_delta):
+func _process(delta):
 	# The code is checking all the time the distance of the first and the third followe
 	# so they always follow the spot closes to them even when the player is turning
 	check_distance()

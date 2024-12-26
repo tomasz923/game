@@ -7,6 +7,7 @@ class_name Enemy
 @export var enemy_stats: Resource 
 @export var enemy_model: PackedScene
 @export var current_health: int
+@export var int_id: int 
 
 var model
 

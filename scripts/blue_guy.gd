@@ -34,6 +34,7 @@ enum SecondBar {
 @export var current_health: int = 10
 @export var protection: int = 0
 @export var max_health: int = 10
+@export var int_id: int 
 #@export var bonds: Array = []
 @export var status_effects: Array[Resource] = []
 @export var moves: Array = []

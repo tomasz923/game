@@ -12,15 +12,22 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 116.0
+offset_bottom = 39.0
+color = Color(0, 0, 0, 1)
+
 [node name="FPS" type="Label" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
-text = "120"
+text = "FPS: 120"
 label_settings = ExtResource("1_wge7g")
 script = ExtResource("1_odjkb")
 
 [node name="CPU" type="Label" parent="."]
+visible = false
 layout_mode = 0
 offset_top = 38.0
 offset_right = 40.0

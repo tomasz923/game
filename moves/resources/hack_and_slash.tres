@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="HackAndSlash" load_steps=2 format=3 uid="uid://4ypywmtnfu45"]
+
+[ext_resource type="Script" path="res://game/moves/scripts/hack_and_slash.gd" id="1_aj6x0"]
+
+[resource]
+script = ExtResource("1_aj6x0")
+name = "hack_and_slash"

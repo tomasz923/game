@@ -1,7 +1,6 @@
 extends Control
 
 
-var user_prefs: UserPreferences
 var language_codes = ["EN", "PL", "DE", "ES"]
 var top_option_buttons = []
 var first_row_buttons = []
@@ -48,7 +47,7 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 func _ready()	:
 	#Global.read_last_mod()
 	#if not Global.is_initial_load_ready:
-	user_prefs = UserPreferences.load_or_create()
+	Global.user_prefs = UserPreferences.load_or_create()
 	Global.collect_save_files()
 	Global.load_save_slots(save_slots_container)
 	#Global.sort_save_slots()
@@ -158,15 +157,15 @@ func _on_back_button_pressed():
 	$load_game.visible = false
 
 func _on_reset_button_pressed():
-	user_prefs.display_resolution_selected = 1
-	user_prefs.display_settings_selected = 0
-	user_prefs.vsync_settings_selected = 0
-	user_prefs.current_screen_selected = 0
-	user_prefs.scaling_item_selected = 3
-	user_prefs.game_resolution_value_selected = 100
-	user_prefs.scaling_option_item_selected = 0
-	user_prefs.chosen_language = 0
-	user_prefs.save()
+	Global.user_prefs.display_resolution_selected = 1
+	Global.user_prefs.display_settings_selected = 0
+	Global.user_prefs.vsync_settings_selected = 0
+	Global.user_prefs.current_screen_selected = 0
+	Global.user_prefs.scaling_item_selected = 3
+	Global.user_prefs.game_resolution_value_selected = 100
+	Global.user_prefs.scaling_option_item_selected = 0
+	Global.user_prefs.chosen_language = 0
+	Global.user_prefs.save()
 	load_settings()
 	
 func is_in_game():
@@ -176,25 +175,25 @@ func load_settings():
 	#Screen Selected
 	#Omit if on SteamDeck 2DO
 	var window = get_window()
-	if user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
+	if Global.user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
 		window.set_mode(Window.MODE_WINDOWED)
 		window.set_current_screen(0)
 		display_screen_settings.select(0)
 	else:
 		window.set_mode(Window.MODE_WINDOWED)
-		window.set_current_screen(user_prefs.current_screen_selected)
-		display_screen_settings.select(user_prefs.current_screen_selected)
+		window.set_current_screen(Global.user_prefs.current_screen_selected)
+		display_screen_settings.select(Global.user_prefs.current_screen_selected)
 		
 	#Resolution
 	#Omit on SteamDeck 2DO
-	display_resolution.select(user_prefs.display_resolution_selected)
+	display_resolution.select(Global.user_prefs.display_resolution_selected)
 	var _window = get_window()
-	current_window_size = resolutions.values()[user_prefs.display_resolution_selected]
+	current_window_size = resolutions.values()[Global.user_prefs.display_resolution_selected]
 		
 	#Fullscreen
 	#Omit on SteamDeck 2DO
-	display_settings.select(user_prefs.display_settings_selected)
-	match user_prefs.display_settings_selected:
+	display_settings.select(Global.user_prefs.display_settings_selected)
+	match Global.user_prefs.display_settings_selected:
 		0: 
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
@@ -207,33 +206,33 @@ func load_settings():
 			change_window_size()
 	
 	#V-Sync
-	vsync_settings.select(user_prefs.vsync_settings_selected)
+	vsync_settings.select(Global.user_prefs.vsync_settings_selected)
 	#print(DisplayServer.get_screen_count())
-	match user_prefs.vsync_settings_selected:
+	match Global.user_prefs.vsync_settings_selected:
 		0:
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
 		1:
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	
 	#Scaling Load
-	scaling_option.select(user_prefs.scaling_option_item_selected)
-	match user_prefs.scaling_option_item_selected:
+	scaling_option.select(Global.user_prefs.scaling_option_item_selected)
+	match Global.user_prefs.scaling_option_item_selected:
 		0:
 			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_BILINEAR)
 			frs_scaling.visible = false 
 			game_resolution.visible = true
-			game_resolution.value = user_prefs.game_resolution_value_selected
-			_on_game_resolution_value_changed(user_prefs.game_resolution_value_selected)
+			game_resolution.value = Global.user_prefs.game_resolution_value_selected
+			_on_game_resolution_value_changed(Global.user_prefs.game_resolution_value_selected)
 		1:
 			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR2)
 			frs_scaling.visible = true 
 			game_resolution.visible = false
-			frs_scaling.select(user_prefs.scaling_item_selected)
-			_on_frs_scaling_item_selected(user_prefs.scaling_item_selected)
+			frs_scaling.select(Global.user_prefs.scaling_item_selected)
+			_on_frs_scaling_item_selected(Global.user_prefs.scaling_item_selected)
 	
 	#Language
-	language_option.select(user_prefs.chosen_language)
-	match user_prefs.chosen_language:
+	language_option.select(Global.user_prefs.chosen_language)
+	match Global.user_prefs.chosen_language:
 		0:
 			TranslationServer.set_locale("EN")
 		1:
@@ -244,8 +243,8 @@ func load_settings():
 			TranslationServer.set_locale("ES")
 	
 	# AA
-	aa_option.select(user_prefs.aa_option_selected)
-	match user_prefs.aa_option_selected:
+	aa_option.select(Global.user_prefs.aa_option_selected)
+	match Global.user_prefs.aa_option_selected:
 		0:
 			get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
 			get_viewport().use_taa = false
@@ -257,60 +256,60 @@ func load_settings():
 			get_viewport().use_taa = true
 	
 	# Mouse Sensitivity
-	mouse_sens_slider.value = user_prefs.mouse_sensitivity
+	mouse_sens_slider.value = Global.user_prefs.mouse_sensitivity
 	
 	# Audio
-	master_slider.value = user_prefs.master_volume
-	voice_slider.value = user_prefs.voice_volume
-	sfx_slider.value = user_prefs.sfx_volume
-	ui_slider.value = user_prefs.ui_volume
-	music_slider.value = user_prefs.music_volume
+	master_slider.value = Global.user_prefs.master_volume
+	voice_slider.value = Global.user_prefs.voice_volume
+	sfx_slider.value = Global.user_prefs.sfx_volume
+	ui_slider.value = Global.user_prefs.ui_volume
+	music_slider.value = Global.user_prefs.music_volume
 	
-	_on_master_slider_value_changed(user_prefs.master_volume)
-	_on_voice_slider_value_changed(user_prefs.voice_volume)
-	_on_sfx_slider_value_changed(user_prefs.sfx_volume)
-	_on_ui_slider_value_changed(user_prefs.ui_volume)
-	_on_music_slider_value_changed(user_prefs.music_volume)
+	_on_master_slider_value_changed(Global.user_prefs.master_volume)
+	_on_voice_slider_value_changed(Global.user_prefs.voice_volume)
+	_on_sfx_slider_value_changed(Global.user_prefs.sfx_volume)
+	_on_ui_slider_value_changed(Global.user_prefs.ui_volume)
+	_on_music_slider_value_changed(Global.user_prefs.music_volume)
 	
 func set_values():
 	#Screen Selected
 	#Omit if on SteamDeck 2DO
-	if user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
+	if Global.user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
 		display_screen_settings.select(0)
 	else:
-		display_screen_settings.select(user_prefs.current_screen_selected)
+		display_screen_settings.select(Global.user_prefs.current_screen_selected)
 		
 	#Resolution
 	#Omit on SteamDeck 2DO
-	display_resolution.select(user_prefs.display_resolution_selected)
+	display_resolution.select(Global.user_prefs.display_resolution_selected)
 	var _window = get_window()
-	current_window_size = resolutions.values()[user_prefs.display_resolution_selected]
+	current_window_size = resolutions.values()[Global.user_prefs.display_resolution_selected]
 		
 	#Fullscreen
 	#Omit on SteamDeck 2DO
-	display_settings.select(user_prefs.display_settings_selected)
+	display_settings.select(Global.user_prefs.display_settings_selected)
 	
 	#V-Sync
-	vsync_settings.select(user_prefs.vsync_settings_selected)
+	vsync_settings.select(Global.user_prefs.vsync_settings_selected)
 	
 	#Scaling Load
-	scaling_option.select(user_prefs.scaling_option_item_selected)
+	scaling_option.select(Global.user_prefs.scaling_option_item_selected)
 	
 	#Language
-	language_option.select(user_prefs.chosen_language)
+	language_option.select(Global.user_prefs.chosen_language)
 	
 	# AA
-	aa_option.select(user_prefs.aa_option_selected)
+	aa_option.select(Global.user_prefs.aa_option_selected)
 	
 	# Mouse Sensitivity
-	mouse_sens_slider.value = user_prefs.mouse_sensitivity
+	mouse_sens_slider.value = Global.user_prefs.mouse_sensitivity
 	
 	# Audio
-	master_slider.value = user_prefs.master_volume
-	voice_slider.value = user_prefs.voice_volume
-	sfx_slider.value = user_prefs.sfx_volume
-	ui_slider.value = user_prefs.ui_volume
-	music_slider.value = user_prefs.music_volume
+	master_slider.value = Global.user_prefs.master_volume
+	voice_slider.value = Global.user_prefs.voice_volume
+	sfx_slider.value = Global.user_prefs.sfx_volume
+	ui_slider.value = Global.user_prefs.ui_volume
+	music_slider.value = Global.user_prefs.music_volume
 
 	
 # Options top bar ----------------------------------------------------------------------------------
@@ -343,43 +342,43 @@ func _on_audio_button_pressed():
 func _on_master_slider_value_changed(value):
 	bus_index = AudioServer.get_bus_index('Master')
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
-	user_prefs.master_volume = value
-	user_prefs.save()
+	Global.user_prefs.master_volume = value
+	Global.user_prefs.save()
 
 
 func _on_music_slider_value_changed(value):
 	bus_index = AudioServer.get_bus_index('Music')
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
-	user_prefs.music_volume = value
-	user_prefs.save()
+	Global.user_prefs.music_volume = value
+	Global.user_prefs.save()
 
 
 func _on_ui_slider_value_changed(value):
 	bus_index = AudioServer.get_bus_index('UI')
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
-	user_prefs.ui_volume = value
-	user_prefs.save()
+	Global.user_prefs.ui_volume = value
+	Global.user_prefs.save()
 
 
 func _on_sfx_slider_value_changed(value):
 	bus_index = AudioServer.get_bus_index('SFX')
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
-	user_prefs.sfx_volume = value
-	user_prefs.save()
+	Global.user_prefs.sfx_volume = value
+	Global.user_prefs.save()
 
 
 func _on_voice_slider_value_changed(value):
 	bus_index = AudioServer.get_bus_index('Voice')
 	AudioServer.set_bus_volume_db(bus_index, linear_to_db(value))
-	user_prefs.voice_volume = value
-	user_prefs.save()
+	Global.user_prefs.voice_volume = value
+	Global.user_prefs.save()
 ##Controls Options ---------------------------------------------------------------------------------
 func _on_controls_button_pressed():
 	_on_button_toggled(1, top_option_buttons)
 
 func _on_mouse_sens_slider_value_changed(value):
-	user_prefs.mouse_sensitivity = value
-	user_prefs.save()
+	Global.user_prefs.mouse_sensitivity = value
+	Global.user_prefs.save()
 ##Screen Options -----------------------------------------------------------------------------------
 func _on_screen_button_pressed():
 	_on_button_toggled(2, top_option_buttons)
@@ -389,9 +388,9 @@ func _on_display_resolution_item_selected(index):
 	var mode = _window.get_mode()
 	current_window_size = resolutions.values()[index]
 	
-	if user_prefs:
-		user_prefs.display_resolution_selected = index
-		user_prefs.save()
+	if Global.user_prefs:
+		Global.user_prefs.display_resolution_selected = index
+		Global.user_prefs.save()
 	
 	if mode == Window.MODE_WINDOWED:
 		change_window_size()
@@ -412,30 +411,30 @@ func _on_display_settings_item_selected(index):
 		0: 
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-			user_prefs.display_settings_selected = 0 
-			user_prefs.save()
+			Global.user_prefs.display_settings_selected = 0 
+			Global.user_prefs.save()
 		1:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
-			user_prefs.display_settings_selected = 1
-			user_prefs.save()
+			Global.user_prefs.display_settings_selected = 1
+			Global.user_prefs.save()
 		2:
 			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
 			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
-			user_prefs.display_settings_selected = 2
-			user_prefs.save()
+			Global.user_prefs.display_settings_selected = 2
+			Global.user_prefs.save()
 			change_window_size()
 
 func _on_vsync_settings_item_selected(index):
 	match index:
 		0:
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
-			user_prefs.vsync_settings_selected = 0
-			user_prefs.save()
+			Global.user_prefs.vsync_settings_selected = 0
+			Global.user_prefs.save()
 		1:
 			DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-			user_prefs.vsync_settings_selected = 0
-			user_prefs.save()
+			Global.user_prefs.vsync_settings_selected = 0
+			Global.user_prefs.save()
 
 func add_screens():
 	var screens = DisplayServer.get_screen_count()
@@ -445,20 +444,20 @@ func add_screens():
 
 func _on_display_screen_settings_item_selected(index):
 	var window = get_window()
-	user_prefs.current_screen_selected = index
-	user_prefs.save()
+	Global.user_prefs.current_screen_selected = index
+	Global.user_prefs.save()
 	#Needs to change once we have saved settings variables, so it returns to be unwindowed.
 	
 	window.set_mode(Window.MODE_WINDOWED)
 	window.set_current_screen(index)
 	
-	if user_prefs.display_settings_selected != 2:
-		_on_display_settings_item_selected(user_prefs.display_settings_selected)
+	if Global.user_prefs.display_settings_selected != 2:
+		_on_display_settings_item_selected(Global.user_prefs.display_settings_selected)
 
 ##Graphics Options ---------------------------------------------------------------------------------
 func _on_aa_option_item_selected(index):
-	user_prefs.aa_option_selected = index
-	user_prefs.save()
+	Global.user_prefs.aa_option_selected = index
+	Global.user_prefs.save()
 	match index:
 		0:
 			get_viewport().screen_space_aa = Viewport.SCREEN_SPACE_AA_DISABLED
@@ -473,14 +472,14 @@ func _on_aa_option_item_selected(index):
 
 func _on_graphics_button_pressed():
 	_on_button_toggled(3, top_option_buttons)
-	var value = user_prefs.game_resolution_value_selected
+	var value = Global.user_prefs.game_resolution_value_selected
 	var resolution_scale = value/100.00
 	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
 	label_scale.set_text(str(value)+"% - "+ resolution_text)
 
 func _on_game_resolution_value_changed(value):
-	user_prefs.game_resolution_value_selected = value
-	user_prefs.save()
+	Global.user_prefs.game_resolution_value_selected = value
+	Global.user_prefs.save()
 	var resolution_scale = value/100.00
 	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
 	
@@ -488,8 +487,8 @@ func _on_game_resolution_value_changed(value):
 	get_viewport().set_scaling_3d_scale(resolution_scale)
 
 func _on_scaling_option_item_selected(index):
-	user_prefs.scaling_option_item_selected = index
-	user_prefs.save()
+	Global.user_prefs.scaling_option_item_selected = index
+	Global.user_prefs.save()
 	match index:
 		0:
 			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_BILINEAR)
@@ -507,8 +506,8 @@ func _on_scaling_option_item_selected(index):
 			_on_frs_scaling_item_selected(3)
 
 func _on_frs_scaling_item_selected(index):
-	user_prefs.scaling_item_selected = index
-	user_prefs.save()
+	Global.user_prefs.scaling_item_selected = index
+	Global.user_prefs.save()
 	match index:
 		0:
 			_on_game_resolution_value_changed(50.00)
@@ -524,8 +523,8 @@ func _on_game_button_pressed():
 	_on_button_toggled(4, top_option_buttons)
 
 func _on_language_option_item_selected(index):
-	user_prefs.chosen_language = index 
-	user_prefs.save()
+	Global.user_prefs.chosen_language = index 
+	Global.user_prefs.save()
 	match index:
 		0:
 			TranslationServer.set_locale("EN")
