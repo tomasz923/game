@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="InventoryItem" load_steps=2 format=3 uid="uid://bxfu6oa24g1ut"]
+
+[ext_resource type="Script" path="res://game/scripts/inventory_item.gd" id="1_khw7j"]
+
+[resource]
+script = ExtResource("1_khw7j")
+item_name = "missing_name"
+item_description = "missing_description"
+type = 5
+weight = 0
+damage_bonus = 0
+piercing = 0
+ammo = 0
+value = 0
+can_be_sold = true
+forceful = false
+ignores_protection = false
+messy = false
+precise = false
+relaod = false
+stun = false

@@ -1,6 +1,9 @@
 extends CharacterBody3D
 class_name Hero
 
+signal arrived_for_melee()
+signal arrived_at_the_main_spot()
+
 enum CharacterClass {
 	MONK, #0
 	CLERIC, #1
@@ -68,6 +71,9 @@ var SPEED = 2.5
 @onready var isRunning = true
 var isLocked = false
 var user_prefs: UserPreferences
+var vista_point: Vector3
+var main_spot: Vector3
+var idle_combat_animation: String
 
 const walking_speed = 1.5
 const running_speed = 3.5
@@ -204,6 +210,31 @@ func get_in_combat():
 					model.right_hand_container.remove_child(n)
 					n.queue_free()
 				model.right_hand_container.add_child(equipped_weapon)
-				model.animation_player.play("1h_idle")
+				idle_combat_animation = "1h_idle"
+				model.animation_player.play(idle_combat_animation)
 	else:
 		pass
+	look_at(vista_point)
+
+func go_for_melee(run_animation_name: String, target_position: Vector3, enemy):
+	animation_player.play(run_animation_name)
+	look_at(target_position)
+	var distance = global_transform.origin.distance_to(target_position)
+	var tween_length = snapped((distance/2.5), 0.1)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", target_position, tween_length)
+	await tween.finished 
+	look_at(enemy.global_position)
+	arrived_for_melee.emit()
+
+func back_to_main_spot(run_animation_name):
+	animation_player.play(run_animation_name)
+	look_at(main_spot)
+	var distance = global_transform.origin.distance_to(main_spot)
+	var tween_length = snapped((distance/2.5), 0.1)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", main_spot, tween_length)
+	await tween.finished 
+	look_at(vista_point)
+	model.animation_player.play(idle_combat_animation)
+	arrived_at_the_main_spot.emit()

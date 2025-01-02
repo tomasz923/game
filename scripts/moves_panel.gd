@@ -12,6 +12,8 @@ extends Control
 @onready var expected_outcome_value = $UpperPanels/MainPanel/MoveInfo/Control/ExtraMoveInfoChances/ExpectedOutcomeValue
 @onready var description = $UpperPanels/MainPanel/MoveInfo/MovesDescription/Description
 @onready var bonuses = $UpperPanels/RightPanelContainer/RightPanel/Bonuses
+@onready var extra_move_info_damage = $UpperPanels/MainPanel/MoveInfo/Control/ExtraMoveInfoDamage
+@onready var damages = $UpperPanels/LeftPanelContainer/LeftPanel/Damages
 
 @onready var left_panel = $UpperPanels/LeftPanelContainer/LeftPanel
 @onready var right_panel = $UpperPanels/RightPanelContainer/RightPanel
@@ -84,7 +86,7 @@ func _on_show_left_panel_button_pressed():
 	Global.user_prefs.mvp_left_panel_visible = true
 	Global.user_prefs.save()
 
-func show_chances(fail: float, partial_success: float, success: float):
+func show_chances(fail: float, partial_success: float, success: float, total_bonus: int):
 	var chances = [fail, partial_success, success]
 	var chance_labels = [fail_chance, partial_success_chance, success_chance]
 	var highest_chance = snapped(max(fail, partial_success, success), 1)
@@ -112,3 +114,35 @@ func show_chances(fail: float, partial_success: float, success: float):
 	else:
 		success_chance.set("label_settings", BONUS_NUMBERS_LABEL)
 		success_result.set("label_settings", MVP_BONUS_NUMBERS_LABEL)
+	
+	if total_bonus > 0:
+		expected_outcome_value.text = '+' + str(total_bonus)
+		expected_outcome_value.set("label_settings", MVP_BONUS_NUMBERS_LABEL_GREEN)
+	elif total_bonus < 0:
+		expected_outcome_value.text = str(total_bonus)
+		expected_outcome_value.set("label_settings", MVP_BONUS_NUMBERS_LABEL_RED)
+	else:
+		expected_outcome_value.text = str(total_bonus)
+		expected_outcome_value.set("label_settings", MVP_BONUS_NUMBERS_LABEL_YELLOW)
+
+func _on_go_back_button_pressed():
+	scroll_container.visible = true
+	move_info.visible = false
+	choose_move_label.visible = true
+	buttons_container.visible = false
+	left_panel.visible = false
+	right_panel.visible = false
+	left_unblur.visible = true
+	left_blur.visible = false
+	right_blur.visible = false
+	right_unblur.visible = true
+	clear_bonuses()
+	
+func clear_bonuses():
+	for n in bonuses.get_children():
+		bonuses.remove_child(n)
+		n.queue_free() 
+func clear_damages():
+	for n in damages.get_children():
+		damages.remove_child(n)
+		n.queue_free() 

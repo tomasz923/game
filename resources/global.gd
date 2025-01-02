@@ -40,6 +40,7 @@ var quick_save_file_path
 var save_file_to_be_removed
 
 var current_scene:String 
+var current_combat_scene
 var screenshot:Image #Saved as a part of a save file
 var save_files
 var highest_save_number:int = 0
@@ -50,6 +51,7 @@ var save_slot = preload("res://game/scenes/save_slot.tscn")
 var is_about_to_load_game:bool #Whether the save slots are created for saving or loading; if saving - skip autosaves and quickloads
 var last_save_file_path:String
 var allow_movement = false #Allows for the player to move.
+var cursors_visible_in_game = false
 
 var player_position: Vector3
 
@@ -181,6 +183,8 @@ var journal: Dictionary = {
 var roll_types: Dictionary = {
 	"persuade": "str"
 }
+
+var debug_var: bool = false
 
 func read_dice_rolls():
 	var file = "res://assets/json/dice_variables.json"

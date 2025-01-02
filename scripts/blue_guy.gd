@@ -1,6 +1,9 @@
 extends CharacterBody3D
 class_name Follower
 
+signal arrived_for_melee()
+signal arrived_at_the_main_spot()
+
 enum FollowerOrder {
 	FIRST,
 	SECOND,
@@ -65,8 +68,11 @@ var is_moving: bool = false
 var SPEED: float = 3.5
 var target: CharacterBody3D
 var destination: Vector3
+var main_spot: Vector3
 var is_looking: bool = false
 var in_combat: bool = false
+var vista_point: Vector3
+var idle_combat_animation: String
 
 func _ready():
 	get_max_health()
@@ -95,37 +101,16 @@ func _process(_delta):
 
 		velocity = new_velocity
 		move_and_slide()
-		look_at_spot()
+		look_at_spot(destination)
 
 	elif !is_moving and !in_combat:
 		animation_player.play("idle")
 
-func look_at_spot():
-	#pass
+func look_at_spot(target_pos):
 	var global_pos = self.global_transform.origin
-	#var target_pos = target.global_transform.origin
-	var target_pos = destination
 	var wtransform = self.global_transform.looking_at(Vector3(target_pos.x, global_pos.y, target_pos.z), Vector3.UP)
 	var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), 0.1)
 	self.global_transform = Transform3D(Basis(wrotation), global_pos)
-	## Get the current rotation
-	#var start_rotation = global_rotation
-	## Make the object look at the player immediately (to calculate target rotation)
-	#match FollowerNumber:
-		#0:
-			#look_at(target.view_one.global_position)
-		#1:
-			#look_at(target.global_position)
-		#2:
-			#look_at(target.view_three.global_position)
-	## Store the target rotation
-	#var target_rotation = global_rotation
-	## Reset to start rotation
-	#global_rotation = start_rotation
-	### Create a tween to smoothly rotate to the target
-	##tween.stop_all()  # Stop any existing tweens
-	#var tween = create_tween()
-	#tween.tween_property(self, "global_rotation", target_rotation, 1).set_trans(Tween.TRANS_LINEAR)
 
 func update_target_position(target_position):
 	#var forward_vector = global_transform.basis.z
@@ -136,10 +121,6 @@ func _on_area_3d_body_exited(body):
 	target = body
 	if Global.allow_movement:
 		is_moving = true
-	#look_at_spot()
-	#if body is CharacterBody3D:
-		#print("CharacterBody3D exited the area!")
-		#print(target.follower_position_three.global_position)
 
 func arrived():
 	is_moving = false
@@ -190,6 +171,31 @@ func get_in_combat():
 					model.right_hand_container.remove_child(n)
 					n.queue_free()
 				model.right_hand_container.add_child(equipped_weapon)
-				model.animation_player.play("1h_idle")
+				idle_combat_animation = "1h_idle"
+				model.animation_player.play(idle_combat_animation)
 	else:
 		pass
+	look_at(vista_point)
+
+func go_for_melee(run_animation_name: String, target_position: Vector3, enemy):
+	animation_player.play(run_animation_name)
+	look_at_spot(target_position)
+	var distance = global_transform.origin.distance_to(target_position)
+	var tween_length = snapped((distance/2.5), 0.1)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", target_position, tween_length)
+	await tween.finished 
+	look_at_spot(enemy.global_position)
+	arrived_for_melee.emit()
+
+func back_to_main_spot(run_animation_name):
+	animation_player.play(run_animation_name)
+	look_at(main_spot)
+	var distance = global_transform.origin.distance_to(main_spot)
+	var tween_length = snapped((distance/2.5), 0.1)
+	var tween = get_tree().create_tween()
+	tween.tween_property(self, "position", main_spot, tween_length)
+	await tween.finished 
+	look_at(vista_point)
+	model.animation_player.play(idle_combat_animation)
+	arrived_at_the_main_spot.emit()

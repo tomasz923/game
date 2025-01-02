@@ -132,7 +132,7 @@ label_content = "Uno"
 is_a_character = true
 script_file = ExtResource("11_srbxb")
 
-[node name="REMOVETHIS" parent="." instance=ExtResource("2_tslae")]
+[node name="CombatZone" parent="." instance=ExtResource("2_tslae")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38452, 0, 0)
 is_a_trap = true
 first_enemy_model = ExtResource("21_m3ehy")
