@@ -26,38 +26,7 @@ func _ready():
 	roll_duration = roll_duration_length
 	rng = randi_range(1,6)
 	#rng = 4
-	match rng:
-		1:
-			final_pos = 410
-			stopping_pos = 80
-			another_pos = final_pos - 990
-			final_slot = reel_2
-		2:
-			final_pos = 245
-			stopping_pos = -85
-			final_slot = reel_2
-			another_pos = final_pos - 990
-		3:
-			final_pos = 80
-			stopping_pos = -250
-			final_slot = reel_2
-			another_pos = final_pos - 990
-		4:
-			final_pos = -85
-			stopping_pos = -415
-			final_slot = reel_1
-			another_pos = final_pos + 990
-		5: 
-			final_pos = -250
-			stopping_pos = 410
-			final_slot = reel_1
-			another_pos = final_pos + 990
-			
-		6:
-			final_pos = -415
-			stopping_pos = 245
-			final_slot = reel_1
-			another_pos = final_pos + 990
+	match_rng(rng)
 	
 func _process(_delta):
 	if is_rolling:
@@ -115,3 +84,37 @@ func _stopRoll():
 
 	await TWN.finished
 	roll_done.emit(rng)
+
+func match_rng(num: int):
+	match num:
+		1:
+			final_pos = 410
+			stopping_pos = 80
+			another_pos = final_pos - 990
+			final_slot = reel_2
+		2:
+			final_pos = 245
+			stopping_pos = -85
+			final_slot = reel_2
+			another_pos = final_pos - 990
+		3:
+			final_pos = 80
+			stopping_pos = -250
+			final_slot = reel_2
+			another_pos = final_pos - 990
+		4:
+			final_pos = -85
+			stopping_pos = -415
+			final_slot = reel_1
+			another_pos = final_pos + 990
+		5: 
+			final_pos = -250
+			stopping_pos = 410
+			final_slot = reel_1
+			another_pos = final_pos + 990
+			
+		6:
+			final_pos = -415
+			stopping_pos = 245
+			final_slot = reel_1
+			another_pos = final_pos + 990

@@ -78,6 +78,8 @@ const BONUS_LABEL = preload("res://game/scenes/move_bonus_label.tscn")
 var current_move
 var total_bonus: int = 0
 var enemy_num: int = 0
+
+#Dice
 var prob_table: Array = [
 	[2, 2.78],
 	[3, 5.56],
@@ -91,6 +93,9 @@ var prob_table: Array = [
 	[11, 5.56],
 	[12, 2.78]
 ]
+var dice_roll_one: int
+var dice_roll_two: int
+
 @export_category("Moves")
 #Basic Moves
 @export var basic_moves_array: Array[Resource]

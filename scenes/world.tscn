@@ -74,7 +74,7 @@ process_mode = 3
 script = ExtResource("1_2ccfw")
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(0.0321751, 0.481882, -0.875645, -4.65661e-10, 0.876099, 0.482131, 0.999482, -0.0155126, 0.0281886, -7.30683, 2.4052, -1.78514)
+transform = Transform3D(0.0321752, 0.481882, -0.875645, -4.65661e-10, 0.876099, 0.482132, 0.999482, -0.0155127, 0.0281886, -7.30683, 2.4052, -1.78514)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera"]
 process_priority = 300
