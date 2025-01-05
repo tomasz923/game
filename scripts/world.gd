@@ -8,7 +8,11 @@ extends Node3D
 @onready var moves = $Moves
 @onready var inventory = $Inventory
 
+#DEBUG
+@onready var box_2 = $map/NavigationRegion3D/box_2
+
 func _ready():
+	Global.temp_var = box_2
 	Global.current_scene = "res://game/scenes/world.tscn"
 	Global.moves_menu = $Moves
 	Global.dialogue_box = $DialogueBox
@@ -23,8 +27,6 @@ func _ready():
 	#Setting Cams
 	Global.allow_movement = true
 	Global.collider = null
-	Global.player_cam = player.player_cam
-	Global.main_cam = player.main_cam
 	Global.read_dice_rolls()
 	Global.read_team_data()
 

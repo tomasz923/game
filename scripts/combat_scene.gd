@@ -32,7 +32,8 @@ const CLICKABLE_WINDOW = preload("res://game/scenes/clickable_window.tscn")
 #AREA 3D
 @onready var danger_zone = $DangerZone
 @onready var collision_dome = $DangerZone/CollisionDome
-@onready var camera = $Camera
+@onready var main_pcam = $MainPcam
+
 
 #FRIENDLY RAYS
 @onready var friendly_first_ray = $Allies/FriendlyFirstRay
@@ -101,16 +102,17 @@ func _ready():
 		danger_zone.visible = false
 
 func trigger_combat():
+	Global.allow_movement = false
 	Global.turn_order = -1
 	Global.current_combat_scene = self
 	Global.cursors_visible_in_game = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ui.visible = true
 	clickable_enemy_window.visible = true
-	camera.current = true
 	all_allies = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
 	Global.allow_movement = false
-	#combat_was_triggerred.emit(combat_id)
+	#Global.change_phantom_camera(main_pcam)
+	Global.change_phantom_camera(main_pcam, 0.0)
 	assign_allied_slots()
 	spawn_enemies()
 	initiate_next_turn()
@@ -144,8 +146,11 @@ func assign_allied_slots():
 		node_to_change.health_bar.max_value = all_allies[i].max_health
 		node_to_change.protection_value.text =str(all_allies[i].protection)
 
-func _on_danger_zone_body_entered(_body):
+func _on_danger_zone_body_entered(body):
 	trigger_combat()
+
+func transition_camera(from: PhantomCamera3D, to: PhantomCamera3D, duration: float = 1.0):
+	pass
 
 func spawn_enemies():
 	var enemy_statistics: Array = [first_enemy_stats, second_enemy_stats, third_enemy_stats, fourth_enemy_stats, fifth_enemy_stats, sixth_enemy_stats]
@@ -208,7 +213,6 @@ func spawn_enemies():
 		var node_to_change = get_node("EnemiesInCombat/" + "enemy_" + str(i))
 		node_to_change.global_position = current_ray.get_collision_point()
 		node_to_change.main_spot = current_ray.get_collision_point()
-		node_to_change.allys_melee_fight_posiiton = ally_stand_points[i].get_collision_point()
 		node_to_change.get_ready()
 		
 		#Calculate Enemy Protection
@@ -418,7 +422,6 @@ func deal_damage_or_heal(is_healing: bool, value: int, height: float, spread: fl
 		window.health_value.text = str(max(0, new_value/100))
 		healthbar_tween.tween_property(window.health_bar, "value", new_value, 0.8).from(current_value)
 		if new_value < 1:
-			print(clickable_enemy_windows_container.get_children())
 			var clickable_window = get_node("ClickableEnemyWindow/ClickableEnemyWindowsContainer/enemy_window_" + str(window_int))
 			clickable_window.disabled = true
 

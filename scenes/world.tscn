@@ -1,10 +1,11 @@
-[gd_scene load_steps=35 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=36 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]
 [ext_resource type="PackedScene" uid="uid://rtwiby6sj4ro" path="res://game/scenes/combat_scene.tscn" id="2_tslae"]
 [ext_resource type="PackedScene" uid="uid://dpxqgjaudcmg5" path="res://game/scenes/specs.tscn" id="2_vvsx5"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_yr0qb"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/player.tscn" id="5_f8m7e"]
@@ -71,6 +72,14 @@ albedo_texture = ExtResource("7_v04pi")
 [node name="world" type="Node3D" groups=["main_menu"]]
 process_mode = 3
 script = ExtResource("1_2ccfw")
+
+[node name="Camera" type="Camera3D" parent="."]
+transform = Transform3D(0.0321751, 0.481882, -0.875645, -4.65661e-10, 0.876099, 0.482131, 0.999482, -0.0155126, 0.0281886, -7.30683, 2.4052, -1.78514)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("2_yr0qb")
 
 [node name="Specs" parent="." instance=ExtResource("2_vvsx5")]
 
@@ -139,12 +148,10 @@ first_enemy_model = ExtResource("21_m3ehy")
 second_enemy_model = ExtResource("21_m3ehy")
 third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
-fifth_enemy_model = ExtResource("21_m3ehy")
 first_enemy_stats = ExtResource("22_lkfh3")
 second_enemy_stats = ExtResource("22_lkfh3")
 third_enemy_stats = ExtResource("22_lkfh3")
 fourth_enemy_stats = ExtResource("22_lkfh3")
-fifth_enemy_stats = ExtResource("22_lkfh3")
 
 [node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 visible = false
@@ -184,12 +191,14 @@ visible = false
 [node name="blue_guy" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
 collision_layer = 18
+model_tscn = ExtResource("21_m3ehy")
 follower_name = "MUSTAFA"
 basic_damage = 6
 
 [node name="blue_guy2" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
 collision_layer = 34
+model_tscn = ExtResource("21_m3ehy")
 follower_number = 1
 follower_name = "CASY"
 basic_damage = 8
@@ -198,6 +207,7 @@ status_effects = Array[Resource]([ExtResource("23_q8kua")])
 [node name="blue_guy3" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
 collision_layer = 66
+model_tscn = ExtResource("21_m3ehy")
 follower_number = 2
 follower_name = "JETT"
 basic_damage = 10

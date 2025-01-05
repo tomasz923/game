@@ -26,6 +26,7 @@ enum EnemyType {
 	DECOY
 }
 
+var temp_var
 var user_prefs: UserPreferences
 var is_initial_load_ready = false
 var is_rolling_dice_now: bool = false
@@ -67,6 +68,7 @@ var just_finished_talking: bool = false
 
 
 #Cameras for Dialogue
+var current_pcam #in future - for saving current phantom camera
 var main_cam = null
 var talker_cam = null
 var player_cam = null
@@ -384,14 +386,23 @@ func read_team_data():
 		character.change_equipment()
 		character.get_max_health()
 
-	
-#func reset_values():
-	#mw_player_position = null
-	##Player's position in the fight world:
-	#temp_player_position = null
-	#current_scene = null
+#Enemy, Follower and Player functions
+func change_phantom_camera(new_pcam: PhantomCamera3D, tween_duration: float = 0.4):
+	new_pcam.set_tween_duration(tween_duration)
+	var old_cam = Global.current_pcam
+	Global.current_pcam = new_pcam
+	Global.current_pcam.set_priority(30)
+	old_cam.set_priority(0)
+	Global.current_pcam.set_priority(20)
 
-#func read_last_mod():
-	#print("The file was last modified:")
-	#print(FileAccess.get_modified_time("res://saves/savegame.tres"))
-	#print(FileAccess.get_modified_time("res://saves/savegame - nowy.tres"))
+func set_combat_cameras(source: CharacterBody3D, target: CharacterBody3D):
+	var new_pcam: PhantomCamera3D
+	var to_the_left = source.combat_pcam_left.global_transform.origin.distance_to(target.global_position)
+	var to_the_right = source.combat_pcam_right.global_transform.origin.distance_to(target.global_position)
+	var minimum_camera_distance = min(to_the_left, to_the_right)
+	if to_the_left == minimum_camera_distance:
+		new_pcam = source.combat_pcam_left
+	else:
+		new_pcam = source.combat_pcam_right
+	source.combat_pcam_target = target.staring_point.global_position
+	Global.change_phantom_camera(new_pcam)

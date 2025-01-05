@@ -1,7 +1,6 @@
 extends CharacterBody3D
-class_name Hero
+class_name Player
 
-signal arrived_for_melee()
 signal arrived_at_the_main_spot()
 
 enum CharacterClass {
@@ -47,15 +46,14 @@ enum SecondBar {
 @export var charisma: int = 0
 
 @onready var model = $visuals/Model
-@onready var main_cam = $camera_mount/MainCam
 @onready var camera_mount =  $camera_mount
 @onready var animation_player = model.animation_player
 @onready var visuals = $visuals
-@onready var dialogue_box = $"../../DialogueBox"
+#@onready var dialogue_box = $"../DialogueBox"
 @onready var navigation_agent_3d = $NavigationAgent3D
-@onready var player_cam = $PlayerCam
 @onready var follower_positions = $FollowerPositions
 @onready var collision_shape_3d = $CollisionShape3D
+@onready var staring_point = $StaringPoint
 
 @onready var follower_position_one = $FollowerPositions/First/FollowerPositionOne
 @onready var view_one = $FollowerPositions/First/ViewOne
@@ -63,17 +61,33 @@ enum SecondBar {
 @onready var view_three = $FollowerPositions/Third/ViewThree
 @onready var follower_position_three = $FollowerPositions/Third/FollowerPositionThree
 
-#Hexagon
+#Combat Additions
 @onready var hexagon_animation_player = $AnimationPlayer
 @onready var hexagon = $Hexagon
+@onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
+@onready var combat_pcam_right = $CombatPcams/CombatPcamRight
+var combat_pcam_target: Vector3 
+
+
+#Cameras
+@onready var exploration_pcam = $camera_mount/ExplorationPcam
+var zoom_speed = 1
+var min_fov = 50
+var max_fov = 85
+#func _input(event): 
+
 
 var SPEED = 2.5
-@onready var isRunning = true
+var current_target: CharacterBody3D
+var isRunning = true
 var isLocked = false
 var user_prefs: UserPreferences
 var vista_point: Vector3
 var main_spot: Vector3
 var idle_combat_animation: String
+var is_moving: bool = false #only in combat
+var is_returning_from_melee: bool #coming back to its post after a melee move in combat
+var destination: Vector3 #in combat 
 
 const walking_speed = 1.5
 const running_speed = 3.5
@@ -83,14 +97,48 @@ const rotation_speed = 10
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 func _ready():
+	#exploration_pcam = owner.get_node("%ExplorationPcam")
+	#if exploration_pcam.get_follow_mode() == exploration_pcam.FollowMode.THIRD_PERSON:
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	user_prefs = UserPreferences.load_or_create()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	Global.current_pcam = exploration_pcam
 	get_max_health()
 	get_protection()
+
+func _process(_delta):
+	if is_moving: #and !in_combat
+		var current_location = global_transform.origin
+		var next_location = navigation_agent_3d.get_next_path_position()
+		var new_velocity = (next_location - current_location).normalized() * SPEED
+		
+		velocity = new_velocity
+		move_and_slide()
+		look_at_spot(destination)
+		combat_pcam_left.look_at(combat_pcam_target)
+		combat_pcam_right.look_at(combat_pcam_target)
+		
+	if is_returning_from_melee:
+		var distance = global_transform.origin.distance_to(main_spot)
+		if distance < 0.2:
+			arrived_at_the_main_spot.emit()
+			is_returning_from_melee = false
+			reset_combat_position()
 	
+func look_at_spot(target_pos: Vector3):
+	#var global_pos = self.global_transform.origin
+	#var wtransform = self.global_transform.looking_at(Vector3(target_pos.x, global_pos.y, target_pos.z), Vector3.UP)
+	var global_pos = self.global_transform.origin
+	var wtransform = self.global_transform.looking_at(Vector3(target_pos.x, global_pos.y, target_pos.z), Vector3.UP)
+	var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), 0.1)
+	self.global_transform = Transform3D(Basis(wrotation), global_pos)
+
 func _input(event):
-	#if Input.is_action_just_pressed("ui_cancel"):
-		#get_tree().quit()
+	if event is InputEventMouseButton: 
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			exploration_pcam.fov -= zoom_speed
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			exploration_pcam.fov += zoom_speed
+		exploration_pcam.fov = clamp(exploration_pcam.fov, min_fov, max_fov)
 		
 	if event is InputEventMouseMotion and Global.allow_movement:
 		rotate_y(deg_to_rad(-event.relative.x*user_prefs.mouse_sensitivity))
@@ -162,24 +210,26 @@ func _physics_process(delta):
 
 func _on_follower_position_one_body_entered(body):
 	if body is Follower:
-		body.arrived()
+		if !body.in_combat:
+			body.arrived()
 
 func _on_follower_position_two_body_entered(body):
 	if body is Follower:
-		body.arrived()
+		if !body.in_combat:
+			body.arrived()
 
 func _on_follower_position_three_body_entered(body):
 	if body is Follower:
-		body.arrived()
+		if !body.in_combat:
+			body.arrived()
 
-#func _on_area_3d_body_exited(body):
-	#print('DEBUG: ', body, ' has entered the area.')
-	#if body is Follower:
-		#body.arrived()
+func update_target_position(target_position):
+	navigation_agent_3d.target_position = target_position
 
 func _on_personal_space_body_entered(body):
 	if body is Follower:
-		body.arrived()
+		if !body.in_combat:
+			body.arrived()
 
 func change_equipment():
 	var new_weapon
@@ -216,25 +266,15 @@ func get_in_combat():
 		pass
 	look_at(vista_point)
 
-func go_for_melee(run_animation_name: String, target_position: Vector3, enemy):
-	animation_player.play(run_animation_name)
-	look_at(target_position)
-	var distance = global_transform.origin.distance_to(target_position)
-	var tween_length = snapped((distance/2.5), 0.1)
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", target_position, tween_length)
-	await tween.finished 
-	look_at(enemy.global_position)
-	arrived_for_melee.emit()
-
 func back_to_main_spot(run_animation_name):
 	animation_player.play(run_animation_name)
-	look_at(main_spot)
-	var distance = global_transform.origin.distance_to(main_spot)
-	var tween_length = snapped((distance/2.5), 0.1)
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "position", main_spot, tween_length)
-	await tween.finished 
+	is_returning_from_melee = true
+	is_moving = true
+	destination = main_spot
+	update_target_position(destination)
+
+func reset_combat_position():
+	is_moving = false
+	global_position = main_spot
 	look_at(vista_point)
 	model.animation_player.play(idle_combat_animation)
-	arrived_at_the_main_spot.emit()

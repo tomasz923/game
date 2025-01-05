@@ -1,25 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://brlv5mgijxokp"]
+[gd_scene load_steps=15 format=3 uid="uid://brlv5mgijxokp"]
 
 [ext_resource type="Script" path="res://game/scripts/player.gd" id="1_bsgcu"]
-[ext_resource type="Script" path="res://game/scripts/camera_movement.gd" id="2_2yxxr"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/enemy_models/decoy_model.tscn" id="2_maqdx"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bxfw6"]
 [ext_resource type="PackedScene" uid="uid://ch1fbs2xgkyua" path="res://game/scenes/interact_ray.tscn" id="4_fffbf"]
+[ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_jpr4g"]
+[ext_resource type="Resource" uid="uid://bbntk2y4ucg5x" path="res://game/resources/exploration_camp_res.tres" id="5_obrul"]
+[ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_whevs"]
 [ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="11_36r8j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_85nuc"]
 radius = 0.353965
 height = 1.87221
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ikvu0"]
-dof_blur_near_transition = 432.56
-
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_12beo"]
 radius = 0.1
-
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_8vabi"]
-dof_blur_far_enabled = true
-dof_blur_far_distance = 1.0
-dof_blur_amount = 0.15
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ikmib"]
 radius = 1.8
@@ -77,21 +72,18 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 [node name="camera_mount" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.62736, 0.062301)
 
+[node name="ExplorationPcam" type="Node3D" parent="camera_mount"]
+transform = Transform3D(0.999482, -0.0155127, 0.0281886, -4.65661e-10, 0.876099, 0.482131, -0.0321752, -0.481882, 0.875646, 0, 0.754015, 1.98833)
+script = ExtResource("3_bxfw6")
+tween_resource = ExtResource("4_jpr4g")
+tween_on_load = false
+camera_3d_resource = ExtResource("5_obrul")
+
 [node name="InteractRay" parent="camera_mount" instance=ExtResource("4_fffbf")]
 transform = Transform3D(0.998815, 0.0479509, 0.00826532, -0.0483847, 0.99675, 0.0644019, -0.00515033, -0.0647255, 0.99789, 0, 0, 0)
 
-[node name="MainCam" type="Camera3D" parent="camera_mount" groups=["cameras"]]
-transform = Transform3D(1, 0, 0, 0, 0.934999, 0.35465, 0, -0.35465, 0.934999, 0, 1.2, 3.209)
-attributes = SubResource("CameraAttributesPractical_ikvu0")
-fov = 37.8493
-script = ExtResource("2_2yxxr")
-
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="camera_mount"]
-transform = Transform3D(0.1, 0, 0, 0, 0.00813316, 0.0999967, 0, -0.999967, 0.000813316, 0, 0, -1.80575)
-visible = false
-height = 3.75877
-
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 1.0
 
 [node name="FollowerPositions" type="Node3D" parent="."]
 transform = Transform3D(0.934011, 0, 0.357243, 0, 1, 0, -0.357243, 0, 0.934011, 0, 0, 0)
@@ -135,11 +127,6 @@ monitorable = false
 transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, 0.506274, 0.858075, -0.200862)
 shape = SubResource("CylinderShape3D_12beo")
 
-[node name="PlayerCam" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 4.63173e-09, 0.998596, 0.0529808, -8.73e-08, 0.0529808, -0.998596, 0, 1.52515, -1.40456)
-attributes = SubResource("CameraAttributesPractical_8vabi")
-fov = 37.8493
-
 [node name="PersonalSpace" type="Area3D" parent="."]
 collision_mask = 2
 monitorable = false
@@ -158,6 +145,23 @@ texture = ExtResource("11_36r8j")
 libraries = {
 "": SubResource("AnimationLibrary_d1px1")
 }
+
+[node name="CombatPcams" type="Node3D" parent="."]
+
+[node name="CombatPcamLeft" type="Node3D" parent="CombatPcams"]
+transform = Transform3D(0.911571, 0.211102, -0.352808, -1.49012e-08, 0.858118, 0.513453, 0.411142, -0.468049, 0.782236, -1.37606, 1.8, 0.467848)
+script = ExtResource("3_bxfw6")
+tween_resource = ExtResource("4_jpr4g")
+camera_3d_resource = ExtResource("5_whevs")
+
+[node name="CombatPcamRight" type="Node3D" parent="CombatPcams"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.65, 1.8, 0.8)
+script = ExtResource("3_bxfw6")
+tween_resource = ExtResource("4_jpr4g")
+camera_3d_resource = ExtResource("5_whevs")
+
+[node name="StaringPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
 
 [connection signal="body_entered" from="FollowerPositions/Third/FollowerPositionThree" to="." method="_on_follower_position_three_body_entered"]
 [connection signal="body_entered" from="FollowerPositions/Second/FollowerPositionTwo" to="." method="_on_follower_position_two_body_entered"]

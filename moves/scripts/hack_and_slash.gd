@@ -157,13 +157,13 @@ func start_stage_one():
 			0:
 				running_animation = '1h_run_forward'
 		#local_victim.model.animation_was_finished.connect(start_stage_two)
-		local_agressor.arrived_for_melee.connect(start_stage_two)
+		local_victim.someone_is_in_melee_positon.connect(start_stage_two)
 		local_agressor.model.victim_reaction_1h_ready.connect(start_stage_three)
 		local_victim.model.animation_was_finished.connect(start_stage_four)
 		local_agressor.arrived_at_the_main_spot.connect(start_stage_five)
-		local_agressor.go_for_melee(running_animation, local_victim.allys_melee_fight_posiiton, local_victim)
+		go_for_melee(running_animation, local_agressor, local_victim)
 		Global.current_combat_scene.ui.visible = false
-		local_victim.set_cameras(local_agressor)
+		Global.set_combat_cameras(local_agressor, local_victim)
 		stage = 2
 
 func start_stage_two():
@@ -171,6 +171,7 @@ func start_stage_two():
 		match local_agressor.melee.type:
 			0:
 				attack_animation = "1h_melee_horizontal"
+		local_agressor.is_moving = false
 		local_agressor.animation_player.play(attack_animation)
 		stage = 3
 
@@ -185,6 +186,7 @@ func start_stage_three():
 
 func start_stage_four(animation_name):
 	if stage == 4 and animation_name == victim_react_animation:
+		Global.change_phantom_camera(Global.current_combat_scene.main_pcam)
 		local_victim.model.animation_player.play(local_victim.idle_combat_animation)
 		local_agressor.back_to_main_spot(running_animation)
 		stage = 5
@@ -192,10 +194,9 @@ func start_stage_four(animation_name):
 func start_stage_five():
 	if stage == 5:
 		Global.current_combat_scene.ui.visible = true 
-		Global.current_combat_scene.camera.current = true 
+		#Global.current_combat_scene.camera.current = true 
 		Global.current_combat_scene.move_finished([roll_result, total_damage], local_victim, local_victim.int_id)
-		local_victim.is_observing = false
-		local_agressor.arrived_for_melee.disconnect(start_stage_two)
+		local_victim.someone_is_in_melee_positon.disconnect(start_stage_two)
 		local_agressor.model.victim_reaction_1h_ready.disconnect(start_stage_three)
 		local_victim.model.animation_was_finished.disconnect(start_stage_four)
 		local_agressor.arrived_at_the_main_spot.disconnect(start_stage_five)
