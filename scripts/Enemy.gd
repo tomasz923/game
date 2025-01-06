@@ -73,3 +73,6 @@ func _on_melee_area_body_entered(body):
 		if body.int_id == agressor_int_id:
 			someone_is_in_melee_positon.emit()
 			body.is_moving = false
+
+func disappear():
+	pass

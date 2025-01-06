@@ -79,7 +79,11 @@ var current_move
 var total_bonus: int = 0
 var enemy_num: int = 0
 
-#Dice
+#Dice & Popup Window
+@onready var popup_window = $PopupWindow
+@onready var left_die = $Dice/HBoxContainer/LeftDie
+@onready var right_die = $Dice/HBoxContainer/RightDie
+@onready var dice = $Dice
 var prob_table: Array = [
 	[2, 2.78],
 	[3, 5.56],
@@ -93,8 +97,6 @@ var prob_table: Array = [
 	[11, 5.56],
 	[12, 2.78]
 ]
-var dice_roll_one: int
-var dice_roll_two: int
 
 @export_category("Moves")
 #Basic Moves
@@ -436,3 +438,35 @@ func move_finished(results, enemy, target_int_id):
 		enemy.hexagon_animation_player.play("RESET")
 		initiate_next_turn()
 		moves_panel._on_go_back_button_pressed()
+
+func show_the_dice(result):
+	color_the_dice(result)
+	var dice_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT).set_parallel()
+	dice_tween.tween_property(dice, "modulate:a", 0.0, 0.4).from(1.0)
+	await dice_tween.finished
+	dice.visible = false
+
+func color_the_dice(result):
+	if result > 9:
+		dice.modulate = '#55927f'
+	elif result < 7:
+		dice.modulate = '#dc6250'
+	else:
+		dice.modulate = '#eeb24a'
+	dice.visible = true
+
+func slow_motion():
+	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN).set_parallel()
+	tween.tween_property(Engine, "time_scale", 1.0, 0.3).from(0.1)
+
+func stop_animations(is_pausing: bool):
+	for enemy in enemies_in_combat.get_children():
+		if is_pausing:
+			enemy.model.animation_player.speed_scale = 0 
+		else:
+			enemy.model.animation_player.speed_scale = 1
+	for ally in all_allies:
+		if is_pausing:
+			ally.model.animation_player.speed_scale = 0 
+		else:
+			ally.model.animation_player.speed_scale = 1

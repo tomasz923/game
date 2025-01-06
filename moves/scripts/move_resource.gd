@@ -16,13 +16,10 @@ func go_for_melee(run_animation_name: String, agressor: CharacterBody3D, victim:
 	victim.agressor_int_id = agressor.int_id
 	agressor.update_target_position(agressor.destination)
 
-#func back_to_main_spot(run_animation_name):
-	#animation_player.play(run_animation_name)
-	#look_at(main_spot)
-	#var distance = global_transform.origin.distance_to(main_spot)
-	#var tween_length = snapped((distance/2.5), 0.1)
-	#var tween = get_tree().create_tween()
-	#tween.tween_property(self, "position", main_spot, tween_length)
-	#await tween.finished 
-	#look_at(vista_point)
-	#model.animation_player.play(idle_combat_animation)
+func set_dice(dice_one: int, dice_two: int, roll_result: int, all_in: bool = true):
+		Global.current_combat_scene.left_die.combat_result(dice_one)
+		Global.current_combat_scene.right_die.combat_result(dice_two)
+		if all_in:
+			Global.current_combat_scene.show_the_dice(roll_result)
+		else:
+			Global.current_combat_scene.color_the_dice(roll_result)

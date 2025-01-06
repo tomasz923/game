@@ -31,12 +31,9 @@ func _ready():
 	Global.read_team_data()
 
 func _process(_delta):
-	# The code is checking all the time the distance of the first and the third followe
-	# so they always follow the spot closes to them even when the player is turning
 	check_distance()
 
 func _input(_event):
-	#TO REWRITE
 	if Input.is_action_just_pressed("ui_cancel"):
 		if Global.current_ui_mode == "none" and Global.pausable:  # Check if not already paused
 			#get_tree().call_group('cameras', 'blur')
@@ -126,7 +123,6 @@ func _input(_event):
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		else:
 			pass
-			
 	
 	if Input.is_action_just_pressed("inventory") and Global.pausable:
 		if Global.current_ui_mode == "none":  # Check if not already paused

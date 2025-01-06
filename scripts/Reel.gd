@@ -39,7 +39,12 @@ func _process(_delta):
 		_readyRoll()
 		if reel_2.position.y > (stopping_pos - 20) and reel_2.position.y < (stopping_pos + 20):
 			_stopRoll()
-		
+
+func combat_result(result: int):
+	match_rng(result)
+	reel_2.visible = false
+	reel_1.position.y = final_pos
+
 func _roll():
 	var newPOS1 = reel_1.position.y + roll_speed
 	var newPOS2 = reel_2.position.y + roll_speed

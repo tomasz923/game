@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://rtwiby6sj4ro"]
+[gd_scene load_steps=11 format=3 uid="uid://rtwiby6sj4ro"]
 
 [ext_resource type="Script" path="res://game/scripts/combat_scene.gd" id="1_xgfvd"]
 [ext_resource type="Resource" uid="uid://4ypywmtnfu45" path="res://game/moves/resources/hack_and_slash.tres" id="2_jwo0m"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_4dwsc"]
 [ext_resource type="PackedScene" uid="uid://mnsi23vb68p2" path="res://game/scenes/clickable_window.tscn" id="4_tmx8r"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_3l230"]
+[ext_resource type="PackedScene" uid="uid://dimbub6bjxk82" path="res://game/scenes/popup_window.tscn" id="7_7hhc2"]
 [ext_resource type="PackedScene" uid="uid://bhrdjid1v1buq" path="res://game/scenes/reel.tscn" id="8_r5bfi"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_uxlsf"]
@@ -242,6 +243,9 @@ offset_bottom = -4.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="PopupWindow" parent="." instance=ExtResource("7_7hhc2")]
+visible = false
+
 [node name="ClickableEnemyWindow" type="Control" parent="."]
 visible = false
 custom_minimum_size = Vector2(0, 300)
@@ -283,8 +287,8 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -147.0
-offset_bottom = -147.0
+offset_top = -153.0
+offset_bottom = -153.0
 grow_horizontal = 2
 grow_vertical = 0
 

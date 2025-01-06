@@ -9,6 +9,8 @@ const NEEDS_A_TARGET: bool = true
 
 var damage_dice: Array = []
 var damage_bonus: Array = []
+var dice_one: int
+var dice_two: int
 var stage: int = 1
 
 #Common vars for all stages
@@ -31,6 +33,7 @@ var attack_animation: String
 var victim_react_animation: String
 var running_animation: String
 var attacker_idle_animation: String
+var the_victim_died: bool
 
 func check_requirements() -> bool:
 	var returned_value: bool
@@ -127,14 +130,18 @@ func execute_the_move(agressor, victim, total_bonus: int):
 	roll_result = 50
 	
 	#Calculate the standard 2d6 + modifiers
-	var dice_one = randi_range(1,6)
-	var dice_two = randi_range(1,6)
+	dice_one = randi_range(1,6)
+	dice_two = randi_range(1,6)
 	roll_result = dice_one + dice_two + total_bonus
-	####
+	stage = 1
+	start_stage_one()
+
+func calculate_damage():
 	var damage_dice_rolled: int = 0
 	var damage_dice_bonus: int = 0
 	
 	for die in damage_dice:
+		print("DEBUG hack_and_slash: the die of " + str(die[1]) + " was rolled.")
 		var rolled = randi_range(1,die[1])
 		damage_dice_rolled += rolled
 		
@@ -147,12 +154,14 @@ func execute_the_move(agressor, victim, total_bonus: int):
 		total_damage = raw_damage
 	else:
 		total_damage = max(0, raw_damage - enemy_defence)
-	###
-	stage = 1
-	start_stage_one()
+	
+	local_victim.current_health -= total_damage
+	if local_victim.current_health <= 0:
+		the_victim_died = true
 
 func start_stage_one():
 	if stage == 1:
+		the_victim_died = false
 		match local_agressor.melee.type:
 			0:
 				running_animation = '1h_run_forward'
@@ -177,17 +186,40 @@ func start_stage_two():
 
 func start_stage_three():
 	if stage == 3:
-		match local_victim.enemy_stats.melee.type:
-			0:
+	#if roll_result > 9:
+		Global.current_combat_scene.stop_animations(true)
+		set_dice(dice_one, dice_two, roll_result, false)
+		Global.current_combat_scene.popup_window.option_was_chosen.connect(start_stage_three_b)
+		Global.current_combat_scene.popup_window.prepare_window("mvp_extra_dmg_hns_pop_label", "mvp_extra_dmg_hns_pop_text", ["mvp_extra_dmg_hns_pop_yes", "mvp_extra_dmg_hns_pop_no"])
+
+func start_stage_three_b(choice: int):
+	Global.current_combat_scene.popup_window.option_was_chosen.disconnect(start_stage_three_b)
+	Global.current_combat_scene.stop_animations(false)
+	match choice:
+		0:
+			damage_dice.append(['mvp_dmg_basic_dmg', 6])
+		1:
+			print('DEBUG hack_and_slash || stage_three_b: Avoid damage was chosen')
+	print("----------------------------------------------------------------------")
+	calculate_damage()
+	match local_victim.enemy_stats.melee.type:
+		0:
+			if the_victim_died:
+				victim_react_animation = "1h_bow_death"
+			else:
 				victim_react_animation = "1h_react"
-		local_victim.model.animation_player.play(victim_react_animation)
-		stage = 4
-		
+	Global.current_combat_scene.slow_motion()
+	Global.current_combat_scene.show_the_dice(roll_result)
+	local_victim.model.animation_player.play(victim_react_animation)
+	stage = 4
 
 func start_stage_four(animation_name):
 	if stage == 4 and animation_name == victim_react_animation:
 		Global.change_phantom_camera(Global.current_combat_scene.main_pcam)
-		local_victim.model.animation_player.play(local_victim.idle_combat_animation)
+		if !the_victim_died:
+			local_victim.model.animation_player.play(local_victim.idle_combat_animation)
+		else:
+			local_victim.disappear()
 		local_agressor.back_to_main_spot(running_animation)
 		stage = 5
 
