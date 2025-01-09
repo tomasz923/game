@@ -8,6 +8,5 @@ script = ExtResource("1_m87li")
 enemy_class = 0
 max_health = 20
 enemy_name = "ANGRY DECOY"
-protection = 0
 basic_damage = 10
 melee = ExtResource("1_kascr")

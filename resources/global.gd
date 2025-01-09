@@ -94,7 +94,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 	"current_comp": ['HERO', 'JETT', 'WREN', 'CASY'],
 	"WREN": {
 		"second_bar_type": SecondBar.NONE,
-		"ability_scores": [2, 1, -1, 0, 0, -1],
+		"ability_scores": [-22, 1, -1, 0, 0, -1],
 		"current_health": 10,
 		"character_class": CharacterClass.MILITANT,
 		"bonds": [],
@@ -108,7 +108,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 	"HERO": {
 		"second_bar_type": SecondBar.NONE,
 		"character_class": CharacterClass.NONE,
-		"ability_scores": [1, 1, 0, 0, -1, -1],
+		"ability_scores": [-21, 1, 0, 0, -1, -1],
 		"current_health": 10,
 		"bonds": [],
 		"eq": {
@@ -122,7 +122,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 		"second_bar_type": SecondBar.NONE,
 		"character_class": CharacterClass.SCOUT,
 		"current_health": 10,
-		"ability_scores": [0, 1, 1, 0, -1, -1],
+		"ability_scores": [-20, 1, 1, 0, -1, -1],
 		"bonds": [],
 		"eq": {
 			"melee": load("res://game/inventory_items/warhammer.tres"),
@@ -135,7 +135,7 @@ var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
 		"second_bar_type": SecondBar.MEMORY,
 		"current_health": 10,
 		"character_class": CharacterClass.PREACHER,
-		"ability_scores": [-1, 1, 2, 0, -1, -1],
+		"ability_scores": [-10, 1, 2, 0, -1, -1],
 		"bonds": [],
 		"eq": {
 			"melee": load("res://game/inventory_items/warhammer.tres"),
@@ -406,3 +406,12 @@ func set_combat_cameras(source: CharacterBody3D, target: CharacterBody3D):
 		new_pcam = source.combat_pcam_right
 	source.combat_pcam_target = target.staring_point.global_position
 	Global.change_phantom_camera(new_pcam)
+
+func evade(character: CharacterBody3D):
+	#print('DEBUG global: The marker: ' + str(character.evade_position.get_collision_point()))
+	#enemy_model.animation_player.play("dodge_backward")
+	character.model.animation_player.play("dodge_backward")
+	#var tween_length: float =  character.model.animation_player.get_current_animation_length()
+	#var tween_length = 0.8
+	#var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT).set_parallel()
+	#tween.tween_property(character, "global_position", character.evade_position.get_collision_point(), tween_length)

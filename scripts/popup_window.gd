@@ -3,13 +3,17 @@ extends Control
 signal option_was_chosen(choice_index: int)
 
 
-@onready var text = $Background/TextAndOptionsContainer/Text
-@onready var options_container = $Background/TextAndOptionsContainer/OptionsContainer
 @onready var title = $Title
+@onready var options_container = $Background/TextAndOptionsContainer/OptionsContainer
+@onready var description = $Background/TextAndOptionsContainer/Description
+
 
 const CHOICE_BUTTON = preload("res://game/scenes/choice_button.tscn")
 
-func prepare_window(title: String, text: String, choice_array: Array, only_one: bool = true):
+func prepare_window(title_aux: String, description_aux: String, choice_array: Array, only_one: bool = true):
+	description.text = description_aux
+	title.text = title_aux
+	
 	for n in options_container.get_children():
 		options_container.remove_child(n)
 		n.queue_free()
@@ -28,8 +32,3 @@ func prepare_window(title: String, text: String, choice_array: Array, only_one: 
 func _on_choice_selected(choice_index: int):
 	option_was_chosen.emit(choice_index)
 	visible = false
-
-#Seperare signal for many choices
-#When clicked it should check if it's in the array. If yes, remove it. If no, add it.
-#When ready, click on OK and send the array as a signal
-#after adding options, add invisible rectangular or something and then OK button (don't expand it)

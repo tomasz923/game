@@ -62,7 +62,7 @@ enum SecondBar {
 @onready var follower_position_three = $FollowerPositions/Third/FollowerPositionThree
 
 #Combat Additions
-@onready var hexagon_animation_player = $AnimationPlayer
+@onready var hexagon_animation_player = $HexagonAnimationPlayer
 @onready var hexagon = $Hexagon
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
@@ -77,7 +77,7 @@ var max_fov = 85
 #func _input(event): 
 
 
-var SPEED = 2.5
+var speed = 2.5
 var current_target: CharacterBody3D
 var isRunning = true
 var isLocked = false
@@ -109,7 +109,7 @@ func _process(_delta):
 	if is_moving: #and !in_combat
 		var current_location = global_transform.origin
 		var next_location = navigation_agent_3d.get_next_path_position()
-		var new_velocity = (next_location - current_location).normalized() * SPEED
+		var new_velocity = (next_location - current_location).normalized() * speed
 		
 		velocity = new_velocity
 		move_and_slide()
@@ -174,9 +174,9 @@ func _physics_process(delta):
 		isRunning = false
 
 	if isRunning == true:
-		SPEED = running_speed
+		speed = running_speed
 	else:
-		SPEED = walking_speed
+		speed = walking_speed
 	# Add the gravity.
 	if not is_on_floor():
 		velocity.y -= gravity * delta
@@ -197,13 +197,13 @@ func _physics_process(delta):
 			visuals.rotation.y = lerp_angle(visuals.rotation.y, atan2(-input_dir.x, -input_dir.y), .5)
 			follower_positions.rotation.y = lerp_angle(follower_positions.rotation.y, atan2(-input_dir.x, -input_dir.y), .5)
 
-		velocity.x = direction.x * SPEED
-		velocity.z = direction.z * SPEED
+		velocity.x = direction.x * speed
+		velocity.z = direction.z * speed
 	else:
 		if animation_player.current_animation != "idle":
 			animation_player.play("idle")
-		velocity.x = move_toward(velocity.x, 0, SPEED)
-		velocity.z = move_toward(velocity.z, 0, SPEED)
+		velocity.x = move_toward(velocity.x, 0, speed)
+		velocity.z = move_toward(velocity.z, 0, speed)
 		
 	if !isLocked:
 		move_and_slide()

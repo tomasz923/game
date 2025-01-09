@@ -52,6 +52,7 @@ target_position = Vector3(0, -4, 0)
 
 [node name="AlliesVistas" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+visible = false
 
 [node name="FirstAlly" type="Marker3D" parent="AlliesVistas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.1)
@@ -66,7 +67,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.7)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1)
 
 [node name="EnemyVistas" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -1)
+transform = Transform3D(0.999947, 0, 0.0103147, 0, 1, 0, -0.0103147, 0, 0.999947, -3, 0, -5)
 
 [node name="Marker1" type="Marker3D" parent="EnemyVistas"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
@@ -138,60 +139,6 @@ target_position = Vector3(0, -4, 0)
 
 [node name="EnemiesInCombat" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.90867, 0, 0)
-
-[node name="AllyStandPoints" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0)
-visible = false
-
-[node name="EvenAllyStandPoints" type="Node3D" parent="AllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
-
-[node name="EnemyFirstRay" type="RayCast3D" parent="AllyStandPoints/EvenAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemySecondRay" type="RayCast3D" parent="AllyStandPoints/EvenAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemyThirdRay" type="RayCast3D" parent="AllyStandPoints/EvenAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemyFourthRay" type="RayCast3D" parent="AllyStandPoints/EvenAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -3)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemyFithRay" type="RayCast3D" parent="AllyStandPoints/EvenAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 5)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemySixthRay" type="RayCast3D" parent="AllyStandPoints/EvenAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -5)
-target_position = Vector3(0, -4, 0)
-
-[node name="OddAllyStandPoints" type="Node3D" parent="AllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -1)
-
-[node name="EnemyFirstRay" type="RayCast3D" parent="AllyStandPoints/OddAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 1)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemySecondRay" type="RayCast3D" parent="AllyStandPoints/OddAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -1)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemyThirdRay" type="RayCast3D" parent="AllyStandPoints/OddAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 3)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemyFourthRay" type="RayCast3D" parent="AllyStandPoints/OddAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, -3)
-target_position = Vector3(0, -4, 0)
-
-[node name="EnemyFithRay" type="RayCast3D" parent="AllyStandPoints/OddAllyStandPoints"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 5)
-target_position = Vector3(0, -4, 0)
 
 [node name="UI" type="Control" parent="."]
 visible = false

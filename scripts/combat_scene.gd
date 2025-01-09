@@ -27,6 +27,7 @@ signal combat_was_triggerred(combat_name: String)
 
 #CLICKABLE WINDOWS
 @onready var clickable_enemy_windows_container = $ClickableEnemyWindow/ClickableEnemyWindowsContainer
+@onready var clickable_enemy_window = $ClickableEnemyWindow
 const CLICKABLE_WINDOW = preload("res://game/scenes/clickable_window.tscn")
 
 #AREA 3D
@@ -51,15 +52,11 @@ var all_allies: Array = []
 @onready var enemies_in_combat = $EnemiesInCombat
 @onready var enemy_vistas = $EnemyVistas
 @onready var allies_vistas = $AlliesVistas
-@onready var even_ally_stand_points = $AllyStandPoints/EvenAllyStandPoints
-@onready var odd_ally_stand_points = $AllyStandPoints/OddAllyStandPoints
-
 
 #UI
 @onready var allies_ui = $UI/Allies
 @onready var enemies_ui = $UI/Enemies
 @onready var ui = $UI
-@onready var clickable_enemy_window = $ClickableEnemyWindow
 @onready var moves_panel = $UI/MovesPanel
 const CHARACTER_COMBAT_WINDOW = preload("res://game/scenes/character_combat_window.tscn")
 const ENEMY_COMBAT_WINDOW = preload("res://game/scenes/enemy_combat_window.tscn")
@@ -76,6 +73,7 @@ const BONUS_LABEL = preload("res://game/scenes/move_bonus_label.tscn")
 
 #Combat Pipeline
 var current_move
+var looking_for_target: bool = true
 var total_bonus: int = 0
 var enemy_num: int = 0
 
@@ -156,41 +154,38 @@ func assign_allied_slots():
 func _on_danger_zone_body_entered(body):
 	trigger_combat()
 
-func transition_camera(from: PhantomCamera3D, to: PhantomCamera3D, duration: float = 1.0):
-	pass
-
 func spawn_enemies():
 	var enemy_statistics: Array = [first_enemy_stats, second_enemy_stats, third_enemy_stats, fourth_enemy_stats, fifth_enemy_stats, sixth_enemy_stats]
 	var enemy_models: Array = [first_enemy_model, second_enemy_model, third_enemy_model, fourth_enemy_model, fifth_enemy_model, sixth_enemy_model]
 	var clickable_windows_ids: Array = []
 	var vista_points: Array = []
 	var rays_node
-	var ally_stand_points_node
 	var rays: Array = []
-	var ally_stand_points: Array = []
 	
 	for enemy in enemy_statistics:
 		if enemy != null:
 			enemy_num += 1
 	
-	for marker in enemy_vistas.get_children():
-		vista_points.append(marker)
+	
 	
 	if enemy_num % 2 == 0:
+		enemy_vistas.position.z = 0
 		rays_node = even_enemy_rays
-		ally_stand_points_node = even_ally_stand_points
 		remove_child(odd_enemy_rays)
 		odd_enemy_rays.queue_free() 
 		#remove_child(odd_ally_stand_points)
 		#odd_ally_stand_points.queue_free() 
 	else:
+		enemy_vistas.position.z = -1
 		rays_node = odd_enemy_rays
-		ally_stand_points_node = odd_ally_stand_points
 		remove_child(even_enemy_rays)
 		even_enemy_rays.queue_free() 
 		#remove_child(even_ally_stand_points)
 		#even_ally_stand_points.queue_free() 
 	
+	for marker in enemy_vistas.get_children():
+		vista_points.append(marker)
+		
 	for i in enemy_num:
 		if i % 2 == 0:
 			clickable_windows_ids.append(i)
@@ -199,9 +194,7 @@ func spawn_enemies():
 	
 	for ray in rays_node.get_children():
 		rays.append(ray)
-	
-	for ray in ally_stand_points_node.get_children():
-		ally_stand_points.append(ray)
+
 	
 	for i in enemy_num:
 		var new_enemy = NEW_ENEMY_SCENE.instantiate()
@@ -363,7 +356,7 @@ func create_bonus_description(description: String, container: HBoxContainer):
 	container.add_child(bonus_label)
 
 func _on_enemy_was_highlighted(target_int_id):
-	if current_move != null and current_move.NEEDS_A_TARGET:
+	if current_move != null and looking_for_target and current_move.NEEDS_A_TARGET:
 		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(target_int_id))
 		enemy.hexagon_animation_player.play("hexagon_pulsating")
 		Global.shuffled_allies[Global.turn_order].hexagon_animation_player.play("RESET")
@@ -389,6 +382,7 @@ func _on_target_was_chosen(target_int_id):
 	if current_move != null and current_move.NEEDS_A_TARGET:
 		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(target_int_id))
 		current_move.execute_the_move(Global.shuffled_allies[Global.turn_order], enemy, total_bonus)
+		looking_for_target = false
 
 func show_estimated_dmg_or_heal(target):
 	var estimates_array: Array
@@ -407,11 +401,7 @@ func hide_estimated_dmg_or_heal():
 
 func deal_damage_or_heal(is_healing: bool, value: int, height: float, spread: float, start_pos: Vector3, source, window_int: int):
 	source.label_3d.text = str(value)
-	
-	if is_healing:
-		pass
-	else:
-		source.damage_player.play("show_damage")
+
 		
 	var number_tween = get_tree().create_tween()
 	var end_pos = Vector3(randf_range(-spread, spread), 2+height, 0) 
@@ -431,10 +421,17 @@ func deal_damage_or_heal(is_healing: bool, value: int, height: float, spread: fl
 		if new_value < 1:
 			var clickable_window = get_node("ClickableEnemyWindow/ClickableEnemyWindowsContainer/enemy_window_" + str(window_int))
 			clickable_window.disabled = true
+			
+	if is_healing:
+		pass
+	#elif new_value > 0: if we don't want to display damage when they die
+	else:
+		source.damage_player.play("show_damage")
 
 func move_finished(results, enemy, target_int_id):
 		deal_damage_or_heal(current_move.IS_HEALING, results[1], 0.8, 1.0, Vector3(0,2,0), enemy, target_int_id)
 		current_move = null
+		looking_for_target = true
 		enemy.hexagon_animation_player.play("RESET")
 		initiate_next_turn()
 		moves_panel._on_go_back_button_pressed()

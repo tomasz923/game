@@ -75,7 +75,7 @@ grow_vertical = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="Text" type="Label" parent="Background/TextAndOptionsContainer"]
+[node name="Description" type="Label" parent="Background/TextAndOptionsContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18

@@ -183,7 +183,7 @@ outline_modulate = Color(0.862745, 0.384314, 0.313726, 0)
 text = "10"
 font_size = 120
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="HexagonAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_d1px1")
 }
@@ -218,5 +218,11 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeleeArea"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_2lf4y")
+
+[node name="EvadePosition" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55145, 2)
+target_position = Vector3(0, -3, 0)
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
 [connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
