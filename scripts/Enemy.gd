@@ -34,6 +34,7 @@ var current_camera_pos: Marker3D
 var current_target: CharacterBody3D
 var vista_point: Vector3
 var main_spot: Vector3
+var back_spot: Vector3
 var idle_combat_animation: String
 var is_counterattacking: bool = false
 var counterattack_target: CharacterBody3D
@@ -76,8 +77,11 @@ func get_ready():
 	model = $Visuals/Model
 	change_equipment()
 	current_health = enemy_stats.max_health
-	look_at(vista_point)
-	model.animation_was_finished.connect(_on_animation_was_finished)
+	#look_at(vista_point)
+	back_spot = evade_position.get_collision_point()
+	model.tween_backward.connect(_on_tween_backward)
+	model.tween_forward.connect(_on_tween_forward)
+	#model.animation_was_finished.connect(_on_animation_was_finished)
 
 func change_equipment():
 	if enemy_stats.ranged == null:
@@ -126,6 +130,7 @@ func counterattack_stage_one():
 
 func _on_animation_was_finished(animation: String):
 	if animation == "dodge_forward":
+		global_position = main_spot
 		var counterattack_animation: String
 		match enemy_stats.melee.type:
 			0:
@@ -138,3 +143,10 @@ func _on_animation_was_finished(animation: String):
 		#0:
 			#counterattack_animation = "1h_melee_horizontal"
 	#model.animation_player.play(counterattack_animation)
+
+func _on_tween_backward():
+	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT).set_parallel()
+	tween.tween_property(self, "global_position", back_spot, 0.9)
+
+func _on_tween_forward():
+	pass

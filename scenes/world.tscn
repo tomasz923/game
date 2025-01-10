@@ -29,12 +29,12 @@
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_qgbxg"]
+[sub_resource type="Sky" id="Sky_bc2nb"]
 sky_material = SubResource("ProceduralSkyMaterial_3th3d")
 
 [sub_resource type="Environment" id="Environment_bmj8b"]
 background_mode = 2
-sky = SubResource("Sky_qgbxg")
+sky = SubResource("Sky_bc2nb")
 tonemap_mode = 2
 sdfgi_enabled = true
 sdfgi_use_occlusion = true

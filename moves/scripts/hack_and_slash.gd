@@ -184,21 +184,23 @@ func start_stage_two():
 				agressor_animation = "1h_melee_horizontal"
 		local_agressor.is_moving = false
 		local_agressor.animation_player.play(agressor_animation)
-		local_victim.model.animation_player.play("dodge_backward")
+		local_victim.someone_is_in_melee_positon.disconnect(start_stage_two)
 		stage = 3
 
-func start_stage_three():
-	pass
-	#if stage == 3:
-		#if roll_result > 9:
-			#Global.current_combat_scene.stop_animations(true)
-			#set_dice(dice_one, dice_two, roll_result, false)
-			#Global.current_combat_scene.popup_window.option_was_chosen.connect(start_stage_three_a)
-			#Global.current_combat_scene.popup_window.prepare_window("mvp_extra_dmg_hns_pop_label", "mvp_extra_dmg_hns_pop_text", ["mvp_extra_dmg_hns_pop_yes", "mvp_extra_dmg_hns_pop_no"])
-		##elif roll_result < 7:
-		#else:
-			#set_dice(dice_one, dice_two, roll_result, true)
-			#start_stage_three_c()
+func start_stage_three(is_evading):
+	if stage == 3:
+		if roll_result > 9 and !is_evading:
+			Global.current_combat_scene.stop_animations(true)
+			set_dice(dice_one, dice_two, roll_result, false)
+			Global.current_combat_scene.popup_window.option_was_chosen.connect(start_stage_three_a)
+			Global.current_combat_scene.popup_window.prepare_window("mvp_extra_dmg_hns_pop_label", "mvp_extra_dmg_hns_pop_text", ["mvp_extra_dmg_hns_pop_yes", "mvp_extra_dmg_hns_pop_no"])
+			local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
+		#elif roll_result < 7:
+		if roll_result < 10 and is_evading:
+			Global.evade(local_victim)
+		if roll_result < 10 and !is_evading:
+			start_stage_three_c()
+			local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
 
 func start_stage_three_a(choice: int):
 	Global.current_combat_scene.popup_window.option_was_chosen.disconnect(start_stage_three_a)
@@ -221,10 +223,9 @@ func start_stage_three_a(choice: int):
 	stage = 4
 
 func start_stage_three_c():
-	Global.evade(local_victim)
+	set_dice(dice_one, dice_two, roll_result, true)
+	victim_animation = "dodge_backward"
 	Global.current_combat_scene.slow_motion()
-	#Global.current_combat_scene.show_the_dice(roll_result)
-	local_victim.model.animation_player.play(victim_animation)
 	stage = 4
 
 func start_stage_four(animation_name):
@@ -239,11 +240,13 @@ func start_stage_four_a():
 	start_stage_five()
 	
 
-func start_stage_four_c(animation_name):
-	local_victim.counterattack_stage_one()
-	local_victim.model.melee_reaction_ready.connect(start_stage_four_c_aux_agressor_reaction)
+func start_stage_four_c(animation_name: String):
+	print("DEBUG hack_and_slash: the animation name is " + animation_name)
+	if animation_name == "dodge_backward":
+		local_victim.counterattack_stage_one()
+		local_victim.model.melee_reaction_ready.connect(start_stage_four_c_aux_agressor_reaction)
 
-func start_stage_four_c_aux_agressor_reaction():
+func start_stage_four_c_aux_agressor_reaction(_is_evading):
 	var random_result: int = randi_range(0, 1)
 	local_victim.model.melee_reaction_ready.disconnect(start_stage_four_c_aux_agressor_reaction)
 	local_agressor.model.animation_was_finished.connect(start_stage_five)
@@ -268,6 +271,5 @@ func start_stage_six():
 		Global.current_combat_scene.ui.visible = true 
 		Global.current_combat_scene.clickable_enemy_window.visible = true
 		Global.current_combat_scene.move_finished([roll_result, total_attack_damage], local_victim, local_victim.int_id)
-		local_victim.someone_is_in_melee_positon.disconnect(start_stage_two)
-		local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
 		local_victim.model.animation_was_finished.disconnect(start_stage_four)
+		local_agressor.arrived_at_the_main_spot.disconnect(start_stage_six)
