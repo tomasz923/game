@@ -193,7 +193,7 @@ grow_vertical = 0
 [node name="PopupWindow" parent="." instance=ExtResource("7_7hhc2")]
 visible = false
 
-[node name="ClickableEnemyWindow" type="Control" parent="."]
+[node name="ClickableEnemyWindowNode" type="Control" parent="."]
 visible = false
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 3
@@ -206,7 +206,7 @@ offset_bottom = 5.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="ClickableEnemyWindowsContainer" type="HBoxContainer" parent="ClickableEnemyWindow"]
+[node name="ClickableEnemyWindowsContainer" type="HBoxContainer" parent="ClickableEnemyWindowNode"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -218,11 +218,11 @@ grow_vertical = 2
 theme_override_constants/separation = 40
 alignment = 1
 
-[node name="ClickableWindow" parent="ClickableEnemyWindow/ClickableEnemyWindowsContainer" instance=ExtResource("4_tmx8r")]
+[node name="ClickableWindow" parent="ClickableEnemyWindowNode/ClickableEnemyWindowsContainer" instance=ExtResource("4_tmx8r")]
 visible = false
 layout_mode = 2
 
-[node name="ClickableWindow2" parent="ClickableEnemyWindow/ClickableEnemyWindowsContainer" instance=ExtResource("4_tmx8r")]
+[node name="ClickableWindow2" parent="ClickableEnemyWindowNode/ClickableEnemyWindowsContainer" instance=ExtResource("4_tmx8r")]
 visible = false
 layout_mode = 2
 

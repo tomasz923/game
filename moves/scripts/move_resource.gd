@@ -13,7 +13,7 @@ func go_for_melee(run_animation_name: String, agressor: CharacterBody3D, victim:
 	agressor.animation_player.play(run_animation_name)
 	agressor.hexagon_animation_player.play("RESET")
 	agressor.is_moving = true
-	agressor.destination = victim.global_position
+	agressor.destination = victim.marker_3d.global_position
 	victim.agressor_int_id = agressor.int_id
 	agressor.update_target_position(agressor.destination)
 

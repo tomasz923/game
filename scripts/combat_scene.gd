@@ -4,11 +4,13 @@ signal combat_was_triggerred(combat_name: String)
 
 @export_category("General")
 @export var combat_id: String
+# is_a_trap is not used anywhere for now.
 @export var is_a_trap: bool = false
 @export var has_3d_zone: bool = true
 @export var collision_dome_radius: float = 6.0
-@export var number_of_enemies: int
 
+# The make mixing 3D models and skills easier, these are seperated into two files and mereged
+# later on during spawn_enemies()
 @export_category("Enemy Models")
 @export var first_enemy_model: PackedScene
 @export var second_enemy_model: PackedScene
@@ -25,18 +27,17 @@ signal combat_was_triggerred(combat_name: String)
 @export var fifth_enemy_stats: Resource
 @export var sixth_enemy_stats: Resource
 
-#CLICKABLE WINDOWS
-@onready var clickable_enemy_windows_container = $ClickableEnemyWindow/ClickableEnemyWindowsContainer
-@onready var clickable_enemy_window = $ClickableEnemyWindow
+# CLICKABLE WINDOWS
+@onready var clickable_enemy_windows_container = $ClickableEnemyWindowNode/ClickableEnemyWindowsContainer
+@onready var clickable_enemy_window_node = $ClickableEnemyWindowNode
 const CLICKABLE_WINDOW = preload("res://game/scenes/clickable_window.tscn")
 
-#AREA 3D
+# AREA 3D
 @onready var danger_zone = $DangerZone
 @onready var collision_dome = $DangerZone/CollisionDome
 @onready var main_pcam = $MainPcam
 
-
-#FRIENDLY RAYS
+# FRIENDLY RAYS
 @onready var friendly_first_ray = $Allies/FriendlyFirstRay
 @onready var friendly_second_ray = $Allies/FriendlySecondRay
 @onready var friendly_third_ray = $Allies/FriendlyThirdRay
@@ -46,14 +47,14 @@ const NEW_ENEMY_SCENE = preload("res://game/scenes/enemy.tscn")
 var friendly_rays: Array = []
 var all_allies: Array = []
 
-#ENEMY POSITIONS
+# ENEMY POSITIONS
 @onready var even_enemy_rays = $EvenEnemyRays
 @onready var odd_enemy_rays = $OddEnemyRays
 @onready var enemies_in_combat = $EnemiesInCombat
 @onready var enemy_vistas = $EnemyVistas
 @onready var allies_vistas = $AlliesVistas
 
-#UI
+# UI
 @onready var allies_ui = $UI/Allies
 @onready var enemies_ui = $UI/Enemies
 @onready var ui = $UI
@@ -62,22 +63,14 @@ const CHARACTER_COMBAT_WINDOW = preload("res://game/scenes/character_combat_wind
 const ENEMY_COMBAT_WINDOW = preload("res://game/scenes/enemy_combat_window.tscn")
 const MOVE_CHOICE_BUTTON = preload("res://game/scenes/move_choice_button.tscn")
 const BONUS_LABEL = preload("res://game/scenes/move_bonus_label.tscn")
-#var vista_ponts: Array = [
-	#[0, $EnemyVistas/Marker1], 
-	#[1, $EnemyVistas/Marker2], 
-	#[2, $EnemyVistas/Marker3],
-	#[3, $EnemyVistas/Marker4],
-	#[4, $EnemyVistas/Marker5],
-	#[5, $EnemyVistas/Marker6]
-	#]
 
-#Combat Pipeline
+# COMABT PIPELINE
 var current_move
 var looking_for_target: bool = true
 var total_bonus: int = 0
 var enemy_num: int = 0
 
-#Dice & Popup Window
+# DICE AND POP UP WINDOWS
 @onready var popup_window = $PopupWindow
 @onready var left_die = $Dice/HBoxContainer/LeftDie
 @onready var right_die = $Dice/HBoxContainer/RightDie
@@ -97,10 +90,11 @@ var prob_table: Array = [
 ]
 
 @export_category("Moves")
-#Basic Moves
+#Basic Moves (temporary)
 @export var basic_moves_array: Array[Resource]
 
 func _ready():
+	# The array with friendly rays has to be created at the initiation, so other functions can work.
 	friendly_rays = [friendly_first_ray, friendly_second_ray, friendly_third_ray, friendly_fourth_ray]
 	collision_dome.shape.radius = collision_dome_radius
 	if !is_a_trap:
@@ -113,10 +107,9 @@ func trigger_combat():
 	Global.cursors_visible_in_game = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ui.visible = true
-	clickable_enemy_window.visible = true
+	clickable_enemy_window_node.visible = true
 	all_allies = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
 	Global.allow_movement = false
-	#Global.change_phantom_camera(main_pcam)
 	Global.change_phantom_camera(main_pcam, 0.0)
 	assign_allied_slots()
 	spawn_enemies()
@@ -145,11 +138,14 @@ func assign_allied_slots():
 		allies_ui.add_child(ally_window)
 		
 		var node_to_change = get_node("UI/Allies/" + "view_" + str(i))
-		node_to_change.name_label.text = all_allies[i].follower_name
-		node_to_change.health_value.text = str(all_allies[i].current_health)
-		node_to_change.health_bar.value = all_allies[i].current_health
-		node_to_change.health_bar.max_value = all_allies[i].max_health
-		node_to_change.protection_value.text =str(all_allies[i].protection)
+		node_to_change.name_label.text = all_allies[i].ally_stats.ally_name
+		node_to_change.health_value.text = str(all_allies[i].ally_stats.current_health)
+		node_to_change.health_bar.value = all_allies[i].ally_stats.current_health
+		node_to_change.health_bar.max_value = all_allies[i].ally_stats.max_health
+		if all_allies[i].ally_stats.spray == null:
+			node_to_change.protection_value.text = "0"
+		else:
+			node_to_change.protection_value.text = str(all_allies[i].ally_stats.spray)
 
 func _on_danger_zone_body_entered(body):
 	trigger_combat()
@@ -165,8 +161,6 @@ func spawn_enemies():
 	for enemy in enemy_statistics:
 		if enemy != null:
 			enemy_num += 1
-	
-	
 	
 	if enemy_num % 2 == 0:
 		enemy_vistas.position.z = 0
@@ -194,7 +188,6 @@ func spawn_enemies():
 	
 	for ray in rays_node.get_children():
 		rays.append(ray)
-
 	
 	for i in enemy_num:
 		var new_enemy = NEW_ENEMY_SCENE.instantiate()
@@ -401,32 +394,31 @@ func hide_estimated_dmg_or_heal():
 
 func deal_damage_or_heal(is_healing: bool, value: int, height: float, spread: float, start_pos: Vector3, source, window_int: int):
 	source.label_3d.text = str(value)
-
-		
-	var number_tween = get_tree().create_tween()
-	var end_pos = Vector3(randf_range(-spread, spread), 2+height, 0) 
-	var tween_length = source.damage_player.get_animation("show_damage").length
-	number_tween.tween_property(source.label_3d, "position", end_pos, tween_length).from(start_pos)
-		
-	var healthbar_tween = get_tree().create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
-	var window = get_node("UI/Enemies/" + "view_" + str(window_int))
-	var current_value: int = window.health_bar.value
-	var new_value: int
-	if is_healing:
-		pass
-	else:
-		new_value = current_value -  value * 100
-		window.health_value.text = str(max(0, new_value/100))
-		healthbar_tween.tween_property(window.health_bar, "value", new_value, 0.8).from(current_value)
-		if new_value < 1:
-			var clickable_window = get_node("ClickableEnemyWindow/ClickableEnemyWindowsContainer/enemy_window_" + str(window_int))
-			clickable_window.disabled = true
+	if value > 0:
+		var number_tween = get_tree().create_tween()
+		var end_pos = Vector3(randf_range(-spread, spread), 2+height, 0) 
+		var tween_length = source.damage_player.get_animation("show_damage").length
+		number_tween.tween_property(source.label_3d, "position", end_pos, tween_length).from(start_pos)
 			
-	if is_healing:
-		pass
-	#elif new_value > 0: if we don't want to display damage when they die
-	else:
-		source.damage_player.play("show_damage")
+		var healthbar_tween = get_tree().create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
+		var window = get_node("UI/Enemies/" + "view_" + str(window_int))
+		var current_value: int = window.health_bar.value
+		var new_value: int
+		if is_healing:
+			pass
+		else:
+			new_value = current_value -  value * 100
+			window.health_value.text = str(max(0, new_value/100))
+			healthbar_tween.tween_property(window.health_bar, "value", new_value, 0.8).from(current_value)
+			if new_value < 1:
+				var clickable_window = get_node("ClickableEnemyWindow/ClickableEnemyWindowsContainer/enemy_window_" + str(window_int))
+				clickable_window.disabled = true
+				
+		if is_healing:
+			pass
+		#elif new_value > 0: if we don't want to display damage when they die
+		else:
+			source.damage_player.play("show_damage")
 
 func move_finished(results, enemy, target_int_id):
 		deal_damage_or_heal(current_move.IS_HEALING, results[1], 0.8, 1.0, Vector3(0,2,0), enemy, target_int_id)

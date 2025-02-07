@@ -1,31 +1,24 @@
 extends Node
 
-enum SecondBar {
-	NONE, #0
-	MEMORY, #1
-	PROCESSING_CORES #2
-}
-
 enum MoveType {
 	DAMAGE, 
 	HEAL, 
 	OTHER
 }
-
-enum CharacterClass {
-	PREACHER, #0
-	PROTECTOR, #1
-	HACKER, #2
-	OPERATIVE, #3
-	MILITANT, #4
-	SCOUT, #5
-	NONE
+enum Characters {
+	HERO, 
+	JETT, 
+	WREN,
+	CASY,
+	MOSS,
+	SAGE,
+	ONYX
 }
 
-enum EnemyType {
-	DECOY
+var save_state: Dictionary = {
+	#The player and the followers will use this variable.
+	"current_exploration_speed":  3.5
 }
-
 var temp_var
 var user_prefs: UserPreferences
 var is_initial_load_ready = false
@@ -88,64 +81,6 @@ var third_character
 #Combat 
 var shuffled_allies: Array
 var turn_order: int
-
-#Team Data
-var team_var: Dictionary = { #SAVING THIS NEEDS TO BE APPLIED
-	"current_comp": ['HERO', 'JETT', 'WREN', 'CASY'],
-	"WREN": {
-		"second_bar_type": SecondBar.NONE,
-		"ability_scores": [-22, 1, -1, 0, 0, -1],
-		"current_health": 10,
-		"character_class": CharacterClass.MILITANT,
-		"bonds": [],
-		"eq": {
-			"melee": load("res://game/inventory_items/warhammer.tres"),
-			"ranged": null,
-			"shield": null,
-			"spray": null
-		}
-		},
-	"HERO": {
-		"second_bar_type": SecondBar.NONE,
-		"character_class": CharacterClass.NONE,
-		"ability_scores": [-21, 1, 0, 0, -1, -1],
-		"current_health": 10,
-		"bonds": [],
-		"eq": {
-			"melee": load("res://game/inventory_items/warhammer.tres"),
-			"ranged": null,
-			"shield": null,
-			"spray": null
-		}
-		},
-	"JETT": {
-		"second_bar_type": SecondBar.NONE,
-		"character_class": CharacterClass.SCOUT,
-		"current_health": 10,
-		"ability_scores": [-20, 1, 1, 0, -1, -1],
-		"bonds": [],
-		"eq": {
-			"melee": load("res://game/inventory_items/warhammer.tres"),
-			"ranged": null,
-			"shield": null,
-			"spray": null
-		}
-		},
-	"CASY": {
-		"second_bar_type": SecondBar.MEMORY,
-		"current_health": 10,
-		"character_class": CharacterClass.PREACHER,
-		"ability_scores": [-10, 1, 2, 0, -1, -1],
-		"bonds": [],
-		"eq": {
-			"melee": load("res://game/inventory_items/warhammer.tres"),
-			"ranged": null,
-			"shield": null,
-			"spray": null
-		}
-	}
-	}
-
 
 #Variables for Player's choices
 var state_var_dialogue: Dictionary = { #Variables for Player's choices
@@ -360,31 +295,10 @@ func load_game():
 	Global.scene_being_loaded = Global.current_scene
 	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
 
-func read_team_data():
-	var characters_list: Array = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
-	var current_num: int = 0
-	for character in characters_list:
-		var character_name = team_var["current_comp"][current_num]
-		var character_data = team_var[character_name]
-		
-		character.follower_name = character_name
-		character.character_class = character_data["character_class"]
-		character.current_health = character_data["current_health"]
-		character.melee = character_data["eq"]["melee"]
-		character.ranged = character_data["eq"]["ranged"]
-		character.shield = character_data["eq"]["shield"]
-		character.spray = character_data["eq"]["spray"]
-		
-		character.strength = character_data["ability_scores"][0]
-		character.dexterity = character_data["ability_scores"][1]
-		character.endurance = character_data["ability_scores"][2]
-		character.processing = character_data["ability_scores"][3]
-		character.memory = character_data["ability_scores"][4]
-		character.charisma = character_data["ability_scores"][5]
-		
-		current_num +=1
-		character.change_equipment()
-		character.get_max_health()
+func read_team_data(character):
+	#TODO
+	character.change_equipment()
+	character.get_max_health()
 
 #Enemy, Follower and Player functions
 func change_phantom_camera(new_pcam: PhantomCamera3D, tween_duration: float = 0.4):
@@ -407,11 +321,12 @@ func set_combat_cameras(source: CharacterBody3D, target: CharacterBody3D):
 	source.combat_pcam_target = target.staring_point.global_position
 	Global.change_phantom_camera(new_pcam)
 
-func evade(character: CharacterBody3D):
-	#print('DEBUG global: The marker: ' + str(character.evade_position.get_collision_point()))
-	#enemy_model.animation_player.play("dodge_backward")
-	character.model.animation_player.play("dodge_backward")
-	#var tween_length: float =  character.model.animation_player.get_current_animation_length()
-	#var tween_length = 0.8
-	#var tween = create_tween().set_trans(Tween.TRANS_LINEAR).set_ease(Tween.EASE_OUT).set_parallel()
-	#tween.tween_property(character, "global_position", character.evade_position.get_collision_point(), tween_length)
+func get_spots(target: CharacterBody3D, position: String = "both"):
+	match position:
+		"back":
+			target.back_spot = target.evade_position_ray.get_collision_point()
+		"main":
+			target.main_spot = target.global_position
+		"both":
+			target.main_spot = target.global_position
+			target.back_spot = target.evade_position_ray.get_collision_point()

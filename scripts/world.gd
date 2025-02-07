@@ -28,7 +28,6 @@ func _ready():
 	Global.allow_movement = true
 	Global.collider = null
 	Global.read_dice_rolls()
-	Global.read_team_data()
 
 func _process(_delta):
 	check_distance()
@@ -94,7 +93,6 @@ func _input(_event):
 			pass
 	
 	if Input.is_action_just_pressed("character_sheet") and Global.pausable:
-		Global.read_team_data()
 		if Global.current_ui_mode == "none":  # Check if not already paused
 			Global.current_ui_mode = "character_sheet"
 			get_tree().paused = true

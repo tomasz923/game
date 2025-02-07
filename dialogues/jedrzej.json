@@ -1,0 +1,1 @@
+[{"commands_raw":"$if has_met_jedrzej_before{\nTBD\n}\n\n$if !has_met_jedrzej_before{\njedrzej_prototype_init_narr_01\n}","gnode_name":"init","id":0,"name":"init","position":[100,180]}]

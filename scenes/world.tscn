@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=35 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_yr0qb"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
-[ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/player.tscn" id="5_f8m7e"]
+[ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="5_f8m7e"]
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://assets/textures/grids/Green/texture_01.png" id="7_v04pi"]
 [ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu.tscn" id="9_u7f4u"]
 [ext_resource type="JSON" path="res://assets/json/dialogues/demo.json" id="11_srbxb"]
@@ -21,9 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
 [ext_resource type="PackedScene" uid="uid://fs2uoc0e4bts" path="res://game/scenes/character_sheet.tscn" id="16_gnj8n"]
 [ext_resource type="PackedScene" uid="uid://c3qdy0gtu161l" path="res://game/scenes/moves.tscn" id="17_w7sj6"]
-[ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/enemy_models/decoy_model.tscn" id="21_m3ehy"]
+[ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="21_m3ehy"]
 [ext_resource type="Resource" uid="uid://bws2401upr1gy" path="res://game/enemy_stats/decoy.tres" id="22_lkfh3"]
-[ext_resource type="Resource" uid="uid://bbcpjlqotrd8k" path="res://game/status_effects/uno.tres" id="23_q8kua"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -46,9 +45,8 @@ fog_density = 0.001
 [sub_resource type="GDScript" id="GDScript_vokfy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_uewh3"]
-vertices = PackedVector3Array(-499.5, 0.5, -499.5, -499.5, 0.5, 3, -3.25, 0.5, 3, -499.5, 0.5, -499.5, -3.25, 0.5, 3, -2.25, 0.5, 3, -2.25, 0.5, 3, 499.5, 0.5, 3, 499.5, 0.5, -499.5, -499.5, 0.5, -499.5, -499.5, 0.5, 7, -4.75, 0.5, 7, -5.5, 0.5, 6.25, -499.5, 0.5, 7, -5.5, 0.5, 6.25, -5.5, 0.5, 5.25, -5.5, 0.5, 5.25, -3.25, 0.5, 3, -499.5, 0.5, 3, -499.5, 0.5, 7, -1.5, 0.5, 3.75, -1.5, 0.5, 5.75, 1.25, 0.5, 5.25, -2.25, 0.5, 3, -1.5, 0.5, 3.75, 1.25, 0.5, 5.25, 499.5, 0.5, 5.25, 499.5, 0.5, 3, 1.75, 0.5, 7, 0.25, 0.5, 8, 499.5, 0.5, 8, 499.5, 0.5, 5.25, 1.25, 0.5, 5.25, 1.75, 0.5, 7, 499.5, 0.5, 8, -2.5, 0.5, 8, -2.75, 0.5, 7, -4.75, 0.5, 7, -4.75, 0.5, 7, -499.5, 0.5, 7, -499.5, 0.5, 8, -2.5, 0.5, 8, -2.5, 0.5, 8, -499.5, 0.5, 8, -499.5, 0.5, 499.5, 499.5, 0.5, 499.5, 499.5, 0.5, 8, 0.25, 0.5, 8, 0.25, 0.5, 8, -2.5, 0.5, 8, -499.5, 0.5, 499.5, 499.5, 0.5, 499.5)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(7, 6, 8), PackedInt32Array(8, 6, 9), PackedInt32Array(12, 11, 10), PackedInt32Array(15, 14, 13), PackedInt32Array(19, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(22, 21, 20), PackedInt32Array(24, 23, 25), PackedInt32Array(25, 23, 26), PackedInt32Array(26, 23, 27), PackedInt32Array(30, 29, 28), PackedInt32Array(32, 31, 33), PackedInt32Array(33, 31, 34), PackedInt32Array(37, 36, 35), PackedInt32Array(39, 38, 40), PackedInt32Array(40, 38, 41), PackedInt32Array(44, 43, 42), PackedInt32Array(47, 46, 45), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 51)]
-sample_partition_type = 1
+vertices = PackedVector3Array(-499.5, 0.5, 5.75, -5.5, 0.5, 5.75, -5.5, 0.5, 5.25, -499.5, 0.5, 5.75, -5.5, 0.5, 5.25, -2.75, 0.5, 3, -2.75, 0.5, -499.5, -499.5, 0.5, -499.5, -1.5, 0.5, 3.75, -1.5, 0.5, 5.75, 1.25, 0.5, 5.25, -2.75, 0.5, 3, -1.5, 0.5, 3.75, 1.25, 0.5, 5.25, 499.5, 0.5, 6.5, 499.5, 0.5, -499.5, -2.75, 0.5, -499.5, 1.25, 0.5, 5.25, 1.75, 0.5, 6.5, 499.5, 0.5, 6.5, -2.5, 0.5, 8, -2.75, 0.5, 7, -3.5, 0.5, 6.75, -4.75, 0.5, 7, -1, 0.5, 499.5, -1, 0.5, 499.5, -4.75, 0.5, 7, -5.5, 0.5, 5.75, -499.5, 0.5, 5.75, -499.5, 0.5, 499.5, -1, 0.5, 499.5, -1, 0.5, 8, -2.5, 0.5, 8, 1.25, 0.5, 7.5, -1, 0.5, 8, -1, 0.5, 499.5, 1.75, 0.5, 6.5, 1.25, 0.5, 7.5, -1, 0.5, 499.5, 499.5, 0.5, 499.5, 499.5, 0.5, 6.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(6, 3, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 16), PackedInt32Array(14, 16, 15), PackedInt32Array(17, 19, 18), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(23, 20, 24), PackedInt32Array(26, 25, 27), PackedInt32Array(27, 25, 28), PackedInt32Array(28, 25, 29), PackedInt32Array(32, 31, 30), PackedInt32Array(35, 34, 33), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 40), PackedInt32Array(38, 40, 39)]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo3m8"]
 albedo_texture = ExtResource("1_xdxcu")
@@ -196,22 +194,15 @@ visible = false
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
 collision_layer = 18
 model_tscn = ExtResource("21_m3ehy")
-follower_name = "MUSTAFA"
-basic_damage = 6
 
 [node name="blue_guy2" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
 collision_layer = 34
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 1
-follower_name = "CASY"
-basic_damage = 8
-status_effects = Array[Resource]([ExtResource("23_q8kua")])
 
 [node name="blue_guy3" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
 collision_layer = 66
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 2
-follower_name = "JETT"
-basic_damage = 10

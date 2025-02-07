@@ -6,8 +6,8 @@
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="5_wbc0l"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="6_2qfk0"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_c0tdi"]
-radius = 0.2
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_nc408"]
+radius = 0.3
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_2nb4h"]
 height = 4.0
@@ -60,11 +60,11 @@ script = ExtResource("1_gruw4")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.01, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CylinderShape3D_c0tdi")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+shape = SubResource("CapsuleShape3D_nc408")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 1.0
+path_height_offset = 0.5
 
 [node name="Area3D" type="Area3D" parent="."]
 collision_layer = 0
@@ -101,6 +101,10 @@ camera_3d_resource = ExtResource("6_2qfk0")
 
 [node name="StaringPoint" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+
+[node name="EvadePositionRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59894, 2)
+target_position = Vector3(0, -3, 0)
 
 [connection signal="velocity_computed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_velocity_computed"]
 [connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

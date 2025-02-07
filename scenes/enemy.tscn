@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://cnhltko1eafx3"]
 
-[ext_resource type="Script" path="res://game/scripts/Enemy.gd" id="1_16mp6"]
+[ext_resource type="Script" path="res://game/scripts/enemy.gd" id="1_xkisf"]
 [ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="2_eolk7"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_pxhpq"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_lap1h"]
@@ -162,7 +162,7 @@ radius = 1.1
 [node name="Enemy" type="CharacterBody3D"]
 collision_layer = 0
 collision_mask = 0
-script = ExtResource("1_16mp6")
+script = ExtResource("1_xkisf")
 
 [node name="Visuals" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -219,10 +219,13 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_2lf4y")
 
-[node name="EvadePosition" type="RayCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.55145, 2)
+[node name="EvadePositionRay" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59894, 2)
 target_position = Vector3(0, -3, 0)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148132, 0)
 
 [connection signal="body_entered" from="MeleeArea" to="." method="_on_melee_area_body_entered"]
