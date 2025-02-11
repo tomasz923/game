@@ -1,4 +1,4 @@
-extends Resource
+extends MachineStats
 class_name AllyStats
 
 enum CharacterClass {
@@ -16,21 +16,9 @@ enum SecondBar {
 	PROCESSING_CORES #2
 }
 
-@export_category("General")
+@export_category("Ally Stats")
 @export var character_class: CharacterClass = CharacterClass.NONE
 @export var ally_name: String = "ERROR: Name not found"
-@export var max_health: int
-@export var current_health: int
-@export var character: Global.Characters
-@export_range(4, 20, 2) var basic_damage: int = 4
-
-@export_category("Items")
-@export var melee: InventoryItem = preload("res://game/inventory_items/warhammer.tres")
-@export var ranged: InventoryItem 
-@export var shield: InventoryItem
-@export var spray: InventoryItem
-
-@export_category("Statistics")
 @export var strength: int
 @export var dexterity: int
 @export var endurance: int
@@ -42,18 +30,20 @@ var initial_stats = {
 	Global.Characters.HERO: [1, 1, 1, 1, 1, 1],
 	Global.Characters.CASY: [0, -1, 0, 1, 1, 2],
 	Global.Characters.JETT: [0, 2, 1, 0, 1, -1],
-	Global.Characters.WREN: [2, 0, 1, -1, 0, 1]
-	##TODO: Add the rest
+	Global.Characters.WREN: [2, 0, 1, -1, 0, 1],
+	Global.Characters.SAGE: [1, 0, -1, 1, 2, 0],
+	Global.Characters.ONYX: [1, 1, 2, 0, -1, 0],
+	Global.Characters.MOSS: [-1, 1, 0, 2, 0, 1]
 }
 
-func calculate_max_health():
-	var max_health: int = 0 # Default value
-	match endurance:
-		3: max_health = 25
-		2: max_health = 23
-		1: max_health = 20
-		0: max_health = 16
-		-1: max_health = 12
+func initiate(character):
+	max_health = 0 # Default value
+	strength = initial_stats[character][0]
+	dexterity = initial_stats[character][1]
+	endurance = initial_stats[character][2]
+	charisma = initial_stats[character][3]
+	processing = initial_stats[character][4]
+	memory = initial_stats[character][5]
 	match character:
 		Global.Characters.HERO: ally_name = "HERO"
 		Global.Characters.CASY: ally_name = "CASY"
@@ -62,8 +52,10 @@ func calculate_max_health():
 		Global.Characters.MOSS: ally_name = "MOSS"
 		Global.Characters.ONYX: ally_name = "ONYX"
 		Global.Characters.SAGE: ally_name = "SAGE"
-
-func initiate():
-	var abilities: Array = [strength, dexterity, endurance, charisma, processing, memory]
-	for i in len(abilities):
-		abilities[i] = initial_stats[character][i]
+	match endurance:
+		3: max_health = 25
+		2: max_health = 23
+		1: max_health = 20
+		0: max_health = 16
+		-1: max_health = 12
+	current_health = 1 #max_health

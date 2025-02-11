@@ -5,10 +5,11 @@ signal melee_reaction_ready(is_evading: bool)
 signal tween_backward()
 signal tween_forward()
 
-@onready var animation_player = $decoy/AnimationPlayer
-@onready var back_container = $decoy/Armature/Skeleton3D/BackBone/BackContainer
-@onready var hips_container = $decoy/Armature/Skeleton3D/HipsBone/HipsContainer
-@onready var right_hand_container = $decoy/Armature/Skeleton3D/RightHandBone/RightHandContainer
+@onready var animation_player = $AnimationPlayer
+@onready var right_hand_container = $Armature/Skeleton3D/RightHandBone/RightHandContainer
+@onready var hips_container = $Armature/Skeleton3D/HipsBone/HipsContainer
+@onready var back_container = $Armature/Skeleton3D/BackBone/BackContainer
+
 var melee_victim_reaction_count: int = 0
 
 func _on_animation_player_animation_finished(anim_name):

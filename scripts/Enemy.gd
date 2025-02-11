@@ -5,13 +5,12 @@ signal someone_is_in_melee_positon()
 signal arrived_at_the_main_spot()
 
 @export_category("Enemy")
-@export var enemy_stats: Resource 
+@export var stats: EnemyStats 
 @export var enemy_model: PackedScene
-@export var current_health: int
 @onready var visuals = $Visuals
 @onready var hexagon_animation_player = $HexagonAnimationPlayer
-@onready var label_3d = $Label3D
-@onready var damage_player = $DamagePlayer
+@onready var floating_number = $FloatingTextsNode/FloatingNumber
+@onready var floating_text = $FloatingTextsNode/FloatingText
 @onready var melee_area = $MeleeArea
 @onready var marker_3d = $Marker3D
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
@@ -34,14 +33,12 @@ var counterattack_target: CharacterBody3D
 
 func _ready():
 	navigation_agent_3d = $NavigationAgent3D
-	pass
 
 func _process(_delta):
 	if is_moving: 
 		var current_location = global_transform.origin
 		var next_location = navigation_agent_3d.get_next_path_position()
 		var new_velocity = (next_location - current_location).normalized() * speed
-		
 		velocity = new_velocity
 		move_and_slide()
 		look_at_spot(destination)
@@ -54,7 +51,7 @@ func _process(_delta):
 			arrived_at_the_main_spot.emit()
 			is_returning = false
 			is_moving = false
-			reset_combat_position(false)
+			reset_combat_position()
 	elif is_observing:
 		look_at_spot(observee)
 
@@ -63,18 +60,13 @@ func get_ready():
 	visuals.add_child(model_3D)
 	model = $Visuals/Model
 	animation_player = model.animation_player
-	change_equipment(enemy_stats)
+	change_equipment(stats)
+	get_in_combat(stats)
 	look_at(vista_point)
 	model.tween_backward.connect(_on_tween_backward)
 	model.tween_forward.connect(_on_tween_forward)
 	model.animation_was_finished.connect(_on_animation_was_finished)
-
-func reset_combat_position(done_fighting: bool = true):
-	observee = vista_point
-	global_position = main_spot
-	if done_fighting:
-		look_at_spot(vista_point)
-		model.animation_player.play(idle_combat_animation)
+	#reset_combat_position()
 
 func _on_melee_area_body_entered(body):
 	if body is Ally: 
@@ -84,13 +76,6 @@ func _on_melee_area_body_entered(body):
 
 func _on_animation_was_finished(animation: String):
 	pass
-	#if animation == "dodge_forward":
-		#global_position = main_spot
-		#var counterattack_animation: String
-		#match enemy_stats.melee.type:
-			#0:
-				#counterattack_animation = "1h_melee_horizontal"
-		#model.animation_player.play(counterattack_animation)
 
 func _on_tween_backward():
 	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT).set_parallel()

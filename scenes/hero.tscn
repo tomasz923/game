@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://brlv5mgijxokp"]
+[gd_scene load_steps=16 format=3 uid="uid://brlv5mgijxokp"]
 
 [ext_resource type="Script" path="res://game/scripts/hero.gd" id="1_bsgcu"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="2_jxos7"]
@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_jpr4g"]
 [ext_resource type="Resource" uid="uid://bbntk2y4ucg5x" path="res://game/resources/exploration_camp_res.tres" id="5_obrul"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_whevs"]
+[ext_resource type="PackedScene" uid="uid://byre8b24gk8vj" path="res://game/scenes/floating_text.tscn" id="7_bntvy"]
 [ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="11_36r8j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h4v5u"]
@@ -83,6 +84,10 @@ transform = Transform3D(0.998815, 0.0479509, 0.00826532, -0.0483847, 0.99675, 0.
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 1.0
+
+[node name="FloatingNumber" parent="." instance=ExtResource("7_bntvy")]
+
+[node name="FloatingText" parent="." instance=ExtResource("7_bntvy")]
 
 [node name="FollowerPositions" type="Node3D" parent="."]
 transform = Transform3D(0.934011, 0, 0.357243, 0, 1, 0, -0.357243, 0, 0.934011, 0, 0, 0)

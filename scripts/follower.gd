@@ -17,6 +17,8 @@ enum FollowerOrder {
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
 @onready var evade_position_ray = $EvadePositionRay
+@onready var floating_number = $FloatingNumber
+@onready var floating_text = $FloatingText
 var combat_pcam_target: Vector3 
 
 #Hexagon
@@ -26,7 +28,6 @@ var combat_pcam_target: Vector3
 
 var target: CharacterBody3D
 var is_looking: bool = false
-var in_combat: bool = false
 
 func _ready():
 	var model_3D = model_tscn.instantiate()
@@ -35,11 +36,12 @@ func _ready():
 	animation_player = model.animation_player
 	navigation_agent_3d = $NavigationAgent3D
 	ensure_ally_stats()
+	change_equipment(stats)
 	model.tween_backward.connect(_on_tween_backward)
 
 func _process(_delta):
 	if is_moving: 
-		if !in_combat:
+		if !is_in_combat:
 			animation_player.play("run")
 			match follower_number:
 				0:
@@ -47,7 +49,6 @@ func _process(_delta):
 					update_target_position(destination)
 				1:
 					destination = target.global_position
-					#destination = target.follower_position_two.global_position
 					update_target_position(destination)
 				2:
 					destination = target.follower_position_three.global_position
@@ -65,7 +66,7 @@ func _process(_delta):
 		move_and_slide()
 		look_at_spot(destination)
 		
-	elif !is_moving and !in_combat:
+	elif !is_moving and !is_in_combat:
 		animation_player.play("idle")
 
 	if is_returning_from_melee:

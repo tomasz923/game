@@ -6,14 +6,18 @@ class_name Machine
 
 var model: Node3D
 var animation_player: AnimationPlayer
-var idle_combat_animation: String
 var navigation_agent_3d: NavigationAgent3D
 var is_returning_from_melee: bool = false
 var is_moving: bool = false
+var is_in_combat: bool = false
 var destination: Vector3
 var main_spot: Vector3
 var back_spot: Vector3
 var vista_point: Vector3
+var melee_animation: String
+var melee_reaction: String
+var idle_melee_animation: String
+var melee_running_animation: String
 
 const walking_speed: float = 1.5
 const running_speed: float = 3.5
@@ -25,14 +29,10 @@ func look_at_spot(target_pos: Vector3):
 	var wrotation = Quaternion(global_transform.basis).slerp(Quaternion(wtransform.basis), 0.1)
 	self.global_transform = Transform3D(Basis(wrotation), global_pos)
 
-#Since it is not used in combat, it may be useful only to allies.
-#func arrived():
-	#is_moving = false
-
 func update_target_position(target_position: Vector3):
 	navigation_agent_3d.target_position = target_position
 
-func change_equipment(stats: Resource):
+func change_equipment(stats: MachineStats):
 	var new_weapon
 	if stats.melee != null:
 		for n in model.hips_container.get_children():
@@ -44,5 +44,39 @@ func change_equipment(stats: Resource):
 		new_weapon = stats.melee.model_scene.instantiate()
 		if stats.melee.type == 0:
 			model.hips_container.add_child(new_weapon)
+			melee_animation = "1h_melee_horizontal"
+			melee_reaction = "1h_react"
+			idle_melee_animation = "1h_idle"
+			melee_running_animation = "1h_run_forward"
 		else:
 			model.back_container.add_child(new_weapon)
+
+func back_to_main_spot():
+	animation_player.play(melee_running_animation)
+	is_returning_from_melee = true
+	is_moving = true
+	destination = main_spot
+	update_target_position(destination)
+
+func reset_combat_position():
+	is_moving = false
+	is_in_combat = true
+	global_position = main_spot
+	look_at(vista_point)
+	model.animation_player.play(idle_melee_animation)
+
+func get_in_combat(stats: MachineStats):
+	reset_combat_position()
+	look_at(vista_point)
+	if stats.ranged == null:
+		model.hips_container.visible = false
+		match stats.melee.type:
+			stats.melee.ItemType.WEAPON_1H:
+				model.right_hand_container.visible = true
+				var equipped_weapon = stats.melee.model_scene.instantiate()
+				for n in model.right_hand_container.get_children():
+					model.right_hand_container.remove_child(n)
+					n.queue_free()
+				model.right_hand_container.add_child(equipped_weapon)
+	else:
+		pass

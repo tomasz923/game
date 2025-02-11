@@ -194,15 +194,18 @@ visible = false
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
 collision_layer = 18
 model_tscn = ExtResource("21_m3ehy")
+character = 1
 
 [node name="blue_guy2" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
 collision_layer = 34
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 1
+character = 2
 
 [node name="blue_guy3" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
 collision_layer = 66
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 2
+character = 3

@@ -21,6 +21,8 @@ signal arrived_at_the_main_spot()
 @onready var hexagon = $Hexagon
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
+@onready var floating_number = $FloatingNumber
+@onready var floating_text = $FloatingText
 var combat_pcam_target: Vector3 
 
 #Cameras
@@ -45,6 +47,7 @@ func _ready():
 	user_prefs = UserPreferences.load_or_create()
 	Global.current_pcam = exploration_pcam
 	ensure_ally_stats()
+	change_equipment(stats)
 
 func _process(_delta):
 	if is_moving: #and !in_combat
@@ -125,5 +128,5 @@ func _physics_process(delta):
 
 func _on_personal_space_body_entered(body):
 	if body is Follower:
-		if !body.in_combat:
+		if !body.is_in_combat:
 			body.arrived()
