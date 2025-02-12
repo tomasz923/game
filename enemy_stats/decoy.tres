@@ -4,10 +4,11 @@
 [ext_resource type="Script" path="res://game/scripts/enemy_stats.gd" id="1_m87li"]
 
 [resource]
+resource_local_to_scene = true
 script = ExtResource("1_m87li")
 enemy_class = 0
 enemy_name = "DeCoy"
 max_health = 20
-current_health = 15
-basic_damage = 4
+current_health = 20
+basic_damage = 20
 melee = ExtResource("1_kascr")

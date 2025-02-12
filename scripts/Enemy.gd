@@ -5,7 +5,7 @@ signal someone_is_in_melee_positon()
 signal arrived_at_the_main_spot()
 
 @export_category("Enemy")
-@export var stats: EnemyStats 
+@export var enemy_stats: EnemyStats 
 @export var enemy_model: PackedScene
 @onready var visuals = $Visuals
 @onready var hexagon_animation_player = $HexagonAnimationPlayer
@@ -18,6 +18,7 @@ signal arrived_at_the_main_spot()
 @onready var staring_point = $StaringPoint
 @onready var evade_position_ray = $EvadePositionRay
 
+var stats: EnemyStats
 var speed: float = 3.5
 var is_returning: bool = false
 # Without this variable, the crashes upon spawning since there is no observee declared yet:
@@ -56,6 +57,8 @@ func _process(_delta):
 		look_at_spot(observee)
 
 func get_ready():
+	if stats == null:
+		stats = enemy_stats.duplicate()
 	var model_3D = enemy_model.instantiate()
 	visuals.add_child(model_3D)
 	model = $Visuals/Model

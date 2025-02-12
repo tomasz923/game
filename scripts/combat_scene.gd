@@ -59,7 +59,7 @@ var all_allies: Array = []
 @onready var enemies_ui = $UI/Enemies
 @onready var ui = $UI
 @onready var moves_panel = $UI/MovesPanel
-const CHARACTER_COMBAT_WINDOW = preload("res://game/scenes/character_combat_window.tscn")
+const CHARACTER_COMBAT_WINDOW = preload("res://game/scenes/ally_combat_window.tscn")
 const ENEMY_COMBAT_WINDOW = preload("res://game/scenes/enemy_combat_window.tscn")
 const MOVE_CHOICE_BUTTON = preload("res://game/scenes/move_choice_button.tscn")
 const BONUS_LABEL = preload("res://game/scenes/move_bonus_label.tscn")
@@ -69,6 +69,7 @@ var current_move
 var looking_for_target: bool = true
 var total_bonus: int = 0
 var enemy_num: int = 0
+var allies_skipped: int = 0
 # An element of the statuses_and_damage has to look like this 
 # [type: String, machine: Machine, value: int]
 var statuses_and_damage: Array = [] 
@@ -256,6 +257,18 @@ func initiate_next_turn():
 	else:
 		Global.turn_order += 1
 	
+	while Global.shuffled_allies[Global.turn_order].stats.current_health < 1:
+		allies_skipped += 1
+		
+		if allies_skipped >= len(Global.shuffled_allies):
+			print("game over")
+			return
+		
+		if Global.turn_order > 2:
+			Global.turn_order = 0
+		else:
+			Global.turn_order += 1
+	
 	#Changes to the current character
 	character_window_to_change = get_node("UI/Allies/" + "view_" + str(Global.turn_order))
 	character_window_to_change.active_triangle.visible = true
@@ -282,6 +295,8 @@ func initiate_next_turn():
 			moves_panel.even.add_child(new_move_choice)
 		else:
 			moves_panel.odd.add_child(new_move_choice)
+	
+	print("cs: the turn " + str(Global.turn_order) + " has ended")
 
 func _on_forward_move_data(move: Resource, bonus_array: Array):
 	var new_container
@@ -392,6 +407,8 @@ func hide_estimated_dmg_or_heal():
 	moves_panel.extra_move_info_damage.visible = false
 
 func move_finished():
+	ui.visible = true 
+	clickable_enemy_window_node.visible = true
 	for i in len(statuses_and_damage):
 		var element = statuses_and_damage.pop_back()
 		var window
@@ -402,19 +419,19 @@ func move_finished():
 			else:
 				window = get_node("UI/Allies/" + "view_" + str(element[1].int_id))
 			var current_value: int = window.health_bar.value
-			var new_value: int
-			new_value = current_value - element[2] * 100
-			window.health_value.text = str(max(0, new_value/100))
-			healthbar_tween.tween_property(window.health_bar, "value", new_value, 0.8).from(current_value)
+			window.health_value.text = str(max(0, element[1].stats.current_health))
+			healthbar_tween.tween_property(window.health_bar, "value", element[1].stats.current_health * 100, 0.8).from(current_value)
 			if element[0] == "damage":
 				element[1].floating_number.show_damage(element[2])
-				if new_value < 1 and element[1] is Enemy:
-					var clickable_window = get_node("ClickableEnemyWindowNode/ClickableEnemyWindowsContainer/enemy_window_" + str(element[1].int_id))
-					clickable_window.disabled = true
+				if element[1].stats.current_health < 1: 
+					window.visible = false
+					if element[1] is Enemy:
+						var clickable_window = get_node("ClickableEnemyWindowNode/ClickableEnemyWindowsContainer/enemy_window_" + str(element[1].int_id))
+						clickable_window.disabled = true
 			else:
 				pass #heal
 		else:
-			element[1].floating_text.show_damage(element[2])
+			element[1].floating_text.show_status(element[2])
 	current_move = null
 	looking_for_target = true
 	initiate_next_turn()
@@ -438,7 +455,7 @@ func color_the_dice(result):
 
 func slow_motion():
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN).set_parallel()
-	tween.tween_property(Engine, "time_scale", 1.0, 0.3).from(0.1)
+	tween.tween_property(Engine, "time_scale", 1.0, 0.3).from(0.99)
 
 func stop_animations(is_pausing: bool):
 	for enemy in enemies_in_combat.get_children():

@@ -183,6 +183,7 @@ func calculate_counterattack_damage():
 func start_stage_one():
 	if stage == 1:
 		the_victim_died = false
+		the_ally_died = false
 		random_result = randi_range(0, 1)
 		Global.get_spots(local_victim)
 		Global.get_spots(local_agressor, "main")
@@ -231,9 +232,13 @@ func start_stage_three_success(choice: int):
 	calculate_attack_damage()
 	Global.current_combat_scene.slow_motion()
 	Global.current_combat_scene.show_the_dice(roll_result)
-	#TODO Add possible death
-	local_victim.model.animation_player.play(local_victim.melee_reaction)
-	stage = 4
+	if local_victim.stats.current_health < 1:
+		local_victim.model.animation_player.play(local_victim.melee_death_animation)
+		local_agressor.model.animation_was_finished.connect(start_stage_five)
+		stage = 5
+	else:
+		local_victim.model.animation_player.play(local_victim.melee_reaction)
+		stage = 4
 
 func start_stage_three_partial_success():
 	set_dice(dice_one, dice_two, roll_result, true)
@@ -258,7 +263,7 @@ func start_stage_four_aux_counterattack(_is_evading):
 		calculate_counterattack_damage()
 		local_victim.model.melee_reaction_ready.disconnect(start_stage_four_aux_counterattack)
 		if the_ally_died:
-			local_agressor.model.animation_player.play("1h_death")
+			local_agressor.model.animation_player.play(local_agressor.melee_death_animation)
 			Global.current_combat_scene.statuses_and_damage.append(["status", local_agressor, "status_name_broken"])
 			start_stage_five(null)
 		else:
@@ -273,9 +278,11 @@ func start_stage_four_aux_counterattack(_is_evading):
 		local_agressor.model.animation_was_finished.connect(start_stage_five)
 		stage = 5
 
-func start_stage_five(animation_name):
+func start_stage_five(anim_name):
 	if stage == 5:
 		stage = 6
+		if !the_ally_died:
+			local_agressor.model.animation_was_finished.disconnect(start_stage_five)
 		Global.change_phantom_camera(Global.current_combat_scene.main_pcam)
 		if !the_victim_died:
 			local_victim.model.animation_player.queue(local_victim.idle_melee_animation)
@@ -289,8 +296,7 @@ func start_stage_five(animation_name):
 
 func start_stage_six():
 	if stage == 6:
-		Global.current_combat_scene.ui.visible = true 
-		Global.current_combat_scene.clickable_enemy_window_node.visible = true
+		print("hns: the enemy is dead: " + str(the_victim_died))
 		Global.current_combat_scene.move_finished()
 		local_victim.model.animation_was_finished.disconnect(start_stage_four)
 		if !the_ally_died:

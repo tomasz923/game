@@ -18,6 +18,7 @@ var melee_animation: String
 var melee_reaction: String
 var idle_melee_animation: String
 var melee_running_animation: String
+var melee_death_animation: String
 
 const walking_speed: float = 1.5
 const running_speed: float = 3.5
@@ -45,7 +46,8 @@ func change_equipment(stats: MachineStats):
 		if stats.melee.type == 0:
 			model.hips_container.add_child(new_weapon)
 			melee_animation = "1h_melee_horizontal"
-			melee_reaction = "1h_react"
+			melee_reaction = "1h_react" 
+			melee_death_animation = "1h_death"
 			idle_melee_animation = "1h_idle"
 			melee_running_animation = "1h_run_forward"
 		else:
