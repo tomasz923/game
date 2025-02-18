@@ -7,13 +7,14 @@ extends Node3D
 @onready var blue_guy = $blue_guy
 @onready var moves = $Moves
 @onready var inventory = $Inventory
+@onready var screen_transiton: Control = $ScreenTransiton
 
 #DEBUG
 @onready var box_2 = $map/NavigationRegion3D/box_2
 
 func _ready():
 	Global.temp_var = box_2
-	Global.current_scene = "res://game/scenes/world.tscn"
+	Global.current_scene = self
 	Global.moves_menu = $Moves
 	Global.dialogue_box = $DialogueBox
 	Global.dice_box = $DiceBox

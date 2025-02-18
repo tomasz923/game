@@ -3,11 +3,18 @@ extends Node3D
 signal combat_was_triggerred(combat_name: String)
 
 @export_category("General")
-@export var combat_id: String
+@export var combat_title: String
+@export var combat_description: String
 # is_a_trap is not used anywhere for now.
 @export var is_a_trap: bool = false
 @export var has_3d_zone: bool = true
 @export var collision_dome_radius: float = 6.0
+
+@export_category("Rewards")
+@export var supplies: int = 0
+@export var credits: int = 0
+@export var items: Array[InventoryItem] = []
+var experience: int = 0
 
 # The make mixing 3D models and skills easier, these are seperated into two files and mereged
 # later on during spawn_enemies()
@@ -105,7 +112,13 @@ func _ready():
 		danger_zone.visible = false
 
 func trigger_combat():
+	Global.current_scene.screen_transiton.the_screen_is_covered.connect(start_combat)
+	Global.current_scene.screen_transiton.start_combat(combat_title, combat_description)
 	Global.allow_movement = false
+
+func start_combat():
+	Global.allow_movement = false
+	Global.change_phantom_camera(main_pcam, 0.0)
 	Global.turn_order = -1
 	Global.current_combat_scene = self
 	Global.cursors_visible_in_game = true
@@ -113,8 +126,6 @@ func trigger_combat():
 	ui.visible = true
 	clickable_enemy_window_node.visible = true
 	all_allies = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
-	Global.allow_movement = false
-	Global.change_phantom_camera(main_pcam, 0.0)
 	assign_allied_slots()
 	spawn_enemies()
 	initiate_next_turn()
@@ -129,9 +140,8 @@ func assign_allied_slots():
 		vista_points.append(marker)
 		
 	for i in len(all_allies):
-		#all_allies[i].arrived()
+		all_allies[i].arrived()
 		var current_ray = friendly_rays[i]
-		all_allies[i].position = current_ray.get_collision_point()
 		all_allies[i].main_spot = current_ray.get_collision_point()
 		all_allies[i].int_id = i
 		all_allies[i].vista_point = vista_points[i].global_position
@@ -152,7 +162,11 @@ func assign_allied_slots():
 			node_to_change.protection_value.text = str(all_allies[i].stats.spray)
 
 func _on_danger_zone_body_entered(body):
-	trigger_combat()
+	if body is Hero:
+		Global.allow_movement = false
+		get_tree().call_group("Ally", "unsheath_weapon")
+		await body.model.weapon_unsheathed
+		trigger_combat()
 
 func spawn_enemies():
 	var enemy_statistics: Array = [first_enemy_stats, second_enemy_stats, third_enemy_stats, fourth_enemy_stats, fifth_enemy_stats, sixth_enemy_stats]
@@ -197,7 +211,7 @@ func spawn_enemies():
 		var enemy_defence: int = 0
 		
 		new_enemy.name = "enemy_" + str(i)
-		new_enemy.stats = enemy_statistics[i]
+		new_enemy.enemy_stats = enemy_statistics[i]
 		new_enemy.enemy_model = enemy_models[i]
 		new_enemy.vista_point = vista_points[i].global_position
 		new_enemy.int_id = i 
@@ -257,18 +271,30 @@ func initiate_next_turn():
 	else:
 		Global.turn_order += 1
 	
+	# Check if the player won
+	var there_are_still_enemies: bool = false
+	for i in enemy_num:
+		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(i))
+		print(enemy.stats.current_health)
+		if enemy.stats.current_health > 0:
+			there_are_still_enemies = true
+	if !there_are_still_enemies:
+		Global.current_scene.screen_transiton.combat_won(experience, supplies, credits, items)
+
+	# Check if the player lost
 	while Global.shuffled_allies[Global.turn_order].stats.current_health < 1:
 		allies_skipped += 1
 		
-		if allies_skipped >= len(Global.shuffled_allies):
-			print("game over")
+		if allies_skipped > 4:
+			Global.current_scene.screen_transiton.game_over()
 			return
 		
 		if Global.turn_order > 2:
 			Global.turn_order = 0
 		else:
 			Global.turn_order += 1
-	
+			
+	allies_skipped = 0
 	#Changes to the current character
 	character_window_to_change = get_node("UI/Allies/" + "view_" + str(Global.turn_order))
 	character_window_to_change.active_triangle.visible = true
@@ -295,8 +321,6 @@ func initiate_next_turn():
 			moves_panel.even.add_child(new_move_choice)
 		else:
 			moves_panel.odd.add_child(new_move_choice)
-	
-	print("cs: the turn " + str(Global.turn_order) + " has ended")
 
 func _on_forward_move_data(move: Resource, bonus_array: Array):
 	var new_container
@@ -365,7 +389,9 @@ func create_bonus_description(description: String, container: HBoxContainer):
 func _on_enemy_was_highlighted(target_int_id):
 	if current_move != null and looking_for_target and current_move.NEEDS_A_TARGET:
 		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(target_int_id))
+		var window = get_node("UI/Enemies/" + "view_" + str(target_int_id))
 		enemy.hexagon_animation_player.play("hexagon_pulsating")
+		window.active_triangle.visible = true
 		Global.shuffled_allies[Global.turn_order].hexagon_animation_player.play("RESET")
 		show_estimated_dmg_or_heal(enemy)
 		
@@ -380,7 +406,9 @@ func _on_enemy_was_highlighted(target_int_id):
 func _on_enemy_was_abandoned(target_int_id):
 	if current_move != null and current_move.NEEDS_A_TARGET:
 		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(target_int_id))
+		var window = get_node("UI/Enemies/" + "view_" + str(target_int_id))
 		enemy.hexagon_animation_player.play("RESET")
+		window.active_triangle.visible = false
 		Global.shuffled_allies[Global.turn_order].hexagon_animation_player.play("hexagon_pulsating")
 		hide_estimated_dmg_or_heal()
 		
@@ -424,7 +452,7 @@ func move_finished():
 			if element[0] == "damage":
 				element[1].floating_number.show_damage(element[2])
 				if element[1].stats.current_health < 1: 
-					window.visible = false
+					window.hide_window()
 					if element[1] is Enemy:
 						var clickable_window = get_node("ClickableEnemyWindowNode/ClickableEnemyWindowsContainer/enemy_window_" + str(element[1].int_id))
 						clickable_window.disabled = true

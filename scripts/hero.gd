@@ -57,9 +57,19 @@ func _process(_delta):
 		
 		velocity = new_velocity
 		move_and_slide()
+		#if global_transform.origin.distance_to(main_spot) < 0.15:
+			#global_position = main_spot
+			#look_at_spot(vista_point)
+			#is_moving = false
+			#animation_player.play_backwards("1h_sheath")
+			#animation_player.queue("1h_idle")
+		#else: 
 		look_at_spot(destination)
-		combat_pcam_left.look_at(combat_pcam_target)
-		combat_pcam_right.look_at(combat_pcam_target)
+			
+		if is_in_combat:
+			combat_pcam_left.look_at(combat_pcam_target)
+			combat_pcam_right.look_at(combat_pcam_target)
+
 		
 	if is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)

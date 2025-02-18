@@ -57,8 +57,12 @@ func _process(_delta):
 		look_at_spot(observee)
 
 func get_ready():
+	# There are issues with local resources so a bit of dancing has to be done
 	if stats == null:
-		stats = enemy_stats.duplicate()
+		enemy_stats.resource_local_to_scene  = true
+		stats = enemy_stats.duplicate(true)
+		stats.resource_local_to_scene  = true
+		
 	var model_3D = enemy_model.instantiate()
 	visuals.add_child(model_3D)
 	model = $Visuals/Model

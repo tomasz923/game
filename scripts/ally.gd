@@ -6,6 +6,11 @@ class_name Ally
 @export var character: Global.Characters
 
 var current_exploration_speed = running_speed
+var ready_for_combat = false
+
+func unsheath_weapon():
+	animation_player.play_backwards("1h_sheath")
+	ready_for_combat = true
 
 func arrived():
 	is_moving = false

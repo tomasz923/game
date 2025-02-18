@@ -19,6 +19,7 @@ var melee_reaction: String
 var idle_melee_animation: String
 var melee_running_animation: String
 var melee_death_animation: String
+var debug: bool = false
 
 const walking_speed: float = 1.5
 const running_speed: float = 3.5
@@ -35,7 +36,11 @@ func update_target_position(target_position: Vector3):
 
 func change_equipment(stats: MachineStats):
 	var new_weapon
+	var new_weapon_2
 	if stats.melee != null:
+		for n in model.right_hand_container.get_children():
+			model.right_hand_container.remove_child(n)
+			n.queue_free()
 		for n in model.hips_container.get_children():
 			model.hips_container.remove_child(n)
 			n.queue_free()
@@ -43,8 +48,10 @@ func change_equipment(stats: MachineStats):
 			model.back_container.remove_child(n)
 			n.queue_free()
 		new_weapon = stats.melee.model_scene.instantiate()
+		new_weapon_2 = new_weapon.duplicate()
 		if stats.melee.type == 0:
 			model.hips_container.add_child(new_weapon)
+			model.right_hand_container.add_child(new_weapon_2)
 			melee_animation = "1h_melee_horizontal"
 			melee_reaction = "1h_react" 
 			melee_death_animation = "1h_death"

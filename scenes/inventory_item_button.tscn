@@ -3,10 +3,10 @@
 [ext_resource type="Script" path="res://game/scripts/InventoryItemButton.gd" id="1_0j81g"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_tmip5"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exwtb"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfgk7"]
 bg_color = Color(1, 1, 1, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfgk7"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_exwtb"]
 bg_color = Color(1, 1, 1, 1)
 
 [node name="InventoryItemButton" type="Button"]
@@ -14,16 +14,16 @@ offset_right = 8.0
 offset_bottom = 8.0
 size_flags_horizontal = 3
 theme = ExtResource("1_tmip5")
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
-theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
-theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
 theme_override_colors/font_disabled_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 24
-theme_override_styles/pressed = SubResource("StyleBoxFlat_exwtb")
 theme_override_styles/focus = SubResource("StyleBoxFlat_xfgk7")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_exwtb")
 text = "EFFF"
 script = ExtResource("1_0j81g")
 

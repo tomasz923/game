@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game/scripts/Inventory.gd" id="1_pcm05"]
 [ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="2_y1wt2"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="3_qo5sd"]
-[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/resources/menu_toggle_theme.tres" id="4_7omk8"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="4_7omk8"]
 [ext_resource type="LabelSettings" uid="uid://wsb2cp1ta44k" path="res://game/resources/inv_label_settings.tres" id="4_cdt8d"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="4_qyyqx"]
 [ext_resource type="Texture2D" uid="uid://ca081xgym58hx" path="res://assets/textures/item_icons/1h_weapon.png" id="6_b817e"]

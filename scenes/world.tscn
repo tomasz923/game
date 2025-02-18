@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=38 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -16,13 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
 [ext_resource type="PackedScene" uid="uid://daq3k7jcwjrxa" path="res://game/scenes/journal.tscn" id="13_fpjo5"]
 [ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
+[ext_resource type="Resource" uid="uid://dv1dxsmsw6n34" path="res://game/inventory_items/warhammer.tres" id="14_lwq1p"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/follower.tscn" id="14_t2ro3"]
 [ext_resource type="PackedScene" uid="uid://cpodaffdvrac8" path="res://game/scenes/inventory.tscn" id="15_cy5ol"]
+[ext_resource type="Script" path="res://game/scripts/enemy_stats.gd" id="15_m4aht"]
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
 [ext_resource type="PackedScene" uid="uid://fs2uoc0e4bts" path="res://game/scenes/character_sheet.tscn" id="16_gnj8n"]
 [ext_resource type="PackedScene" uid="uid://c3qdy0gtu161l" path="res://game/scenes/moves.tscn" id="17_w7sj6"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="21_m3ehy"]
-[ext_resource type="Resource" uid="uid://bws2401upr1gy" path="res://game/enemy_stats/decoy.tres" id="22_lkfh3"]
+[ext_resource type="PackedScene" uid="uid://dfoih408r3vqi" path="res://game/scenes/screen_transiton.tscn" id="23_2pwpc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -45,8 +47,10 @@ fog_density = 0.001
 [sub_resource type="GDScript" id="GDScript_vokfy"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_uewh3"]
-vertices = PackedVector3Array(-499.5, 0.5, 5.75, -5.5, 0.5, 5.75, -5.5, 0.5, 5.25, -499.5, 0.5, 5.75, -5.5, 0.5, 5.25, -2.75, 0.5, 3, -2.75, 0.5, -499.5, -499.5, 0.5, -499.5, -1.5, 0.5, 3.75, -1.5, 0.5, 5.75, 1.25, 0.5, 5.25, -2.75, 0.5, 3, -1.5, 0.5, 3.75, 1.25, 0.5, 5.25, 499.5, 0.5, 6.5, 499.5, 0.5, -499.5, -2.75, 0.5, -499.5, 1.25, 0.5, 5.25, 1.75, 0.5, 6.5, 499.5, 0.5, 6.5, -2.5, 0.5, 8, -2.75, 0.5, 7, -3.5, 0.5, 6.75, -4.75, 0.5, 7, -1, 0.5, 499.5, -1, 0.5, 499.5, -4.75, 0.5, 7, -5.5, 0.5, 5.75, -499.5, 0.5, 5.75, -499.5, 0.5, 499.5, -1, 0.5, 499.5, -1, 0.5, 8, -2.5, 0.5, 8, 1.25, 0.5, 7.5, -1, 0.5, 8, -1, 0.5, 499.5, 1.75, 0.5, 6.5, 1.25, 0.5, 7.5, -1, 0.5, 499.5, 499.5, 0.5, 499.5, 499.5, 0.5, 6.5)
-polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(4, 3, 5), PackedInt32Array(5, 3, 6), PackedInt32Array(6, 3, 7), PackedInt32Array(10, 9, 8), PackedInt32Array(12, 11, 13), PackedInt32Array(13, 11, 14), PackedInt32Array(14, 11, 16), PackedInt32Array(14, 16, 15), PackedInt32Array(17, 19, 18), PackedInt32Array(21, 20, 22), PackedInt32Array(22, 20, 23), PackedInt32Array(23, 20, 24), PackedInt32Array(26, 25, 27), PackedInt32Array(27, 25, 28), PackedInt32Array(28, 25, 29), PackedInt32Array(32, 31, 30), PackedInt32Array(35, 34, 33), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 40), PackedInt32Array(38, 40, 39)]
+vertices = PackedVector3Array(-499.5, 0.5, 5.75, -5.5, 0.5, 5.75, -5.5, 0.5, 5.25, -2.75, 0.5, 3, -2.75, 0.5, -499.5, -499.5, 0.5, -499.5, -1.5, 0.5, 3.75, -1.5, 0.5, 5.75, 1.25, 0.5, 5.25, 499.5, 0.5, 6.5, 499.5, 0.5, -499.5, 1.75, 0.5, 6.5, -2.5, 0.5, 8, -2.75, 0.5, 7, -3.5, 0.5, 6.75, -4.75, 0.5, 7, -1, 0.5, 499.5, -499.5, 0.5, 499.5, -1, 0.5, 8, 1.25, 0.5, 7.5, 499.5, 0.5, 499.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Array(3, 0, 4), PackedInt32Array(4, 0, 5), PackedInt32Array(8, 7, 6), PackedInt32Array(6, 3, 8), PackedInt32Array(8, 3, 9), PackedInt32Array(9, 3, 4), PackedInt32Array(9, 4, 10), PackedInt32Array(8, 9, 11), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 12, 16), PackedInt32Array(15, 16, 1), PackedInt32Array(1, 16, 0), PackedInt32Array(0, 16, 17), PackedInt32Array(12, 18, 16), PackedInt32Array(16, 18, 19), PackedInt32Array(19, 11, 16), PackedInt32Array(16, 11, 9), PackedInt32Array(16, 9, 20)]
+agent_height = 2.0
+agent_radius = 0.3
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uo3m8"]
 albedo_texture = ExtResource("1_xdxcu")
@@ -67,6 +71,16 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
+[sub_resource type="Resource" id="Resource_otre3"]
+resource_local_to_scene = true
+script = ExtResource("15_m4aht")
+enemy_class = 0
+enemy_name = "DeCoy"
+max_health = 20
+current_health = 1
+basic_damage = 20
+melee = ExtResource("14_lwq1p")
+
 [node name="world" type="Node3D" groups=["main_menu"]]
 process_mode = 3
 script = ExtResource("1_2ccfw")
@@ -80,6 +94,7 @@ process_physics_priority = 300
 script = ExtResource("2_yr0qb")
 
 [node name="Specs" parent="." instance=ExtResource("2_vvsx5")]
+visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmj8b")
@@ -117,19 +132,17 @@ size = Vector3(3, 0.508911, 1)
 transform = Transform3D(-0.0735342, 0, -0.997293, 0, 1, 0, 0.997293, 0, -0.0735342, -1.14325, 1.50381, 6.89922)
 material_override = SubResource("StandardMaterial3D_18tkj")
 use_collision = true
-collision_layer = 5
 size = Vector3(1, 3, 2)
 
 [node name="box_4" type="CSGBox3D" parent="map/NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58375, 0, 5.83536)
 use_collision = true
-collision_layer = 5
-collision_mask = 5
 material = SubResource("StandardMaterial3D_6nk3g")
 
 [node name="player" parent="map" instance=ExtResource("5_f8m7e")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.2562, 0.0238276, -1.78514)
-collision_mask = 7
+collision_layer = 1
+collision_mask = 3
 
 [node name="pink_guy" parent="map" instance=ExtResource("12_fw5yl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58943, 0, 5.01304)
@@ -141,19 +154,22 @@ script_file = ExtResource("11_srbxb")
 
 [node name="CombatZone" parent="." instance=ExtResource("2_tslae")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38452, 0, 0)
+combat_title = "Combat Zone"
+combat_description = "Can you beat up those decoys?"
 is_a_trap = true
+supplies = 2
 first_enemy_model = ExtResource("21_m3ehy")
 second_enemy_model = ExtResource("21_m3ehy")
 third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = ExtResource("22_lkfh3")
-second_enemy_stats = ExtResource("22_lkfh3")
-third_enemy_stats = ExtResource("22_lkfh3")
-fourth_enemy_stats = ExtResource("22_lkfh3")
-fifth_enemy_stats = ExtResource("22_lkfh3")
-sixth_enemy_stats = ExtResource("22_lkfh3")
+first_enemy_stats = SubResource("Resource_otre3")
+second_enemy_stats = SubResource("Resource_otre3")
+third_enemy_stats = SubResource("Resource_otre3")
+fourth_enemy_stats = SubResource("Resource_otre3")
+fifth_enemy_stats = SubResource("Resource_otre3")
+sixth_enemy_stats = SubResource("Resource_otre3")
 
 [node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 visible = false
@@ -168,6 +184,7 @@ process_mode = 1
 visible = false
 
 [node name="Notification" parent="." instance=ExtResource("16_7qtmg")]
+visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0
@@ -186,26 +203,31 @@ visible = false
 [node name="Moves" parent="." instance=ExtResource("17_w7sj6")]
 visible = false
 
+[node name="ScreenTransiton" parent="." instance=ExtResource("23_2pwpc")]
+
 [node name="ui_elements" parent="." groups=["main_menu"] instance=ExtResource("9_u7f4u")]
 process_mode = 2
 visible = false
 
 [node name="blue_guy" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
-collision_layer = 18
+collision_mask = 2051
 model_tscn = ExtResource("21_m3ehy")
 character = 1
 
 [node name="blue_guy2" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
-collision_layer = 34
+collision_mask = 2051
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 1
 character = 2
 
 [node name="blue_guy3" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
-collision_layer = 66
+collision_mask = 2051
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 2
 character = 3
+
+[node name="Marker3D" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2928, 0, 0)

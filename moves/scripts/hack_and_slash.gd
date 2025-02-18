@@ -12,6 +12,7 @@ var damage_bonus: Array = []
 var dice_one: int
 var dice_two: int
 var stage: int = 1
+var debug: int = 0 #DEBUG
 
 #Common vars for all stages
 var roll_result: int
@@ -265,6 +266,8 @@ func start_stage_four_aux_counterattack(_is_evading):
 		if the_ally_died:
 			local_agressor.model.animation_player.play(local_agressor.melee_death_animation)
 			Global.current_combat_scene.statuses_and_damage.append(["status", local_agressor, "status_name_broken"])
+			local_agressor.set_collision_layer(0)
+			local_agressor.set_collision_mask(0)
 			start_stage_five(null)
 		else:
 			local_agressor.model.animation_player.play(local_victim.melee_reaction)
@@ -292,11 +295,9 @@ func start_stage_five(anim_name):
 			local_agressor.arrived_at_the_main_spot.connect(start_stage_six)
 		else:
 			start_stage_six()
-		
 
 func start_stage_six():
 	if stage == 6:
-		print("hns: the enemy is dead: " + str(the_victim_died))
 		Global.current_combat_scene.move_finished()
 		local_victim.model.animation_was_finished.disconnect(start_stage_four)
 		if !the_ally_died:

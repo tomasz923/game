@@ -25,6 +25,7 @@ tween_resource = ExtResource("4_4dwsc")
 camera_3d_resource = ExtResource("5_3l230")
 
 [node name="DangerZone" type="Area3D" parent="."]
+collision_layer = 0
 monitorable = false
 
 [node name="CollisionDome" type="CollisionShape3D" parent="DangerZone"]

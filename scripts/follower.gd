@@ -39,10 +39,14 @@ func _ready():
 	change_equipment(stats)
 	model.tween_backward.connect(_on_tween_backward)
 
-func _process(_delta):
+func debugg():
+	pass
+
+func _process(delta):
 	if is_moving: 
 		if !is_in_combat:
-			animation_player.play("run")
+			if animation_player.current_animation != "run":
+				animation_player.play("run")
 			match follower_number:
 				0:
 					destination = target.follower_position_one.global_position
@@ -57,17 +61,34 @@ func _process(_delta):
 			combat_pcam_left.look_at(combat_pcam_target)
 			combat_pcam_right.look_at(combat_pcam_target)
 			
-			
-		var current_location = global_transform.origin
-		var next_location = navigation_agent_3d.get_next_path_position()
-		var new_velocity = (next_location - current_location).normalized() * Global.save_state["current_exploration_speed"]
-		
-		velocity = new_velocity
+		var direction: Vector3
+		direction = navigation_agent_3d.get_next_path_position() - global_position
+		direction = direction.normalized()
+		velocity = velocity.lerp(direction * Global.save_state["current_exploration_speed"], 10 * delta)
 		move_and_slide()
-		look_at_spot(destination)
 		
-	elif !is_moving and !is_in_combat:
-		animation_player.play("idle")
+		#var current_location = global_transform.origin
+		#var next_location = navigation_agent_3d.get_next_path_position()
+		#var new_velocity = (next_location - current_location).normalized() * Global.save_state["current_exploration_speed"]
+		#velocity = new_velocity
+		#move_and_slide()
+		
+		#if global_transform.origin.distance_to(main_spot) < 0.2:
+			#global_position = main_spot
+			#look_at_spot(vista_point)
+			#is_moving = false
+			#animation_player.play_backwards("1h_sheath")
+			#animation_player.queue("1h_idle")
+		#else: 
+		look_at_spot(destination)
+			
+	elif !is_moving and !is_in_combat and animation_player.current_animation != "idle":
+		if !ready_for_combat:
+			animation_player.play("idle")
+		else:
+			animation_player.play_backwards("1h_sheath")
+			ready_for_combat = false
+			is_in_combat = true
 
 	if is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)
@@ -82,9 +103,10 @@ func update_target_position(target_position):
 	navigation_agent_3d.target_position = target_position
 
 func _on_area_3d_body_exited(body):
-	target = body
-	if Global.allow_movement:
-		is_moving = true
+	if !debug:
+		target = body
+		if Global.allow_movement:
+			is_moving = true
 
 func lose_all_weapons():
 	for n in model.hips_container.get_children():

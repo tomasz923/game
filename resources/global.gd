@@ -17,7 +17,9 @@ enum Characters {
 
 var save_state: Dictionary = {
 	#The player and the followers will use this variable.
-	"current_exploration_speed":  3.5
+	"current_exploration_speed":  3.5,
+	"experience": 2,
+	"level": 2
 }
 var temp_var
 var user_prefs: UserPreferences
@@ -33,7 +35,9 @@ var quick_save_file_path
 #When overwriting a save file, this variable will hold the path to the file that has be removed later:
 var save_file_to_be_removed
 
-var current_scene:String 
+#var current_scene: String 
+# For easier access to UI nodes
+var current_scene 
 var current_combat_scene
 var screenshot:Image #Saved as a part of a save file
 var save_files
@@ -148,7 +152,7 @@ func save_game(vbox_container):
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
 	last_save_file_path = current_save_file
 	
-	saved_game.current_scene = current_scene
+	#saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'Fake Save '+str(highest_save_number+1)
 	saved_game.adventure_mode = 'Exploration - Level'
@@ -172,7 +176,7 @@ func overwrite_save_game(vbox_container):
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
 	last_save_file_path = current_save_file
 	
-	saved_game.current_scene = current_scene
+	#saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'Fake Save '+str(highest_save_number+1)
 	saved_game.adventure_mode = 'Exploration - Level'
@@ -200,7 +204,7 @@ func quick_save():
 	last_save_file_path = current_save_file
 	
 	# Make sure it is the same in all types of saves
-	saved_game.current_scene = current_scene
+	#saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'Quick Save'
 	saved_game.adventure_mode = 'Exploration - Level'
@@ -216,7 +220,7 @@ func auto_save():
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_autosave.tres"
 	
 	# Make sure it is the same in all types of saves
-	saved_game.current_scene = current_scene
+	#saved_game.current_scene = current_scene
 	saved_game.formatted_datetime = "%04d-%02d-%02d %02d:%02d:%02d" % [datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second]
 	saved_game.file_name = 'AutoSave'
 	saved_game.adventure_mode = 'Exploration - Level'
@@ -291,7 +295,7 @@ func load_game():
 	var saved_game:SavedGame = load(save_file_being_loaded)
 	var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
 	Global.mw_player_position = saved_game.mw_player_position
-	Global.current_scene = saved_game.current_scene
+	#Global.current_scene = saved_game.current_scene
 	Global.scene_being_loaded = Global.current_scene
 	get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
 
