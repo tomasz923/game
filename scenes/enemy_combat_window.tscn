@@ -143,10 +143,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -0.000383854
-offset_top = -0.000236034
-offset_right = -1920.0
-offset_bottom = -1080.0
+offset_left = -177.5
+offset_top = -45.0001
+offset_right = -1742.5
+offset_bottom = -1035.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_3gxvg")
@@ -286,3 +286,22 @@ libraries = {
 "": SubResource("AnimationLibrary_qyrqj")
 }
 autoplay = "in_combat_triangle"
+
+[node name="StatusEffects" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 2.0
+offset_top = 45.0
+offset_right = 353.0
+offset_bottom = 88.0
+
+[node name="StatusEffectsContainer" type="HBoxContainer" parent="StatusEffects"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 11

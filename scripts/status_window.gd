@@ -1,10 +1,7 @@
 extends Control
+class_name StatusWindow
 
-@onready var animation_player = $AnimationPlayer
-@onready var texture_progress_bar = $TextureProgressBar
-
-@export var texture: CompressedTexture2D
-@export var status_name: String
-
-func set_texture():
-	texture_progress_bar.texture_over = texture
+@onready var picture: TextureRect = $Picture
+@onready var number: Label = $BlackRectangle/Number
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
+var status_type: StatusEffect

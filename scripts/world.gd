@@ -1,13 +1,16 @@
 extends Node3D
+class_name GameMap
 
-@onready var player = $map/player
 @onready var journal = $Journal
 @onready var character_sheet = $CharacterSheet
-@onready var blue_guy_3 = $blue_guy3
-@onready var blue_guy = $blue_guy
 @onready var moves = $Moves
 @onready var inventory = $Inventory
 @onready var screen_transiton: Control = $ScreenTransiton
+# Team
+@onready var hero: Hero = $Hero
+@onready var follower_one: Follower = $FollowerOne
+@onready var follower_two: Follower = $FollowerTwo
+@onready var follower_three: Follower = $FollowerThree
 
 #DEBUG
 @onready var box_2 = $map/NavigationRegion3D/box_2
@@ -21,10 +24,10 @@ func _ready():
 	Global.inventory = $Inventory
 	Global.pop_up = $Notification
 	#Assigning characters
-	Global.hero_character = $map/player
-	Global.first_character = $blue_guy
-	Global.second_character = $blue_guy2
-	Global.third_character = $blue_guy3
+	Global.hero = $Hero
+	Global.first_follower = $FollowerOne
+	Global.second_follower = $FollowerTwo
+	Global.third_follower = $FollowerThree
 	#Setting Cams
 	Global.allow_movement = true
 	Global.collider = null
@@ -155,22 +158,35 @@ func new_game():
 	pass
 
 func check_distance():
-	if blue_guy_3.is_moving == true or blue_guy.is_moving == true:
-		var bg3_ps1_dist = blue_guy_3.global_transform.origin.distance_to(player.follower_position_one.global_transform.origin)
-		var bg3_ps3_dist = blue_guy_3.global_transform.origin.distance_to(player.follower_position_three.global_transform.origin)
-		var bg1_ps1_dist = blue_guy.global_transform.origin.distance_to(player.follower_position_one.global_transform.origin)
-		var bg1_ps3_dist = blue_guy.global_transform.origin.distance_to(player.follower_position_three.global_transform.origin)
+	if follower_three.is_moving == true or follower_one.is_moving == true:
+		var bg3_ps1_dist = follower_three.global_transform.origin.distance_to(hero.follower_position_one.global_transform.origin)
+		var bg3_ps3_dist = follower_three.global_transform.origin.distance_to(hero.follower_position_three.global_transform.origin)
+		var bg1_ps1_dist = follower_one.global_transform.origin.distance_to(hero.follower_position_one.global_transform.origin)
+		var bg1_ps3_dist = follower_one.global_transform.origin.distance_to(hero.follower_position_three.global_transform.origin)
 		var min_dist = min(bg3_ps1_dist, bg3_ps3_dist, bg1_ps1_dist, bg1_ps3_dist)
 		
 		if bg3_ps1_dist == min_dist:
-			blue_guy_3.follower_number = 0
-			blue_guy.follower_number = 2
+			follower_three.follower_number = follower_three.FollowerOrder.FIRST
+			follower_one.follower_number = follower_one.FollowerOrder.THIRD
 		elif bg3_ps3_dist == min_dist:
-			blue_guy_3.follower_number = 2
-			blue_guy.follower_number = 0
+			follower_three.follower_number = follower_three.FollowerOrder.THIRD
+			follower_one.follower_number = follower_one.FollowerOrder.FIRST
 		elif bg1_ps1_dist == min_dist:
-			blue_guy_3.follower_number = 2
-			blue_guy.follower_number = 0
+			follower_three.follower_number = follower_three.FollowerOrder.THIRD
+			follower_one.follower_number = follower_one.FollowerOrder.FIRST
 		else:
-			blue_guy_3.follower_number = 0
-			blue_guy.follower_number = 2
+			follower_three.follower_number = follower_three.FollowerOrder.FIRST
+			follower_one.follower_number = follower_one.FollowerOrder.THIRD
+
+func return_to_exploration():
+	follower_one.global_position = hero.spawn_point_one.get_collision_point()
+	follower_two.global_position = hero.spawn_point_two.get_collision_point()
+	follower_three.global_position = hero.spawn_point_three.get_collision_point()
+	Global.change_phantom_camera(hero.exploration_pcam, 0.0)
+	var team = [hero, follower_one, follower_two, follower_three]
+	for teammate in team:
+		teammate.is_in_combat = false
+		teammate.change_equipment(teammate.stats)
+		teammate.hexagon_animation_player.play("RESET")
+		teammate.model.hips_container.visible = true
+		teammate.model.right_hand_container.visible = false

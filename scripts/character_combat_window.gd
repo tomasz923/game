@@ -7,6 +7,7 @@ extends Control
 @onready var aggro_value = $BasicStats/AggroContainer/AggroValue
 @onready var protection_value = $BasicStats/ProtectionContainer/ProtectionValue
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var status_effects_container: HBoxContainer = $StatusEffects/StatusEffectsContainer
 
 func hide_window():
 	active_triangle.visible = false

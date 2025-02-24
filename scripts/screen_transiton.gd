@@ -124,12 +124,19 @@ func combat_won(experience: int, supplies: int, credits: int, items: Array):
 	await timer.timeout
 	hide_button.visible = true
 	animation_player.play("show_hide_button")
+	Global.current_scene.return_to_exploration()
 
 func _on_hide_button_pressed() -> void:
 	animation_player.play("RESET")
 	hide_button.visible = false
 	before_combat_node.visible = false
 	visible = false
+	if combat_won_screen.visible == true:
+		combat_won_screen.visible = false
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Global.cursors_visible_in_game = false
+		Global.allow_movement = true
+		Global.current_combat_scene.queue_free()
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()

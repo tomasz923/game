@@ -15,7 +15,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -27,19 +27,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Tweenable/Label3D:outline_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 0, 0, 0)]
+"values": [Vector3(1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_qqckp"]
@@ -55,7 +43,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 1.8, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 0, 0, 0), Color(1, 0, 0, 1), Color(1, 0, 0, 1), Color(1, 0, 0, 0)]
+"values": [Color(0.862745, 0.384314, 0.313726, 0), Color(0.862745, 0.384314, 0.313726, 1), Color(0.862745, 0.384314, 0.313726, 1), Color(0.862745, 0.384314, 0.313726, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -68,18 +56,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Tweenable/Label3D:outline_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 1.8, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2vub2"]
@@ -95,7 +71,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.3, 1.8, 3),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Color(1, 0.988235, 0, 0), Color(1, 0.988235, 0, 1), Color(1, 0.988235, 0, 1), Color(1, 0.988235, 0, 0)]
+"values": [Color(0.933333, 0.698039, 0.290196, 0), Color(0.933333, 0.698039, 0.290196, 1), Color(0.933333, 0.698039, 0.290196, 1), Color(1, 0.988235, 0, 0)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -108,18 +84,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Tweenable/Label3D:outline_modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.3, 1.8, 3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pumlx"]
@@ -135,9 +99,7 @@ script = ExtResource("1_cel1k")
 [node name="Tweenable" type="Node3D" parent="."]
 
 [node name="Label3D" type="Label3D" parent="Tweenable"]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-modulate = Color(1, 1, 1, 0)
-outline_modulate = Color(1, 0, 0, 0)
+outline_modulate = Color(0, 0, 0, 0)
 text = "Broken 
 "
 font = ExtResource("1_ees82")

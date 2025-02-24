@@ -4,6 +4,7 @@ class_name Ally
 @export_category("Ally")
 @export var stats: AllyStats
 @export var character: Global.Characters
+@export var status_effects: Array[StatusEffect]
 
 var current_exploration_speed = running_speed
 var ready_for_combat = false

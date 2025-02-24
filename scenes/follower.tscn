@@ -1,7 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxnkmcpu0usej"]
+[gd_scene load_steps=11 format=3 uid="uid://bxnkmcpu0usej"]
 
 [ext_resource type="Script" path="res://game/scripts/follower.gd" id="1_gruw4"]
-[ext_resource type="PackedScene" uid="uid://byre8b24gk8vj" path="res://game/scenes/floating_text.tscn" id="2_fsjtd"]
 [ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="2_m4dq5"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_sernc"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="5_wbc0l"]
@@ -60,10 +59,6 @@ script = ExtResource("1_gruw4")
 [node name="Visuals" type="Node3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.01, 0)
 
-[node name="FloatingNumber" parent="." instance=ExtResource("2_fsjtd")]
-
-[node name="FloatingText" parent="." instance=ExtResource("2_fsjtd")]
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_nc408")
@@ -105,7 +100,7 @@ tween_resource = ExtResource("5_wbc0l")
 camera_3d_resource = ExtResource("6_2qfk0")
 
 [node name="StaringPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.31736, 0)
 
 [node name="EvadePositionRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59894, 2)

@@ -1,4 +1,5 @@
 extends Control
+class_name EnemyCombatWindow
 
 @onready var health_bar = $HealthBar
 @onready var name_label = $NameContainer/NameLabel
@@ -6,6 +7,7 @@ extends Control
 @onready var protection_value = $BasicStats/ProtectionContainer/ProtectionValue
 @onready var active_triangle: TextureRect = $NameContainer/ActiveTriangle
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var status_effects_container: HBoxContainer = $StatusEffects/StatusEffectsContainer
 
 func hide_window():
 	active_triangle.visible = false

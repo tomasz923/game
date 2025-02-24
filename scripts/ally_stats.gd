@@ -25,6 +25,7 @@ enum SecondBar {
 @export var charisma: int
 @export var processing: int
 @export var memory: int
+var aggro: int
 
 var initial_stats = {
 	Global.Characters.HERO: [1, 1, 1, 1, 1, 1],
@@ -37,7 +38,7 @@ var initial_stats = {
 }
 
 func initiate(character):
-	max_health = 0 # Default value
+	max_health = 69 # Default value
 	strength = initial_stats[character][0]
 	dexterity = initial_stats[character][1]
 	endurance = initial_stats[character][2]
@@ -58,4 +59,4 @@ func initiate(character):
 		1: max_health = 20
 		0: max_health = 16
 		-1: max_health = 12
-	current_health = 1 #max_health
+	current_health = max_health

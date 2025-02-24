@@ -12,7 +12,6 @@ var damage_bonus: Array = []
 var dice_one: int
 var dice_two: int
 var stage: int = 1
-var debug: int = 0 #DEBUG
 
 #Common vars for all stages
 var roll_result: int
@@ -134,7 +133,7 @@ func execute_the_move(agressor, victim, total_bonus: int):
 	original_victim_location = victim.global_position
 	local_victim = victim
 	local_agressor = agressor
-	roll_result = 50
+	roll_result = 69
 	
 	#Calculate the standard 2d6 + modifiers
 	dice_one = randi_range(1,6)
@@ -165,6 +164,7 @@ func calculate_attack_damage():
 	local_victim.stats.current_health -= total_attack_damage
 	if local_victim.stats.current_health <= 0:
 		the_victim_died = true
+		local_agressor.stats.aggro += 1
 		
 	Global.current_combat_scene.statuses_and_damage.append(["damage", local_victim, total_attack_damage])
 
@@ -188,40 +188,45 @@ func start_stage_one():
 		random_result = randi_range(0, 1)
 		Global.get_spots(local_victim)
 		Global.get_spots(local_agressor, "main")
-		local_victim.someone_is_in_melee_positon.connect(start_stage_two)
+		local_victim.melee_area.someone_is_in_melee_positon.connect(start_stage_two)
 		local_agressor.model.melee_reaction_ready.connect(start_stage_three)
 		local_victim.model.animation_was_finished.connect(start_stage_four)
+		local_victim.look_at(local_agressor.global_position)
 		local_victim.observee = local_agressor.global_position
 		local_victim.is_observing = true
 		go_for_melee(local_agressor, local_victim)
 		Global.current_combat_scene.ui.visible = false
-		Global.set_combat_cameras(local_agressor, local_victim)
+		Global.set_melee_cameras(local_victim, local_agressor)
+		Global.switch_cursor_visibility(false)
 		stage = 2
 
 func start_stage_two():
 	if stage == 2:
 		local_agressor.is_moving = false
 		local_agressor.animation_player.play(local_agressor.melee_animation)
-		local_victim.someone_is_in_melee_positon.disconnect(start_stage_two)
+		local_victim.melee_area.someone_is_in_melee_positon.disconnect(start_stage_two)
 		stage = 3
 
 func start_stage_three(is_evading):
 	if stage == 3:
-		if roll_result > 9 and !is_evading:
-			Global.current_combat_scene.stop_animations(true)
-			set_dice(dice_one, dice_two, roll_result, false)
-			Global.current_combat_scene.popup_window.option_was_chosen.connect(start_stage_three_success)
-			Global.current_combat_scene.popup_window.prepare_window("mvp_extra_dmg_hns_pop_label", "mvp_extra_dmg_hns_pop_text", ["mvp_extra_dmg_hns_pop_yes", "mvp_extra_dmg_hns_pop_no"])
+		if roll_result > 6 and !is_evading:
 			local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
+			set_dice(dice_one, dice_two, roll_result, false)
+			if roll_result > 9:
+				Global.switch_cursor_visibility(true)
+				Global.current_combat_scene.stop_animations(true)
+				Global.current_combat_scene.popup_window.option_was_chosen.connect(start_stage_three_success)
+				Global.current_combat_scene.popup_window.prepare_window("mvp_extra_dmg_hns_pop_label", "mvp_extra_dmg_hns_pop_text", ["mvp_extra_dmg_hns_pop_yes", "mvp_extra_dmg_hns_pop_no"])
+			else:
+				start_stage_three_partial_success()
 		elif roll_result < 7 and is_evading:
+			local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
 			local_victim.model.animation_player.play("dodge_backward")
-			# next steps
-		#elif:
-			#print("hack and slash debug: partial")
-			#start_stage_three_partial_success()
-			#local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
+			set_dice(dice_one, dice_two, roll_result, false)
+			start_stage_three_fail()
 
 func start_stage_three_success(choice: int):
+	Global.switch_cursor_visibility(false)
 	deal_more_dmg_on_succ = choice
 	Global.current_combat_scene.popup_window.option_was_chosen.disconnect(start_stage_three_success)
 	Global.current_combat_scene.stop_animations(false)
@@ -231,7 +236,7 @@ func start_stage_three_success(choice: int):
 		1:
 			pass
 	calculate_attack_damage()
-	Global.current_combat_scene.slow_motion()
+	#Global.current_combat_scene.slow_motion()
 	Global.current_combat_scene.show_the_dice(roll_result)
 	if local_victim.stats.current_health < 1:
 		local_victim.model.animation_player.play(local_victim.melee_death_animation)
@@ -243,20 +248,33 @@ func start_stage_three_success(choice: int):
 
 func start_stage_three_partial_success():
 	set_dice(dice_one, dice_two, roll_result, true)
-	victim_animation = "dodge_forward"
-	Global.current_combat_scene.slow_motion()
+	calculate_attack_damage()
+	#Global.current_combat_scene.slow_motion()
+	if local_victim.stats.current_health < 1:
+		local_victim.model.animation_player.play(local_victim.melee_death_animation)
+		local_agressor.model.animation_was_finished.connect(start_stage_five)
+		stage = 5
+	else:
+		local_victim.model.animation_player.play(local_victim.melee_reaction)
+		stage = 4
+
+func start_stage_three_fail():
+	Global.current_combat_scene.show_the_dice(roll_result)
+	#Global.current_combat_scene.slow_motion()
 	stage = 4
 
 func start_stage_four(animation_name):
 	if stage == 4 and animation_name == local_victim.melee_reaction:
 		local_victim.model.melee_reaction_ready.connect(start_stage_four_aux_counterattack)
-		# TODO: Add correct attack animation of the victim that depends on the inventory:
 		local_victim.model.animation_player.play(local_victim.melee_animation)
-		current_counterattack_variable = deal_more_dmg_on_succ
 		if roll_result > 9:
 			current_counterattack_variable = deal_more_dmg_on_succ
 		else:
-			current_counterattack_variable = random_result
+			current_counterattack_variable = 0
+	elif stage == 4 and animation_name == "dodge_forward":
+		local_victim.model.melee_reaction_ready.connect(start_stage_four_aux_counterattack)
+		local_victim.model.animation_player.play(local_victim.melee_animation)
+		current_counterattack_variable = random_result
 		
 func start_stage_four_aux_counterattack(_is_evading):
 	if !_is_evading and current_counterattack_variable == 0:
@@ -265,7 +283,6 @@ func start_stage_four_aux_counterattack(_is_evading):
 		local_victim.model.melee_reaction_ready.disconnect(start_stage_four_aux_counterattack)
 		if the_ally_died:
 			local_agressor.model.animation_player.play(local_agressor.melee_death_animation)
-			Global.current_combat_scene.statuses_and_damage.append(["status", local_agressor, "status_name_broken"])
 			local_agressor.set_collision_layer(0)
 			local_agressor.set_collision_mask(0)
 			start_stage_five(null)
@@ -279,6 +296,8 @@ func start_stage_four_aux_counterattack(_is_evading):
 		local_agressor.model.animation_player.play(agressor_animation)
 		local_victim.model.melee_reaction_ready.disconnect(start_stage_four_aux_counterattack)
 		local_agressor.model.animation_was_finished.connect(start_stage_five)
+		if roll_result < 7:
+			local_victim.status_effects.append(SePreparingToAttack.new())
 		stage = 5
 
 func start_stage_five(anim_name):
@@ -298,6 +317,7 @@ func start_stage_five(anim_name):
 
 func start_stage_six():
 	if stage == 6:
+		local_victim.agressor_int_id = 69
 		Global.current_combat_scene.move_finished()
 		local_victim.model.animation_was_finished.disconnect(start_stage_four)
 		if !the_ally_died:

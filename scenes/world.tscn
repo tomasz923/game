@@ -71,7 +71,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_otre3"]
+[sub_resource type="Resource" id="Resource_bfodk"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -102,6 +102,31 @@ environment = SubResource("Environment_bmj8b")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Hero" parent="." instance=ExtResource("5_f8m7e")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.2562, 0.0238276, -1.78514)
+collision_layer = 1
+collision_mask = 3
+
+[node name="FollowerOne" parent="." instance=ExtResource("14_t2ro3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
+collision_mask = 2051
+model_tscn = ExtResource("21_m3ehy")
+character = 1
+
+[node name="FollowerTwo" parent="." instance=ExtResource("14_t2ro3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
+collision_mask = 2051
+model_tscn = ExtResource("21_m3ehy")
+follower_number = 1
+character = 2
+
+[node name="FollowerThree" parent="." instance=ExtResource("14_t2ro3")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
+collision_mask = 2051
+model_tscn = ExtResource("21_m3ehy")
+follower_number = 2
+character = 3
 
 [node name="map" type="Node3D" parent="."]
 process_mode = 1
@@ -139,11 +164,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.58375, 0, 5.83536)
 use_collision = true
 material = SubResource("StandardMaterial3D_6nk3g")
 
-[node name="player" parent="map" instance=ExtResource("5_f8m7e")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.2562, 0.0238276, -1.78514)
-collision_layer = 1
-collision_mask = 3
-
 [node name="pink_guy" parent="map" instance=ExtResource("12_fw5yl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.58943, 0, 5.01304)
 collision_layer = 4
@@ -164,12 +184,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_otre3")
-second_enemy_stats = SubResource("Resource_otre3")
-third_enemy_stats = SubResource("Resource_otre3")
-fourth_enemy_stats = SubResource("Resource_otre3")
-fifth_enemy_stats = SubResource("Resource_otre3")
-sixth_enemy_stats = SubResource("Resource_otre3")
+first_enemy_stats = SubResource("Resource_bfodk")
+second_enemy_stats = SubResource("Resource_bfodk")
+third_enemy_stats = SubResource("Resource_bfodk")
+fourth_enemy_stats = SubResource("Resource_bfodk")
+fifth_enemy_stats = SubResource("Resource_bfodk")
+sixth_enemy_stats = SubResource("Resource_bfodk")
 
 [node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 visible = false
@@ -208,26 +228,6 @@ visible = false
 [node name="ui_elements" parent="." groups=["main_menu"] instance=ExtResource("9_u7f4u")]
 process_mode = 2
 visible = false
-
-[node name="blue_guy" parent="." instance=ExtResource("14_t2ro3")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
-collision_mask = 2051
-model_tscn = ExtResource("21_m3ehy")
-character = 1
-
-[node name="blue_guy2" parent="." instance=ExtResource("14_t2ro3")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.87443, 2.38419e-07, -1.60215)
-collision_mask = 2051
-model_tscn = ExtResource("21_m3ehy")
-follower_number = 1
-character = 2
-
-[node name="blue_guy3" parent="." instance=ExtResource("14_t2ro3")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.46809, 2.38419e-07, 0.300792)
-collision_mask = 2051
-model_tscn = ExtResource("21_m3ehy")
-follower_number = 2
-character = 3
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2928, 0, 0)

@@ -19,9 +19,20 @@ var save_state: Dictionary = {
 	#The player and the followers will use this variable.
 	"current_exploration_speed":  3.5,
 	"experience": 2,
-	"level": 2
+	"level": 2,
 }
-var temp_var
+# For easier access to UI nodes
+var current_scene: Node3D
+# For easier access to the team for combat scenes and other nodes
+var hero: Hero
+var first_follower: Follower
+var second_follower: Follower
+var third_follower: Follower
+# So it knows if it should hide the cursor after leaving a menu
+var cursors_visible_in_game = false
+# ----------------------------- TO BE CHECKED
+var temp_var #??
+# Resource hold the same for all saves storing user preferences
 var user_prefs: UserPreferences
 var is_initial_load_ready = false
 var is_rolling_dice_now: bool = false
@@ -36,8 +47,6 @@ var quick_save_file_path
 var save_file_to_be_removed
 
 #var current_scene: String 
-# For easier access to UI nodes
-var current_scene 
 var current_combat_scene
 var screenshot:Image #Saved as a part of a save file
 var save_files
@@ -49,7 +58,6 @@ var save_slot = preload("res://game/scenes/save_slot.tscn")
 var is_about_to_load_game:bool #Whether the save slots are created for saving or loading; if saving - skip autosaves and quickloads
 var last_save_file_path:String
 var allow_movement = false #Allows for the player to move.
-var cursors_visible_in_game = false
 
 var player_position: Vector3
 
@@ -75,12 +83,6 @@ var journal_entries_data: Dictionary
 #Gameplay modes
 var current_ui_mode: String = "none"
 var pausable: bool = true
-
-#Local Team 
-var hero_character
-var first_character
-var second_character
-var third_character
 
 #Combat 
 var shuffled_allies: Array
@@ -147,7 +149,7 @@ func take_screenshot():
 	Global.screenshot.save_jpg(file_path, 0.8)
 
 func save_game(vbox_container):
-	var saved_game:SavedGame = SavedGame.new()
+	var saved_game: SavedGame = SavedGame.new()
 	var datetime = Time.get_datetime_dict_from_system()
 	var current_save_file = saves_path + 'slot_' + str(Time.get_unix_time_from_datetime_dict(datetime)) + "_savegame" + str(highest_save_number+1) + ".tres"
 	last_save_file_path = current_save_file
@@ -305,7 +307,7 @@ func read_team_data(character):
 	character.get_max_health()
 
 #Enemy, Follower and Player functions
-func change_phantom_camera(new_pcam: PhantomCamera3D, tween_duration: float = 0.4):
+func change_phantom_camera(new_pcam: PhantomCamera3D, tween_duration: float = 0.0):
 	new_pcam.set_tween_duration(tween_duration)
 	var old_cam = Global.current_pcam
 	Global.current_pcam = new_pcam
@@ -313,11 +315,11 @@ func change_phantom_camera(new_pcam: PhantomCamera3D, tween_duration: float = 0.
 	old_cam.set_priority(0)
 	Global.current_pcam.set_priority(20)
 
-func set_combat_cameras(source: CharacterBody3D, target: CharacterBody3D):
+func set_melee_cameras(source: CharacterBody3D, target: CharacterBody3D):
 	var new_pcam: PhantomCamera3D
 	var to_the_left = source.combat_pcam_left.global_transform.origin.distance_to(target.global_position)
 	var to_the_right = source.combat_pcam_right.global_transform.origin.distance_to(target.global_position)
-	var minimum_camera_distance = min(to_the_left, to_the_right)
+	var minimum_camera_distance = max(to_the_left, to_the_right)
 	if to_the_left == minimum_camera_distance:
 		new_pcam = source.combat_pcam_left
 	else:
@@ -334,3 +336,11 @@ func get_spots(target: CharacterBody3D, position: String = "both"):
 		"both":
 			target.main_spot = target.global_position
 			target.back_spot = target.evade_position_ray.get_collision_point()
+
+func switch_cursor_visibility(make_visible: bool):
+	if make_visible:
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		Global.cursors_visible_in_game = true
+	else:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+		Global.cursors_visible_in_game = false

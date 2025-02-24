@@ -7,16 +7,15 @@ signal arrived_at_the_main_spot()
 @export_category("Enemy")
 @export var enemy_stats: EnemyStats 
 @export var enemy_model: PackedScene
+@export var status_effects: Array[StatusEffect]
 @onready var visuals = $Visuals
 @onready var hexagon_animation_player = $HexagonAnimationPlayer
-@onready var floating_number = $FloatingTextsNode/FloatingNumber
-@onready var floating_text = $FloatingTextsNode/FloatingText
-@onready var melee_area = $MeleeArea
 @onready var marker_3d = $Marker3D
-@onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
-@onready var combat_pcam_right = $CombatPcams/CombatPcamRight
+@onready var combat_pcam_left: PhantomCamera3D = $CombatPcams/CombatPcamLeft
+@onready var combat_pcam_right: PhantomCamera3D = $CombatPcams/CombatPcamRight
 @onready var staring_point = $StaringPoint
 @onready var evade_position_ray = $EvadePositionRay
+@onready var melee_area: Area3D = $MeleeArea
 
 var stats: EnemyStats
 var speed: float = 3.5
@@ -75,16 +74,11 @@ func get_ready():
 	model.animation_was_finished.connect(_on_animation_was_finished)
 	#reset_combat_position()
 
-func _on_melee_area_body_entered(body):
-	if body is Ally: 
-		if body.int_id == agressor_int_id:
-			someone_is_in_melee_positon.emit()
-			body.is_moving = false
-
 func _on_animation_was_finished(animation: String):
 	pass
 
 func _on_tween_backward():
+	back_spot = evade_position_ray.get_collision_point()
 	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT).set_parallel()
 	tween.tween_property(self, "global_position", back_spot, 1.1)
 	await tween.finished

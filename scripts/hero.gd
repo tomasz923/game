@@ -12,17 +12,18 @@ signal arrived_at_the_main_spot()
 
 @onready var follower_position_one = $FollowerPositions/First/FollowerPositionOne
 @onready var view_one = $FollowerPositions/First/ViewOne
+@onready var spawn_point_one: RayCast3D = $FollowerPositions/First/SpawnPointOne
 @onready var follower_position_two = $FollowerPositions/Second/FollowerPositionTwo
+@onready var spawn_point_two: RayCast3D = $FollowerPositions/Second/SpawnPointTwo
 @onready var view_three = $FollowerPositions/Third/ViewThree
 @onready var follower_position_three = $FollowerPositions/Third/FollowerPositionThree
+@onready var spawn_point_three: RayCast3D = $FollowerPositions/Third/SpawnPointThree
 
 #Combat Additions
 @onready var hexagon_animation_player = $HexagonAnimationPlayer
 @onready var hexagon = $Hexagon
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
-@onready var floating_number = $FloatingNumber
-@onready var floating_text = $FloatingText
 var combat_pcam_target: Vector3 
 
 #Cameras
@@ -57,13 +58,6 @@ func _process(_delta):
 		
 		velocity = new_velocity
 		move_and_slide()
-		#if global_transform.origin.distance_to(main_spot) < 0.15:
-			#global_position = main_spot
-			#look_at_spot(vista_point)
-			#is_moving = false
-			#animation_player.play_backwards("1h_sheath")
-			#animation_player.queue("1h_idle")
-		#else: 
 		look_at_spot(destination)
 			
 		if is_in_combat:

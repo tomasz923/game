@@ -1,8 +1,7 @@
 extends Resource
 class_name StatusEffect
 
-@export var text: String = 'DEBUG Better new text'
-
-func trigger_effect(follower):
-	print(text)
-	follower.animation_player.play("1h_react")
+var is_timed: bool
+var moves_left: int
+var status_node: StatusWindow
+var was_initiated: bool = false

@@ -35,9 +35,11 @@ var experience: int = 0
 @export var sixth_enemy_stats: EnemyStats
 
 # CLICKABLE WINDOWS
+@onready var blacks: Control = $Blacks
 @onready var clickable_enemy_windows_container = $ClickableEnemyWindowNode/ClickableEnemyWindowsContainer
 @onready var clickable_enemy_window_node = $ClickableEnemyWindowNode
 const CLICKABLE_WINDOW = preload("res://game/scenes/clickable_window.tscn")
+const STATUS_WINDOW = preload("res://game/status_window.tscn")
 
 # AREA 3D
 @onready var danger_zone = $DangerZone
@@ -72,6 +74,7 @@ const MOVE_CHOICE_BUTTON = preload("res://game/scenes/move_choice_button.tscn")
 const BONUS_LABEL = preload("res://game/scenes/move_bonus_label.tscn")
 
 # COMABT PIPELINE
+var all_machines: Array = []
 var current_move
 var looking_for_target: bool = true
 var total_bonus: int = 0
@@ -117,6 +120,8 @@ func trigger_combat():
 	Global.allow_movement = false
 
 func start_combat():
+	# So if the player enters the combat while altering visuals roation by A, S or D, it looks correct in combat now:
+	Global.hero.visuals.rotation = Vector3(0, 0, 0)
 	Global.allow_movement = false
 	Global.change_phantom_camera(main_pcam, 0.0)
 	Global.turn_order = -1
@@ -125,7 +130,7 @@ func start_combat():
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ui.visible = true
 	clickable_enemy_window_node.visible = true
-	all_allies = [Global.hero_character, Global.first_character, Global.second_character, Global.third_character]
+	all_allies = [Global.hero, Global.first_follower, Global.second_follower, Global.third_follower]
 	assign_allied_slots()
 	spawn_enemies()
 	initiate_next_turn()
@@ -144,6 +149,7 @@ func assign_allied_slots():
 		var current_ray = friendly_rays[i]
 		all_allies[i].main_spot = current_ray.get_collision_point()
 		all_allies[i].int_id = i
+		all_allies[i].stats.aggro = 0
 		all_allies[i].vista_point = vista_points[i].global_position
 		all_allies[i].get_in_combat(all_allies[i].stats)
 		
@@ -275,7 +281,6 @@ func initiate_next_turn():
 	var there_are_still_enemies: bool = false
 	for i in enemy_num:
 		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(i))
-		print(enemy.stats.current_health)
 		if enemy.stats.current_health > 0:
 			there_are_still_enemies = true
 	if !there_are_still_enemies:
@@ -327,7 +332,7 @@ func _on_forward_move_data(move: Resource, bonus_array: Array):
 	var success_prob: float = 0.0
 	var failure_prob: float = 0.0
 	var complication_prob: float = 0.0
-	total_bonus = 20
+	total_bonus = 0
 	
 	current_move = move
 	if Global.user_prefs.mvp_right_panel_visible:
@@ -435,6 +440,7 @@ func hide_estimated_dmg_or_heal():
 	moves_panel.extra_move_info_damage.visible = false
 
 func move_finished():
+	Global.switch_cursor_visibility(true)
 	ui.visible = true 
 	clickable_enemy_window_node.visible = true
 	for i in len(statuses_and_damage):
@@ -450,7 +456,7 @@ func move_finished():
 			window.health_value.text = str(max(0, element[1].stats.current_health))
 			healthbar_tween.tween_property(window.health_bar, "value", element[1].stats.current_health * 100, 0.8).from(current_value)
 			if element[0] == "damage":
-				element[1].floating_number.show_damage(element[2])
+				element[1].model.floating_number.show_damage(element[2])
 				if element[1].stats.current_health < 1: 
 					window.hide_window()
 					if element[1] is Enemy:
@@ -459,9 +465,14 @@ func move_finished():
 			else:
 				pass #heal
 		else:
-			element[1].floating_text.show_status(element[2])
+			element[1].model.floating_text.show_status(element[2])
+	# Check if any data was changed:
+	for ally in Global.shuffled_allies:
+		var window = get_node("UI/Allies/" + "view_" + str(ally.int_id))
+		window.aggro_value.text = str(ally.stats.aggro)
 	current_move = null
 	looking_for_target = true
+	check_status_effects()
 	initiate_next_turn()
 	moves_panel._on_go_back_button_pressed()
 
@@ -483,7 +494,7 @@ func color_the_dice(result):
 
 func slow_motion():
 	var tween = create_tween().set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_IN).set_parallel()
-	tween.tween_property(Engine, "time_scale", 1.0, 0.3).from(0.99)
+	tween.tween_property(Engine, "time_scale", 1.0, 0.3).from(0.1)
 
 func stop_animations(is_pausing: bool):
 	for enemy in enemies_in_combat.get_children():
@@ -496,3 +507,24 @@ func stop_animations(is_pausing: bool):
 			ally.model.animation_player.speed_scale = 0 
 		else:
 			ally.model.animation_player.speed_scale = 1
+
+func check_status_effects():
+	if all_machines == []:
+		var enemies_array = enemies_in_combat.get_children()
+		all_machines = enemies_array + Global.shuffled_allies
+	for machine in all_machines:
+		if machine.stats.current_health > 0:
+			var window
+			if machine is Enemy:
+				window = get_node("UI/Enemies/" + "view_" + str(machine.int_id))
+			else:
+				window = get_node("UI/Allies/" + "view_" + str(machine.int_id))
+			for status in machine.status_effects:
+				if status.was_initiated == false:
+					var new_status_window = STATUS_WINDOW.instantiate()
+					var status_container = window.status_effects_container
+					status_container.add_child(new_status_window)
+					#?????
+					#status.initiate_status(status_container.get_child(status_container.get_child_count()-1))
+				else:
+					status.check_status()

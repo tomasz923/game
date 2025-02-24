@@ -17,14 +17,12 @@ enum FollowerOrder {
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
 @onready var evade_position_ray = $EvadePositionRay
-@onready var floating_number = $FloatingNumber
-@onready var floating_text = $FloatingText
 var combat_pcam_target: Vector3 
 
 #Hexagon
 @onready var hexagon = $Hexagon
 @onready var hexagon_animation_player = $HexagonAnimationPlayer
-
+@onready var staring_point: Marker3D = $StaringPoint
 
 var target: CharacterBody3D
 var is_looking: bool = false

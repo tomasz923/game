@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://brlv5mgijxokp"]
+[gd_scene load_steps=14 format=3 uid="uid://brlv5mgijxokp"]
 
 [ext_resource type="Script" path="res://game/scripts/hero.gd" id="1_bsgcu"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="2_jxos7"]
@@ -7,14 +7,10 @@
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_jpr4g"]
 [ext_resource type="Resource" uid="uid://bbntk2y4ucg5x" path="res://game/resources/exploration_camp_res.tres" id="5_obrul"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_whevs"]
-[ext_resource type="PackedScene" uid="uid://byre8b24gk8vj" path="res://game/scenes/floating_text.tscn" id="7_bntvy"]
 [ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="11_36r8j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h4v5u"]
 radius = 0.3
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_12beo"]
-radius = 0.1
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_hkxpu"]
 radius = 1.5
@@ -63,13 +59,14 @@ collision_mask = 0
 script = ExtResource("1_bsgcu")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 1.0
+path_height_offset = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_h4v5u")
 
 [node name="visuals" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
 
 [node name="Model" parent="visuals" instance=ExtResource("2_jxos7")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -87,10 +84,6 @@ camera_3d_resource = ExtResource("5_obrul")
 [node name="InteractRay" parent="camera_mount" instance=ExtResource("4_fffbf")]
 transform = Transform3D(0.998815, 0.0479509, 0.00826532, -0.0483847, 0.99675, 0.0644019, -0.00515033, -0.0647255, 0.99789, 0, 0, 0)
 
-[node name="FloatingNumber" parent="." instance=ExtResource("7_bntvy")]
-
-[node name="FloatingText" parent="." instance=ExtResource("7_bntvy")]
-
 [node name="FollowerPositions" type="Node3D" parent="."]
 transform = Transform3D(0.934011, 0, 0.357243, 0, 1, 0, -0.357243, 0, 0.934011, 0, 0, 0)
 
@@ -102,30 +95,18 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.23414, 0, -1.57175)
 [node name="FollowerPositionThree" type="Marker3D" parent="FollowerPositions/Third"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 0, 0.5)
 
-[node name="FollowerPositionThreeArea" type="Area3D" parent="FollowerPositions/Third"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0)
-visible = false
-collision_mask = 64
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FollowerPositions/Third/FollowerPositionThreeArea"]
-transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, -0.53, 1, -0.574)
-shape = SubResource("CylinderShape3D_12beo")
+[node name="SpawnPointThree" type="RayCast3D" parent="FollowerPositions/Third"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3, 1, 0.5)
+target_position = Vector3(0, -2, 0)
 
 [node name="Second" type="Node3D" parent="FollowerPositions"]
 
-[node name="FollowerPositionTwoArea" type="Area3D" parent="FollowerPositions/Second"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.57003, 0, 1.51124)
-visible = false
-collision_mask = 32
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FollowerPositions/Second/FollowerPositionTwoArea"]
-transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, 0.054, 1, -0.268)
-shape = SubResource("CylinderShape3D_12beo")
-
 [node name="FollowerPositionTwo" type="Marker3D" parent="FollowerPositions/Second"]
 transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, -0.35, 0, 1)
+
+[node name="SpawnPointTwo" type="RayCast3D" parent="FollowerPositions/Second"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35, 1, 1)
+target_position = Vector3(0, -2, 0)
 
 [node name="First" type="Node3D" parent="FollowerPositions"]
 
@@ -135,15 +116,9 @@ transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, -1.3, 0, -
 [node name="ViewOne" type="Marker3D" parent="FollowerPositions/First"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0, -3)
 
-[node name="FollowerPositionOneArea" type="Area3D" parent="FollowerPositions/First"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0, -0.3)
-visible = false
-collision_mask = 16
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="FollowerPositions/First/FollowerPositionOneArea"]
-transform = Transform3D(1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, 1, 0.506, 1, -0.201)
-shape = SubResource("CylinderShape3D_12beo")
+[node name="SpawnPointOne" type="RayCast3D" parent="FollowerPositions/First"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 1, -0.5)
+target_position = Vector3(0, -2, 0)
 
 [node name="PersonalSpace" type="Area3D" parent="."]
 collision_mask = 2
@@ -179,13 +154,10 @@ tween_resource = ExtResource("4_jpr4g")
 camera_3d_resource = ExtResource("5_whevs")
 
 [node name="StaringPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.33841, 0)
 
 [node name="EvadePositionRay" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59894, 2)
 target_position = Vector3(0, -3, 0)
 
-[connection signal="body_entered" from="FollowerPositions/Third/FollowerPositionThreeArea" to="." method="_on_follower_position_three_body_entered"]
-[connection signal="body_entered" from="FollowerPositions/Second/FollowerPositionTwoArea" to="." method="_on_follower_position_two_body_entered"]
-[connection signal="body_entered" from="FollowerPositions/First/FollowerPositionOneArea" to="." method="_on_follower_position_one_body_entered"]
 [connection signal="body_entered" from="PersonalSpace" to="." method="_on_personal_space_body_entered"]

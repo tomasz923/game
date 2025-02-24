@@ -14,7 +14,7 @@ func go_for_melee(agressor: CharacterBody3D, victim: CharacterBody3D):
 	victim.hexagon_animation_player.play("RESET")
 	agressor.is_moving = true
 	agressor.destination = victim.marker_3d.global_position
-	victim.agressor_int_id = agressor.int_id
+	victim.melee_area.agressor_int_id = agressor.int_id
 	agressor.update_target_position(agressor.destination)
 
 func set_dice(dice_one: int, dice_two: int, roll_result: int, all_in: bool = true):
