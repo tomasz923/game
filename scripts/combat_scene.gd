@@ -525,6 +525,6 @@ func check_status_effects():
 					var status_container = window.status_effects_container
 					status_container.add_child(new_status_window)
 					#?????
-					#status.initiate_status(status_container.get_child(status_container.get_child_count()-1))
+					status.initiate_status(status_container.get_child(status_container.get_child_count()-1), machine)
 				else:
 					status.check_status()

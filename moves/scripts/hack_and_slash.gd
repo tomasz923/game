@@ -308,9 +308,9 @@ func start_stage_five(anim_name):
 		Global.change_phantom_camera(Global.current_combat_scene.main_pcam)
 		if !the_victim_died:
 			local_victim.model.animation_player.queue(local_victim.idle_melee_animation)
+			local_victim.observee = local_victim.vista_point
 		if !the_ally_died:
 			local_agressor.back_to_main_spot()
-			local_victim.observee = local_victim.vista_point
 			local_agressor.arrived_at_the_main_spot.connect(start_stage_six)
 		else:
 			start_stage_six()

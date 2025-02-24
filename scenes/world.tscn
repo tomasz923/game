@@ -71,7 +71,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_bfodk"]
+[sub_resource type="Resource" id="Resource_qygcp"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -184,12 +184,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_bfodk")
-second_enemy_stats = SubResource("Resource_bfodk")
-third_enemy_stats = SubResource("Resource_bfodk")
-fourth_enemy_stats = SubResource("Resource_bfodk")
-fifth_enemy_stats = SubResource("Resource_bfodk")
-sixth_enemy_stats = SubResource("Resource_bfodk")
+first_enemy_stats = SubResource("Resource_qygcp")
+second_enemy_stats = SubResource("Resource_qygcp")
+third_enemy_stats = SubResource("Resource_qygcp")
+fourth_enemy_stats = SubResource("Resource_qygcp")
+fifth_enemy_stats = SubResource("Resource_qygcp")
+sixth_enemy_stats = SubResource("Resource_qygcp")
 
 [node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 visible = false

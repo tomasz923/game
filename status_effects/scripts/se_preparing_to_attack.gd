@@ -9,19 +9,17 @@ const PICTURE: CompressedTexture2D = preload("res://assets/textures/ui/clock_deb
 var victim: Ally
 var agressor: Enemy
 
-func initiate_status(enemy_window: StatusWindow, owner: Enemy):
+func initiate_status(status_window: StatusWindow, owner: Enemy):
 	agressor = owner
 	was_initiated = true
 	is_timed = true
-	moves_left = 4
-	status_node = enemy_window
-	print("debug se_pre " + str(enemy_window))
+	moves_left = 2
+	status_node = status_window
 	status_node.picture.texture = PICTURE
 	status_node.number.text = str(moves_left)
 	status_node.animation_player.play("show_status")
 
 func check_status():
-	print("se_prep_at CHECKED")
 	moves_left -= 1
 	status_node.number.text = str(moves_left)
 	if moves_left == 1:
@@ -31,33 +29,24 @@ func check_status():
 		await attack_is_done
 
 func attack():
-	var max_aggro: int = 0
-	var possible_targets: Array = []
+	victim = get_target()
 	
-	for ally in Global.shuffled_allies:
-		if ally.stats.aggro > max_aggro:
-			max_aggro = ally.stats.aggro
-	for ally in Global.shuffled_allies:
-		if ally.stats.aggro == max_aggro:
-			possible_targets.append(ally)
+	var raw_damage = randi_range(1, agressor.stats.basic_damage) + randi_range(1, agressor.stats.basic_damage)
+	var damage = max(1, raw_damage - get_protection(victim))
 	
-	var random_enemy_int: int = randi_range(0, len(possible_targets)-1)
-	var chosen_target: Ally = possible_targets[random_enemy_int]
+	approach_the_ally(agressor, victim)
 	
-	Global.get_spots(victim)
-	Global.get_spots(agressor, "main")
-	#victim.someone_is_in_melee_positon.connect(start_stage_two)
-	#agressor.model.melee_reaction_ready.connect(start_stage_three)
-	#victim.model.animation_was_finished.connect(start_stage_four)
-	victim.observee = agressor.global_position
-	victim.is_observing = true
-	go_for_melee(agressor, victim)
-
-func go_for_melee(agressor: Enemy, victim: Ally):
-	agressor.animation_player.play(agressor.melee_running_animation)
-	agressor.hexagon_animation_player.play("RESET")
-	victim.hexagon_animation_player.play("RESET")
-	agressor.is_moving = true
-	agressor.destination = victim.marker_3d.global_position
-	victim.agressor_int_id = agressor.int_id
-	agressor.update_target_position(agressor.destination)
+	agressor.is_moving = false
+	agressor.animation_player.play(agressor.melee_animation)
+	await agressor.model.melee_reaction_ready
+	await agressor.model.melee_reaction_ready
+	if victim.stats.current_health < 1:
+		victim.model.animation_player.play(victim.melee_death_animation)
+	else:
+		victim.model.animation_player.play(victim.melee_reaction)
+	await agressor.animation_player.animation_finished
+	agressor.back_to_main_spot()
+	Global.change_phantom_camera(Global.current_combat_scene.main_pcam)
+	await agressor.arrived_at_the_main_spot
+	attack_is_done.emit()
+	status_node.queue_free()

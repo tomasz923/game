@@ -10,9 +10,9 @@ signal weapon_unsheathed()
 @onready var right_hand_container: Node3D = $decoy/Armature/Skeleton3D/RightHandBone/RightHandContainer
 @onready var hips_container: Node3D = $decoy/Armature/Skeleton3D/HipsBone/HipsContainer
 @onready var back_container: Node3D = $decoy/Armature/Skeleton3D/BackBone/BackContainer
-@onready var floating_number: Node3D = $decoy/Armature/Skeleton3D/HeadBone/FloatingTextsNode/FloatingNumber
-@onready var floating_text: Node3D = $decoy/Armature/Skeleton3D/HeadBone/FloatingTextsNode/FloatingText
-@onready var floating_texts_node: Node3D = $decoy/Armature/Skeleton3D/HeadBone/FloatingTextsNode
+@onready var floating_number: Node3D = $FloatingTextsNode/FloatingNumber
+@onready var floating_text: Node3D = $FloatingTextsNode/FloatingText
+@onready var floating_texts_node: Node3D = $FloatingTextsNode
 
 var melee_victim_reaction_count: int = 0
 

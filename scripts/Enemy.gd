@@ -19,7 +19,6 @@ signal arrived_at_the_main_spot()
 
 var stats: EnemyStats
 var speed: float = 3.5
-var is_returning: bool = false
 # Without this variable, the crashes upon spawning since there is no observee declared yet:
 var is_observing: bool = false 
 var observee
@@ -42,14 +41,14 @@ func _process(_delta):
 		velocity = new_velocity
 		move_and_slide()
 		look_at_spot(destination)
-		if !is_returning:
+		if !is_returning_from_melee:
 			combat_pcam_left.look_at(combat_pcam_target)
 			combat_pcam_right.look_at(combat_pcam_target)
-	elif is_returning:
+	elif is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)
 		if distance < 0.2:
 			arrived_at_the_main_spot.emit()
-			is_returning = false
+			is_returning_from_melee = false
 			is_moving = false
 			reset_combat_position()
 	elif is_observing:
@@ -71,11 +70,8 @@ func get_ready():
 	look_at(vista_point)
 	model.tween_backward.connect(_on_tween_backward)
 	model.tween_forward.connect(_on_tween_forward)
-	model.animation_was_finished.connect(_on_animation_was_finished)
-	#reset_combat_position()
-
-func _on_animation_was_finished(animation: String):
-	pass
+	model.floating_texts_node.set_rotation(Vector3(0, 0, 0))
+	reset_combat_position()
 
 func _on_tween_backward():
 	back_spot = evade_position_ray.get_collision_point()
