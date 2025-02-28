@@ -140,3 +140,7 @@ func _on_hide_button_pressed() -> void:
 
 func _on_exit_button_pressed() -> void:
 	get_tree().quit()
+
+func show_cursor():
+	Global.cursors_visible_in_game = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

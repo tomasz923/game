@@ -24,6 +24,7 @@ signal arrived_at_the_main_spot()
 @onready var hexagon = $Hexagon
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
+@onready var marker_3d: Marker3D = $Marker3D
 var combat_pcam_target: Vector3 
 
 #Cameras

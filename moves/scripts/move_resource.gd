@@ -32,3 +32,4 @@ func get_protection(stats: MachineStats) -> int:
 	if stats.shield != null:
 		var_container += stats.enemy_stats.shield.damage_bonus
 	return var_container
+	

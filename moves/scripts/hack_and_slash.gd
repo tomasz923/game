@@ -185,7 +185,7 @@ func start_stage_one():
 	if stage == 1:
 		the_victim_died = false
 		the_ally_died = false
-		random_result = randi_range(0, 1)
+		random_result = 1 #randi_range(0, 1)
 		Global.get_spots(local_victim)
 		Global.get_spots(local_agressor, "main")
 		local_victim.melee_area.someone_is_in_melee_positon.connect(start_stage_two)
@@ -306,6 +306,7 @@ func start_stage_five(anim_name):
 		if !the_ally_died:
 			local_agressor.model.animation_was_finished.disconnect(start_stage_five)
 		Global.change_phantom_camera(Global.current_combat_scene.main_pcam)
+		Global.current_combat_scene.floating_texts()
 		if !the_victim_died:
 			local_victim.model.animation_player.queue(local_victim.idle_melee_animation)
 			local_victim.observee = local_victim.vista_point
@@ -317,8 +318,8 @@ func start_stage_five(anim_name):
 
 func start_stage_six():
 	if stage == 6:
+		Global.current_combat_scene.check_for_victory()
 		local_victim.agressor_int_id = 69
-		Global.current_combat_scene.move_finished()
 		local_victim.model.animation_was_finished.disconnect(start_stage_four)
 		if !the_ally_died:
 			local_agressor.arrived_at_the_main_spot.disconnect(start_stage_six)

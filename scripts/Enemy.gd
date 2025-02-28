@@ -17,11 +17,12 @@ signal arrived_at_the_main_spot()
 @onready var evade_position_ray = $EvadePositionRay
 @onready var melee_area: Area3D = $MeleeArea
 
+var debug: int = 1
 var stats: EnemyStats
 var speed: float = 3.5
 # Without this variable, the crashes upon spawning since there is no observee declared yet:
 var is_observing: bool = false 
-var observee
+var observee: Vector3
 var combat_pcam_target: Vector3
 var agressor_int_id: int = 10
 
@@ -41,10 +42,7 @@ func _process(_delta):
 		velocity = new_velocity
 		move_and_slide()
 		look_at_spot(destination)
-		if !is_returning_from_melee:
-			combat_pcam_left.look_at(combat_pcam_target)
-			combat_pcam_right.look_at(combat_pcam_target)
-	elif is_returning_from_melee:
+	if is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)
 		if distance < 0.2:
 			arrived_at_the_main_spot.emit()
@@ -67,7 +65,6 @@ func get_ready():
 	animation_player = model.animation_player
 	change_equipment(stats)
 	get_in_combat(stats)
-	look_at(vista_point)
 	model.tween_backward.connect(_on_tween_backward)
 	model.tween_forward.connect(_on_tween_forward)
 	model.floating_texts_node.set_rotation(Vector3(0, 0, 0))
@@ -86,3 +83,20 @@ func _on_tween_forward():
 	tween.tween_property(self, "global_position", main_spot, 0.98)
 	await tween.finished
 	tween.stop()
+
+func _input(_event):
+	if Input.is_action_just_pressed("debug"):
+		match debug:
+			1: 
+				set_rotation(Vector3(0, 0, 0))
+				debug = 2
+			2: 
+				set_rotation(Vector3(0, -1.570828, 0))
+				debug = 3
+			3: 
+				set_rotation(Vector3(0, -3.141593, 0))
+				debug = 4
+			4:
+				set_rotation(Vector3(0, 1.570828, 0))
+				debug = 1
+		print("The rotation was set to: " + str(get_rotation()))

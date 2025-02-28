@@ -19,7 +19,6 @@ var melee_reaction: String
 var idle_melee_animation: String
 var melee_running_animation: String
 var melee_death_animation: String
-var debug: bool = false
 
 const walking_speed: float = 1.5
 const running_speed: float = 3.5

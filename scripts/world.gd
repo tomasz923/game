@@ -185,6 +185,13 @@ func return_to_exploration():
 	Global.change_phantom_camera(hero.exploration_pcam, 0.0)
 	var team = [hero, follower_one, follower_two, follower_three]
 	for teammate in team:
+		# If dead, it will reset their collision objects after combat ended:
+		if teammate is Hero:
+			teammate.set_collision_layer(1)
+			teammate.set_collision_mask(3)
+		else:
+			teammate.set_collision_layer(2)
+			teammate.set_collision_mask(2051)
 		teammate.is_in_combat = false
 		teammate.change_equipment(teammate.stats)
 		teammate.hexagon_animation_player.play("RESET")

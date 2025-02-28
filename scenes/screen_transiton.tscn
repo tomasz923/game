@@ -262,6 +262,20 @@ tracks/5/keys = {
 "update": 0,
 "values": [Vector2(360, 502), Vector2(360, 60)]
 }
+tracks/6/type = "method"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(1.5),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"show_cursor"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1curh"]
 _data = {
@@ -286,7 +300,8 @@ layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.499074
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.04815
+offset_bottom = 7.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_sb312")
@@ -299,8 +314,10 @@ metadata/_edit_use_anchors_ = true
 [node name="BlackUpper" type="ProgressBar" parent="."]
 layout_mode = 1
 anchors_preset = -1
+anchor_top = -0.062037
 anchor_right = 1.0
 anchor_bottom = 0.499074
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/background = SubResource("StyleBoxFlat_sb312")

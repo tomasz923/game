@@ -17,6 +17,7 @@ enum FollowerOrder {
 @onready var combat_pcam_left = $CombatPcams/CombatPcamLeft
 @onready var combat_pcam_right = $CombatPcams/CombatPcamRight
 @onready var evade_position_ray = $EvadePositionRay
+@onready var marker_3d: Marker3D = $Marker3D
 var combat_pcam_target: Vector3 
 
 #Hexagon
@@ -36,9 +37,6 @@ func _ready():
 	ensure_ally_stats()
 	change_equipment(stats)
 	model.tween_backward.connect(_on_tween_backward)
-
-func debugg():
-	pass
 
 func _process(delta):
 	if is_moving: 
@@ -101,7 +99,7 @@ func update_target_position(target_position):
 	navigation_agent_3d.target_position = target_position
 
 func _on_area_3d_body_exited(body):
-	if !debug:
+	if !is_in_combat and body is Hero:
 		target = body
 		if Global.allow_movement:
 			is_moving = true

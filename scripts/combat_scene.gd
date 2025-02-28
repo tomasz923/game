@@ -1,6 +1,8 @@
 extends Node3D
 
 signal combat_was_triggerred(combat_name: String)
+signal all_status_effects_checked()
+@onready var csg_box_3d: CSGBox3D = $CSGBox3D
 
 @export_category("General")
 @export var combat_title: String
@@ -126,8 +128,6 @@ func start_combat():
 	Global.change_phantom_camera(main_pcam, 0.0)
 	Global.turn_order = -1
 	Global.current_combat_scene = self
-	Global.cursors_visible_in_game = true
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	ui.visible = true
 	clickable_enemy_window_node.visible = true
 	all_allies = [Global.hero, Global.first_follower, Global.second_follower, Global.third_follower]
@@ -220,13 +220,24 @@ func spawn_enemies():
 		new_enemy.enemy_stats = enemy_statistics[i]
 		new_enemy.enemy_model = enemy_models[i]
 		new_enemy.vista_point = vista_points[i].global_position
-		new_enemy.int_id = i 
+		new_enemy.int_id = i
 		
 		enemies_in_combat.add_child(new_enemy)
 		var node_to_change = get_node("EnemiesInCombat/" + "enemy_" + str(i))
 		node_to_change.global_position = current_ray.get_collision_point()
 		node_to_change.main_spot = current_ray.get_collision_point()
+		#print("BEFORE")
+		#print(node_to_change.get_rotation())
+		#print(node_to_change.visuals.get_rotation())
 		node_to_change.get_ready()
+		#node_to_change.is_observing = true
+		#node_to_change.observee = csg_box_3d.global_position
+		#print("AFTER")
+		#print(node_to_change.get_rotation())
+		#print(node_to_change.visuals.get_rotation())
+		#print(node_to_change.model.get_rotation())
+		#print("-------------------------------------------------------")
+
 		
 		#Calculate Enemy Protection
 		if new_enemy.stats.spray != null:
@@ -277,15 +288,6 @@ func initiate_next_turn():
 	else:
 		Global.turn_order += 1
 	
-	# Check if the player won
-	var there_are_still_enemies: bool = false
-	for i in enemy_num:
-		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(i))
-		if enemy.stats.current_health > 0:
-			there_are_still_enemies = true
-	if !there_are_still_enemies:
-		Global.current_scene.screen_transiton.combat_won(experience, supplies, credits, items)
-
 	# Check if the player lost
 	while Global.shuffled_allies[Global.turn_order].stats.current_health < 1:
 		allies_skipped += 1
@@ -303,10 +305,10 @@ func initiate_next_turn():
 	#Changes to the current character
 	character_window_to_change = get_node("UI/Allies/" + "view_" + str(Global.turn_order))
 	character_window_to_change.active_triangle.visible = true
-	Global.shuffled_allies[Global.turn_order].hexagon.visible = true
-	Global.shuffled_allies[Global.turn_order].hexagon_animation_player.play("hexagon_pulsating")
+	Global.shuffled_allies[Global.turn_order].hexagon.visible = true ###
+	Global.shuffled_allies[Global.turn_order].hexagon_animation_player.play("hexagon_pulsating") ###
 	
-	#Clear the old moves
+	# Clear the old moves
 	for n in moves_panel.even.get_children():
 		moves_panel.even.remove_child(n)
 		n.queue_free() 
@@ -314,7 +316,7 @@ func initiate_next_turn():
 		moves_panel.odd.remove_child(n)
 		n.queue_free() 
 
-	#Load the moves
+	# Load the moves
 	var even_or_odd: int = 0
 	for move in basic_moves_array:
 		var new_move_choice = MOVE_CHOICE_BUTTON.instantiate()
@@ -326,13 +328,14 @@ func initiate_next_turn():
 			moves_panel.even.add_child(new_move_choice)
 		else:
 			moves_panel.odd.add_child(new_move_choice)
+	return true
 
 func _on_forward_move_data(move: Resource, bonus_array: Array):
 	var new_container
 	var success_prob: float = 0.0
 	var failure_prob: float = 0.0
 	var complication_prob: float = 0.0
-	total_bonus = 0
+	total_bonus = -69
 	
 	current_move = move
 	if Global.user_prefs.mvp_right_panel_visible:
@@ -440,39 +443,17 @@ func hide_estimated_dmg_or_heal():
 	moves_panel.extra_move_info_damage.visible = false
 
 func move_finished():
+	await check_status_effects()
 	Global.switch_cursor_visibility(true)
 	ui.visible = true 
 	clickable_enemy_window_node.visible = true
-	for i in len(statuses_and_damage):
-		var element = statuses_and_damage.pop_back()
-		var window
-		if element[0] in ["heal", "damage"]:
-			var healthbar_tween = get_tree().create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
-			if element[1] is Enemy:
-				window = get_node("UI/Enemies/" + "view_" + str(element[1].int_id))
-			else:
-				window = get_node("UI/Allies/" + "view_" + str(element[1].int_id))
-			var current_value: int = window.health_bar.value
-			window.health_value.text = str(max(0, element[1].stats.current_health))
-			healthbar_tween.tween_property(window.health_bar, "value", element[1].stats.current_health * 100, 0.8).from(current_value)
-			if element[0] == "damage":
-				element[1].model.floating_number.show_damage(element[2])
-				if element[1].stats.current_health < 1: 
-					window.hide_window()
-					if element[1] is Enemy:
-						var clickable_window = get_node("ClickableEnemyWindowNode/ClickableEnemyWindowsContainer/enemy_window_" + str(element[1].int_id))
-						clickable_window.disabled = true
-			else:
-				pass #heal
-		else:
-			element[1].model.floating_text.show_status(element[2])
+	update_combat_windows()
 	# Check if any data was changed:
 	for ally in Global.shuffled_allies:
 		var window = get_node("UI/Allies/" + "view_" + str(ally.int_id))
 		window.aggro_value.text = str(ally.stats.aggro)
 	current_move = null
 	looking_for_target = true
-	check_status_effects()
 	initiate_next_turn()
 	moves_panel._on_go_back_button_pressed()
 
@@ -509,6 +490,7 @@ func stop_animations(is_pausing: bool):
 			ally.model.animation_player.speed_scale = 1
 
 func check_status_effects():
+	var inttt = 0
 	if all_machines == []:
 		var enemies_array = enemies_in_combat.get_children()
 		all_machines = enemies_array + Global.shuffled_allies
@@ -519,6 +501,7 @@ func check_status_effects():
 				window = get_node("UI/Enemies/" + "view_" + str(machine.int_id))
 			else:
 				window = get_node("UI/Allies/" + "view_" + str(machine.int_id))
+			machine.status_effects = machine.status_effects.filter(func(status): return status.expired == false)
 			for status in machine.status_effects:
 				if status.was_initiated == false:
 					var new_status_window = STATUS_WINDOW.instantiate()
@@ -527,4 +510,55 @@ func check_status_effects():
 					#?????
 					status.initiate_status(status_container.get_child(status_container.get_child_count()-1), machine)
 				else:
-					status.check_status()
+					await status.check_status()
+	return true
+
+func check_for_victory():
+	var there_are_still_enemies: bool = false
+	var there_are_still_allies: bool = false
+	for i in enemy_num:
+		var enemy = get_node("EnemiesInCombat/" + "enemy_" + str(i))
+		if enemy.stats.current_health > 0:
+			there_are_still_enemies = true
+	for ally in Global.shuffled_allies:
+		if ally.stats.current_health > 0:
+			there_are_still_allies = true
+	if !there_are_still_enemies:
+		Global.current_scene.screen_transiton.combat_won(experience, supplies, credits, items)
+	elif !there_are_still_allies:
+		Global.current_scene.screen_transiton.game_over()
+	else:
+		move_finished()
+
+func floating_texts():
+	for i in len(statuses_and_damage):
+		var element = statuses_and_damage.pop_back()
+		match element[0]:
+			"damage":
+				element[1].model.floating_number.show_damage(element[2])
+			"heal":
+				pass
+			"status":
+				element[1].model.floating_text.show_status(element[2])
+
+func update_combat_windows():
+	for enemy in enemies_in_combat.get_children():
+		var window = get_node("UI/Enemies/" + "view_" + str(enemy.int_id))
+		if enemy.stats.current_health != window.health_bar.value * 100:
+			var healthbar_tween = get_tree().create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
+			var current_value: int = window.health_bar.value
+			window.health_value.text = str(max(0, enemy.stats.current_health))
+			healthbar_tween.tween_property(window.health_bar, "value", enemy.stats.current_health * 100, 0.8).from(current_value)
+			if enemy.stats.current_health < 1: 
+				window.hide_window()
+				var clickable_window = get_node("ClickableEnemyWindowNode/ClickableEnemyWindowsContainer/enemy_window_" + str(enemy.int_id))
+				clickable_window.disabled = true
+	for ally in Global.shuffled_allies:
+		var window = get_node("UI/Allies/" + "view_" + str(ally.int_id))
+		if ally.stats.current_health != window.health_bar.value * 100:
+			var healthbar_tween = get_tree().create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT).set_parallel()
+			var current_value: int = window.health_bar.value
+			window.health_value.text = str(max(0, ally.stats.current_health))
+			healthbar_tween.tween_property(window.health_bar, "value", ally.stats.current_health * 100, 0.8).from(current_value)
+			if ally.stats.current_health < 1: 
+				window.hide_window()

@@ -8,16 +8,16 @@ var was_initiated: bool = false
 var expired: bool = false
 
 func approach_the_ally(agressor: Enemy, victim: Ally):
-	agressor.observee = victim.global_position
-	agressor.is_observing = true
+	#agressor.observee = victim.global_position
+	#agressor.is_observing = true
 	agressor.animation_player.play(agressor.melee_running_animation)
 	agressor.hexagon_animation_player.play("RESET")
 	victim.hexagon_animation_player.play("RESET")
 	agressor.is_moving = true
-	agressor.destination = victim.marker_3d.global_position
-	victim.agressor_int_id = agressor.int_id
+	agressor.destination = victim.global_position
+	agressor.melee_area.victim_int_id = victim.int_id
+	agressor.melee_area.is_attacking = true
 	agressor.update_target_position(agressor.destination)
-	await agressor.melee_area.someone_is_in_melee_positon
 
 func get_target() -> Ally:
 	var max_aggro: int = 0
