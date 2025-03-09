@@ -2,7 +2,6 @@ extends Node3D
 
 signal combat_was_triggerred(combat_name: String)
 signal all_status_effects_checked()
-@onready var csg_box_3d: CSGBox3D = $CSGBox3D
 
 @export_category("General")
 @export var combat_title: String

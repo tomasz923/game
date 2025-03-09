@@ -291,7 +291,4 @@ layout_mode = 2
 [node name="RightDie" parent="Dice/HBoxContainer" instance=ExtResource("8_r5bfi")]
 layout_mode = 2
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.85701, 0, 2.46129)
-
 [connection signal="body_entered" from="DangerZone" to="." method="_on_danger_zone_body_entered"]

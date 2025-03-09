@@ -38,12 +38,11 @@ func send_tween_forward():
 	tween_forward.emit()
 	
 func switch_1h_sheath():
+	weapon_unsheathed.emit()
 	if hips_container.visible == false:
 		hips_container.visible = true
 		right_hand_container.visible = false
 	else:
 		hips_container.visible = false
 		right_hand_container.visible = true
-
-func emit_weapon_unsheathed():
-	weapon_unsheathed.emit()
+	

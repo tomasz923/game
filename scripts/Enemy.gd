@@ -1,5 +1,6 @@
 extends Machine
 class_name Enemy
+@onready var csg_cylinder_3d: CSGCylinder3D = $CSGCylinder3D
 
 signal someone_is_in_melee_positon()
 signal arrived_at_the_main_spot()
@@ -42,6 +43,7 @@ func _process(_delta):
 		velocity = new_velocity
 		move_and_slide()
 		look_at_spot(destination)
+		csg_cylinder_3d.global_position = destination
 	if is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)
 		if distance < 0.2:
@@ -50,7 +52,8 @@ func _process(_delta):
 			is_moving = false
 			reset_combat_position()
 	elif is_observing:
-		look_at_spot(observee)
+		#look_at_spot(observee)
+		pass
 
 func get_ready():
 	# There are issues with local resources so a bit of dancing has to be done
@@ -71,7 +74,9 @@ func get_ready():
 	reset_combat_position()
 
 func _on_tween_backward():
+	print("before: " + str(back_spot))
 	back_spot = evade_position_ray.get_collision_point()
+	print("after: " + str(back_spot))
 	var tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT).set_parallel()
 	tween.tween_property(self, "global_position", back_spot, 1.1)
 	await tween.finished

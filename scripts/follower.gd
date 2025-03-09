@@ -2,6 +2,7 @@ extends Ally
 class_name Follower
 
 signal arrived_at_the_main_spot()
+@onready var csg_box_3d: CSGBox3D = $CSGBox3D
 
 enum FollowerOrder {
 	FIRST,

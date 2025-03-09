@@ -11,7 +11,7 @@ func initiate_status(status_window: StatusWindow, owner: Enemy):
 	agressor = owner
 	was_initiated = true
 	is_timed = true
-	moves_left = 3
+	moves_left = 1
 	status_node = status_window
 	status_node.picture.texture = PICTURE
 	status_node.number.text = str(moves_left)
@@ -56,6 +56,7 @@ func attack():
 	await agressor.arrived_at_the_main_spot
 	agressor.melee_area.victim_int_id = 69
 	agressor.melee_area.is_attacking = false
+	victim.csg_box_3d.visible = false #DEBUG
 	#check_is_done.emit()
 	status_node.queue_free()
 	expired = true
