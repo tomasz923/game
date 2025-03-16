@@ -13,7 +13,6 @@ func approach_the_ally(agressor: Enemy, victim: Ally):
 	agressor.animation_player.play(agressor.melee_running_animation)
 	agressor.hexagon_animation_player.play("RESET")
 	victim.hexagon_animation_player.play("RESET")
-	victim.csg_box_3d.visible = true #DEBUG
 	agressor.is_moving = true
 	agressor.destination = victim.global_position
 	agressor.melee_area.victim_int_id = victim.int_id

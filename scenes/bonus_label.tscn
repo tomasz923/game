@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://6rda1mnkbsb1"]
 
 [ext_resource type="LabelSettings" uid="uid://bh306va5id613" path="res://game/resources/bonus_numbers_label_red.tres" id="1_ik4eg"]
-[ext_resource type="Script" path="res://game/scripts/bonus_label.gd" id="2_apbim"]
+[ext_resource type="Script" uid="uid://bby5g3520eapu" path="res://game/scripts/bonus_label.gd" id="2_apbim"]
 
 [node name="BonusLabel" type="Label"]
 offset_right = 23.0

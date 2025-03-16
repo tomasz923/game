@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://daq3k7jcwjrxa"]
 
-[ext_resource type="Script" path="res://game/scripts/journal.gd" id="1_3n3sv"]
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_qx7so"]
+[ext_resource type="Script" uid="uid://bnxlr3lx8p2q6" path="res://game/scripts/journal.gd" id="1_3n3sv"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_qx7so"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_ls5gp"]
 [ext_resource type="PackedScene" uid="uid://gwcfrnwhoqyu" path="res://game/scenes/journal_quest.tscn" id="4_gi1i4"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="5_vdm4k"]

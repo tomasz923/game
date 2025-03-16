@@ -17,13 +17,10 @@ func go_for_melee(agressor: CharacterBody3D, victim: CharacterBody3D):
 	victim.melee_area.agressor_int_id = agressor.int_id
 	agressor.update_target_position(agressor.destination)
 
-func set_dice(dice_one: int, dice_two: int, roll_result: int, all_in: bool = true):
+func set_dice(dice_one: int, dice_two: int, roll_result: int):
 		Global.current_combat_scene.left_die.combat_result(dice_one)
 		Global.current_combat_scene.right_die.combat_result(dice_two)
-		if all_in:
-			Global.current_combat_scene.show_the_dice(roll_result)
-		else:
-			Global.current_combat_scene.color_the_dice(roll_result)
+		Global.current_combat_scene.show_the_dice(roll_result)
 
 func get_protection(stats: MachineStats) -> int:
 	var var_container: int = 0

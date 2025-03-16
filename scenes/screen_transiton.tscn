@@ -1,6 +1,6 @@
 [gd_scene load_steps=14 format=3 uid="uid://dfoih408r3vqi"]
 
-[ext_resource type="Script" path="res://game/scripts/screen_transiton.gd" id="1_o2ksq"]
+[ext_resource type="Script" uid="uid://dpvivdpseedcm" path="res://game/scripts/screen_transiton.gd" id="1_o2ksq"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="1_wthdt"]
 [ext_resource type="Texture2D" uid="uid://lfmhxjcvnj0j" path="res://assets/textures/ui/white_500_90.png" id="2_e7lwm"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="4_jvf76"]
@@ -279,11 +279,11 @@ tracks/6/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_1curh"]
 _data = {
-"RESET": SubResource("Animation_6xcyc"),
-"game_over": SubResource("Animation_jn1w7"),
-"show_before_combat": SubResource("Animation_mcokw"),
-"show_hide_button": SubResource("Animation_wlo3d"),
-"show_screen_transition": SubResource("Animation_p76um")
+&"RESET": SubResource("Animation_6xcyc"),
+&"game_over": SubResource("Animation_jn1w7"),
+&"show_before_combat": SubResource("Animation_mcokw"),
+&"show_hide_button": SubResource("Animation_wlo3d"),
+&"show_screen_transition": SubResource("Animation_p76um")
 }
 
 [node name="ScreenTransiton" type="Control"]
@@ -568,7 +568,7 @@ text = "st_continue
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_1curh")
+&"": SubResource("AnimationLibrary_1curh")
 }
 
 [node name="Timer" type="Timer" parent="."]

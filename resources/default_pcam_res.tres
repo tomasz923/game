@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Camera3DResource" load_steps=2 format=3 uid="uid://dxi1ibhvc1qda"]
 
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="1_p85u8"]
+[ext_resource type="Script" uid="uid://c1gtx5bdaihmy" path="res://addons/phantom_camera/scripts/resources/camera_3d_resource.gd" id="1_p85u8"]
 
 [resource]
 script = ExtResource("1_p85u8")

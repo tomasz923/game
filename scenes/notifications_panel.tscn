@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cdb187y2ybcq8"]
 
-[ext_resource type="Script" path="res://game/scripts/notifications_panel.gd" id="1_b5p1m"]
+[ext_resource type="Script" uid="uid://b63ftrpurlct0" path="res://game/scripts/notifications_panel.gd" id="1_b5p1m"]
 
 [node name="NotificationsPanel" type="Control"]
 custom_minimum_size = Vector2(300, 0)

@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://rtwiby6sj4ro"]
 
-[ext_resource type="Script" path="res://game/scripts/combat_scene.gd" id="1_xgfvd"]
+[ext_resource type="Script" uid="uid://cuf47hpnlldqa" path="res://game/scripts/combat_scene.gd" id="1_xgfvd"]
 [ext_resource type="Resource" uid="uid://4ypywmtnfu45" path="res://game/moves/resources/hack_and_slash.tres" id="2_jwo0m"]
 [ext_resource type="PackedScene" uid="uid://ctvucajwtawka" path="res://game/scenes/moves_panel.tscn" id="2_nvigt"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bhlda"]
+[ext_resource type="Script" uid="uid://bssxnxueyyk4s" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bhlda"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_4dwsc"]
 [ext_resource type="PackedScene" uid="uid://mnsi23vb68p2" path="res://game/scenes/clickable_window.tscn" id="4_tmx8r"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_3l230"]
@@ -260,35 +260,34 @@ layout_mode = 2
 
 [node name="Dice" type="Control" parent="."]
 visible = false
+clip_contents = true
+custom_minimum_size = Vector2(450, 150)
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_top = -153.0
-offset_bottom = -153.0
+offset_left = -134.0
+offset_top = -169.0
+offset_right = 316.0
+offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 0
+scale = Vector2(0.6, 0.6)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Dice"]
+[node name="RightDie" parent="Dice" instance=ExtResource("8_r5bfi")]
 layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -20.0
-offset_top = -40.0
-offset_right = 20.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_constants/separation = 200
+offset_left = 84.0
+offset_top = -183.5
+offset_right = 84.0
+offset_bottom = -143.5
 
-[node name="LeftDie" parent="Dice/HBoxContainer" instance=ExtResource("8_r5bfi")]
-layout_mode = 2
-
-[node name="RightDie" parent="Dice/HBoxContainer" instance=ExtResource("8_r5bfi")]
-layout_mode = 2
+[node name="LeftDie" parent="Dice" instance=ExtResource("8_r5bfi")]
+layout_mode = 1
+offset_left = -86.0
+offset_top = -183.5
+offset_right = -86.0
+offset_bottom = -143.5
 
 [connection signal="body_entered" from="DangerZone" to="." method="_on_danger_zone_body_entered"]

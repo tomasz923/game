@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dtla6fo70xova"]
 
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_g6b5j"]
-[ext_resource type="Script" path="res://game/scripts/move_choice_button.gd" id="2_g0aen"]
+[ext_resource type="Script" uid="uid://bq4ovo8755a4v" path="res://game/scripts/move_choice_button.gd" id="2_g0aen"]
 
 [node name="MoveChoiceButton" type="Button"]
 custom_minimum_size = Vector2(325, 0)

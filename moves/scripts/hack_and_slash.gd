@@ -188,6 +188,7 @@ func start_stage_one():
 		random_result = 1 #randi_range(0, 1)
 		Global.get_spots(local_victim)
 		Global.get_spots(local_agressor, "main")
+		set_dice(dice_one, dice_two, roll_result)
 		local_victim.melee_area.someone_is_in_melee_positon.connect(start_stage_two)
 		local_agressor.model.melee_reaction_ready.connect(start_stage_three)
 		local_victim.model.animation_was_finished.connect(start_stage_four)
@@ -211,7 +212,6 @@ func start_stage_three(is_evading):
 	if stage == 3:
 		if roll_result > 6 and !is_evading:
 			local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
-			set_dice(dice_one, dice_two, roll_result, false)
 			if roll_result > 9:
 				Global.switch_cursor_visibility(true)
 				Global.current_combat_scene.stop_animations(true)
@@ -222,7 +222,6 @@ func start_stage_three(is_evading):
 		elif roll_result < 7 and is_evading:
 			local_agressor.model.melee_reaction_ready.disconnect(start_stage_three)
 			local_victim.model.animation_player.play("dodge_backward")
-			set_dice(dice_one, dice_two, roll_result, false)
 			start_stage_three_fail()
 
 func start_stage_three_success(choice: int):
@@ -237,7 +236,6 @@ func start_stage_three_success(choice: int):
 			pass
 	calculate_attack_damage()
 	#Global.current_combat_scene.slow_motion()
-	Global.current_combat_scene.show_the_dice(roll_result)
 	if local_victim.stats.current_health < 1:
 		local_victim.model.animation_player.play(local_victim.melee_death_animation)
 		local_agressor.model.animation_was_finished.connect(start_stage_five)
@@ -247,7 +245,6 @@ func start_stage_three_success(choice: int):
 		stage = 4
 
 func start_stage_three_partial_success():
-	set_dice(dice_one, dice_two, roll_result, true)
 	calculate_attack_damage()
 	#Global.current_combat_scene.slow_motion()
 	if local_victim.stats.current_health < 1:
@@ -259,7 +256,6 @@ func start_stage_three_partial_success():
 		stage = 4
 
 func start_stage_three_fail():
-	Global.current_combat_scene.show_the_dice(roll_result)
 	#Global.current_combat_scene.slow_motion()
 	stage = 4
 
@@ -300,7 +296,7 @@ func start_stage_four_aux_counterattack(_is_evading):
 			local_victim.status_effects.append(SePreparingToAttack.new())
 		stage = 5
 
-func start_stage_five(anim_name):
+func start_stage_five(_anim_name):
 	if stage == 5:
 		stage = 6
 		if !the_ally_died:

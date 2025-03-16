@@ -1,13 +1,13 @@
 [gd_scene load_steps=17 format=3 uid="uid://dhud3at5jueto"]
 
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_coijg"]
-[ext_resource type="Script" path="res://game/scripts/dice.gd" id="1_h275q"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_coijg"]
+[ext_resource type="Script" uid="uid://do86ehybll6yc" path="res://game/scripts/dice.gd" id="1_h275q"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_tk3q8"]
 [ext_resource type="PackedScene" uid="uid://bhrdjid1v1buq" path="res://game/scenes/reel.tscn" id="3_d56lv"]
 [ext_resource type="Texture2D" uid="uid://lfmhxjcvnj0j" path="res://assets/textures/ui/white_500_90.png" id="3_v4icv"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="4_d8m6w"]
 [ext_resource type="Theme" uid="uid://h6p57b7k743a" path="res://game/resources/chances_fail.tres" id="7_mx76m"]
-[ext_resource type="Script" path="res://game/scripts/chance_button.gd" id="8_7sfv6"]
+[ext_resource type="Script" uid="uid://cemhpanq8qwdn" path="res://game/scripts/chance_button.gd" id="8_7sfv6"]
 [ext_resource type="Theme" uid="uid://6l50s70r1vbl" path="res://game/resources/chances_complications.tres" id="9_ec63q"]
 [ext_resource type="Theme" uid="uid://cmhod15xoeria" path="res://game/resources/chances_success.tres" id="10_cyf7v"]
 
@@ -101,9 +101,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b55re"]
 _data = {
-"RESET": SubResource("Animation_fkmg0"),
-"fade_in": SubResource("Animation_st8dq"),
-"fade_out": SubResource("Animation_2retx")
+&"RESET": SubResource("Animation_fkmg0"),
+&"fade_in": SubResource("Animation_st8dq"),
+&"fade_out": SubResource("Animation_2retx")
 }
 
 [node name="Dice" type="Control"]
@@ -392,7 +392,7 @@ autowrap_mode = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_b55re")
+&"": SubResource("AnimationLibrary_b55re")
 }
 
 [connection signal="roll_done" from="DiceScreen/HBoxContainer/Reel" to="." method="_on_reel_roll_done"]

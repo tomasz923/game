@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckifxa2xemhiw"]
 
-[ext_resource type="Script" path="res://game/scripts/InventoryItemButton.gd" id="1_0j81g"]
+[ext_resource type="Script" uid="uid://dtfbdv70hgci8" path="res://game/scripts/InventoryItemButton.gd" id="1_0j81g"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_tmip5"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfgk7"]

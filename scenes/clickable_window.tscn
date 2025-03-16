@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://mnsi23vb68p2"]
 
-[ext_resource type="Script" path="res://game/scenes/clickable_window.gd" id="1_q4ble"]
+[ext_resource type="Script" uid="uid://boijivpvkdx6d" path="res://game/scenes/clickable_window.gd" id="1_q4ble"]
 
 [node name="ClickableWindow" type="Button"]
 modulate = Color(1, 1, 1, 0)

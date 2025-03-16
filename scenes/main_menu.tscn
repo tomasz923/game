@@ -1,9 +1,9 @@
 [gd_scene load_steps=13 format=3 uid="uid://dfc5c7rer8bhs"]
 
-[ext_resource type="Script" path="res://game/scripts/Menu.gd" id="1_b1aer"]
+[ext_resource type="Script" uid="uid://bumx28vi4rc6y" path="res://game/scripts/Menu.gd" id="1_b1aer"]
 [ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_apu84"]
 [ext_resource type="AudioStream" uid="uid://b0qgfwhcfar14" path="res://assets/sounds/menu_theme.wav" id="3_ms3pl"]
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="4_4mjmb"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="4_4mjmb"]
 [ext_resource type="Texture2D" uid="uid://b04uks02fov0m" path="res://assets/textures/ui/options_background.png" id="4_j8wfi"]
 [ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="5_jyl5u"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="6_kfdsf"]
@@ -391,6 +391,7 @@ theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 3
 popup/item_0/text = "exclusive_fullscreen_mode"
+popup/item_0/id = 0
 popup/item_1/text = "fullscreen_mode"
 popup/item_1/id = 1
 popup/item_2/text = "window_mode"
@@ -417,6 +418,7 @@ theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 2
 popup/item_0/text = "on"
+popup/item_0/id = 0
 popup/item_1/text = "off"
 popup/item_1/id = 1
 
@@ -494,6 +496,7 @@ theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 3
 popup/item_0/text = "none"
+popup/item_0/id = 0
 popup/item_1/text = "FXAA"
 popup/item_1/id = 1
 popup/item_2/text = "TAA"
@@ -510,6 +513,7 @@ theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 2
 popup/item_0/text = "Bilinear"
+popup/item_0/id = 0
 popup/item_1/text = "AMD FSR 2.0"
 popup/item_1/id = 1
 
@@ -537,6 +541,7 @@ theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 4
 popup/item_0/text = "performance_fsr"
+popup/item_0/id = 0
 popup/item_1/text = "balanced_fsr"
 popup/item_1/id = 1
 popup/item_2/text = "quality_fsr"
@@ -581,6 +586,7 @@ theme = ExtResource("5_jyl5u")
 alignment = 1
 item_count = 2
 popup/item_0/text = "lang_eng"
+popup/item_0/id = 0
 popup/item_1/text = "lang_pol"
 popup/item_1/id = 1
 
@@ -728,7 +734,7 @@ offset_top = -23.0
 offset_right = 40.0
 grow_vertical = 0
 theme_override_fonts/font = ExtResource("8_htl0s")
-text = " VERSION 0.1.003 -  PROTOTYPE"
+text = "PROTOTYPE 0.4"
 
 [connection signal="pressed" from="options/return_belt_cont/return_belt/back_button" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="options/return_belt_cont/return_belt/reset_button" to="." method="_on_reset_button_pressed"]

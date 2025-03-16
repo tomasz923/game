@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://bhrdjid1v1buq"]
 
-[ext_resource type="Script" path="res://game/scripts/Reel.gd" id="1_jhthg"]
+[ext_resource type="Script" uid="uid://5avk2ol1846j" path="res://game/scripts/Reel.gd" id="1_jhthg"]
 [ext_resource type="Texture2D" uid="uid://b2ehlkbx6sdai" path="res://assets/textures/ui/dice.png" id="2_rmkvq"]
 [ext_resource type="Texture2D" uid="uid://bu6qacldl1ge0" path="res://assets/textures/ui/reel_mask.png" id="3_ktrlr"]
 

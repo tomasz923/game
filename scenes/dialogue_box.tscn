@@ -1,12 +1,12 @@
 [gd_scene load_steps=17 format=3 uid="uid://60bjoj4rgs0"]
 
 [ext_resource type="Texture2D" uid="uid://3fyra00t7b54" path="res://assets/textures/ui/dialogue_box.png" id="1_8bnqy"]
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_p6k7h"]
-[ext_resource type="Script" path="res://game/scripts/dialogue_box.gd" id="1_rm17e"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_p6k7h"]
+[ext_resource type="Script" uid="uid://1luxaq5n2p8w" path="res://game/scripts/dialogue_box.gd" id="1_rm17e"]
 [ext_resource type="Texture2D" uid="uid://ds47egx5yr2cp" path="res://assets/textures/ui/black_bar.png" id="3_dqo34"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="3_tb8bg"]
 [ext_resource type="Texture2D" uid="uid://d12ixnhl46qgc" path="res://assets/textures/ui/black_gradient.png" id="7_8n8p3"]
-[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="7_celjk"]
+[ext_resource type="Script" uid="uid://dwjx6slv5pcju" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="7_celjk"]
 [ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="8_jlfl7"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mtflb"]
@@ -124,10 +124,10 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_v0krl"]
 _data = {
-"RESET": SubResource("Animation_s46xh"),
-"fade_in": SubResource("Animation_2r57g"),
-"fade_out": SubResource("Animation_bumfw"),
-"jumping_arrow": SubResource("Animation_npea3")
+&"RESET": SubResource("Animation_s46xh"),
+&"fade_in": SubResource("Animation_2r57g"),
+&"fade_out": SubResource("Animation_bumfw"),
+&"jumping_arrow": SubResource("Animation_npea3")
 }
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyh5t"]

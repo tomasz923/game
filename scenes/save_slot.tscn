@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dkloeunnxd5f"]
 
 [ext_resource type="Theme" uid="uid://dowx0156xohdr" path="res://game/resources/save_slot.tres" id="2_7xv0t"]
-[ext_resource type="Script" path="res://game/scripts/save_slot.gd" id="2_b0031"]
+[ext_resource type="Script" uid="uid://db14neuq6mlm" path="res://game/scripts/save_slot.gd" id="2_b0031"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_xe61w"]
 
 [node name="save_slot" type="Control"]

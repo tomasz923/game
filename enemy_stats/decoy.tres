@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="EnemyStats" load_steps=3 format=3 uid="uid://bws2401upr1gy"]
 
 [ext_resource type="Resource" uid="uid://dv1dxsmsw6n34" path="res://game/inventory_items/warhammer.tres" id="1_kascr"]
-[ext_resource type="Script" path="res://game/scripts/enemy_stats.gd" id="1_m87li"]
+[ext_resource type="Script" uid="uid://bdqm72mmhjgte" path="res://game/scripts/enemy_stats.gd" id="1_m87li"]
 
 [resource]
 resource_local_to_scene = true

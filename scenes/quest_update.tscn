@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cdjn3kaaq30rs"]
 
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="1_onoqk"]
-[ext_resource type="Script" path="res://game/scripts/QuestUpdate.gd" id="1_qyda4"]
+[ext_resource type="Script" uid="uid://bj7stm6wlv8v2" path="res://game/scripts/QuestUpdate.gd" id="1_qyda4"]
 
 [node name="QuestUpdate" type="Label"]
 custom_minimum_size = Vector2(540, 0)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://cpodaffdvrac8"]
 
-[ext_resource type="Script" path="res://game/scripts/Inventory.gd" id="1_pcm05"]
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="2_y1wt2"]
+[ext_resource type="Script" uid="uid://h4kqtffuew3i" path="res://game/scripts/Inventory.gd" id="1_pcm05"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="2_y1wt2"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="3_qo5sd"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="4_7omk8"]
 [ext_resource type="LabelSettings" uid="uid://wsb2cp1ta44k" path="res://game/resources/inv_label_settings.tres" id="4_cdt8d"]

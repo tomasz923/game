@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://dj3e5dl8v71ow" path="res://assets/textures/move_icons/sword_icon_temp.png" id="1_0j5bm"]
 [ext_resource type="Theme" uid="uid://ckegye7rc3uxy" path="res://game/resources/locked_move_button.tres" id="1_m6fkp"]
-[ext_resource type="Script" path="res://game/scenes/move_button.gd" id="3_xo18u"]
+[ext_resource type="Script" uid="uid://cdmjo6oibevc2" path="res://game/scenes/move_button.gd" id="3_xo18u"]
 
 [node name="MoveButton" type="Button"]
 custom_minimum_size = Vector2(60, 60)

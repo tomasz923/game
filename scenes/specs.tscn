@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dpxqgjaudcmg5"]
 
-[ext_resource type="Script" path="res://game/scripts/FPS.gd" id="1_odjkb"]
+[ext_resource type="Script" uid="uid://cvs425gb6u3xr" path="res://game/scripts/FPS.gd" id="1_odjkb"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="1_wge7g"]
-[ext_resource type="Script" path="res://game/scripts/CPU.gd" id="2_7a4ba"]
+[ext_resource type="Script" uid="uid://bqi4gicg8fsb3" path="res://game/scripts/CPU.gd" id="2_7a4ba"]
 
 [node name="Specs" type="Control"]
 layout_mode = 3

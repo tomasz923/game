@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bct5xjjskyq72"]
 
-[ext_resource type="Script" path="res://game/scripts/fightSceneOne.gd" id="1_b62ta"]
+[ext_resource type="Script" uid="uid://ta1m36r83ft3" path="res://game/scripts/fightSceneOne.gd" id="1_b62ta"]
 [ext_resource type="Texture2D" uid="uid://bm8djub5otix2" path="res://assets/textures/grids/Purple/texture_02.png" id="1_p15qh"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="2_csx0h"]
 [ext_resource type="PackedScene" uid="uid://dpxqgjaudcmg5" path="res://game/scenes/specs.tscn" id="2_h6cp3"]

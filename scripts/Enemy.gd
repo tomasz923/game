@@ -1,6 +1,5 @@
 extends Machine
 class_name Enemy
-@onready var csg_cylinder_3d: CSGCylinder3D = $CSGCylinder3D
 
 signal someone_is_in_melee_positon()
 signal arrived_at_the_main_spot()
@@ -43,7 +42,6 @@ func _process(_delta):
 		velocity = new_velocity
 		move_and_slide()
 		look_at_spot(destination)
-		csg_cylinder_3d.global_position = destination
 	if is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)
 		if distance < 0.2:

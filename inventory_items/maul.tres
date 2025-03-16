@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://06qlh58g6yrt"]
 
-[ext_resource type="Script" path="res://game/scripts/inventory_item.gd" id="1_01guh"]
+[ext_resource type="Script" uid="uid://cuu4inupp4ckw" path="res://game/scripts/inventory_item.gd" id="1_01guh"]
 [ext_resource type="PackedScene" uid="uid://coyrgqh884g7j" path="res://game/item_models/demo_maul.tscn" id="1_1hwdl"]
 
 [resource]

@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://8gx182socffj"]
 
 [ext_resource type="Texture2D" uid="uid://3fyra00t7b54" path="res://assets/textures/ui/dialogue_box.png" id="1_8bnqy"]
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_p6k7h"]
-[ext_resource type="Script" path="res://game/scripts/dialogue_box.gd" id="1_rm17e"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_p6k7h"]
+[ext_resource type="Script" uid="uid://1luxaq5n2p8w" path="res://game/scripts/dialogue_box.gd" id="1_rm17e"]
 [ext_resource type="LabelSettings" uid="uid://d0tfi6nk5xtnh" path="res://game/resources/dialogue_names.tres" id="3_p2mlc"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="3_tb8bg"]
-[ext_resource type="Script" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="7_celjk"]
+[ext_resource type="Script" uid="uid://dwjx6slv5pcju" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="7_celjk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qjtxu"]
 shader = ExtResource("1_p6k7h")

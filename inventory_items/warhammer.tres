@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="InventoryItem" load_steps=3 format=3 uid="uid://dv1dxsmsw6n34"]
 
 [ext_resource type="PackedScene" uid="uid://c6pahkdj2vrq0" path="res://game/item_models/demo_warhammer.tscn" id="1_lj8r2"]
-[ext_resource type="Script" path="res://game/scripts/inventory_item.gd" id="1_omcx5"]
+[ext_resource type="Script" uid="uid://cuu4inupp4ckw" path="res://game/scripts/inventory_item.gd" id="1_omcx5"]
 
 [resource]
 script = ExtResource("1_omcx5")
@@ -10,7 +10,14 @@ item_description = "It's a hammer. For war."
 type = 0
 weight = 0
 damage_bonus = 0
-puncture = 0
+piercing = 0
+ammo = 0
 value = 0
 can_be_sold = true
 model_scene = ExtResource("1_lj8r2")
+forceful = false
+ignores_protection = false
+messy = false
+precise = false
+relaod = false
+stun = false

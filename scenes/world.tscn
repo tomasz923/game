@@ -1,11 +1,11 @@
 [gd_scene load_steps=38 format=3 uid="uid://y0egc0gmui6w"]
 
-[ext_resource type="Script" path="res://game/scripts/world.gd" id="1_2ccfw"]
+[ext_resource type="Script" uid="uid://b3fgcn6odsah" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]
 [ext_resource type="PackedScene" uid="uid://rtwiby6sj4ro" path="res://game/scenes/combat_scene.tscn" id="2_tslae"]
 [ext_resource type="PackedScene" uid="uid://dpxqgjaudcmg5" path="res://game/scenes/specs.tscn" id="2_vvsx5"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_yr0qb"]
+[ext_resource type="Script" uid="uid://dpvat7flvt1y0" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_yr0qb"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="5_f8m7e"]
@@ -19,7 +19,7 @@
 [ext_resource type="Resource" uid="uid://dv1dxsmsw6n34" path="res://game/inventory_items/warhammer.tres" id="14_lwq1p"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/follower.tscn" id="14_t2ro3"]
 [ext_resource type="PackedScene" uid="uid://cpodaffdvrac8" path="res://game/scenes/inventory.tscn" id="15_cy5ol"]
-[ext_resource type="Script" path="res://game/scripts/enemy_stats.gd" id="15_m4aht"]
+[ext_resource type="Script" uid="uid://bdqm72mmhjgte" path="res://game/scripts/enemy_stats.gd" id="15_m4aht"]
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
 [ext_resource type="PackedScene" uid="uid://fs2uoc0e4bts" path="res://game/scenes/character_sheet.tscn" id="16_gnj8n"]
 [ext_resource type="PackedScene" uid="uid://c3qdy0gtu161l" path="res://game/scenes/moves.tscn" id="17_w7sj6"]
@@ -71,7 +71,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_5hvvv"]
+[sub_resource type="Resource" id="Resource_jku6p"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -86,6 +86,7 @@ process_mode = 3
 script = ExtResource("1_2ccfw")
 
 [node name="Camera" type="Camera3D" parent="."]
+physics_interpolation_mode = 1
 transform = Transform3D(0.0321752, 0.481882, -0.875645, -4.65661e-10, 0.876099, 0.482132, 0.999482, -0.0155127, 0.0281886, -7.30683, 2.4052, -1.78514)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera"]
@@ -94,7 +95,6 @@ process_physics_priority = 300
 script = ExtResource("2_yr0qb")
 
 [node name="Specs" parent="." instance=ExtResource("2_vvsx5")]
-visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_bmj8b")
@@ -184,12 +184,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_5hvvv")
-second_enemy_stats = SubResource("Resource_5hvvv")
-third_enemy_stats = SubResource("Resource_5hvvv")
-fourth_enemy_stats = SubResource("Resource_5hvvv")
-fifth_enemy_stats = SubResource("Resource_5hvvv")
-sixth_enemy_stats = SubResource("Resource_5hvvv")
+first_enemy_stats = SubResource("Resource_jku6p")
+second_enemy_stats = SubResource("Resource_jku6p")
+third_enemy_stats = SubResource("Resource_jku6p")
+fourth_enemy_stats = SubResource("Resource_jku6p")
+fifth_enemy_stats = SubResource("Resource_jku6p")
+sixth_enemy_stats = SubResource("Resource_jku6p")
 
 [node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
 visible = false

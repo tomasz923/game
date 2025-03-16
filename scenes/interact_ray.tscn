@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://ch1fbs2xgkyua"]
 
-[ext_resource type="Script" path="res://game/scripts/interact_ray.gd" id="1_f4ir0"]
+[ext_resource type="Script" uid="uid://btjwvvafi63x5" path="res://game/scripts/interact_ray.gd" id="1_f4ir0"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_vsk0x"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_yomp8"]

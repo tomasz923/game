@@ -11,7 +11,7 @@ signal roll_done(rolled_number: int)
 var is_rolling: bool = false
 var is_getting_ready: bool = false
 var roll_duration: int = 2
-var roll_speed: int = 30
+var roll_speed: int = 45
 var rng: int
 var final_pos: int
 var stopping_pos: int
@@ -42,7 +42,6 @@ func _process(_delta):
 
 func combat_result(result: int):
 	match_rng(result)
-	reel_2.visible = false
 	reel_1.position.y = final_pos
 
 func _roll():

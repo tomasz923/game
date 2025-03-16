@@ -87,8 +87,8 @@ var statuses_and_damage: Array = []
 
 # DICE AND POP UP WINDOWS
 @onready var popup_window = $PopupWindow
-@onready var left_die = $Dice/HBoxContainer/LeftDie
-@onready var right_die = $Dice/HBoxContainer/RightDie
+@onready var left_die: Control = $Dice/LeftDie
+@onready var right_die: Control = $Dice/RightDie
 @onready var dice = $Dice
 var prob_table: Array = [
 	[2, 2.78],
@@ -334,7 +334,7 @@ func _on_forward_move_data(move: Resource, bonus_array: Array):
 	var success_prob: float = 0.0
 	var failure_prob: float = 0.0
 	var complication_prob: float = 0.0
-	total_bonus = -69
+	total_bonus = 0
 	
 	current_move = move
 	if Global.user_prefs.mvp_right_panel_visible:
@@ -457,10 +457,32 @@ func move_finished():
 	moves_panel._on_go_back_button_pressed()
 
 func show_the_dice(result):
+	dice.visible = true
+	var tween = create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
+	# First tween
+	tween.tween_property(left_die, "position:y", 92.0, 0.3)
+	# Chain second tween after first completes
+	tween.tween_callback(func(): return true)
+	tween.tween_interval(0.2)
+	tween.tween_property(right_die, "position:y", 92.0, 0.3)
+	await tween.finished
 	color_the_dice(result)
-	var dice_tween = create_tween().set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT).set_parallel()
-	dice_tween.tween_property(dice, "modulate:a", 0.0, 0.4).from(1.0)
-	await dice_tween.finished
+	await get_tree().create_timer(0.3).timeout
+	hide_the_dice()
+
+func hide_the_dice():
+	var tween = create_tween().set_trans(Tween.TRANS_SPRING).set_ease(Tween.EASE_OUT)
+	# First tween
+	tween.tween_property(left_die, "position:y", 276.0, 0.3)
+	# Add 0.2 second delay
+	tween.tween_callback(func(): return true)
+	tween.tween_interval(0.2)
+	# Second tween
+	tween.tween_property(right_die, "position:y", 276.0, 0.3)
+	await tween.finished
+	dice.modulate = 'WHITE'
+	right_die.position.y = -92
+	left_die.position.y = -92
 	dice.visible = false
 
 func color_the_dice(result):
@@ -489,7 +511,6 @@ func stop_animations(is_pausing: bool):
 			ally.model.animation_player.speed_scale = 1
 
 func check_status_effects():
-	var inttt = 0
 	if all_machines == []:
 		var enemies_array = enemies_in_combat.get_children()
 		all_machines = enemies_array + Global.shuffled_allies

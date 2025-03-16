@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://3i186px7vx4t"]
+[gd_scene load_steps=8 format=3 uid="uid://3i186px7vx4t"]
 
-[ext_resource type="Script" path="res://game/scripts/status_window.gd" id="1_w4flh"]
+[ext_resource type="Script" uid="uid://by17qspvjbhas" path="res://game/scripts/status_window.gd" id="1_w4flh"]
 [ext_resource type="Texture2D" uid="uid://c2ffkl0a5wbjh" path="res://assets/textures/ui/clock_debug.png" id="2_3utkk"]
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="2_q5rqt"]
 
 [sub_resource type="Animation" id="Animation_wb8e1"]
 length = 0.001
@@ -15,7 +16,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(1, 1, 1, 0)]
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_x64er"]
@@ -54,26 +55,74 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_07e8d"]
 _data = {
-"RESET": SubResource("Animation_wb8e1"),
-"about_to_expire": SubResource("Animation_x64er"),
-"show_status": SubResource("Animation_p8ugh")
+&"RESET": SubResource("Animation_wb8e1"),
+&"about_to_expire": SubResource("Animation_x64er"),
+&"show_status": SubResource("Animation_p8ugh")
 }
 
 [node name="StatusWindow" type="Control"]
-modulate = Color(1, 1, 1, 0)
-custom_minimum_size = Vector2(70, 28)
+custom_minimum_size = Vector2(57, 28)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 70.0
+offset_right = 57.0
 offset_bottom = 28.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_w4flh")
+
+[node name="BlackRectangle" type="NinePatchRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_q5rqt")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_07e8d")
+&"": SubResource("AnimationLibrary_07e8d")
 }
 
-[node name="BlackRectangle" type="ColorRect" parent="."]
+[node name="NumberNode" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -3.0
+offset_right = 20.0
+offset_bottom = 37.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.1, 0.1)
+
+[node name="Number" type="Label" parent="NumberNode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -18.0
+offset_top = -20.5
+offset_right = 18.0
+offset_bottom = 20.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 240
+text = "9"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BlackRectangle3" type="ColorRect" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -82,35 +131,22 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Number" type="Label" parent="BlackRectangle"]
-layout_mode = 2
-offset_left = 31.0
-offset_top = -7.0
-offset_right = 67.0
-offset_bottom = 34.0
-theme_override_font_sizes/font_size = 24
-text = "2"
-horizontal_alignment = 1
-vertical_alignment = 1
-
 [node name="Picture" type="TextureRect" parent="."]
 custom_minimum_size = Vector2(18, 18)
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
+anchors_preset = 4
 anchor_top = 0.5
-anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -38.0
-offset_top = -16.0
-offset_right = -9.0
-offset_bottom = 15.0
-grow_horizontal = 2
+offset_left = 2.0
+offset_top = -15.0
+offset_right = 29.0
+offset_bottom = 14.0
 grow_vertical = 2
 texture = ExtResource("2_3utkk")
 expand_mode = 1
 
 [node name="WhiteSquare" type="ColorRect" parent="."]
+visible = false
 layout_mode = 0
 anchor_left = 0.410256
 anchor_top = 0.107143

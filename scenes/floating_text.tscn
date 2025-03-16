@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://byre8b24gk8vj"]
 
-[ext_resource type="Script" path="res://game/scripts/floating_text.gd" id="1_cel1k"]
+[ext_resource type="Script" uid="uid://cpk60uj8on5jj" path="res://game/scripts/floating_text.gd" id="1_cel1k"]
 [ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="1_ees82"]
 
 [sub_resource type="Animation" id="Animation_gshiu"]
@@ -89,15 +89,16 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_pumlx"]
 _data = {
-"RESET": SubResource("Animation_gshiu"),
-"show_damage": SubResource("Animation_qqckp"),
-"show_status": SubResource("Animation_2vub2")
+&"RESET": SubResource("Animation_gshiu"),
+&"show_damage": SubResource("Animation_qqckp"),
+&"show_status": SubResource("Animation_2vub2")
 }
 
 [node name="FloatingText" type="Node3D"]
 script = ExtResource("1_cel1k")
 
 [node name="Tweenable" type="Node3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
 [node name="Label3D" type="Label3D" parent="Tweenable"]
 modulate = Color(1, 1, 1, 0)
@@ -105,10 +106,10 @@ outline_modulate = Color(0, 0, 0, 0)
 text = "Broken 
 "
 font = ExtResource("1_ees82")
-font_size = 48
+font_size = 480
 outline_size = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_pumlx")
+&"": SubResource("AnimationLibrary_pumlx")
 }

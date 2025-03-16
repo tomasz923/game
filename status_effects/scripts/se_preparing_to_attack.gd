@@ -56,7 +56,6 @@ func attack():
 	await agressor.arrived_at_the_main_spot
 	agressor.melee_area.victim_int_id = 69
 	agressor.melee_area.is_attacking = false
-	victim.csg_box_3d.visible = false #DEBUG
 	#check_is_done.emit()
 	status_node.queue_free()
 	expired = true

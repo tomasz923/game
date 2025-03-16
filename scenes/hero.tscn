@@ -1,8 +1,8 @@
 [gd_scene load_steps=14 format=3 uid="uid://brlv5mgijxokp"]
 
-[ext_resource type="Script" path="res://game/scripts/hero.gd" id="1_bsgcu"]
+[ext_resource type="Script" uid="uid://bplnn3qh1qv02" path="res://game/scripts/hero.gd" id="1_bsgcu"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="2_jxos7"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bxfw6"]
+[ext_resource type="Script" uid="uid://bssxnxueyyk4s" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bxfw6"]
 [ext_resource type="PackedScene" uid="uid://ch1fbs2xgkyua" path="res://game/scenes/interact_ray.tscn" id="4_fffbf"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_jpr4g"]
 [ext_resource type="Resource" uid="uid://bbntk2y4ucg5x" path="res://game/resources/exploration_camp_res.tres" id="5_obrul"]
@@ -49,8 +49,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_d1px1"]
 _data = {
-"RESET": SubResource("Animation_vwkg1"),
-"hexagon_pulsating": SubResource("Animation_u3e0n")
+&"RESET": SubResource("Animation_vwkg1"),
+&"hexagon_pulsating": SubResource("Animation_u3e0n")
 }
 
 [node name="hero" type="CharacterBody3D" groups=["Ally"]]
@@ -135,7 +135,7 @@ texture = ExtResource("11_36r8j")
 
 [node name="HexagonAnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_d1px1")
+&"": SubResource("AnimationLibrary_d1px1")
 }
 
 [node name="CombatPcams" type="Node3D" parent="."]
@@ -161,10 +161,5 @@ target_position = Vector3(0, -3, 0)
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.148132, 0)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, 0.158948, 2.06751, 0)
-visible = false
-size = Vector3(0.2, 0.2, 0.2)
 
 [connection signal="body_entered" from="PersonalSpace" to="." method="_on_personal_space_body_entered"]

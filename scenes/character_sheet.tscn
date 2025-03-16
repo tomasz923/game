@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://fs2uoc0e4bts"]
 
-[ext_resource type="Script" path="res://game/scripts/CharacterSheet.gd" id="1_f6fyq"]
-[ext_resource type="Shader" path="res://game/resources/blur.gdshader" id="1_n2krt"]
+[ext_resource type="Script" uid="uid://bayfxhfa5x6hi" path="res://game/scripts/CharacterSheet.gd" id="1_f6fyq"]
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_n2krt"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_kr864"]
 [ext_resource type="LabelSettings" uid="uid://txax5awra7th" path="res://game/resources/cs_info.tres" id="4_5ggi7"]
 [ext_resource type="LabelSettings" uid="uid://bdlyarf5s7c0o" path="res://game/resources/progress_bar_numbers.tres" id="5_t5fug"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbasijc5hme3h"]
 
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="1_a3lfb"]
-[ext_resource type="Script" path="res://game/scripts/ChoiceButton.gd" id="2_8ftap"]
+[ext_resource type="Script" uid="uid://yjh6mxd24vvi" path="res://game/scripts/ChoiceButton.gd" id="2_8ftap"]
 
 [node name="ChoiceButton" type="Button"]
 offset_right = 8.0

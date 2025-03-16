@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="CharactersData" load_steps=2 format=3 uid="uid://dtmibq04cii86"]
 
-[ext_resource type="Script" path="res://game/resources/characters_data.gd" id="1_t7r51"]
+[ext_resource type="Script" uid="uid://bjnotlbjsdaki" path="res://game/resources/characters_data.gd" id="1_t7r51"]
 
 [resource]
 script = ExtResource("1_t7r51")
