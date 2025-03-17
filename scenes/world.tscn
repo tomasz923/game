@@ -1,28 +1,23 @@
-[gd_scene load_steps=38 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=33 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" uid="uid://b3fgcn6odsah" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
 [ext_resource type="Texture2D" uid="uid://c8upf6osvdwx5" path="res://assets/textures/grids/Orange/texture_05.png" id="2_ksyk2"]
 [ext_resource type="PackedScene" uid="uid://rtwiby6sj4ro" path="res://game/scenes/combat_scene.tscn" id="2_tslae"]
 [ext_resource type="PackedScene" uid="uid://dpxqgjaudcmg5" path="res://game/scenes/specs.tscn" id="2_vvsx5"]
-[ext_resource type="Script" uid="uid://dpvat7flvt1y0" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_yr0qb"]
+[ext_resource type="Script" uid="uid://oxhbgwgu4ubb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="2_yr0qb"]
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/textures/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/textures/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="5_f8m7e"]
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://assets/textures/grids/Green/texture_01.png" id="7_v04pi"]
-[ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu.tscn" id="9_u7f4u"]
 [ext_resource type="JSON" path="res://assets/json/dialogues/demo.json" id="11_srbxb"]
 [ext_resource type="PackedScene" uid="uid://chkq5elt8axwf" path="res://game/scenes/pink_guy.tscn" id="12_fw5yl"]
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
-[ext_resource type="PackedScene" uid="uid://daq3k7jcwjrxa" path="res://game/scenes/journal.tscn" id="13_fpjo5"]
 [ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
 [ext_resource type="Resource" uid="uid://dv1dxsmsw6n34" path="res://game/inventory_items/warhammer.tres" id="14_lwq1p"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/follower.tscn" id="14_t2ro3"]
-[ext_resource type="PackedScene" uid="uid://cpodaffdvrac8" path="res://game/scenes/inventory.tscn" id="15_cy5ol"]
 [ext_resource type="Script" uid="uid://bdqm72mmhjgte" path="res://game/scripts/enemy_stats.gd" id="15_m4aht"]
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
-[ext_resource type="PackedScene" uid="uid://fs2uoc0e4bts" path="res://game/scenes/character_sheet.tscn" id="16_gnj8n"]
-[ext_resource type="PackedScene" uid="uid://c3qdy0gtu161l" path="res://game/scenes/moves.tscn" id="17_w7sj6"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="21_m3ehy"]
 [ext_resource type="PackedScene" uid="uid://dfoih408r3vqi" path="res://game/scenes/screen_transiton.tscn" id="23_2pwpc"]
 
@@ -30,12 +25,12 @@
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
 
-[sub_resource type="Sky" id="Sky_bc2nb"]
+[sub_resource type="Sky" id="Sky_og4pm"]
 sky_material = SubResource("ProceduralSkyMaterial_3th3d")
 
 [sub_resource type="Environment" id="Environment_bmj8b"]
 background_mode = 2
-sky = SubResource("Sky_bc2nb")
+sky = SubResource("Sky_og4pm")
 tonemap_mode = 2
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
@@ -71,7 +66,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_jku6p"]
+[sub_resource type="Resource" id="Resource_og4pm"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -184,15 +179,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_jku6p")
-second_enemy_stats = SubResource("Resource_jku6p")
-third_enemy_stats = SubResource("Resource_jku6p")
-fourth_enemy_stats = SubResource("Resource_jku6p")
-fifth_enemy_stats = SubResource("Resource_jku6p")
-sixth_enemy_stats = SubResource("Resource_jku6p")
-
-[node name="Journal" parent="." instance=ExtResource("13_fpjo5")]
-visible = false
+first_enemy_stats = SubResource("Resource_og4pm")
+second_enemy_stats = SubResource("Resource_og4pm")
+third_enemy_stats = SubResource("Resource_og4pm")
+fourth_enemy_stats = SubResource("Resource_og4pm")
+fifth_enemy_stats = SubResource("Resource_og4pm")
+sixth_enemy_stats = SubResource("Resource_og4pm")
 
 [node name="DialogueBox" parent="." instance=ExtResource("12_iqn5y")]
 process_mode = 1
@@ -214,20 +206,7 @@ offset_bottom = -20.0
 grow_horizontal = 1
 grow_vertical = 1
 
-[node name="Inventory" parent="." instance=ExtResource("15_cy5ol")]
-visible = false
-
-[node name="CharacterSheet" parent="." instance=ExtResource("16_gnj8n")]
-visible = false
-
-[node name="Moves" parent="." instance=ExtResource("17_w7sj6")]
-visible = false
-
 [node name="ScreenTransiton" parent="." instance=ExtResource("23_2pwpc")]
-
-[node name="ui_elements" parent="." groups=["main_menu"] instance=ExtResource("9_u7f4u")]
-process_mode = 2
-visible = false
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2928, 0, 0)

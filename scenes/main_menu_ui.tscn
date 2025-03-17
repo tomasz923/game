@@ -1,0 +1,729 @@
+[gd_scene load_steps=13 format=3 uid="uid://dfc5c7rer8bhs"]
+
+[ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_0wn5w"]
+[ext_resource type="Script" uid="uid://bumx28vi4rc6y" path="res://game/scripts/main_menu_ui.gd" id="1_2ntkk"]
+[ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_5o7xd"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="2_8oxfq"]
+[ext_resource type="Texture2D" uid="uid://c5f6cobm0wlix" path="res://assets/protototype/prototype_logo.png" id="2_si4q0"]
+[ext_resource type="AudioStream" uid="uid://bk37hef8xjk2o" path="res://assets/sounds/bob_the_builder_theme.ogg" id="3_2ntkk"]
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="3_8oxfq"]
+[ext_resource type="Theme" uid="uid://ckwrwgpvfcsg4" path="res://game/resources/main_menu_theme.tres" id="6_ky3i7"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="9_5868w"]
+[ext_resource type="Theme" uid="uid://dowx0156xohdr" path="res://game/resources/save_slot.tres" id="10_0atvn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6pdcj"]
+shader = ExtResource("1_0wn5w")
+shader_parameter/blur = 4.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_yomp8"]
+font = ExtResource("9_5868w")
+font_size = 32
+outline_color = Color(0, 0, 0, 1)
+
+[node name="MainMenuUI" type="Control" groups=["ui_elements"]]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_2ntkk")
+metadata/_edit_use_anchors_ = true
+
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5o7xd")
+bus = &"UI"
+
+[node name="MenuTheme" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2ntkk")
+autoplay = true
+bus = &"Music"
+
+[node name="Blur" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_6pdcj")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.313726)
+
+[node name="MainMenuNode" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Logo" type="TextureRect" parent="MainMenuNode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -319.0
+offset_top = -359.5
+offset_right = 319.0
+offset_bottom = 47.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_si4q0")
+
+[node name="MainMenuContainer" type="VBoxContainer" parent="MainMenuNode"]
+custom_minimum_size = Vector2(420, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -211.0
+offset_top = 5.0
+offset_right = 209.0
+offset_bottom = 400.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_ky3i7")
+alignment = 1
+
+[node name="Continue" type="Button" parent="MainMenuNode/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+theme_override_constants/outline_size = 0
+theme_override_constants/h_separation = 0
+text = "menu_con"
+
+[node name="NewGame" type="Button" parent="MainMenuNode/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+text = "menu_new"
+
+[node name="SaveGame" type="Button" parent="MainMenuNode/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+theme_override_constants/outline_size = 0
+theme_override_constants/h_separation = 0
+text = "menu_save"
+
+[node name="LoadGame" type="Button" parent="MainMenuNode/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+text = "menu_load"
+
+[node name="Options" type="Button" parent="MainMenuNode/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+text = "menu_options"
+
+[node name="Exit" type="Button" parent="MainMenuNode/MainMenuContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+text = "menu_exit"
+
+[node name="OptionsNode" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="BlackRectangle" type="NinePatchRect" parent="OptionsNode"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1089.0
+offset_top = -66.0
+offset_right = 1095.0
+offset_bottom = 117.0
+grow_horizontal = 2
+texture = ExtResource("3_8oxfq")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="OptionsAudioNode" type="Control" parent="OptionsNode"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsAudioContainer" type="HBoxContainer" parent="OptionsNode/OptionsAudioNode"]
+custom_minimum_size = Vector2(1920, 475)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -237.5
+offset_right = 960.0
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="LeftColumnAudio" type="VBoxContainer" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MasterLabel" type="Label" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/LeftColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "master_label"
+label_settings = SubResource("LabelSettings_yomp8")
+vertical_alignment = 1
+
+[node name="MusicLabel" type="Label" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/LeftColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "music_label"
+label_settings = SubResource("LabelSettings_yomp8")
+vertical_alignment = 1
+
+[node name="UILabel" type="Label" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/LeftColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "ui_label"
+label_settings = SubResource("LabelSettings_yomp8")
+vertical_alignment = 1
+
+[node name="SFXLabel" type="Label" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/LeftColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "sfx_label"
+label_settings = SubResource("LabelSettings_yomp8")
+vertical_alignment = 1
+
+[node name="VoiceLabel" type="Label" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/LeftColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "voice_label"
+label_settings = SubResource("LabelSettings_yomp8")
+vertical_alignment = 1
+
+[node name="RightColumnAudio" type="VBoxContainer" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MasterSlider" type="HSlider" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="MusicSlider" type="HSlider" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="UISlider" type="HSlider" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="SFXSlider" type="HSlider" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="VoiceSlider" type="HSlider" parent="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio"]
+custom_minimum_size = Vector2(365, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+max_value = 1.0
+step = 0.01
+value = 0.8
+
+[node name="OptionsControlsNode" type="Control" parent="OptionsNode"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsControlsContainer" type="HBoxContainer" parent="OptionsNode/OptionsControlsNode"]
+custom_minimum_size = Vector2(1920, 475)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -237.5
+offset_right = 960.0
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="LeftColumnControls" type="VBoxContainer" parent="OptionsNode/OptionsControlsNode/OptionsControlsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MouseSensLabel" type="Label" parent="OptionsNode/OptionsControlsNode/OptionsControlsContainer/LeftColumnControls"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "mouse_sensitivity"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="RightColumnControls" type="VBoxContainer" parent="OptionsNode/OptionsControlsNode/OptionsControlsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="MouseSensSlider" type="HSlider" parent="OptionsNode/OptionsControlsNode/OptionsControlsContainer/RightColumnControls"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+min_value = 0.05
+max_value = 0.8
+step = 0.05
+value = 0.2
+
+[node name="OptionsScreenNode" type="Control" parent="OptionsNode"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsScreenContainer" type="HBoxContainer" parent="OptionsNode/OptionsScreenNode"]
+custom_minimum_size = Vector2(1920, 475)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -237.5
+offset_right = 960.0
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="ScreenLeftColumn" type="VBoxContainer" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="FScreenLabel" type="Label" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenLeftColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "option_full_screen"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="DisplayLabel" type="Label" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenLeftColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "option_window_size"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="VSyncLabel" type="Label" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenLeftColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "vsync_label"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="DisplayScreenLabel" type="Label" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenLeftColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "display_screen_label"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="ScreenRightColumn" type="VBoxContainer" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="DisplaySettings" type="OptionButton" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+item_count = 3
+popup/item_0/text = "exclusive_fullscreen_mode"
+popup/item_0/id = 0
+popup/item_1/text = "fullscreen_mode"
+popup/item_1/id = 1
+popup/item_2/text = "window_mode"
+popup/item_2/id = 2
+
+[node name="DisplayResolution" type="OptionButton" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+
+[node name="VSyncSettings" type="OptionButton" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+item_count = 2
+popup/item_0/text = "on"
+popup/item_0/id = 0
+popup/item_1/text = "off"
+popup/item_1/id = 1
+
+[node name="DisplayScreenSettings" type="OptionButton" parent="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn"]
+custom_minimum_size = Vector2(370, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+
+[node name="OptionsGraphicsNode" type="Control" parent="OptionsNode"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsGraphicsContainer" type="HBoxContainer" parent="OptionsNode/OptionsGraphicsNode"]
+custom_minimum_size = Vector2(1920, 475)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -237.5
+offset_right = 960.0
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="GraphicsLeftColumn" type="VBoxContainer" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="AntiAliasingLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "Anti-Aliasing"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="ScalingLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "scaling_type"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="ResolutionContainer" type="VBoxContainer" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ResolutionLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn/ResolutionContainer"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "in_game_resolution"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="ScaleLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn/ResolutionContainer"]
+layout_mode = 2
+text = "100% "
+vertical_alignment = 1
+
+[node name="GraphicsRightCOlumn" type="VBoxContainer" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="AntiAliasingOptions" type="OptionButton" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+item_count = 3
+popup/item_0/text = "none"
+popup/item_0/id = 0
+popup/item_1/text = "FXAA"
+popup/item_1/id = 1
+popup/item_2/text = "TAA"
+popup/item_2/id = 2
+
+[node name="ScalingOption" type="OptionButton" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+item_count = 2
+popup/item_0/text = "Bilinear"
+popup/item_0/id = 0
+popup/item_1/text = "AMD FSR 2.0"
+popup/item_1/id = 1
+
+[node name="ResolutionContainer" type="VBoxContainer" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn"]
+custom_minimum_size = Vector2(356, 38)
+layout_mode = 2
+
+[node name="GameResolutionScale" type="HSlider" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/ResolutionContainer"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+min_value = 50.0
+max_value = 200.0
+step = 5.0
+value = 100.0
+
+[node name="FRSScaling" type="OptionButton" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/ResolutionContainer"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+item_count = 4
+popup/item_0/text = "performance_fsr"
+popup/item_0/id = 0
+popup/item_1/text = "balanced_fsr"
+popup/item_1/id = 1
+popup/item_2/text = "quality_fsr"
+popup/item_2/id = 2
+popup/item_3/text = "ultra_quality_fsr"
+popup/item_3/id = 3
+
+[node name="OptionsGameNode" type="Control" parent="OptionsNode"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="OptionsGameContainer" type="HBoxContainer" parent="OptionsNode/OptionsGameNode"]
+custom_minimum_size = Vector2(1920, 475)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -237.5
+offset_right = 960.0
+offset_bottom = 237.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="GameLeftColumn" type="VBoxContainer" parent="OptionsNode/OptionsGameNode/OptionsGameContainer"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="LanguageLabel" type="Label" parent="OptionsNode/OptionsGameNode/OptionsGameContainer/GameLeftColumn"]
+layout_mode = 2
+text = "chosen_language"
+label_settings = SubResource("LabelSettings_yomp8")
+
+[node name="GameRightColumn" type="VBoxContainer" parent="OptionsNode/OptionsGameNode/OptionsGameContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="LanguageOptions" type="OptionButton" parent="OptionsNode/OptionsGameNode/OptionsGameContainer/GameRightColumn"]
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+alignment = 1
+item_count = 2
+popup/item_0/text = "lang_eng"
+popup/item_0/id = 0
+popup/item_1/text = "lang_pol"
+popup/item_1/id = 1
+
+[node name="SettingsContainer" type="HBoxContainer" parent="OptionsNode"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -570.0
+offset_top = 23.0
+offset_right = 570.0
+offset_bottom = 89.0
+grow_horizontal = 2
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="AudioButton" type="Button" parent="OptionsNode/SettingsContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+toggle_mode = true
+text = "audio_options"
+
+[node name="ControlsButton" type="Button" parent="OptionsNode/SettingsContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+toggle_mode = true
+text = "control_options"
+
+[node name="ScreenButton" type="Button" parent="OptionsNode/SettingsContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+toggle_mode = true
+text = "screen_options"
+
+[node name="GraphicsButton" type="Button" parent="OptionsNode/SettingsContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+toggle_mode = true
+text = "graphics_options"
+
+[node name="GameButton" type="Button" parent="OptionsNode/SettingsContainer"]
+layout_mode = 2
+theme = ExtResource("2_8oxfq")
+toggle_mode = true
+text = "game_options"
+
+[node name="LoadGameNode" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="LoadGameNode"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = 100.0
+offset_right = 385.0
+offset_bottom = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SaveSlotsContainer" type="VBoxContainer" parent="LoadGameNode/ScrollContainer"]
+layout_mode = 2
+
+[node name="NewSaveSlotButton" type="Button" parent="LoadGameNode/ScrollContainer/SaveSlotsContainer"]
+custom_minimum_size = Vector2(750, 130)
+layout_mode = 2
+theme = ExtResource("10_0atvn")
+text = "new_save_slot"
+
+[node name="ReturnButtonsContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 2
+offset_top = 997.0
+offset_right = 1920.0
+offset_bottom = 1035.0
+
+[node name="BackButton" type="Button" parent="ReturnButtonsContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_ky3i7")
+text = "back_button"
+
+[node name="ResetButton" type="Button" parent="ReturnButtonsContainer"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("6_ky3i7")
+text = "reset_button"
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = -23.0
+offset_right = 107.0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("9_5868w")
+text = "PROTOTYPE 0.5"
+
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/NewGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/SaveGame" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/LoadGame" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/MasterSlider" to="." method="_on_master_slider_value_changed"]
+[connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/UISlider" to="." method="_on_ui_slider_value_changed"]
+[connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/SFXSlider" to="." method="_on_sfx_slider_value_changed"]
+[connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/VoiceSlider" to="." method="_on_voice_slider_value_changed"]
+[connection signal="value_changed" from="OptionsNode/OptionsControlsNode/OptionsControlsContainer/RightColumnControls/MouseSensSlider" to="." method="_on_mouse_sens_slider_value_changed"]
+[connection signal="item_selected" from="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/DisplaySettings" to="." method="_on_display_settings_item_selected"]
+[connection signal="item_selected" from="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/DisplayResolution" to="." method="_on_display_resolution_item_selected"]
+[connection signal="item_selected" from="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/VSyncSettings" to="." method="_on_vsync_settings_item_selected"]
+[connection signal="item_selected" from="OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/DisplayScreenSettings" to="." method="_on_display_screen_settings_item_selected"]
+[connection signal="item_selected" from="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/AntiAliasingOptions" to="." method="_on_aa_option_item_selected"]
+[connection signal="item_selected" from="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/ScalingOption" to="." method="_on_scaling_option_item_selected"]
+[connection signal="value_changed" from="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/ResolutionContainer/GameResolutionScale" to="." method="_on_game_resolution_value_changed"]
+[connection signal="item_selected" from="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/ResolutionContainer/FRSScaling" to="." method="_on_frs_scaling_item_selected"]
+[connection signal="item_selected" from="OptionsNode/OptionsGameNode/OptionsGameContainer/GameRightColumn/LanguageOptions" to="." method="_on_language_option_item_selected"]
+[connection signal="pressed" from="OptionsNode/SettingsContainer/AudioButton" to="." method="_on_audio_button_pressed"]
+[connection signal="pressed" from="OptionsNode/SettingsContainer/ControlsButton" to="." method="_on_controls_button_pressed"]
+[connection signal="toggled" from="OptionsNode/SettingsContainer/ControlsButton" to="." method="_on_controls_button_toggled"]
+[connection signal="pressed" from="OptionsNode/SettingsContainer/ScreenButton" to="." method="_on_screen_button_pressed"]
+[connection signal="pressed" from="OptionsNode/SettingsContainer/GraphicsButton" to="." method="_on_graphics_button_pressed"]
+[connection signal="pressed" from="OptionsNode/SettingsContainer/GameButton" to="." method="_on_game_button_pressed"]
+[connection signal="pressed" from="LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotButton" to="." method="_on_new_save_slot_button_pressed"]
+[connection signal="pressed" from="ReturnButtonsContainer/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="ReturnButtonsContainer/ResetButton" to="." method="_on_reset_button_pressed"]

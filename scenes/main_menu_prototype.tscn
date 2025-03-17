@@ -1,0 +1,164 @@
+[gd_scene load_steps=19 format=3 uid="uid://bjk45orvc0ld3"]
+
+[ext_resource type="Script" uid="uid://pmcdk12lka2w" path="res://game/scripts/main_menu_prototype.gd" id="1_cmdg6"]
+[ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="2_83b4d"]
+[ext_resource type="Texture2D" uid="uid://cucgybt6ybemg" path="res://assets/textures/grids/Orange/texture_01.png" id="2_cmdg6"]
+[ext_resource type="Script" uid="uid://oxhbgwgu4ubb" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_cmdg6"]
+[ext_resource type="Script" uid="uid://codu3ye6wrwru" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_qeljo"]
+[ext_resource type="Script" uid="uid://tuyhsdndtw6d" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_74pvo"]
+[ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="6_83b4d"]
+[ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu_ui.tscn" id="8_83b4d"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="9_cmdg6"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6j41v"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_83b4d"]
+sky_material = SubResource("ProceduralSkyMaterial_6j41v")
+
+[sub_resource type="Environment" id="Environment_cmdg6"]
+background_mode = 2
+sky = SubResource("Sky_83b4d")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_267og"]
+albedo_texture = ExtResource("2_cmdg6")
+uv1_triplanar = true
+
+[sub_resource type="Resource" id="Resource_cmdg6"]
+script = ExtResource("5_74pvo")
+duration = 1.0
+transition = 0
+ease = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qeljo"]
+albedo_texture = ExtResource("2_cmdg6")
+uv1_triplanar = true
+
+[sub_resource type="Animation" id="Animation_cmdg6"]
+resource_name = "show_menu"
+length = 1.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7),
+"transitions": PackedFloat32Array(0.3, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainMenuUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qeljo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MainMenuUI:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_74pvo"]
+_data = {
+&"RESET": SubResource("Animation_qeljo"),
+&"show_menu": SubResource("Animation_cmdg6")
+}
+
+[node name="MainMenuPrototype" type="Node3D"]
+script = ExtResource("1_cmdg6")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cmdg6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 6.59056, 24.0057)
+shadow_enabled = true
+
+[node name="floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = SubResource("StandardMaterial3D_267og")
+use_collision = true
+size = Vector3(1000, 1, 1000)
+
+[node name="hero" parent="." instance=ExtResource("2_83b4d")]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.422776, 1.36093, -1.97907)
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("3_cmdg6")
+
+[node name="PhantomCamera3D" type="Node3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.422776, 1.36093, -1.97907)
+script = ExtResource("4_qeljo")
+priority = 100
+tween_resource = SubResource("Resource_cmdg6")
+camera_3d_resource = ExtResource("6_83b4d")
+metadata/_custom_type_script = "uid://codu3ye6wrwru"
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.5, 2.997, 0.625)
+material_override = SubResource("StandardMaterial3D_qeljo")
+size = Vector3(25, 15, 0.293652)
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -265.0
+offset_right = 111.0
+offset_bottom = -227.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("9_cmdg6")
+theme_override_font_sizes/font_size = 32
+text = "press_any_button"
+
+[node name="MainMenuUI" parent="." instance=ExtResource("8_83b4d")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_74pvo")
+}
