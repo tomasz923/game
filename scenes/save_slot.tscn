@@ -1,74 +1,92 @@
-[gd_scene load_steps=4 format=3 uid="uid://dkloeunnxd5f"]
+[gd_scene load_steps=5 format=3 uid="uid://dkloeunnxd5f"]
 
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="2_6hgng"]
 [ext_resource type="Theme" uid="uid://dowx0156xohdr" path="res://game/resources/save_slot.tres" id="2_7xv0t"]
 [ext_resource type="Script" uid="uid://db14neuq6mlm" path="res://game/scripts/save_slot.gd" id="2_b0031"]
 [ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="2_xe61w"]
 
-[node name="save_slot" type="Control"]
+[node name="SaveSlot" type="Control"]
 custom_minimum_size = Vector2(750, 130)
 layout_mode = 3
+anchors_preset = 0
+offset_right = 750.0
+offset_bottom = 130.0
+size_flags_horizontal = 4
+script = ExtResource("2_b0031")
+
+[node name="Background" type="NinePatchRect" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
-script = ExtResource("2_b0031")
+texture = ExtResource("2_6hgng")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -375.0
-offset_top = -65.0
-offset_right = 375.0
-offset_bottom = 65.0
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
-
-[node name="Button" type="Button" parent="VBoxContainer"]
+[node name="Button" type="Button" parent="."]
 custom_minimum_size = Vector2(750, 130)
 layout_mode = 2
+offset_right = 750.0
+offset_bottom = 130.0
 theme = ExtResource("2_7xv0t")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Button"]
-layout_mode = 0
-offset_left = 5.0
-offset_top = 5.0
-offset_right = 255.0
-offset_bottom = 101.0
+[node name="SaveFileContainer" type="HBoxContainer" parent="Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 10
 
-[node name="screenshot_image" type="TextureRect" parent="VBoxContainer/Button/HBoxContainer"]
+[node name="Screenshot" type="TextureRect" parent="Button/SaveFileContainer"]
 custom_minimum_size = Vector2(220, 0)
 layout_mode = 2
 mouse_filter = 2
 
-[node name="Control" type="Control" parent="VBoxContainer/Button/HBoxContainer"]
+[node name="SaveFileData" type="VBoxContainer" parent="Button/SaveFileContainer"]
 layout_mode = 2
-mouse_filter = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Button/HBoxContainer/Control"]
-layout_mode = 0
-offset_top = -7.0
-offset_right = 156.0
-offset_bottom = 119.0
 mouse_filter = 2
 alignment = 1
 
-[node name="save_name" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
+[node name="TimeSpent" type="Label" parent="Button/SaveFileContainer/SaveFileData"]
 layout_mode = 2
+text = "5h 30m"
 label_settings = ExtResource("2_xe61w")
 
-[node name="level_label" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
+[node name="CharacterInfoContainer" type="HBoxContainer" parent="Button/SaveFileContainer/SaveFileData"]
+layout_mode = 2
+
+[node name="ClassLabel" type="Label" parent="Button/SaveFileContainer/SaveFileData/CharacterInfoContainer"]
 layout_mode = 2
 mouse_filter = 1
+text = "Woźny"
 
-[node name="date_label" type="Label" parent="VBoxContainer/Button/HBoxContainer/Control/VBoxContainer"]
+[node name="SpaceLabel" type="Label" parent="Button/SaveFileContainer/SaveFileData/CharacterInfoContainer"]
 layout_mode = 2
+mouse_filter = 1
+text = " - "
 
-[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[node name="CSLevelLabel" type="Label" parent="Button/SaveFileContainer/SaveFileData/CharacterInfoContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "save_slot_level_label"
+
+[node name="LevelLabel" type="Label" parent="Button/SaveFileContainer/SaveFileData/CharacterInfoContainer"]
+layout_mode = 2
+mouse_filter = 1
+text = "69"
+
+[node name="GameMapLabel" type="Label" parent="Button/SaveFileContainer/SaveFileData"]
+layout_mode = 2
+text = "Polska"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

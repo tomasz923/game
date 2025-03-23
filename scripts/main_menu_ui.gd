@@ -38,7 +38,7 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var options_screen_node: Control = $OptionsNode/OptionsScreenNode
 @onready var display_settings: OptionButton = $OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/DisplaySettings
 @onready var display_resolution: OptionButton = $OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/DisplayResolution
-@onready var scaling_label: Label = $OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn/ScalingLabel
+@onready var resolution_scaling_label: Label = $OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn/ResolutionContainer/ResolutionScalingLabel
 @onready var scaling_option: OptionButton = $OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn/ScalingOption
 @onready var display_screen_settings: OptionButton = $OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/DisplayScreenSettings
 @onready var v_sync_settings: OptionButton = $OptionsNode/OptionsScreenNode/OptionsScreenContainer/ScreenRightColumn/VSyncSettings
@@ -50,46 +50,22 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var language_options: OptionButton = $OptionsNode/OptionsGameNode/OptionsGameContainer/GameRightColumn/LanguageOptions
 @onready var main_menu_node: Control = $MainMenuNode
 @onready var load_game_node: Control = $LoadGameNode
+@onready var fsr_notice: Label = $OptionsNode/OptionsGraphicsNode/Notice/NoticeContainer/FSRNotice
 
-#OLD
-#@onready var parent_node = get_parent()
-#@onready var display_settings = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/fscreen_options/display_settings
-#@onready var display_resolution = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/screen_options/display_resolution
-#@onready var label_scale = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/first_vbox_graphics/resolution_box/label_scale
-#@onready var scaling_option = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/scaling_hbox/scaling_option
-#@onready var game_resolution = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/game_resolution
-#@onready var frs_scaling = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/resolution_hbox/game_resolution_vbox/frs_scaling
-#@onready var display_screen_settings = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/display_screen_hbox/display_screen_settings
-#@onready var vsync_settings = $options/options_body_screen/options_screen_margins/main_hbox_screen/second_main_container/vsync_options/vsync_settings
-#@onready var language_option = $options/options_body_game/options_game_margines/options_game_hbox/second_vbox_game/language_option
-#@onready var aa_option = $options/options_body_graphics/options_graphics_margines/options_graphics_hbox/second_vbox_graphics/aa_hbox/aa_option
-#@onready var mouse_sens_slider = $options/options_body_controls/options_controls_margines/options_controls_hbox/second_vbox_controls/mouse_hbox/mouse_sens_slider
-#@onready var master_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/master_slider
-#@onready var music_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/music_slider
-#@onready var ui_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/ui_slider
-#@onready var sfx_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/sfx_slider
-#@onready var voice_slider = $options/options_body_audio/options_audio_margins/options_audio_hbox/second_vbox_audio/voice_slider
 @onready var save_slots_container: VBoxContainer = $LoadGameNode/ScrollContainer/SaveSlotsContainer
-@onready var new_save_slot_button: Button = $LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotButton
-#@onready var save_game = $main_menu/MarginContainer/main_menu/SaveGame
+@onready var new_save_slot_button: Button = $LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotBackground/NewSaveSlotButton
+@onready var new_save_slot_background: NinePatchRect = $LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotBackground
 
 
 func _ready():
-	#Global.read_last_mod()
-	#if not Global.is_initial_load_ready:
 	Global.user_prefs = UserPreferences.load_or_create()
-	#Global.sort_save_slots()	
 	add_resolutions()
 	add_screens()
 	
-#TODO what is this shit?
 	if Global.is_initial_load_ready:
-		#print('Everything was already loaded')
 		set_values()
 	else:
-		#Global.temp_debugging()
 		load_settings()
-		#print('Successul load')
 		Global.is_initial_load_ready = true
 
 func loading_game_from_menu():
@@ -103,15 +79,12 @@ func _on_continue_pressed():
 	button_pressed.play()
 
 func _on_save_game_pressed():
-	new_save_slot_button.visible = true
+	new_save_slot_background.visible = true
 	Global.is_about_to_load_game = false
 	Global.collect_save_files()
 	Global.load_save_slots(save_slots_container)
-	$load_game.visible = true
+	load_game_node.visible = true
 	main_menu_node.visible = false
-	#new_save_slot_button.visible = true
-	#get_tree().call_group('main_menu', 'take_players_positions')
-	#Global.save_game(save_slots_container)
 
 func _on_new_save_slot_button_pressed():
 	Global.save_game(save_slots_container)
@@ -130,7 +103,7 @@ func _on_new_game_pressed() -> void:
 
 func _on_load_game_pressed():
 	return_buttons_container.visible = true
-	new_save_slot_button.visible = false
+	new_save_slot_background.visible = false
 	Global.is_about_to_load_game = true
 	Global.collect_save_files()
 	Global.load_save_slots(save_slots_container)
@@ -161,8 +134,9 @@ func options_node_changed(button_toggled: Button, screen_chosen: Control):
 func _on_audio_button_pressed():
 	options_node_changed(audio_button, options_audio_node)
 
-func _on_back_button_pressed():
-	button_pressed.play()
+func _on_back_button_pressed(play_sound: bool = true):
+	if play_sound:
+		button_pressed.play()
 	return_buttons_container.visible = false
 	main_menu_node.visible = true
 	options_node.visible = false
@@ -232,13 +206,23 @@ func load_settings():
 			game_resolution_scale.visible = true
 			game_resolution_scale.value = Global.user_prefs.game_resolution_value_selected
 			_on_game_resolution_value_changed(Global.user_prefs.game_resolution_value_selected)
+			fsr_notice.visible = false
 		1:
-			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR2)
+			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR)
+			resolution_scaling_label.visible = true 
 			frs_scaling.visible = true 
 			game_resolution_scale.visible = false
 			frs_scaling.select(Global.user_prefs.scaling_item_selected)
 			_on_frs_scaling_item_selected(Global.user_prefs.scaling_item_selected)
-			
+			fsr_notice.visible = false
+		2:
+			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR2)
+			resolution_scaling_label.visible = true 
+			frs_scaling.visible = true 
+			game_resolution_scale.visible = false
+			frs_scaling.select(Global.user_prefs.scaling_item_selected)
+			_on_frs_scaling_item_selected(Global.user_prefs.scaling_item_selected)
+			fsr_notice.visible = true
 	#Language
 	language_options.select(Global.user_prefs.chosen_language)
 	match Global.user_prefs.chosen_language:
@@ -470,15 +454,15 @@ func _on_graphics_button_pressed():
 	var value = Global.user_prefs.game_resolution_value_selected
 	var resolution_scale = value/100.00
 	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
-	scaling_label.set_text(str(value)+"% - "+ resolution_text)
+	resolution_scaling_label.set_text(str(value)+"% - "+ resolution_text)
 
 func _on_game_resolution_value_changed(value):
 	Global.user_prefs.game_resolution_value_selected = value
 	Global.user_prefs.save()
 	var resolution_scale = value/100.00
-	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
+	var resolution_text = str(int(round(get_window().get_size().x*resolution_scale)))+"x"+str(int(round(get_window().get_size().y*resolution_scale)))
 	
-	scaling_label.set_text(str(value)+"% - "+ resolution_text)
+	resolution_scaling_label.set_text(str(value)+"% - "+ resolution_text)
 	get_viewport().set_scaling_3d_scale(resolution_scale)
 
 func _on_scaling_option_item_selected(index):
@@ -487,18 +471,29 @@ func _on_scaling_option_item_selected(index):
 	match index:
 		0:
 			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_BILINEAR)
-			scaling_label.visible = true 
+			resolution_scaling_label.visible = true 
 			frs_scaling.visible = false 
 			game_resolution_scale.visible = true
 			game_resolution_scale.value = 100
 			_on_game_resolution_value_changed(100)
+			fsr_notice.visible = false
 		1:
-			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR2)
-			scaling_label.visible = true 
+			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR)
+			resolution_scaling_label.visible = true 
 			frs_scaling.visible = true 
 			game_resolution_scale.visible = false
 			frs_scaling.select(3)
 			_on_frs_scaling_item_selected(3)
+			fsr_notice.visible = false
+		2:
+			get_viewport().set_scaling_3d_mode(Viewport.SCALING_3D_MODE_FSR2)
+			resolution_scaling_label.visible = true 
+			frs_scaling.visible = true 
+			game_resolution_scale.visible = false
+			frs_scaling.select(3)
+			_on_frs_scaling_item_selected(3)
+			fsr_notice.visible = true
+			
 
 func _on_frs_scaling_item_selected(index):
 	Global.user_prefs.scaling_item_selected = index
@@ -512,6 +507,11 @@ func _on_frs_scaling_item_selected(index):
 			_on_game_resolution_value_changed(67.00)
 		3:
 			_on_game_resolution_value_changed(77.00)
+		4:
+			if Global.user_prefs.scaling_option_item_selected == 1:
+				_on_game_resolution_value_changed(99.00)
+			else:
+				_on_game_resolution_value_changed(100.00)
 
 ## Gameplay Options
 func _on_game_button_pressed():

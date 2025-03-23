@@ -60,6 +60,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.313726)
 
 [node name="MainMenuNode" type="Control" parent="."]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -467,6 +468,13 @@ layout_mode = 2
 text = "scaling_type"
 label_settings = SubResource("LabelSettings_yomp8")
 
+[node name="FSRSharpnessLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn"]
+visible = false
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
+text = "fsr_sharpness"
+label_settings = SubResource("LabelSettings_yomp8")
+
 [node name="ResolutionContainer" type="VBoxContainer" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn"]
 layout_mode = 2
 theme_override_constants/separation = 0
@@ -477,7 +485,7 @@ layout_mode = 2
 text = "in_game_resolution"
 label_settings = SubResource("LabelSettings_yomp8")
 
-[node name="ScaleLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn/ResolutionContainer"]
+[node name="ResolutionScalingLabel" type="Label" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsLeftColumn/ResolutionContainer"]
 layout_mode = 2
 text = "100% "
 vertical_alignment = 1
@@ -492,7 +500,7 @@ layout_mode = 2
 theme = ExtResource("6_ky3i7")
 alignment = 1
 item_count = 3
-popup/item_0/text = "none"
+popup/item_0/text = "none_"
 popup/item_0/id = 0
 popup/item_1/text = "FXAA"
 popup/item_1/id = 1
@@ -504,11 +512,18 @@ custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("6_ky3i7")
 alignment = 1
-item_count = 2
+item_count = 3
 popup/item_0/text = "Bilinear"
 popup/item_0/id = 0
-popup/item_1/text = "AMD FSR 2.0"
+popup/item_1/text = "AMD FSR 1.0"
 popup/item_1/id = 1
+popup/item_2/text = "AMD FSR 2.2"
+popup/item_2/id = 2
+
+[node name="SharpnessSlider" type="HSlider" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn"]
+visible = false
+custom_minimum_size = Vector2(360, 40)
+layout_mode = 2
 
 [node name="ResolutionContainer" type="VBoxContainer" parent="OptionsNode/OptionsGraphicsNode/OptionsGraphicsContainer/GraphicsRightCOlumn"]
 custom_minimum_size = Vector2(356, 38)
@@ -528,7 +543,7 @@ custom_minimum_size = Vector2(360, 40)
 layout_mode = 2
 theme = ExtResource("6_ky3i7")
 alignment = 1
-item_count = 4
+item_count = 5
 popup/item_0/text = "performance_fsr"
 popup/item_0/id = 0
 popup/item_1/text = "balanced_fsr"
@@ -537,6 +552,45 @@ popup/item_2/text = "quality_fsr"
 popup/item_2/id = 2
 popup/item_3/text = "ultra_quality_fsr"
 popup/item_3/id = 3
+popup/item_4/text = "native_quality"
+popup/item_4/id = 4
+
+[node name="Notice" type="Control" parent="OptionsNode/OptionsGraphicsNode"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NoticeContainer" type="HBoxContainer" parent="OptionsNode/OptionsGraphicsNode/Notice"]
+custom_minimum_size = Vector2(770, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -385.0
+offset_top = 196.0
+offset_right = 385.0
+offset_bottom = 236.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="FSRNotice" type="Label" parent="OptionsNode/OptionsGraphicsNode/Notice/NoticeContainer"]
+visible = false
+custom_minimum_size = Vector2(770, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("9_5868w")
+theme_override_font_sizes/font_size = 24
+text = "fsr_notice"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="OptionsGameNode" type="Control" parent="OptionsNode"]
 visible = false
@@ -642,33 +696,61 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="LoadGameNode"]
+custom_minimum_size = Vector2(765, 880)
 layout_mode = 1
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -380.0
-offset_top = 100.0
-offset_right = 385.0
-offset_bottom = -100.0
+anchor_bottom = 0.5
+offset_left = -382.5
+offset_top = -440.0
+offset_right = 382.5
+offset_bottom = 440.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SaveSlotsContainer" type="VBoxContainer" parent="LoadGameNode/ScrollContainer"]
 layout_mode = 2
 
-[node name="NewSaveSlotButton" type="Button" parent="LoadGameNode/ScrollContainer/SaveSlotsContainer"]
+[node name="NewSaveSlotBackground" type="NinePatchRect" parent="LoadGameNode/ScrollContainer/SaveSlotsContainer"]
+visible = false
 custom_minimum_size = Vector2(750, 130)
 layout_mode = 2
+texture = ExtResource("3_8oxfq")
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2
+
+[node name="NewSaveSlotButton" type="Button" parent="LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotBackground"]
+custom_minimum_size = Vector2(750, 130)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -375.0
+offset_top = -65.0
+offset_right = 375.0
+offset_bottom = 65.0
+grow_horizontal = 2
+grow_vertical = 2
 theme = ExtResource("10_0atvn")
 text = "new_save_slot"
 
 [node name="ReturnButtonsContainer" type="VBoxContainer" parent="."]
 visible = false
-layout_mode = 2
-offset_top = 997.0
-offset_right = 1920.0
-offset_bottom = 1035.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -95.0
+offset_bottom = -57.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="BackButton" type="Button" parent="ReturnButtonsContainer"]
 layout_mode = 2
@@ -724,6 +806,6 @@ text = "PROTOTYPE 0.5"
 [connection signal="pressed" from="OptionsNode/SettingsContainer/ScreenButton" to="." method="_on_screen_button_pressed"]
 [connection signal="pressed" from="OptionsNode/SettingsContainer/GraphicsButton" to="." method="_on_graphics_button_pressed"]
 [connection signal="pressed" from="OptionsNode/SettingsContainer/GameButton" to="." method="_on_game_button_pressed"]
-[connection signal="pressed" from="LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotButton" to="." method="_on_new_save_slot_button_pressed"]
+[connection signal="pressed" from="LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotBackground/NewSaveSlotButton" to="." method="_on_new_save_slot_button_pressed"]
 [connection signal="pressed" from="ReturnButtonsContainer/BackButton" to="." method="_on_back_button_pressed"]
 [connection signal="pressed" from="ReturnButtonsContainer/ResetButton" to="." method="_on_reset_button_pressed"]

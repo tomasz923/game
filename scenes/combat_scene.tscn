@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cuf47hpnlldqa" path="res://game/scripts/combat_scene.gd" id="1_xgfvd"]
 [ext_resource type="Resource" uid="uid://4ypywmtnfu45" path="res://game/moves/resources/hack_and_slash.tres" id="2_jwo0m"]
 [ext_resource type="PackedScene" uid="uid://ctvucajwtawka" path="res://game/scenes/moves_panel.tscn" id="2_nvigt"]
-[ext_resource type="Script" uid="uid://bssxnxueyyk4s" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bhlda"]
+[ext_resource type="Script" uid="uid://codu3ye6wrwru" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bhlda"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_4dwsc"]
 [ext_resource type="PackedScene" uid="uid://mnsi23vb68p2" path="res://game/scenes/clickable_window.tscn" id="4_tmx8r"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_3l230"]

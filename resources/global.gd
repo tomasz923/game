@@ -23,22 +23,71 @@ var save_state: Dictionary = {
 }
 # For easier access to UI nodes
 var current_scene: Node3D
+var current_combat_scene: CombatScene
 # For easier access to the team for combat scenes and other nodes
+# Allows for the player to move.
+var allow_movement = false 
+# -----------
 var hero: Hero
 var first_follower: Follower
 var second_follower: Follower
 var third_follower: Follower
+# -----------
 # So it knows if it should hide the cursor after leaving a menu
 var cursors_visible_in_game = false
-# ----------------------------- TO BE CHECKED
-var temp_var #??
 # Resource hold the same for all saves storing user preferences
 var user_prefs: UserPreferences
+# So it can be differentiated between enetering a scene vs loading it
+var is_scene_being_loaded: bool = false
+# Saved as a part of a save file
+var screenshot: Image 
+# For initail load of resolution, sound settings etc.
 var is_initial_load_ready = false
-var is_rolling_dice_now: bool = false
+# If th game cane be paused
+var is_pausable: bool = true
 #This variable checks if it is possible to save a game
 var is_eligible_for_saving: bool = true
-var scene_being_loaded
+# To know how to understand pressed Escape
+var current_ui_mode: String = "none"
+
+#Combat 
+var shuffled_allies: Array
+var turn_order: int
+
+#Variables for Player's choices
+var state_var_dialogue: Dictionary = { 
+	"talker": "ERROR",
+	"has_met_demo": false, #test
+	"name": "Anthony",
+	"rolled_number": 0,
+	"str": 1,
+	"test_1": 1,
+	"test_2": 1,
+	'the_quest_is_active': false,
+	'the_quest_is_done': false
+}
+
+var journal: Dictionary = {
+	'q_test_quest' = {
+		'status': 1, 
+		'updates': ['qi_test_quest']
+	},
+	'q_test_quest_2' = {
+		'status': 2, 
+		'updates': ['qi_test_quest_2', '0']
+	},
+	'q_test_quest_3' = {
+		'status': 3, 
+		'updates': ['qi_test_quest_3', '4']
+	}
+}
+
+#Dictionary for Moves and its Attribute
+var roll_types: Dictionary = {
+	"persuade": "str"
+}
+# ----------------------------- TO BE CHECKED
+var is_rolling_dice_now: bool = false
 #This variable holds a path to a fiel that is about to ba loaded. It changes when clciking on a save slot in a loading mode:
 var save_file_being_loaded
 #To mark current save slot of the quicksave
@@ -47,8 +96,6 @@ var quick_save_file_path
 var save_file_to_be_removed
 
 #var current_scene: String 
-var current_combat_scene
-var screenshot:Image #Saved as a part of a save file
 var save_files
 var highest_save_number:int = 0
 var savegame_tres_files = []
@@ -57,9 +104,6 @@ var saves_path = ("res://saves/")
 var save_slot = preload("res://game/scenes/save_slot.tscn")
 var is_about_to_load_game:bool #Whether the save slots are created for saving or loading; if saving - skip autosaves and quickloads
 var last_save_file_path:String
-var allow_movement = false #Allows for the player to move.
-
-var player_position: Vector3
 
 #Dialogue
 var dialogue_box = null #Path to the dialogue box in a local scene. Should be established at the ready.
@@ -80,26 +124,24 @@ var player_cam = null
 var dice_rolls_data: Dictionary
 var journal_entries_data: Dictionary
 
-#Gameplay modes
-var current_ui_mode: String = "none"
-var pausable: bool = true
-
-#Combat 
-var shuffled_allies: Array
-var turn_order: int
-
-#Variables for Player's choices
-var state_var_dialogue: Dictionary = { #Variables for Player's choices
-	"talker": "ERROR",
-	"has_met_demo": false, #test
-	"name": "Anthony",
-	"rolled_number": 0,
-	"str": 1,
-	"test_1": 1,
-	"test_2": 1,
-	'the_quest_is_active': false,
-	'the_quest_is_done': false
-}
+func _input(_event):
+	if Input.is_action_just_pressed("ui_cancel"):
+		if current_ui_mode == "none" and is_pausable:  # Check if not already paused
+			if allow_movement == true:
+				allow_movement = false
+				current_scene.hero.animation_player.play("idle")
+			current_ui_mode = "main_menu"
+			#current_scene.get_tree().set_pause(true)
+			take_screenshot()
+			current_scene.main_menu_ui._on_back_button_pressed(false)
+			current_scene.main_menu_ui.visible = true
+			switch_cursor_visibility(true)
+		elif current_ui_mode == "main_menu":
+			allow_movement = true
+			current_ui_mode = "none"
+			#current_scene.get_tree().set_pause(false)
+			switch_cursor_visibility(false)
+			current_scene.main_menu_ui.visible = false
 
 	#Journal Statuses:
 	#	0 - HIDDEN
@@ -107,27 +149,6 @@ var state_var_dialogue: Dictionary = { #Variables for Player's choices
 	#	2 - DONE
 	#	3 - FAILED
 	#	4 - OTHER
-var journal: Dictionary = {
-	'q_test_quest' = {
-		'status': 1, 
-		'updates': ['qi_test_quest', 'NARR_INTRO_02', 'NARR_INTRO_01' , 'qi_test_quest', 'NARR_INTRO_02', 'NARR_INTRO_01', 'qi_test_quest', 'NARR_INTRO_02', 'NARR_INTRO_01']
-	},
-	'q_test_quest_2' = {
-		'status': 2, 
-		'updates': ['qi_test_quest_2', '0']
-	},
-	'q_test_quest_3' = {
-		'status': 3, 
-		'updates': ['qi_test_quest_3', '4']
-	}
-}
-
-#Dictionary for Moves and its Attribute
-var roll_types: Dictionary = {
-	"persuade": "str"
-}
-
-var debug_var: bool = false
 
 func read_dice_rolls():
 	var file = "res://assets/json/dice_variables.json"
@@ -262,7 +283,7 @@ func load_save_slots(vbox_container):
 	
 	#Removing all nodes in the vbox container except the "new save button" (so removing all save slots)
 	for n in vbox_container.get_children():
-		if n.name != 'new_save_slot_button':
+		if n.name != 'NewSaveSlotBackground':
 			vbox_container.remove_child(n)
 			n.queue_free() 
 		

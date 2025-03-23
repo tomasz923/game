@@ -1,4 +1,5 @@
 extends Node3D
+class_name CombatScene
 
 signal combat_was_triggerred(combat_name: String)
 signal all_status_effects_checked()
@@ -122,14 +123,19 @@ func trigger_combat():
 
 func start_combat():
 	# So if the player enters the combat while altering visuals roation by A, S or D, it looks correct in combat now:
-	Global.hero.visuals.rotation = Vector3(0, 0, 0)
+	Global.current_scene.hero.visuals.rotation = Vector3(0, 0, 0)
 	Global.allow_movement = false
 	Global.change_phantom_camera(main_pcam, 0.0)
 	Global.turn_order = -1
 	Global.current_combat_scene = self
 	ui.visible = true
 	clickable_enemy_window_node.visible = true
-	all_allies = [Global.hero, Global.first_follower, Global.second_follower, Global.third_follower]
+	all_allies = [
+		Global.current_scene.hero, 
+		Global.current_scene.follower_one, 
+		Global.current_scene.follower_two, 
+		Global.current_scene.follower_three
+		]
 	assign_allied_slots()
 	spawn_enemies()
 	initiate_next_turn()

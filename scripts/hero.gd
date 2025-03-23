@@ -64,7 +64,6 @@ func _process(_delta):
 		if is_in_combat:
 			combat_pcam_left.look_at(combat_pcam_target)
 			combat_pcam_right.look_at(combat_pcam_target)
-
 		
 	if is_returning_from_melee:
 		var distance = global_transform.origin.distance_to(main_spot)
@@ -88,8 +87,6 @@ func _input(event):
 		camera_mount.rotate_x(deg_to_rad(-event.relative.y*user_prefs.mouse_sensitivity))
 
 func _physics_process(delta):
-	Global.player_position = global_position
-	
 	if !Global.allow_movement:
 		return
 		
