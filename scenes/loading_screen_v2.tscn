@@ -1,9 +1,74 @@
-[gd_scene load_steps=3 format=3 uid="uid://cnr40bvua2o84"]
+[gd_scene load_steps=8 format=3 uid="uid://cnr40bvua2o84"]
 
 [ext_resource type="Script" uid="uid://b6lbd51dnxgat" path="res://game/scripts/loading_screen_v2.gd" id="1_xpsfk"]
-[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_owjqd"]
+[ext_resource type="Texture2D" uid="uid://cyn7rc7xpk7m" path="res://assets/textures/ui/loading_symbol_2.png" id="2_lyi10"]
+[ext_resource type="Texture2D" uid="uid://brkcmlpk3go8i" path="res://assets/textures/ui/loading_symbol_1.png" id="3_41o80"]
+[ext_resource type="LabelSettings" uid="uid://b27msmfi1mbn1" path="res://game/resources/labels_theme.tres" id="4_ygwlf"]
 
-[node name="Control" type="Control"]
+[sub_resource type="Animation" id="Animation_1o13x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LoadingSymbol/Inner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LoadingSymbol/Outer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_xaqs5"]
+resource_name = "loading_symbol_rotation"
+length = 5.0
+loop_mode = 1
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LoadingSymbol/Inner:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 6.28319]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LoadingSymbol/Outer:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, -6.28319]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0hxxy"]
+_data = {
+&"RESET": SubResource("Animation_1o13x"),
+&"loading_symbol_rotation": SubResource("Animation_xaqs5")
+}
+
+[node name="LoadingScreen" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +76,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xpsfk")
+metadata/_edit_vertical_guides_ = [960.0]
+metadata/_edit_horizontal_guides_ = [540.0]
 
 [node name="Background" type="ColorRect" parent="."]
 layout_mode = 1
@@ -21,19 +88,68 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="Countdown" type="Label" parent="."]
+[node name="LoadingSymbol" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -71.0
-offset_top = -74.0
-offset_right = 71.0
-offset_bottom = 74.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_fonts/font = ExtResource("2_owjqd")
-theme_override_font_sizes/font_size = 126
-text = "0%"
+
+[node name="Inner" type="TextureRect" parent="LoadingSymbol"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(200.011, 199.973)
+texture = ExtResource("2_lyi10")
+
+[node name="Outer" type="TextureRect" parent="LoadingSymbol"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -200.0
+offset_right = 200.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(200, 200)
+texture = ExtResource("3_41o80")
+
+[node name="GearAnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_0hxxy")
+}
+autoplay = "loading_symbol_rotation"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -98.0
+offset_top = 122.0
+offset_right = 98.0
+offset_bottom = 160.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "loading_label"
+label_settings = ExtResource("4_ygwlf")
+horizontal_alignment = 1
+vertical_alignment = 1

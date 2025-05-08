@@ -60,7 +60,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.313726)
 
 [node name="MainMenuNode" type="Control" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -107,36 +106,37 @@ size_flags_horizontal = 4
 theme = ExtResource("6_ky3i7")
 alignment = 1
 
-[node name="Continue" type="Button" parent="MainMenuNode/MainMenuContainer"]
+[node name="ContinueButton" type="Button" parent="MainMenuNode/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("2_8oxfq")
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
 text = "menu_con"
 
-[node name="NewGame" type="Button" parent="MainMenuNode/MainMenuContainer"]
+[node name="NewGameButton" type="Button" parent="MainMenuNode/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("2_8oxfq")
 text = "menu_new"
 
-[node name="SaveGame" type="Button" parent="MainMenuNode/MainMenuContainer"]
+[node name="SaveGameButton" type="Button" parent="MainMenuNode/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("2_8oxfq")
 theme_override_constants/outline_size = 0
 theme_override_constants/h_separation = 0
+disabled = true
 text = "menu_save"
 
-[node name="LoadGame" type="Button" parent="MainMenuNode/MainMenuContainer"]
+[node name="LoadGameButton" type="Button" parent="MainMenuNode/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("2_8oxfq")
 text = "menu_load"
 
-[node name="Options" type="Button" parent="MainMenuNode/MainMenuContainer"]
+[node name="OptionsButton" type="Button" parent="MainMenuNode/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("2_8oxfq")
 text = "menu_options"
 
-[node name="Exit" type="Button" parent="MainMenuNode/MainMenuContainer"]
+[node name="ExitButton" type="Button" parent="MainMenuNode/MainMenuContainer"]
 layout_mode = 2
 theme = ExtResource("2_8oxfq")
 text = "menu_exit"
@@ -741,7 +741,6 @@ theme = ExtResource("10_0atvn")
 text = "new_save_slot"
 
 [node name="ReturnButtonsContainer" type="VBoxContainer" parent="."]
-visible = false
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -751,6 +750,29 @@ offset_top = -95.0
 offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/separation = 10
+
+[node name="LoadSaveButtons" type="HBoxContainer" parent="ReturnButtonsContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="LoadButton" type="Button" parent="ReturnButtonsContainer/LoadSaveButtons"]
+visible = false
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+text = "load_button"
+
+[node name="SaveButton" type="Button" parent="ReturnButtonsContainer/LoadSaveButtons"]
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+text = "save_button"
+
+[node name="DeleteButton" type="Button" parent="ReturnButtonsContainer/LoadSaveButtons"]
+layout_mode = 2
+theme = ExtResource("6_ky3i7")
+text = "delete_button"
 
 [node name="BackButton" type="Button" parent="ReturnButtonsContainer"]
 layout_mode = 2
@@ -779,12 +801,12 @@ grow_vertical = 0
 theme_override_fonts/font = ExtResource("9_5868w")
 text = "PROTOTYPE 0.5"
 
-[connection signal="pressed" from="MainMenuNode/MainMenuContainer/Continue" to="." method="_on_continue_pressed"]
-[connection signal="pressed" from="MainMenuNode/MainMenuContainer/NewGame" to="." method="_on_new_game_pressed"]
-[connection signal="pressed" from="MainMenuNode/MainMenuContainer/SaveGame" to="." method="_on_save_game_pressed"]
-[connection signal="pressed" from="MainMenuNode/MainMenuContainer/LoadGame" to="." method="_on_load_game_pressed"]
-[connection signal="pressed" from="MainMenuNode/MainMenuContainer/Options" to="." method="_on_options_pressed"]
-[connection signal="pressed" from="MainMenuNode/MainMenuContainer/Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/ContinueButton" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/NewGameButton" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/SaveGameButton" to="." method="_on_save_game_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/LoadGameButton" to="." method="_on_load_game_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/OptionsButton" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MainMenuNode/MainMenuContainer/ExitButton" to="." method="_on_exit_pressed"]
 [connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/MasterSlider" to="." method="_on_master_slider_value_changed"]
 [connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/UISlider" to="." method="_on_ui_slider_value_changed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=35 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" uid="uid://b3fgcn6odsah" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/textures/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
 [ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu_ui.tscn" id="17_scav7"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="21_m3ehy"]
+[ext_resource type="PackedScene" uid="uid://daj2qd6n0kmqf" path="res://game/scenes/ready_to_play.tscn" id="22_hk75s"]
 [ext_resource type="PackedScene" uid="uid://dfoih408r3vqi" path="res://game/scenes/screen_transiton.tscn" id="23_2pwpc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
@@ -67,7 +68,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_scav7"]
+[sub_resource type="Resource" id="Resource_hk75s"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -180,12 +181,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_scav7")
-second_enemy_stats = SubResource("Resource_scav7")
-third_enemy_stats = SubResource("Resource_scav7")
-fourth_enemy_stats = SubResource("Resource_scav7")
-fifth_enemy_stats = SubResource("Resource_scav7")
-sixth_enemy_stats = SubResource("Resource_scav7")
+first_enemy_stats = SubResource("Resource_hk75s")
+second_enemy_stats = SubResource("Resource_hk75s")
+third_enemy_stats = SubResource("Resource_hk75s")
+fourth_enemy_stats = SubResource("Resource_hk75s")
+fifth_enemy_stats = SubResource("Resource_hk75s")
+sixth_enemy_stats = SubResource("Resource_hk75s")
 
 [node name="MainMenuUI" parent="." instance=ExtResource("17_scav7")]
 visible = false
@@ -212,6 +213,8 @@ grow_vertical = 1
 
 [node name="ScreenTransiton" parent="." instance=ExtResource("23_2pwpc")]
 visible = false
+
+[node name="ReadyToPlay" parent="." instance=ExtResource("22_hk75s")]
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2928, 0, 0)

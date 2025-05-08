@@ -51,13 +51,25 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var main_menu_node: Control = $MainMenuNode
 @onready var load_game_node: Control = $LoadGameNode
 @onready var fsr_notice: Label = $OptionsNode/OptionsGraphicsNode/Notice/NoticeContainer/FSRNotice
+@onready var continue_button: Button = $MainMenuNode/MainMenuContainer/ContinueButton
+@onready var new_game_button: Button = $MainMenuNode/MainMenuContainer/NewGameButton
+@onready var save_game_button: Button = $MainMenuNode/MainMenuContainer/SaveGameButton
+@onready var load_game_button: Button = $MainMenuNode/MainMenuContainer/LoadGameButton
+@onready var options_button: Button = $MainMenuNode/MainMenuContainer/OptionsButton
+@onready var load_save_buttons: HBoxContainer = $ReturnButtonsContainer/LoadSaveButtons
+@onready var exit_button: Button = $MainMenuNode/MainMenuContainer/ExitButton
+@onready var load_button: Button = $ReturnButtonsContainer/LoadSaveButtons/LoadButton
+@onready var save_button: Button = $ReturnButtonsContainer/LoadSaveButtons/SaveButton
+@onready var delete_button: Button = $ReturnButtonsContainer/LoadSaveButtons/DeleteButton
+
 
 @onready var save_slots_container: VBoxContainer = $LoadGameNode/ScrollContainer/SaveSlotsContainer
 @onready var new_save_slot_button: Button = $LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotBackground/NewSaveSlotButton
 @onready var new_save_slot_background: NinePatchRect = $LoadGameNode/ScrollContainer/SaveSlotsContainer/NewSaveSlotBackground
-
+const LOADING_SCREEN_V_2 = preload("res://game/scenes/loading_screen_v2.tscn")
 
 func _ready():
+	Global.is_pausable = false
 	Global.user_prefs = UserPreferences.load_or_create()
 	add_resolutions()
 	add_screens()
@@ -67,6 +79,12 @@ func _ready():
 	else:
 		load_settings()
 		Global.is_initial_load_ready = true
+	
+	if get_parent().name != Global.MAIN_MENU_SCENE_NAME:
+		save_game_button.set_disabled(false)
+	else:
+		save_game_button.set_disabled(true)
+
 
 func loading_game_from_menu():
 	if get_parent().name == 'root':
@@ -74,45 +92,56 @@ func loading_game_from_menu():
 	else:
 		get_tree().call_group('main_menu', 'loading_game_locally')
 
-#MAIN OPTIONS
+
+# MAIN OPTIONS
 func _on_continue_pressed():
 	button_pressed.play()
+	if Global.current_scene.name == Global.MAIN_MENU_SCENE_NAME:
+		pass
+	else:
+		Global.allow_movement = true
+		Global.current_ui_mode = "none"
+		Global.switch_cursor_visibility(true)
+		Global.current_scene.main_menu_ui.visible = false
+
 
 func _on_save_game_pressed():
 	new_save_slot_background.visible = true
-	Global.is_about_to_load_game = false
-	Global.collect_save_files()
-	Global.load_save_slots(save_slots_container)
+	return_buttons_container.visible = true
+	#Global.is_about_to_load_game = false
+	Global.collect_save_files(false)
+	#Global.load_save_slots(save_slots_container)
 	load_game_node.visible = true
 	main_menu_node.visible = false
 
+
 func _on_new_save_slot_button_pressed():
-	Global.save_game(save_slots_container)
-	_on_back_button_pressed()
-	get_tree().call_group('main_menu', 'continue_game')
+	pass
+	#Global.save_game(save_slots_container)
+	#_on_back_button_pressed()
+	#get_tree().call_group('main_menu', 'continue_game')
+
 
 func _on_new_game_pressed() -> void:
 	button_pressed.play()
-	if get_parent().name == 'root':
-		Global.scene_being_loaded = "res://game/scenes/world.tscn"
-		var loading_screen = load("res://game/scenes/loading_screen_v2.tscn")
-		get_tree().change_scene_to_packed.bind(loading_screen).call_deferred()
-	else:
-		#print('fuck off')
-		pass
+	Global.is_scene_being_loaded = false
+	Global.next_scene = "res://game/scenes/world.tscn"
+	get_tree().change_scene_to_packed.bind(LOADING_SCREEN_V_2).call_deferred()
+
 
 func _on_load_game_pressed():
 	return_buttons_container.visible = true
 	new_save_slot_background.visible = false
-	Global.is_about_to_load_game = true
-	Global.collect_save_files()
-	Global.load_save_slots(save_slots_container)
+	#Global.is_about_to_load_game = true
+	Global.collect_save_files(true)
 	load_game_node.visible = true
 	main_menu_node.visible = false
+
 
 func _on_exit_pressed():
 	button_pressed.play()
 	get_tree().quit()
+
 
 # SETTINGS 
 func _on_options_pressed():
@@ -120,6 +149,7 @@ func _on_options_pressed():
 	return_buttons_container.visible = true
 	main_menu_node.visible = false
 	options_node.visible = true
+
 
 func options_node_changed(button_toggled: Button, screen_chosen: Control):
 	button_pressed.play()
@@ -131,16 +161,20 @@ func options_node_changed(button_toggled: Button, screen_chosen: Control):
 	button_toggled.set_pressed(true)
 	screen_chosen.visible = true
 
+
 func _on_audio_button_pressed():
 	options_node_changed(audio_button, options_audio_node)
+
 
 func _on_back_button_pressed(play_sound: bool = true):
 	if play_sound:
 		button_pressed.play()
+	load_save_buttons.visible = false
 	return_buttons_container.visible = false
 	main_menu_node.visible = true
 	options_node.visible = false
 	load_game_node.visible = false
+
 
 func _on_reset_button_pressed():
 	Global.user_prefs.display_resolution_selected = 1
@@ -154,9 +188,10 @@ func _on_reset_button_pressed():
 	Global.user_prefs.save()
 	load_settings()
 
+
 func load_settings():
 	#Screen Selected
-	#Omit if on SteamDeck 2DO
+	#Omit if on SteamDeck TODO
 	var window = get_window()
 	if Global.user_prefs.current_screen_selected + 1 > DisplayServer.get_screen_count():
 		window.set_mode(Window.MODE_WINDOWED)
@@ -166,7 +201,7 @@ func load_settings():
 		window.set_mode(Window.MODE_WINDOWED)
 		window.set_current_screen(Global.user_prefs.current_screen_selected)
 		display_screen_settings.select(Global.user_prefs.current_screen_selected)
-		
+	
 	#Resolution
 	#Omit on SteamDeck 2DO
 	display_resolution.select(Global.user_prefs.display_resolution_selected)
@@ -453,7 +488,7 @@ func _on_graphics_button_pressed():
 	options_node_changed(graphics_button, options_graphics_node)
 	var value = Global.user_prefs.game_resolution_value_selected
 	var resolution_scale = value/100.00
-	var resolution_text = str(round(get_window().get_size().x*resolution_scale))+"x"+str(round(get_window().get_size().y*resolution_scale))
+	var resolution_text = str(int(round(get_window().get_size().x*resolution_scale)))+"x"+str(int(round(get_window().get_size().y*resolution_scale)))
 	resolution_scaling_label.set_text(str(value)+"% - "+ resolution_text)
 
 func _on_game_resolution_value_changed(value):
@@ -525,3 +560,6 @@ func _on_language_option_item_selected(index):
 			TranslationServer.set_locale("EN")
 		1:
 			TranslationServer.set_locale("PL")
+
+func check_global_variables():
+	pass

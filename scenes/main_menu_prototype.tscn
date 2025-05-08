@@ -118,7 +118,6 @@ size = Vector3(1000, 1, 1000)
 [node name="hero" parent="." instance=ExtResource("2_83b4d")]
 
 [node name="Camera3D" type="Camera3D" parent="."]
-physics_interpolation_mode = 1
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.422776, 1.36093, -1.97907)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]

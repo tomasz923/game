@@ -9,6 +9,7 @@ func _ready() -> void:
 	hero.animation_player.play("silly_dance")
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	Global.user_prefs = UserPreferences.load_or_create()
+	Global.current_scene = self
 
 func _input(event):
 	if !any_button_was_pressed and event.is_pressed():

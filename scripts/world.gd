@@ -29,7 +29,6 @@ func _ready():
 	#Global.second_follower = $FollowerTwo
 	#Global.third_follower = $FollowerThree
 	#Setting Cams
-	Global.allow_movement = true
 	Global.collider = null
 	Global.read_dice_rolls()
 
