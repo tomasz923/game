@@ -2,8 +2,7 @@ extends StatusEffect
 class_name SePreparingToAttack
 
 const STATUS_NAME: String = "se_preparing_to_attack"
-const PICTURE: CompressedTexture2D = preload("res://assets/textures/ui/clock_debug.png")
-
+const PICTURE = preload("res://assets/ui/clock_debug.png")
 var victim: Ally
 var agressor: Enemy
 
