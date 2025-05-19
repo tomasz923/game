@@ -19,7 +19,9 @@ var save_state: Dictionary = {
 	#The player and the followers will use this variable.
 	"current_exploration_speed":  3.5,
 	"experience": 0,
-	"level": 1
+	"level": 1,
+	"coins": 0,
+	"supplies": 0
 }
 
 var state_var_dialogue: Dictionary = { 
@@ -60,10 +62,7 @@ var current_combat_scene: CombatScene
 # Allows for the player to move.
 var allow_movement = false 
 # -----------
-var hero: Hero
-var first_follower: Follower
-var second_follower: Follower
-var third_follower: Follower
+var current_character: Ally
 # -----------
 # So it knows if it should hide the cursor after leaving a menu
 var cursors_visible_in_game: bool = false

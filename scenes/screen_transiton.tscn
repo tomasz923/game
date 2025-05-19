@@ -2,9 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dpvivdpseedcm" path="res://game/scripts/screen_transiton.gd" id="1_o2ksq"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="1_wthdt"]
-[ext_resource type="Texture2D" uid="uid://lfmhxjcvnj0j" path="res://assets/textures/ui/white_500_90.png" id="2_e7lwm"]
+[ext_resource type="Texture2D" uid="uid://lfmhxjcvnj0j" path="res://assets/ui/white_500_90.png" id="2_e7lwm"]
 [ext_resource type="Theme" uid="uid://ciylluo3y3lru" path="res://game/resources/choice_button.tres" id="4_jvf76"]
-[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="4_p0bx2"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://assets/fonts/menu_toggle_theme.tres" id="4_p0bx2"]
+
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sb312"]
 bg_color = Color(0, 0, 0, 0)

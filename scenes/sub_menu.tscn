@@ -1,8 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://cx7007wuomcmc"]
+[gd_scene load_steps=11 format=3 uid="uid://cx7007wuomcmc"]
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
+[ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
 [ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/ui/combat_window.png" id="2_i1h3o"]
-[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="3_screk"]
+[ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_ixln2"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://assets/fonts/menu_toggle_theme.tres" id="3_screk"]
+[ext_resource type="Texture2D" uid="uid://c38vwnvuuns8t" path="res://assets/portraits/portrait_of_bob.png" id="4_screk"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="5_vrsuv"]
+[ext_resource type="Texture2D" uid="uid://gwfhpwjcpx6e" path="res://assets/ui/party_panel_currency.png" id="6_36jpb"]
+[ext_resource type="Texture2D" uid="uid://bfxwhef8trons" path="res://assets/ui/party_panel_supplies.png" id="7_cejr0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vrsuv"]
 shader = ExtResource("1_6j1v8")
@@ -15,6 +21,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_vkxky")
+metadata/_edit_horizontal_guides_ = [-20.0, 1133.0]
+
+[node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ixln2")
+bus = &"UI"
 
 [node name="Blur" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_vrsuv")
@@ -75,6 +87,7 @@ text = "submenu_moves
 
 [node name="JournalButton" type="Button" parent="BlackRectangle/SettingsContainer"]
 layout_mode = 2
+theme = ExtResource("3_screk")
 text = "submenu_journal"
 
 [node name="ContentContainer" type="Control" parent="."]
@@ -89,7 +102,7 @@ offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ContentContainer"]
+[node name="PanelsContainer" type="HBoxContainer" parent="ContentContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -99,11 +112,11 @@ grow_vertical = 2
 theme_override_constants/separation = 55
 alignment = 1
 
-[node name="LeftPanelContainer" type="Control" parent="ContentContainer/HBoxContainer"]
+[node name="LeftPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="Background" type="NinePatchRect" parent="ContentContainer/HBoxContainer/LeftPanelContainer"]
+[node name="Background" type="NinePatchRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer"]
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 1
 anchors_preset = 15
@@ -117,11 +130,375 @@ patch_margin_top = 2
 patch_margin_right = 2
 patch_margin_bottom = 2
 
-[node name="MiddlePanelContainer" type="Control" parent="ContentContainer/HBoxContainer"]
+[node name="Container" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 40
+
+[node name="FirstLayer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer"]
+custom_minimum_size = Vector2(200, 124.955)
+layout_mode = 2
+texture = ExtResource("4_screk")
+expand_mode = 3
+
+[node name="InfoBox" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer"]
+custom_minimum_size = Vector2(280, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+text = "NAME"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ClassLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "Class"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Space" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="QucikStats" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
+layout_mode = 2
+
+[node name="LeftColumn" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats"]
+layout_mode = 2
+
+[node name="LevelLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "cs_level"
+vertical_alignment = 1
+
+[node name="XPLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "cs_experience"
+
+[node name="HPLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "cs_hp"
+
+[node name="APLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "cs_ap"
+
+[node name="RightColumn" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats"]
+layout_mode = 2
+
+[node name="LevelVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="XPVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "200/200"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="HPVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "12/12"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="APVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
+custom_minimum_size = Vector2(135, 0)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "1/1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="SecondLayer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container"]
+layout_mode = 2
+theme_override_constants/separation = 7
+
+[node name="StrPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
+custom_minimum_size = Vector2(20, 35)
+layout_mode = 2
+
+[node name="StrengthLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/StrPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "cs_strength"
+vertical_alignment = 1
+
+[node name="StrengthVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/StrPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "+1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="DexPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
+custom_minimum_size = Vector2(20, 35)
+layout_mode = 2
+
+[node name="DexterityLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/DexPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "cs_dexterity"
+vertical_alignment = 1
+
+[node name="DexterityVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/DexPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "+1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="EndPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
+custom_minimum_size = Vector2(20, 35)
+layout_mode = 2
+
+[node name="EnduranceLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/EndPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "cs_endurance"
+vertical_alignment = 1
+
+[node name="EnduranceVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/EndPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "+1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ProPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
+custom_minimum_size = Vector2(20, 35)
+layout_mode = 2
+
+[node name="ProcessingLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/ProPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "cs_processing"
+vertical_alignment = 1
+
+[node name="ProcessingVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/ProPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "+1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="MemPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
+custom_minimum_size = Vector2(20, 35)
+layout_mode = 2
+
+[node name="MemoryLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/MemPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "cs_memory"
+vertical_alignment = 1
+
+[node name="MemoryVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/MemPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "+1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ChaPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
+custom_minimum_size = Vector2(20, 35)
+layout_mode = 2
+
+[node name="CharismaLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/ChaPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "cs_charisma"
+vertical_alignment = 1
+
+[node name="CharismaVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer/ChaPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "+1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
+[node name="ThirdLayer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="CurrencyContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer"]
+layout_mode = 2
+alignment = 1
+
+[node name="CoinsIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+texture = ExtResource("6_36jpb")
+expand_mode = 3
+
+[node name="CoinsVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+text = "24"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SuppliesContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer"]
+layout_mode = 2
+
+[node name="SuppliesIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+texture = ExtResource("7_cejr0")
+expand_mode = 3
+
+[node name="SuppliesVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+text = "24"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MiddlePanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 
-[node name="Background" type="NinePatchRect" parent="ContentContainer/HBoxContainer/MiddlePanelContainer"]
+[node name="Background" type="NinePatchRect" parent="ContentContainer/PanelsContainer/MiddlePanelContainer"]
 custom_minimum_size = Vector2(700, 100)
 layout_mode = 1
 anchors_preset = 10
@@ -134,11 +511,11 @@ patch_margin_top = 2
 patch_margin_right = 2
 patch_margin_bottom = 2
 
-[node name="RightPanelContainer" type="Control" parent="ContentContainer/HBoxContainer"]
+[node name="RightPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="Background" type="NinePatchRect" parent="ContentContainer/HBoxContainer/RightPanelContainer"]
+[node name="Background" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 custom_minimum_size = Vector2(500, 375)
 layout_mode = 1
 anchors_preset = 12

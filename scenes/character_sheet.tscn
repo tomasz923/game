@@ -5,7 +5,8 @@
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_kr864"]
 [ext_resource type="LabelSettings" uid="uid://txax5awra7th" path="res://game/resources/cs_info.tres" id="4_5ggi7"]
 [ext_resource type="LabelSettings" uid="uid://bdlyarf5s7c0o" path="res://game/resources/progress_bar_numbers.tres" id="5_t5fug"]
-[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://game/menu_toggle_theme.tres" id="6_5onkd"]
+[ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://assets/fonts/menu_toggle_theme.tres" id="6_5onkd"]
+
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_di73d"]
 shader = ExtResource("1_n2krt")
