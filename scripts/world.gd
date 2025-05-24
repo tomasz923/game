@@ -15,8 +15,10 @@ class_name GameMap
 @onready var follower_three: Follower = $FollowerThree
 @onready var screen_transiton: Control = $ScreenTransiton
 @onready var main_menu_ui: Control = $MainMenuUI
+@onready var sub_menu: Control = $SubMenu
 
 func _ready():
+	Global.allow_movement = true
 	Global.current_scene = self
 	#Global.moves_menu = $Moves
 	#Global.dialogue_box = $DialogueBox

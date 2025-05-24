@@ -19,8 +19,8 @@
 [ext_resource type="Script" uid="uid://bdqm72mmhjgte" path="res://game/scripts/enemy_stats.gd" id="15_m4aht"]
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
 [ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu_ui.tscn" id="17_scav7"]
+[ext_resource type="PackedScene" uid="uid://cx7007wuomcmc" path="res://game/scenes/sub_menu.tscn" id="18_hk75s"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="21_m3ehy"]
-[ext_resource type="PackedScene" uid="uid://daj2qd6n0kmqf" path="res://game/scenes/ready_to_play.tscn" id="22_hk75s"]
 [ext_resource type="PackedScene" uid="uid://dfoih408r3vqi" path="res://game/scenes/screen_transiton.tscn" id="23_2pwpc"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_3th3d"]
@@ -73,6 +73,7 @@ resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
 enemy_name = "DeCoy"
+character_name = "ERROR: Name not found"
 max_health = 20
 current_health = 1
 basic_damage = 20
@@ -102,7 +103,6 @@ shadow_enabled = true
 
 [node name="Hero" parent="." instance=ExtResource("5_f8m7e")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.2562, 0.0238276, -1.78514)
-collision_layer = 1
 collision_mask = 3
 
 [node name="FollowerOne" parent="." instance=ExtResource("14_t2ro3")]
@@ -191,6 +191,9 @@ sixth_enemy_stats = SubResource("Resource_hk75s")
 [node name="MainMenuUI" parent="." instance=ExtResource("17_scav7")]
 visible = false
 
+[node name="SubMenu" parent="." instance=ExtResource("18_hk75s")]
+visible = false
+
 [node name="DialogueBox" parent="." instance=ExtResource("12_iqn5y")]
 process_mode = 1
 visible = false
@@ -213,8 +216,6 @@ grow_vertical = 1
 
 [node name="ScreenTransiton" parent="." instance=ExtResource("23_2pwpc")]
 visible = false
-
-[node name="ReadyToPlay" parent="." instance=ExtResource("22_hk75s")]
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.2928, 0, 0)

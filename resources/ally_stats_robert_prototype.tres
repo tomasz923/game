@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="AllyStats" load_steps=4 format=3 uid="uid://do3fsdbx42roh"]
+
+[ext_resource type="Resource" uid="uid://dv1dxsmsw6n34" path="res://game/inventory_items/warhammer.tres" id="1_kohb0"]
+[ext_resource type="Script" uid="uid://ctnc1ay4f2ot1" path="res://game/scripts/ally_stats.gd" id="2_m7lgq"]
+[ext_resource type="Texture2D" uid="uid://c38vwnvuuns8t" path="res://assets/portraits/portrait_of_bob.png" id="2_y6y3i"]
+
+[resource]
+script = ExtResource("2_m7lgq")
+character_class = "Budowniczy"
+slots_and_cores = 2
+strength = 2
+dexterity = 1
+endurance = 1
+charisma = 0
+processing = 0
+memory = -1
+character_name = "ROBERT"
+portrait = ExtResource("2_y6y3i")
+max_health = 20
+current_health = 20
+basic_damage = 4
+melee = ExtResource("1_kohb0")
+metadata/_custom_type_script = "uid://ctnc1ay4f2ot1"

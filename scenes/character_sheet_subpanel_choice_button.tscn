@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://rmax00vjuev4"]
+
+[node name="CharacterSheetSubpanelChoiceButton" type="Button"]
+custom_minimum_size = Vector2(700, 94)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Pan Inżynier"

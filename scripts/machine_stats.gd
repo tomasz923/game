@@ -1,7 +1,8 @@
 extends Resource
 class_name MachineStats
 
-@export_category("Machine Stats")
+@export var character_name: String = "ERROR: Name not found"
+@export var portrait: Texture
 @export var max_health: int
 @export var current_health: int
 @export_range(4, 20, 2) var basic_damage: int = 4

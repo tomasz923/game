@@ -6,6 +6,7 @@ extends Node3D
 var any_button_was_pressed: bool = false
 
 func _ready() -> void:
+	Global.allow_movement = false
 	hero.animation_player.play("silly_dance")
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	Global.user_prefs = UserPreferences.load_or_create()

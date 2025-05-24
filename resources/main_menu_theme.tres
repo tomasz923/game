@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=47 format=3 uid="uid://ckwrwgpvfcsg4"]
+[gd_resource type="Theme" load_steps=52 format=3 uid="uid://ckwrwgpvfcsg4"]
 
 [ext_resource type="Texture2D" uid="uid://hfojlmeep17j" path="res://assets/ui/slider.png" id="2_16j8w"]
 [ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="2_f22p5"]
@@ -181,6 +181,50 @@ border_width_top = 3
 border_width_right = 3
 border_width_bottom = 3
 
+[sub_resource type="ImageTexture" id="ImageTexture_kfoj0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kfoj0"]
+bg_color = Color(1, 1, 1, 0.705882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hnsng"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83ld2"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fockh"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+content_margin_bottom = 0.0
+bg_color = Color(0.1, 0.1, 0.1, 0.6)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_t22rc"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
 [sub_resource type="Image" id="Image_hnsng"]
 data = {
 "data": PackedByteArray(255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 18, 253, 253, 253, 100, 255, 255, 255, 156, 254, 254, 254, 183, 254, 254, 254, 183, 255, 255, 255, 156, 253, 253, 253, 99, 255, 255, 255, 17, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 65, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 182, 255, 255, 255, 63, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 65, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 255, 255, 255, 63, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 18, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 181, 255, 255, 255, 16, 255, 255, 255, 0, 255, 255, 255, 0, 253, 253, 253, 100, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 255, 255, 255, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 156, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 155, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 182, 255, 255, 255, 0, 255, 255, 255, 0, 254, 254, 254, 183, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 181, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 156, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 154, 255, 255, 255, 0, 255, 255, 255, 0, 253, 253, 253, 99, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 253, 253, 253, 97, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 17, 254, 254, 254, 182, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 180, 255, 255, 255, 15, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 63, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 255, 255, 255, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 63, 254, 254, 254, 181, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 191, 254, 254, 254, 180, 255, 255, 255, 61, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 16, 255, 255, 255, 97, 254, 254, 254, 155, 254, 254, 254, 182, 254, 254, 254, 181, 254, 254, 254, 154, 253, 253, 253, 97, 255, 255, 255, 15, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0, 255, 255, 255, 0),
@@ -228,18 +272,6 @@ data = {
 
 [sub_resource type="ImageTexture" id="ImageTexture_rradn"]
 image = SubResource("Image_t22rc")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g12me"]
-content_margin_left = 4.0
-content_margin_top = 4.0
-content_margin_right = 4.0
-content_margin_bottom = 4.0
-bg_color = Color(1, 1, 1, 0.4)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-corner_detail = 6
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qsdqd"]
 content_margin_left = 4.0
@@ -353,12 +385,22 @@ PopupMenu/styles/labeled_separator_left = SubResource("StyleBoxLine_b2tfl")
 PopupMenu/styles/labeled_separator_right = SubResource("StyleBoxLine_b2tfl")
 PopupMenu/styles/panel = SubResource("StyleBoxFlat_t26ip")
 PopupMenu/styles/separator = SubResource("StyleBoxLine_b2tfl")
+VScrollBar/icons/decrement = SubResource("ImageTexture_kfoj0")
+VScrollBar/icons/decrement_highlight = SubResource("ImageTexture_kfoj0")
+VScrollBar/icons/decrement_pressed = SubResource("ImageTexture_kfoj0")
+VScrollBar/icons/increment = SubResource("ImageTexture_kfoj0")
+VScrollBar/icons/increment_highlight = SubResource("ImageTexture_kfoj0")
+VScrollBar/icons/increment_pressed = SubResource("ImageTexture_kfoj0")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_kfoj0")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_hnsng")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_83ld2")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_fockh")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxFlat_t22rc")
 VSlider/constants/center_grabber = 0
 VSlider/constants/grabber_offset = 0
 VSlider/icons/grabber = SubResource("ImageTexture_x2fpt")
 VSlider/icons/grabber_disabled = SubResource("ImageTexture_mahwp")
 VSlider/icons/grabber_highlight = SubResource("ImageTexture_ugmfv")
 VSlider/icons/tick = SubResource("ImageTexture_rradn")
-VSlider/styles/grabber_area = SubResource("StyleBoxFlat_g12me")
 VSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_qsdqd")
 VSlider/styles/slider = SubResource("StyleBoxFlat_u1khs")

@@ -22,11 +22,11 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 @onready var back_button: Button = $ReturnButtonsContainer/BackButton
 @onready var reset_button: Button = $ReturnButtonsContainer/ResetButton
 @onready var options_node: Control = $OptionsNode
-@onready var audio_button: Button = $OptionsNode/SettingsContainer/AudioButton
-@onready var controls_button: Button = $OptionsNode/SettingsContainer/ControlsButton
-@onready var screen_button: Button = $OptionsNode/SettingsContainer/ScreenButton
-@onready var graphics_button: Button = $OptionsNode/SettingsContainer/GraphicsButton
-@onready var game_button: Button = $OptionsNode/SettingsContainer/GameButton
+@onready var audio_button: Button = $OptionsNode/BlackRectangle/SettingsContainer/AudioButton
+@onready var controls_button: Button = $OptionsNode/BlackRectangle/SettingsContainer/ControlsButton
+@onready var screen_button: Button = $OptionsNode/BlackRectangle/SettingsContainer/ScreenButton
+@onready var graphics_button: Button = $OptionsNode/BlackRectangle/SettingsContainer/GraphicsButton
+@onready var game_button: Button = $OptionsNode/BlackRectangle/SettingsContainer/GameButton
 @onready var options_audio_node: Control = $OptionsNode/OptionsAudioNode
 @onready var master_slider: HSlider = $OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/MasterSlider
 @onready var music_slider: HSlider = $OptionsNode/OptionsAudioNode/OptionsAudioContainer/RightColumnAudio/MusicSlider
@@ -69,7 +69,6 @@ var resolutions: Dictionary = {"2560x1440":Vector2i(2560,1080),
 const LOADING_SCREEN_V_2 = preload("res://game/scenes/loading_screen_v2.tscn")
 
 func _ready():
-	Global.is_pausable = false
 	Global.user_prefs = UserPreferences.load_or_create()
 	add_resolutions()
 	add_screens()

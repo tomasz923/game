@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bplnn3qh1qv02" path="res://game/scripts/hero.gd" id="1_bsgcu"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="2_jxos7"]
-[ext_resource type="Script" uid="uid://bssxnxueyyk4s" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bxfw6"]
+[ext_resource type="Script" uid="uid://codu3ye6wrwru" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="3_bxfw6"]
 [ext_resource type="PackedScene" uid="uid://ch1fbs2xgkyua" path="res://game/scenes/interact_ray.tscn" id="4_fffbf"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="4_jpr4g"]
 [ext_resource type="Resource" uid="uid://bbntk2y4ucg5x" path="res://game/resources/exploration_camp_res.tres" id="5_obrul"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_whevs"]
-[ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="11_36r8j"]
+[ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/ui/hexagon.png" id="11_36r8j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_h4v5u"]
 radius = 0.3
@@ -54,8 +54,6 @@ _data = {
 }
 
 [node name="hero" type="CharacterBody3D" groups=["Ally"]]
-collision_layer = 0
-collision_mask = 0
 script = ExtResource("1_bsgcu")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]

@@ -60,7 +60,7 @@ var next_scene: String
 var current_combat_scene: CombatScene
 # For easier access to the team for combat scenes and other nodes
 # Allows for the player to move.
-var allow_movement = false 
+var allow_movement = true 
 # -----------
 var current_character: Ally
 # -----------
@@ -146,9 +146,30 @@ func _input(_event):
 			#current_scene.get_tree().set_pause(false)
 			switch_cursor_visibility(false)
 			current_scene.main_menu_ui.visible = false
+		elif current_ui_mode == "sub_menu":
+			allow_movement = true
+			current_ui_mode = "none"
+			switch_cursor_visibility(false)
+			current_scene.sub_menu.visible = false
 		else:
 			print('global: ' + str(current_ui_mode) + ' ' + str(is_pausable))
-
+	elif Input.is_action_just_pressed("sub_menu") and current_scene.name != MAIN_MENU_SCENE_NAME:
+		if current_ui_mode == "none":
+			if allow_movement == true:
+				allow_movement = false
+				current_scene.hero.animation_player.play("idle")
+			current_ui_mode = "sub_menu"
+			current_scene.sub_menu.visible = true
+			current_scene.sub_menu.refresh()
+			switch_cursor_visibility(true)
+		elif current_ui_mode == "sub_menu":
+			allow_movement = true
+			current_ui_mode = "none"
+			switch_cursor_visibility(false)
+			current_scene.sub_menu.visible = false
+			
+			
+		
 	#Journal Statuses:
 	#	0 - HIDDEN
 	#	1 - ACTIVE
