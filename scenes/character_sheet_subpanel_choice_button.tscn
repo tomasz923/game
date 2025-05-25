@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://rmax00vjuev4"]
 
 [node name="CharacterSheetSubpanelChoiceButton" type="Button"]
-custom_minimum_size = Vector2(700, 94)
+custom_minimum_size = Vector2(684, 84)
 offset_right = 8.0
 offset_bottom = 8.0
 size_flags_horizontal = 0

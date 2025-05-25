@@ -7,7 +7,7 @@
 [ext_resource type="Script" uid="uid://codu3ye6wrwru" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_qeljo"]
 [ext_resource type="Script" uid="uid://tuyhsdndtw6d" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="5_74pvo"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="6_83b4d"]
-[ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://game/scenes/main_menu_ui.tscn" id="8_83b4d"]
+[ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://assets/ui/main_menu_ui.tscn" id="8_83b4d"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="9_cmdg6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6j41v"]
@@ -119,7 +119,6 @@ size = Vector3(1000, 1, 1000)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0265427, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-physics_interpolation_mode = 1
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.422776, 1.36093, -1.97907)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]

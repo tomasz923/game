@@ -2,9 +2,9 @@
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
 [ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
-[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/ui/combat_window.png" id="2_i1h3o"]
 [ext_resource type="AudioStream" uid="uid://b55qs3qq0q8ty" path="res://assets/sounds/menu_click.wav" id="2_ixln2"]
 [ext_resource type="Theme" uid="uid://jr5i6lwstlwf" path="res://assets/fonts/menu_toggle_theme.tres" id="3_screk"]
+[ext_resource type="Texture2D" uid="uid://ducmpir6qufux" path="res://assets/ui/kenny_background.png" id="4_posp7"]
 [ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="5_vrsuv"]
 [ext_resource type="Texture2D" uid="uid://gwfhpwjcpx6e" path="res://assets/ui/party_panel_currency.png" id="6_36jpb"]
 [ext_resource type="Texture2D" uid="uid://bfxwhef8trons" path="res://assets/ui/party_panel_supplies.png" id="7_cejr0"]
@@ -78,7 +78,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
-metadata/_edit_horizontal_guides_ = [-20.0, 1133.0]
+metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0]
+metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ixln2")
@@ -109,11 +110,14 @@ anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 4.0
 grow_horizontal = 2
-texture = ExtResource("2_i1h3o")
-patch_margin_left = 2
+texture = ExtResource("4_posp7")
+region_rect = Rect2(9, 9, 78, 87)
+patch_margin_left = 1
 patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
+patch_margin_right = 1
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
 [node name="SettingsContainer" type="HBoxContainer" parent="BlackRectangle"]
 layout_mode = 1
@@ -184,7 +188,6 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
 [node name="Background" type="NinePatchRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer"]
-self_modulate = Color(1, 1, 1, 0.745098)
 custom_minimum_size = Vector2(500, 200)
 layout_mode = 1
 anchors_preset = 15
@@ -192,21 +195,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_i1h3o")
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
+texture = ExtResource("4_posp7")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 2
 
 [node name="Container" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = -10.0
-offset_bottom = -10.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 40
@@ -221,7 +227,7 @@ layout_mode = 2
 expand_mode = 3
 
 [node name="InfoBox" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer"]
-custom_minimum_size = Vector2(280, 0)
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 
 [node name="NameLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
@@ -254,7 +260,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="LevelLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
-custom_minimum_size = Vector2(135, 0)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 18
@@ -262,7 +268,7 @@ text = "cs_level"
 vertical_alignment = 1
 
 [node name="XPLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
-custom_minimum_size = Vector2(135, 0)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 18
@@ -284,7 +290,7 @@ text = "cs_ap"
 layout_mode = 2
 
 [node name="LevelVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
-custom_minimum_size = Vector2(135, 0)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 18
@@ -293,7 +299,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="XPVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
-custom_minimum_size = Vector2(135, 0)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 18
@@ -302,7 +308,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="HPVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
-custom_minimum_size = Vector2(135, 0)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 18
@@ -311,7 +317,7 @@ horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="APVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
-custom_minimum_size = Vector2(135, 0)
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 18
@@ -537,7 +543,6 @@ layout_mode = 2
 alignment = 1
 
 [node name="CoinsIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer"]
-custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 texture = ExtResource("6_36jpb")
 expand_mode = 3
@@ -554,7 +559,6 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="SuppliesIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer"]
-custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 texture = ExtResource("7_cejr0")
 expand_mode = 3
@@ -586,32 +590,55 @@ theme_override_constants/separation = 20
 
 [node name="SubPanel" type="NinePatchRect" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
 self_modulate = Color(1, 1, 1, 0.745098)
-custom_minimum_size = Vector2(700, 75)
+custom_minimum_size = Vector2(700, 110)
 layout_mode = 2
-texture = ExtResource("2_i1h3o")
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
+texture = ExtResource("4_posp7")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
 
-[node name="SubButtons" type="HBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
+[node name="PanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="SubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubButtons" type="HBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer"]
+layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/SubButtons"]
+[node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 texture_normal = ExtResource("9_li2dw")
 texture_pressed = ExtResource("10_8goxp")
 texture_hover = ExtResource("11_4v68y")
 texture_disabled = ExtResource("12_14ogw")
+ignore_texture_size = true
+stretch_mode = 0
 
-[node name="StatusEffectsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/SubButtons"]
+[node name="StatusEffectsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -619,72 +646,74 @@ texture_normal = ExtResource("13_05xb5")
 texture_pressed = ExtResource("14_satcs")
 texture_hover = ExtResource("15_exqxb")
 texture_disabled = ExtResource("16_llh0a")
+ignore_texture_size = true
 stretch_mode = 0
 
-[node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/SubButtons"]
+[node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
+custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 texture_normal = ExtResource("17_llh0a")
 texture_pressed = ExtResource("18_posp7")
 texture_hover = ExtResource("19_ym0v8")
 texture_disabled = ExtResource("20_da4ub")
-
-[node name="SubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -42.0
-offset_top = -38.0
-offset_right = 42.0
-grow_horizontal = 2
-theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+ignore_texture_size = true
+stretch_mode = 0
 
 [node name="Control" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-custom_minimum_size = Vector2(700, 655)
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
 [node name="BondsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control"]
-custom_minimum_size = Vector2(715, 655)
+custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 15.0
+offset_left = 8.0
+offset_right = 10.0
+offset_bottom = 219.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_1p42s")
 horizontal_scroll_mode = 3
 
 [node name="BondsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer"]
-custom_minimum_size = Vector2(720, 655)
 layout_mode = 2
+theme_override_constants/separation = 5
 
 [node name="CharacterSheetSubpanelChoiceButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton3" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton4" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton8" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton9" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton5" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton6" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="CharacterSheetSubpanelChoiceButton7" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+visible = false
 layout_mode = 2
 
 [node name="Control2" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
@@ -796,8 +825,11 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_i1h3o")
-patch_margin_left = 2
-patch_margin_top = 2
-patch_margin_right = 2
-patch_margin_bottom = 2
+texture = ExtResource("4_posp7")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
