@@ -1,0 +1,47 @@
+[gd_resource type="Theme" load_steps=10 format=3 uid="uid://1xrxjy3aa0fn"]
+
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="1_yv4vs"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p42s"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81g75"]
+bg_color = Color(1, 1, 1, 0.627451)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quse6"]
+bg_color = Color(0.0588235, 0.0588235, 0.0588235, 0.482353)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rmr6"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_posp7"]
+bg_color = Color(1, 1, 1, 0.705882)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym0v8"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_da4ub"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kuae"]
+bg_color = Color(1, 1, 1, 0)
+border_width_left = 5
+border_width_right = 5
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[resource]
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_color = Color(0, 0, 0, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_yv4vs")
+Button/styles/focus = SubResource("StyleBoxFlat_1p42s")
+Button/styles/hover = SubResource("StyleBoxFlat_81g75")
+Button/styles/normal = SubResource("StyleBoxFlat_quse6")
+Button/styles/pressed = SubResource("StyleBoxFlat_3rmr6")
+VScrollBar/styles/grabber = SubResource("StyleBoxFlat_posp7")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ym0v8")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_da4ub")
+VScrollBar/styles/scroll = SubResource("StyleBoxFlat_0kuae")
+VScrollBar/styles/scroll_focus = null

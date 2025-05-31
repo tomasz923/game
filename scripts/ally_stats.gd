@@ -17,6 +17,8 @@ enum SecondBar {
 @export var memory: int
 var aggro: int
 
+@export_category("Bonds & Backstory & Debilities")
+@export var bonds: bool = false
 #func initiate(character):
 	#max_health = 69 # Default value
 	#match endurance:

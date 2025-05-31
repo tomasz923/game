@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cx7007wuomcmc"]
+[gd_scene load_steps=26 format=3 uid="uid://cx7007wuomcmc"]
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
 [ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
@@ -21,54 +21,13 @@
 [ext_resource type="Texture2D" uid="uid://dxskgvbtqskul" path="res://assets/ui/character_panel_history_hover.png" id="19_ym0v8"]
 [ext_resource type="Texture2D" uid="uid://bryv6uhuoitgc" path="res://assets/ui/character_panel_history_disabled.png" id="20_da4ub"]
 [ext_resource type="PackedScene" uid="uid://rmax00vjuev4" path="res://game/scenes/character_sheet_subpanel_choice_button.tscn" id="21_posp7"]
+[ext_resource type="Theme" uid="uid://1xrxjy3aa0fn" path="res://game/resources/sub_menu_theme.tres" id="22_da4ub"]
+[ext_resource type="Texture2D" uid="uid://c5bs5wdbro467" path="res://assets/temp/se_picture_drunk_prototype.png" id="23_0kuae"]
+[ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="24_1p42s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vrsuv"]
 shader = ExtResource("1_6j1v8")
 shader_parameter/blur = 4.0
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1p42s"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_81g75"]
-bg_color = Color(1, 1, 1, 0.627451)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_quse6"]
-bg_color = Color(0.0588235, 0.0588235, 0.0588235, 0.482353)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3rmr6"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_posp7"]
-bg_color = Color(1, 1, 1, 0.705882)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ym0v8"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_da4ub"]
-bg_color = Color(1, 1, 1, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0kuae"]
-bg_color = Color(1, 1, 1, 0)
-border_width_left = 5
-border_width_right = 5
-border_color = Color(0.8, 0.8, 0.8, 0)
-
-[sub_resource type="Theme" id="Theme_1p42s"]
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
-Button/colors/font_pressed_color = Color(0, 0, 0, 1)
-Button/font_sizes/font_size = 32
-Button/fonts/font = ExtResource("5_vrsuv")
-Button/styles/focus = SubResource("StyleBoxFlat_1p42s")
-Button/styles/hover = SubResource("StyleBoxFlat_81g75")
-Button/styles/normal = SubResource("StyleBoxFlat_quse6")
-Button/styles/pressed = SubResource("StyleBoxFlat_3rmr6")
-VScrollBar/styles/grabber = SubResource("StyleBoxFlat_posp7")
-VScrollBar/styles/grabber_highlight = SubResource("StyleBoxFlat_ym0v8")
-VScrollBar/styles/grabber_pressed = SubResource("StyleBoxFlat_da4ub")
-VScrollBar/styles/scroll = SubResource("StyleBoxFlat_0kuae")
-VScrollBar/styles/scroll_focus = null
 
 [node name="SubMenu" type="Control"]
 layout_mode = 3
@@ -78,7 +37,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
-metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0]
+metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 248.0, 240.0]
 metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
@@ -215,7 +174,7 @@ offset_right = -18.0
 offset_bottom = -15.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 60
 
 [node name="FirstLayer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container"]
 custom_minimum_size = Vector2(0, 200)
@@ -543,6 +502,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="CoinsIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("6_36jpb")
 expand_mode = 3
@@ -559,6 +519,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="SuppliesIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer"]
+custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
 texture = ExtResource("7_cejr0")
 expand_mode = 3
@@ -581,7 +542,6 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -13.0
-offset_top = 1.0
 offset_right = -13.0
 offset_bottom = 1.0
 grow_horizontal = 2
@@ -617,6 +577,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
+text = "cs_subpanel_status_effects"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -625,23 +586,13 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("9_li2dw")
-texture_pressed = ExtResource("10_8goxp")
-texture_hover = ExtResource("11_4v68y")
-texture_disabled = ExtResource("12_14ogw")
-ignore_texture_size = true
-stretch_mode = 0
-
 [node name="StatusEffectsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+toggle_mode = true
+button_pressed = true
 texture_normal = ExtResource("13_05xb5")
 texture_pressed = ExtResource("14_satcs")
 texture_hover = ExtResource("15_exqxb")
@@ -649,9 +600,23 @@ texture_disabled = ExtResource("16_llh0a")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+texture_normal = ExtResource("9_li2dw")
+texture_pressed = ExtResource("10_8goxp")
+texture_hover = ExtResource("11_4v68y")
+texture_disabled = ExtResource("12_14ogw")
+ignore_texture_size = true
+stretch_mode = 0
+
 [node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("17_llh0a")
 texture_pressed = ExtResource("18_posp7")
 texture_hover = ExtResource("19_ym0v8")
@@ -659,11 +624,12 @@ texture_disabled = ExtResource("20_da4ub")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="Control" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+[node name="StatusEffectsInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="BondsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control"]
+[node name="StatusEffectsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances"]
 custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -674,157 +640,115 @@ offset_right = 10.0
 offset_bottom = 219.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_1p42s")
+theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="BondsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer"]
+[node name="StatusEffectsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances/StatusEffectsScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CharacterSheetSubpanelChoiceButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances/StatusEffectsScrollContainer/StatusEffectsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="BondsInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
 visible = false
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton3" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton4" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton8" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton9" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton5" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton6" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton7" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-visible = false
-layout_mode = 2
-
-[node name="Control2" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
-custom_minimum_size = Vector2(700, 655)
-layout_mode = 2
-
-[node name="BondsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2"]
-custom_minimum_size = Vector2(715, 655)
+[node name="BondsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances"]
+custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 15.0
+offset_left = 8.0
+offset_right = 10.0
+offset_bottom = 219.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_1p42s")
+theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="BondsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer"]
-custom_minimum_size = Vector2(720, 655)
+[node name="BondsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances/BondsScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton3" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="HistoryInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton3" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton4" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton8" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton9" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton5" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton6" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton7" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control2/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="Control3" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
-custom_minimum_size = Vector2(700, 655)
-layout_mode = 2
-
-[node name="BondsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3"]
-custom_minimum_size = Vector2(715, 655)
+[node name="StatusEffectsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances"]
+custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 15.0
+offset_left = 8.0
+offset_right = 10.0
+offset_bottom = 219.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = SubResource("Theme_1p42s")
+theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="BondsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer"]
-custom_minimum_size = Vector2(720, 655)
+[node name="SttausEffectsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances/StatusEffectsScrollContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances/StatusEffectsScrollContainer/SttausEffectsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton3" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances/StatusEffectsScrollContainer/SttausEffectsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton3" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton4" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton8" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton9" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton5" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton6" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-
-[node name="CharacterSheetSubpanelChoiceButton7" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Control3/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton4" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances/StatusEffectsScrollContainer/SttausEffectsContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 
 [node name="RightPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="Background" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
-self_modulate = Color(1, 1, 1, 0.745098)
-custom_minimum_size = Vector2(500, 375)
+[node name="StatusEffects&BondsPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="SE&BPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel"]
+custom_minimum_size = Vector2(500, 370)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 375.0
+grow_horizontal = 2
+texture = ExtResource("23_0kuae")
+expand_mode = 1
+
+[node name="SE&BDescriptionBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel"]
+self_modulate = Color(1, 1, 1, 0.745098)
+custom_minimum_size = Vector2(500, 370)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -370.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
 texture = ExtResource("4_posp7")
 region_rect = Rect2(0, 0, 96, 96)
 patch_margin_left = 9
@@ -833,3 +757,59 @@ patch_margin_right = 9
 patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+
+[node name="DescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 18.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="SE&BLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+text = "Zatrucie alkoholowe"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusEffectBonusBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer"]
+custom_minimum_size = Vector2(470, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.862745, 0.384314, 0.313726, 1)
+
+[node name="StatusEffectBonusLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer/StatusEffectBonusBackground"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "-1 do rzutów na Zręczność"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SE&BDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer"]
+custom_minimum_size = Vector2(470, 235)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("24_1p42s")
+theme_override_font_sizes/font_size = 18
+text = "Picie w pracy to sztuka trudniejsza niż balansowanie na linie. Kieliszek w tę czy we w tę może poprawić humor, rozwiązać konflikt ze współpracownikiem, a nawet sprawić, że koniec zmiany jakimś cudem nadejdzie szybciej. Jednak zaledwie jeden łyk za dużo i zwykły dzień zmienia się w walkę o przetrwanie - ręce drżą, świat się chwieje, a grawitacja zdaje się celować wyłącznie w ciebie. Powodzenia, może inspektor BHP nie zauważy."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]

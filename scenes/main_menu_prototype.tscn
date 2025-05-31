@@ -119,6 +119,7 @@ size = Vector3(1000, 1, 1000)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0265427, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
+physics_interpolation_mode = 1
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.422776, 1.36093, -1.97907)
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D"]

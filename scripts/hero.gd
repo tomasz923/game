@@ -74,9 +74,9 @@ func _process(_delta):
 
 func _input(event):
 	if event is InputEventMouseButton: 
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP and Global.current_ui_mode == "none":
 			exploration_pcam.fov -= zoom_speed
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN and Global.current_ui_mode == "none":
 			exploration_pcam.fov += zoom_speed
 		exploration_pcam.fov = clamp(exploration_pcam.fov, min_fov, max_fov)
 		

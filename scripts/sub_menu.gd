@@ -1,4 +1,5 @@
 extends Control
+@onready var portrait_of_bob: Sprite2D = $PortraitOfBob
 
 @onready var button_pressed: AudioStreamPlayer = $ButtonPressed
 @onready var character_sheet_button: Button = $BlackRectangle/SettingsContainer/CharacterSheetButton
@@ -30,6 +31,15 @@ extends Control
 
 @onready var coins_val: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer/CoinsVal
 @onready var supplies_val: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer/SuppliesVal
+
+@onready var status_effects_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/StatusEffectsButton
+@onready var bonds_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/BondsButton
+@onready var history_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/HistoryButton
+@onready var sub_panel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubPanelLabel
+
+@onready var status_effects_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances
+@onready var bonds_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances
+@onready var history_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances
 
 var available_characters: Array
 var current_character_int: int = 0
@@ -114,12 +124,29 @@ func turn_stats_in_strings(stats: int) -> String:
 	return result
 
 
-func options_node_changed(button_toggled: TextureButton, screen_chosen: Control):
+func subpanel_node_changed(button_toggled: TextureButton, screen_chosen: Control, subpanel_label_text: String):
 	button_pressed.play()
-	if current_character_sheet_subpanel_button != null:
-		current_character_sheet_subpanel_button.set_pressed(false)
-		current_character_sheet_subpanel_screen.visible = false
+	sub_panel_label.text = subpanel_label_text
+	
+	if current_character_sheet_subpanel_button == null:
+		current_character_sheet_subpanel_button = status_effects_button
+		current_character_sheet_subpanel_screen = status_effects_instances
+	
+	current_character_sheet_subpanel_button.set_pressed(false)
+	current_character_sheet_subpanel_screen.visible = false
 	current_character_sheet_subpanel_button = button_toggled
 	current_character_sheet_subpanel_screen = screen_chosen
 	button_toggled.set_pressed(true)
 	screen_chosen.visible = true
+
+
+func _on_status_effects_button_pressed() -> void:
+	subpanel_node_changed(status_effects_button, status_effects_instances, "cs_subpanel_status_effects")
+
+
+func _on_bonds_button_pressed() -> void:
+	subpanel_node_changed(bonds_button, bonds_instances, "cs_subpanel_bonds")
+
+
+func _on_history_button_pressed() -> void:
+	subpanel_node_changed(history_button, history_instances, "cs_subpanel_history")
