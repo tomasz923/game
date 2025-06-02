@@ -327,6 +327,14 @@ func save_game(save_type: SavedGame.SaveTypes, is_overwriting: bool = false, old
 #
 	#ResourceSaver.save(saved_game, current_save_file)
 
+
+func remove_all_child_nodes(node):
+	for n in node.get_children():
+		if n.name != 'NewSaveSlotBackground':
+			node.remove_child(n)
+			n.queue_free() 
+
+
 # STOP
 func collect_save_files(is_loading: bool):
 	for n in current_scene.main_menu_ui.save_slots_container.get_children():

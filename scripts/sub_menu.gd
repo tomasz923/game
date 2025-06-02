@@ -1,5 +1,4 @@
 extends Control
-@onready var portrait_of_bob: Sprite2D = $PortraitOfBob
 
 @onready var button_pressed: AudioStreamPlayer = $ButtonPressed
 @onready var character_sheet_button: Button = $BlackRectangle/SettingsContainer/CharacterSheetButton
@@ -38,8 +37,18 @@ extends Control
 @onready var sub_panel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubPanelLabel
 
 @onready var status_effects_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances
+@onready var status_effects_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances/StatusEffectsScrollContainer/StatusEffectsContainer
 @onready var bonds_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances
 @onready var history_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances
+
+@onready var picure_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
+@onready var right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/RightPanelPicture
+@onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
+@onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
+@onready var status_effect_bonus_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground
+@onready var small_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescription
+
+@onready var just_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel
 
 var available_characters: Array
 var current_character_int: int = 0
@@ -48,6 +57,9 @@ var stat_labels: Dictionary
 var stat_panels: Dictionary
 var current_character_sheet_subpanel_button: TextureButton
 var current_character_sheet_subpanel_screen: Control
+
+var status_effects_loaded: Array = []
+var status_effects_buttons: Array = []
 
 func refresh():
 	available_characters = [Global.current_scene.hero]
@@ -99,6 +111,7 @@ func refresh():
 		ap_val.visible = false
 		ap_label.visible = false
 	
+	list_status_effects(current_character_stats)
 
 
 func match_stats_colors(panel: ColorRect, stat: int):
@@ -138,6 +151,46 @@ func subpanel_node_changed(button_toggled: TextureButton, screen_chosen: Control
 	current_character_sheet_subpanel_screen = screen_chosen
 	button_toggled.set_pressed(true)
 	screen_chosen.visible = true
+
+
+#func right_panel_changed():
+	#button_pressed.play()
+	#
+	#if just_description_panel.visible == true:
+		#just_description_panel.visible = false
+	#
+	#sub_panel_label.text = subpanel_label_text
+	#
+	#if current_character_sheet_subpanel_button == null:
+		#current_character_sheet_subpanel_button = status_effects_button
+		#current_character_sheet_subpanel_screen = status_effects_instances
+	#
+	#current_character_sheet_subpanel_button.set_pressed(false)
+	#current_character_sheet_subpanel_screen.visible = false
+	#current_character_sheet_subpanel_button = button_toggled
+	#current_character_sheet_subpanel_screen = screen_chosen
+	#button_toggled.set_pressed(true)
+	#screen_chosen.visible = true
+
+func list_status_effects(stats: AllyStats):
+	var all_status_effects = stats.status_effects
+	var n: int = 0
+	Global.remove_all_child_nodes(status_effects_container)
+	for status in all_status_effects:
+		var se_instance =  Button.new()
+		se_instance.custom_minimum_size = Vector2(684, 84)
+		se_instance.pressed.connect(func(): show_status_effect(status))
+		se_instance.text = status.status_name
+		se_instance.toggle_mode = true
+		status_effects_container.add_child(se_instance)
+
+
+func show_status_effect(status: StatusEffect):
+	small_description_label.text = status.status_name
+	#Dodać kolorwanie panelu
+	status_effect_bonus_label.text = status.bonus_description
+	small_description.text = status.description
+	right_panel_picture.texture = status.picture
 
 
 func _on_status_effects_button_pressed() -> void:

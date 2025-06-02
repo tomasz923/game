@@ -18,7 +18,8 @@ enum SecondBar {
 var aggro: int
 
 @export_category("Bonds & Backstory & Debilities")
-@export var bonds: bool = false
+@export var status_effects: Array[StatusEffect] = []
+
 #func initiate(character):
 	#max_health = 69 # Default value
 	#match endurance:

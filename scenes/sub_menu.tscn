@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://cx7007wuomcmc"]
+[gd_scene load_steps=25 format=3 uid="uid://cx7007wuomcmc"]
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
 [ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
@@ -22,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://bryv6uhuoitgc" path="res://assets/ui/character_panel_history_disabled.png" id="20_da4ub"]
 [ext_resource type="PackedScene" uid="uid://rmax00vjuev4" path="res://game/scenes/character_sheet_subpanel_choice_button.tscn" id="21_posp7"]
 [ext_resource type="Theme" uid="uid://1xrxjy3aa0fn" path="res://game/resources/sub_menu_theme.tres" id="22_da4ub"]
-[ext_resource type="Texture2D" uid="uid://c5bs5wdbro467" path="res://assets/temp/se_picture_drunk_prototype.png" id="23_0kuae"]
 [ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="24_1p42s"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vrsuv"]
@@ -625,7 +624,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="StatusEffectsInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
@@ -680,6 +678,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="HistoryInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
@@ -714,7 +713,7 @@ layout_mode = 2
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="StatusEffects&BondsPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+[node name="PicureWithDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -722,7 +721,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SE&BPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel"]
+[node name="RightPanelPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel"]
 custom_minimum_size = Vector2(500, 370)
 layout_mode = 1
 anchors_preset = 5
@@ -732,10 +731,9 @@ offset_left = -250.0
 offset_right = 250.0
 offset_bottom = 375.0
 grow_horizontal = 2
-texture = ExtResource("23_0kuae")
 expand_mode = 1
 
-[node name="SE&BDescriptionBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel"]
+[node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel"]
 self_modulate = Color(1, 1, 1, 0.745098)
 custom_minimum_size = Vector2(500, 370)
 layout_mode = 1
@@ -758,7 +756,7 @@ patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="DescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground"]
+[node name="SmallDescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -769,21 +767,21 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="SE&BLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer"]
+[node name="SmallDescriptionLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
-text = "Zatrucie alkoholowe"
+text = "Status/Bond Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatusEffectBonusBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer"]
+[node name="StatusEffectBonusBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
 custom_minimum_size = Vector2(470, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 color = Color(0.862745, 0.384314, 0.313726, 1)
 
-[node name="StatusEffectBonusLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer/StatusEffectBonusBackground"]
+[node name="StatusEffectBonusLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -795,20 +793,26 @@ grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 24
-text = "-1 do rzutów na Zręczność"
+text = "Bonus Description"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SE&BDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/StatusEffects&BondsPanel/SE&BDescriptionBackground/DescriptionContainer"]
+[node name="SmallDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
 custom_minimum_size = Vector2(470, 235)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("24_1p42s")
 theme_override_font_sizes/font_size = 18
-text = "Picie w pracy to sztuka trudniejsza niż balansowanie na linie. Kieliszek w tę czy we w tę może poprawić humor, rozwiązać konflikt ze współpracownikiem, a nawet sprawić, że koniec zmiany jakimś cudem nadejdzie szybciej. Jednak zaledwie jeden łyk za dużo i zwykły dzień zmienia się w walkę o przetrwanie - ręce drżą, świat się chwieje, a grawitacja zdaje się celować wyłącznie w ciebie. Powodzenia, może inspektor BHP nie zauważy."
+text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets."
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="JustDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/PanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]

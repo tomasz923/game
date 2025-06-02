@@ -9,7 +9,7 @@ class_name Ally
 var current_exploration_speed = running_speed
 var ready_for_combat = false
 
-const ALLY_STATS_ROBERT_PROTOTYPE = preload("res://game/resources/ally_stats_robert_prototype.tres")
+const ALLY_STATS_ROBERT_PROTOTYPE = preload("res://assets/ally_stats_robert_prototype.tres")
 func unsheath_weapon():
 	animation_player.play_backwards("1h_sheath")
 	ready_for_combat = true
