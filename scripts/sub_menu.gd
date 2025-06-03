@@ -41,7 +41,7 @@ extends Control
 @onready var bonds_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances
 @onready var history_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances
 
-@onready var picure_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
+@onready var picture_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
 @onready var right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/RightPanelPicture
 @onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
 @onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
@@ -58,8 +58,7 @@ var stat_panels: Dictionary
 var current_character_sheet_subpanel_button: TextureButton
 var current_character_sheet_subpanel_screen: Control
 
-var status_effects_loaded: Array = []
-var status_effects_buttons: Array = []
+var status_effects_button_active: Button
 
 func refresh():
 	available_characters = [Global.current_scene.hero]
@@ -153,25 +152,6 @@ func subpanel_node_changed(button_toggled: TextureButton, screen_chosen: Control
 	screen_chosen.visible = true
 
 
-#func right_panel_changed():
-	#button_pressed.play()
-	#
-	#if just_description_panel.visible == true:
-		#just_description_panel.visible = false
-	#
-	#sub_panel_label.text = subpanel_label_text
-	#
-	#if current_character_sheet_subpanel_button == null:
-		#current_character_sheet_subpanel_button = status_effects_button
-		#current_character_sheet_subpanel_screen = status_effects_instances
-	#
-	#current_character_sheet_subpanel_button.set_pressed(false)
-	#current_character_sheet_subpanel_screen.visible = false
-	#current_character_sheet_subpanel_button = button_toggled
-	#current_character_sheet_subpanel_screen = screen_chosen
-	#button_toggled.set_pressed(true)
-	#screen_chosen.visible = true
-
 func list_status_effects(stats: AllyStats):
 	var all_status_effects = stats.status_effects
 	var n: int = 0
@@ -179,10 +159,24 @@ func list_status_effects(stats: AllyStats):
 	for status in all_status_effects:
 		var se_instance =  Button.new()
 		se_instance.custom_minimum_size = Vector2(684, 84)
-		se_instance.pressed.connect(func(): show_status_effect(status))
+		se_instance.pressed.connect(func(): right_panel_changed(se_instance, status))
 		se_instance.text = status.status_name
 		se_instance.toggle_mode = true
 		status_effects_container.add_child(se_instance)
+
+
+func right_panel_changed(button_toggled: Button, status: StatusEffect):
+	button_pressed.play()
+	
+	just_description_panel.visible = false
+	
+	if status_effects_button_active != null:
+		status_effects_button_active.set_pressed(false)
+	button_toggled.set_pressed(true)
+	status_effects_button_active = button_toggled
+	show_status_effect(status)
+	
+	picture_with_description_panel.visible = true
 
 
 func show_status_effect(status: StatusEffect):
