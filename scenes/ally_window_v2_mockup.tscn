@@ -1,0 +1,120 @@
+[gd_scene load_steps=6 format=3 uid="uid://s6c1fk8vtwlv"]
+
+[ext_resource type="Texture2D" uid="uid://ducmpir6qufux" path="res://assets/ui/kenny_background.png" id="1_50hox"]
+[ext_resource type="Texture2D" uid="uid://c38vwnvuuns8t" path="res://assets/portraits/portrait_of_bob.png" id="2_axos0"]
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="3_3d0p0"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2c42y"]
+bg_color = Color(0.6, 0.6, 0.6, 0.313726)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2yug"]
+bg_color = Color(1, 1, 1, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="SubPanel" type="NinePatchRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.745098)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_right = 180.0
+offset_bottom = 189.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_50hox")
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="PortraitOfBob" type="Sprite2D" parent="."]
+position = Vector2(88, 16.0001)
+scale = Vector2(0.311719, 0.331641)
+texture = ExtResource("2_axos0")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 11.0
+offset_top = 72.0
+offset_right = 168.0
+offset_bottom = 178.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HealthBar3" type="ProgressBar" parent="VBoxContainer"]
+modulate = Color(0.659327, 0.249571, 0.176422, 1)
+custom_minimum_size = Vector2(150, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_3d0p0")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_2c42y")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n2yug")
+max_value = 30000.0
+step = 1.0
+value = 3000.0
+show_percentage = false
+
+[node name="HealthBar2" type="ProgressBar" parent="VBoxContainer"]
+modulate = Color(0.329412, 0.392157, 0.584314, 1)
+custom_minimum_size = Vector2(150, 15)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_3d0p0")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_2c42y")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n2yug")
+max_value = 30000.0
+step = 1.0
+value = 3000.0
+show_percentage = false
+
+[node name="HealthBar" type="ProgressBar" parent="VBoxContainer"]
+modulate = Color(0.329412, 0.392157, 0.584314, 1)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_3d0p0")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/background = SubResource("StyleBoxFlat_2c42y")
+theme_override_styles/fill = SubResource("StyleBoxFlat_n2yug")
+max_value = 30000.0
+step = 1.0
+value = 12.0
+show_percentage = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "HP"
+
+[node name="Label2" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "24/40      "
+
+[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "AGG"
+
+[node name="Label4" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "0"
