@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cx7007wuomcmc"]
+[gd_scene load_steps=58 format=3 uid="uid://cx7007wuomcmc"]
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
 [ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
@@ -35,9 +35,27 @@
 [ext_resource type="Texture2D" uid="uid://dxrwjd8sy0ob0" path="res://assets/ui/inventory_consumables_normal.png" id="30_0if04"]
 [ext_resource type="Texture2D" uid="uid://bpvs1pcqwyb3q" path="res://assets/ui/inventory_consumables_pressed.png" id="31_1rx0u"]
 [ext_resource type="Texture2D" uid="uid://bu4yyq7r02tt5" path="res://assets/ui/inventory_consumables_hover.png" id="32_v64mn"]
-[ext_resource type="Texture2D" uid="uid://v0ha8py1ro2l" path="res://assets/ui/inventory_others_normal.png" id="33_dplho"]
-[ext_resource type="Texture2D" uid="uid://cqgadcxq3kjef" path="res://assets/ui/inventory_others_pressed.png" id="34_f8oeu"]
-[ext_resource type="Texture2D" uid="uid://dgcf22cvsxjx6" path="res://assets/ui/inventory_others_hover.png" id="35_hoxfq"]
+[ext_resource type="Texture2D" uid="uid://dtqwosilqwasu" path="res://assets/ui/inventory_backpack_normal.png" id="33_v64mn"]
+[ext_resource type="Texture2D" uid="uid://bxa1iprimsic7" path="res://assets/ui/inventory_backpack_pressed.png" id="34_dplho"]
+[ext_resource type="Texture2D" uid="uid://dth5tv4d22ga7" path="res://assets/ui/inventory_backpack_hover.png" id="35_f8oeu"]
+[ext_resource type="Texture2D" uid="uid://brhykjatnfkrj" path="res://assets/ui/moves_basic_normal.png" id="36_hoxfq"]
+[ext_resource type="Texture2D" uid="uid://c8l4jdtc147on" path="res://assets/ui/moves_basic_pressed.png" id="37_72867"]
+[ext_resource type="Texture2D" uid="uid://cd4b2qs30c4hv" path="res://assets/ui/moves_starting_normal.png" id="38_vx3gg"]
+[ext_resource type="Texture2D" uid="uid://bvbhc2n2kj67p" path="res://assets/ui/moves_starting_pressed.png" id="39_ygjat"]
+[ext_resource type="Texture2D" uid="uid://bt88rvm3pw13n" path="res://assets/ui/moves_starting_hover.png" id="40_n26wl"]
+[ext_resource type="Texture2D" uid="uid://htsk0oem46te" path="res://assets/ui/moves_advanced_i_normal.png" id="41_ralpd"]
+[ext_resource type="Texture2D" uid="uid://dy4d4k3uwy5q5" path="res://assets/ui/moves_advanced_i_pressed.png" id="42_7oqij"]
+[ext_resource type="Texture2D" uid="uid://duvdjsxaj510f" path="res://assets/ui/moves_advanced_i_hover.png" id="43_sev6r"]
+[ext_resource type="Texture2D" uid="uid://rq71d6jd1j1n" path="res://assets/ui/moves_advanced_ii_normal.png" id="44_q06dq"]
+[ext_resource type="Texture2D" uid="uid://dmd026c0rgpsx" path="res://assets/ui/moves_advanced_ii_pressed.png" id="45_nrqbs"]
+[ext_resource type="Texture2D" uid="uid://bvwd11n4lckg8" path="res://assets/ui/moves_advanced_ii_hover.png" id="46_lured"]
+[ext_resource type="Texture2D" uid="uid://bfpgemxwmdj00" path="res://assets/ui/journal_active_normal.png" id="47_72867"]
+[ext_resource type="Texture2D" uid="uid://cbv5aofr3t7q3" path="res://assets/ui/journal_active_pressed.png" id="48_vx3gg"]
+[ext_resource type="Texture2D" uid="uid://7ta45k1w0pjd" path="res://assets/ui/journal_active_hover.png" id="49_ygjat"]
+[ext_resource type="Texture2D" uid="uid://0lja2dvt04ov" path="res://assets/ui/journal_done_normal.png" id="50_n26wl"]
+[ext_resource type="Texture2D" uid="uid://1tjgdeksrb5u" path="res://assets/ui/journal_info_normal.png" id="50_ralpd"]
+[ext_resource type="Texture2D" uid="uid://bwn8n8ql4cj5" path="res://assets/ui/journal_info_pressed.png" id="51_7oqij"]
+[ext_resource type="Texture2D" uid="uid://c3w8ilbp083c2" path="res://assets/ui/journal_info_hover.png" id="52_sev6r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vrsuv"]
 shader = ExtResource("1_6j1v8")
@@ -592,7 +610,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
-text = "cs_subpanel_status_effects"
+text = "Character Sheet"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -640,6 +658,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="InventoryPanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -656,7 +675,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
-text = "inv_subpanel_melee"
+text = "Inventory"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -705,9 +724,9 @@ stretch_mode = 0
 [node name="OthersButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-texture_normal = ExtResource("33_dplho")
-texture_pressed = ExtResource("34_f8oeu")
-texture_hover = ExtResource("35_hoxfq")
+texture_normal = ExtResource("33_v64mn")
+texture_pressed = ExtResource("34_dplho")
+texture_hover = ExtResource("35_f8oeu")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -729,7 +748,7 @@ theme_override_constants/separation = 5
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
-text = "cs_subpanel_status_effects"
+text = "Moves"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -738,46 +757,48 @@ layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="StatusEffectsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
+[node name="BasicMovesButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 toggle_mode = true
 button_pressed = true
-texture_normal = ExtResource("13_05xb5")
-texture_pressed = ExtResource("14_satcs")
-texture_hover = ExtResource("15_exqxb")
-texture_disabled = ExtResource("16_llh0a")
+texture_normal = ExtResource("36_hoxfq")
+texture_pressed = ExtResource("37_72867")
+texture_hover = ExtResource("37_72867")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
+[node name="StartingMovesButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 toggle_mode = true
-texture_normal = ExtResource("9_li2dw")
-texture_pressed = ExtResource("10_8goxp")
-texture_hover = ExtResource("11_4v68y")
-texture_disabled = ExtResource("12_14ogw")
+texture_normal = ExtResource("38_vx3gg")
+texture_pressed = ExtResource("39_ygjat")
+texture_hover = ExtResource("40_n26wl")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
+[node name="Advanced1Button" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 toggle_mode = true
-texture_normal = ExtResource("17_llh0a")
-texture_pressed = ExtResource("18_posp7")
-texture_hover = ExtResource("19_ym0v8")
-texture_disabled = ExtResource("20_da4ub")
+texture_normal = ExtResource("41_ralpd")
+texture_pressed = ExtResource("42_7oqij")
+texture_hover = ExtResource("43_sev6r")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="Advanced2Button" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("44_q06dq")
+texture_pressed = ExtResource("45_nrqbs")
+texture_hover = ExtResource("46_lured")
 ignore_texture_size = true
 stretch_mode = 0
 
 [node name="JournalButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -790,54 +811,44 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 5
 
-[node name="SubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer"]
+[node name="JournalSubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
-text = "cs_subpanel_status_effects"
+text = "Journal"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SubButtons" type="HBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer"]
+[node name="JournalSubButtons" type="HBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer"]
 layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1
 
-[node name="StatusEffectsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/SubButtons"]
+[node name="ActiveQuestsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 toggle_mode = true
-button_pressed = true
-texture_normal = ExtResource("13_05xb5")
-texture_pressed = ExtResource("14_satcs")
-texture_hover = ExtResource("15_exqxb")
-texture_disabled = ExtResource("16_llh0a")
+texture_normal = ExtResource("47_72867")
+texture_pressed = ExtResource("48_vx3gg")
+texture_hover = ExtResource("49_ygjat")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/SubButtons"]
+[node name="GeneralInfoButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
 toggle_mode = true
-texture_normal = ExtResource("9_li2dw")
-texture_pressed = ExtResource("10_8goxp")
-texture_hover = ExtResource("11_4v68y")
-texture_disabled = ExtResource("12_14ogw")
+texture_normal = ExtResource("50_ralpd")
+texture_pressed = ExtResource("51_7oqij")
+texture_hover = ExtResource("52_sev6r")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/SubButtons"]
+[node name="DoneQuestsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 toggle_mode = true
-texture_normal = ExtResource("17_llh0a")
-texture_pressed = ExtResource("18_posp7")
-texture_hover = ExtResource("19_ym0v8")
-texture_disabled = ExtResource("20_da4ub")
+texture_normal = ExtResource("50_n26wl")
 ignore_texture_size = true
 stretch_mode = 0
 
@@ -1173,9 +1184,3 @@ offset_bottom = 40.0
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]
-[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
-[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
-[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]
-[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
-[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
-[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]
