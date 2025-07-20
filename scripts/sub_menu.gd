@@ -1,10 +1,15 @@
 extends Control
 
+const CHARACTER_SHEET = "CharacterSheetButton"
+const INVENTORY = "InventoryButton"
+const MOVES = "MovesButton"
+const JOURNAL = "JournalButton"
+
 @onready var button_pressed: AudioStreamPlayer = $ButtonPressed
-@onready var character_sheet_button: Button = $BlackRectangle/SettingsContainer/CharacterSheetButton
-@onready var inventory_button: Button = $BlackRectangle/SettingsContainer/InventoryButton
-@onready var moves_button: Button = $BlackRectangle/SettingsContainer/MovesButton
-@onready var journal_button: Button = $BlackRectangle/SettingsContainer/JournalButton
+@onready var character_sheet_button: Button = $BlackRectangle/MenuContainer/CharacterSheetButton
+@onready var inventory_button: Button = $BlackRectangle/MenuContainer/InventoryButton
+@onready var moves_button: Button = $BlackRectangle/MenuContainer/MovesButton
+@onready var journal_button: Button = $BlackRectangle/MenuContainer/JournalButton
 
 @onready var portrait: TextureRect = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/Portrait
 @onready var name_label: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/NameLabel
@@ -36,10 +41,28 @@ extends Control
 @onready var history_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/HistoryButton
 @onready var character_sheet_subpanel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/CharacterSheetSubpanelLabel
 
-@onready var status_effects_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances
-@onready var status_effects_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances/StatusEffectsScrollContainer/StatusEffectsContainer
-@onready var bonds_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances
-@onready var history_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances
+@onready var melee_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/MeleeButton
+@onready var ranged_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/RangedButton
+@onready var armor_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/ArmorButton
+@onready var consumables_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/ConsumablesButton
+@onready var others_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/OthersButton
+@onready var inventory_sub_panel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/InventorySubPanelLabel
+
+@onready var basic_moves_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/BasicMovesButton
+@onready var starting_moves_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/StartingMovesButton
+@onready var advanced_1_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/Advanced1Button
+@onready var advanced_2_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons/Advanced2Button
+@onready var moves_sub_panel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/MovesSubPanelLabel
+
+@onready var active_quests_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/ActiveQuestsButton
+@onready var general_info_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/GeneralInfoButton
+@onready var done_quests_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/DoneQuestsButton
+@onready var journal_sub_panel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubPanelLabel
+
+@onready var charcter_sheet_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances/CharacterSheetScrollContainer/CharcterSheetContainer
+@onready var inventory_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances/InventoryScrollContainer/InventoryContainer
+@onready var moves_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances/MovesScrollContainer/MovesContainer
+@onready var journal_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances/JournalScrollContainer/JournalContainer
 
 @onready var picture_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
 @onready var right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/RightPanelPicture
@@ -55,10 +78,20 @@ var current_character_int: int = 0
 var current_character_stats: AllyStats
 var stat_labels: Dictionary
 var stat_panels: Dictionary
-var current_character_sheet_subpanel_button: TextureButton
-var current_character_sheet_subpanel_screen: Control
 
-var status_effects_button_active: Button
+var main_panel_button_toggled: Button = null
+var subpanel_button_toggled: Dictionary[String, TextureButton] = {
+	CHARACTER_SHEET: null,
+	INVENTORY: null,
+	MOVES: null,
+	JOURNAL: null
+}
+var subpanel_labels: Dictionary[String, String]
+
+#var current_character_sheet_subpanel_button: TextureButton
+#var current_character_sheet_subpanel_screen: Control
+#
+#var status_effects_button_active: Button
 
 func refresh():
 	available_characters = [Global.current_scene.hero]
@@ -102,7 +135,8 @@ func refresh():
 		if stat_value != null:
 			match_stats_colors(stat_panels[stat_name], stat_value)
 	
-	if true:
+	#TODO dodać warunek, że postać ma AP
+	if false:
 		ap_val.visible = true
 		ap_label.visible = true
 		ap_val.text = str(current_character_stats.slots_and_cores) + "/" + str(Global.save_state["level"] + 1)
@@ -110,13 +144,29 @@ func refresh():
 		ap_val.visible = false
 		ap_label.visible = false
 	
-	list_status_effects(current_character_stats)
+	if main_panel_button_toggled == null:
+		# We cannot initiate those subpanel buttons at the beginning since the buttons
+		# are being assigned to the variables at the later stage:
+		subpanel_button_toggled[CHARACTER_SHEET] = status_effects_button
+		subpanel_button_toggled[INVENTORY] = melee_button
+		subpanel_button_toggled[MOVES] = basic_moves_button
+		subpanel_button_toggled[JOURNAL] = active_quests_button
+		
+		# All panels should be invisible and toggled off at the start:
+		main_panel_button_toggled = character_sheet_button
+		main_panel_button_toggled.set_pressed(true)
+		
+		subpanel_labels = {
+			"StatusEffectsButton": "cs_subpanel_status_effects",
+		}
+	
+	#list_status_effects(current_character_stats)
 	
 	# Populating the screen so it is not empty 
 	# when opened for the first time.
-	if status_effects_button_active == null:
-		status_effects_button_active = status_effects_container.get_child(0)
-		status_effects_button_active.pressed
+	#if status_effects_button_active == null:
+		#status_effects_button_active = status_effects_container.get_child(0)
+		#status_effects_button_active.pressed
 
 
 func match_stats_colors(panel: ColorRect, stat: int):
@@ -141,64 +191,77 @@ func turn_stats_in_strings(stats: int) -> String:
 	
 	return result
 
-
-func subpanel_node_changed(button_toggled: TextureButton, screen_chosen: Control, subpanel_label_text: String):
-	button_pressed.play()
-	character_sheet_subpanel_label.text = subpanel_label_text
-	
-	if current_character_sheet_subpanel_button == null:
-		current_character_sheet_subpanel_button = status_effects_button
-		current_character_sheet_subpanel_screen = status_effects_instances
-	
-	current_character_sheet_subpanel_button.set_pressed(false)
-	current_character_sheet_subpanel_screen.visible = false
-	current_character_sheet_subpanel_button = button_toggled
-	current_character_sheet_subpanel_screen = screen_chosen
-	button_toggled.set_pressed(true)
-	screen_chosen.visible = true
-
-
-func list_status_effects(stats: AllyStats):
-	var all_status_effects = stats.status_effects
-	var n: int = 0
-	Global.remove_all_child_nodes(status_effects_container)
-	for status in all_status_effects:
-		var se_instance =  Button.new()
-		se_instance.custom_minimum_size = Vector2(684, 84)
-		se_instance.pressed.connect(func(): right_panel_se_changed(se_instance, status))
-		se_instance.text = status.status_name
-		se_instance.toggle_mode = true
-		status_effects_container.add_child(se_instance)
+#func subpanel_node_changed(button_toggled: TextureButton, screen_chosen: Control, subpanel_label_text: String):
+	#button_pressed.play()
+	#character_sheet_subpanel_label.text = subpanel_label_text
+	#
+	#if current_character_sheet_subpanel_button == null:
+		#current_character_sheet_subpanel_button = status_effects_button
+		#current_character_sheet_subpanel_screen = status_effects_instances
+	#
+	#current_character_sheet_subpanel_button.set_pressed(false)
+	#current_character_sheet_subpanel_screen.visible = false
+	#current_character_sheet_subpanel_button = button_toggled
+	#current_character_sheet_subpanel_screen = screen_chosen
+	#button_toggled.set_pressed(true)
+	#screen_chosen.visible = true
 
 
-func right_panel_se_changed(button_toggled: Button, status: StatusEffect):
-	button_pressed.play()
-	
-	just_description_panel.visible = false
-	
-	status_effects_button_active.set_pressed(false)
-	status_effects_button_active = button_toggled
-	status_effects_button_active.set_pressed(true)
-	show_status_effect(status)
-	
-	picture_with_description_panel.visible = true
+#func list_status_effects(stats: AllyStats):
+	#var all_status_effects = stats.status_effects
+	#var n: int = 0
+	#Global.remove_all_child_nodes(status_effects_container)
+	#for status in all_status_effects:
+		#var se_instance =  Button.new()
+		#se_instance.custom_minimum_size = Vector2(684, 84)
+		#se_instance.pressed.connect(func(): right_panel_se_changed(se_instance, status))
+		#se_instance.text = status.status_name
+		#se_instance.toggle_mode = true
+		#status_effects_container.add_child(se_instance)
 
 
-func show_status_effect(status: StatusEffect):
-	small_description_label.text = status.status_name
-	#Dodać kolorwanie panelu
-	status_effect_bonus_label.text = status.bonus_description
-	small_description.text = status.description
-	right_panel_picture.texture = status.picture
+#func right_panel_se_changed(button_toggled: Button, status: StatusEffect):
+	#button_pressed.play()
+	#
+	#just_description_panel.visible = false
+	#
+	#status_effects_button_active.set_pressed(false)
+	#status_effects_button_active = button_toggled
+	#status_effects_button_active.set_pressed(true)
+	#show_status_effect(status)
+	#
+	#picture_with_description_panel.visible = true
 
 
-func _on_status_effects_button_pressed() -> void:
-	subpanel_node_changed(status_effects_button, status_effects_instances, "cs_subpanel_status_effects")
+#func show_status_effect(status: StatusEffect):
+	#small_description_label.text = status.status_name
+	##Dodać kolorwanie panelu
+	#status_effect_bonus_label.text = status.bonus_description
+	#small_description.text = status.description
+	#right_panel_picture.texture = status.picture
 
 
-func _on_bonds_button_pressed() -> void:
-	subpanel_node_changed(bonds_button, bonds_instances, "cs_subpanel_bonds")
+#func _on_status_effects_button_pressed() -> void:
+	#subpanel_node_changed(status_effects_button, status_effects_instances, "cs_subpanel_status_effects")
+#
+#
+#func _on_bonds_button_pressed() -> void:
+	#subpanel_node_changed(bonds_button, bonds_instances, "cs_subpanel_bonds")
+#
+#
+#func _on_history_button_pressed() -> void:
+	#subpanel_node_changed(history_button, history_instances, "cs_subpanel_history")
 
+func change_character_sheet_panels(new_button: TextureButton):
+	if new_button != subpanel_button_toggled[CHARACTER_SHEET]:
+		print("debug sub_menu:: character sheet panel switched to %s" % subpanel_button_toggled[CHARACTER_SHEET].name)
+		subpanel_button_toggled[CHARACTER_SHEET].set_pressed(false)
+		subpanel_button_toggled[CHARACTER_SHEET] = new_button
+		subpanel_button_toggled[CHARACTER_SHEET].set_pressed(true)
+		character_sheet_subpanel_label.text = subpanel_labels[new_button.name]
+	else:
+		new_button.set_pressed(true)
 
-func _on_history_button_pressed() -> void:
-	subpanel_node_changed(history_button, history_instances, "cs_subpanel_history")
+# Changing buttons (probably could have been written better):
+func _on_character_sheet_button_pressed() -> void:
+	change_character_sheet_panels(subpanel_button_toggled[CHARACTER_SHEET])

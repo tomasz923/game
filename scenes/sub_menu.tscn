@@ -110,7 +110,7 @@ patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="SettingsContainer" type="HBoxContainer" parent="BlackRectangle"]
+[node name="MenuContainer" type="HBoxContainer" parent="BlackRectangle"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -120,46 +120,53 @@ grow_vertical = 2
 theme_override_constants/separation = 45
 alignment = 1
 
-[node name="CharacterSheetButton" type="Button" parent="BlackRectangle/SettingsContainer"]
+[node name="CharacterSheetButton" type="Button" parent="BlackRectangle/MenuContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_screk")
+toggle_mode = true
 text = "submenu_character_sheet"
 
-[node name="InventoryButton" type="Button" parent="BlackRectangle/SettingsContainer"]
+[node name="InventoryButton" type="Button" parent="BlackRectangle/MenuContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_screk")
+toggle_mode = true
 text = "submenu_inventory"
 
-[node name="MovesButton" type="Button" parent="BlackRectangle/SettingsContainer"]
+[node name="MovesButton" type="Button" parent="BlackRectangle/MenuContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_screk")
+toggle_mode = true
 text = "submenu_moves"
 
-[node name="JournalButton" type="Button" parent="BlackRectangle/SettingsContainer"]
+[node name="JournalButton" type="Button" parent="BlackRectangle/MenuContainer"]
 custom_minimum_size = Vector2(0, 80)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("3_screk")
+toggle_mode = true
 text = "submenu_journal"
 
 [node name="ContentContainer" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 750)
+custom_minimum_size = Vector2(1920, 750)
 layout_mode = 1
-anchors_preset = 14
+anchors_preset = 8
+anchor_left = 0.5
 anchor_top = 0.5
-anchor_right = 1.0
+anchor_right = 0.5
 anchor_bottom = 0.5
+offset_left = -960.0
 offset_top = -300.0
+offset_right = 960.0
 offset_bottom = 450.0
 grow_horizontal = 2
 grow_vertical = 2
@@ -799,6 +806,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="JournalButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -852,11 +860,12 @@ texture_normal = ExtResource("50_n26wl")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="StatusEffectsInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+[node name="CharacterSheetInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="StatusEffectsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances"]
+[node name="CharacterSheetScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances"]
 custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -870,21 +879,20 @@ grow_vertical = 2
 theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="StatusEffectsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances/StatusEffectsScrollContainer"]
+[node name="CharcterSheetContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances/CharacterSheetScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/StatusEffectsInstances/StatusEffectsScrollContainer/StatusEffectsContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances/CharacterSheetScrollContainer/CharcterSheetContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
-text = "Status Effects
+text = "CS
 "
 
-[node name="BondsInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
+[node name="InventoryInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="BondsScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances"]
+[node name="InventoryScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances"]
 custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -898,20 +906,20 @@ grow_vertical = 2
 theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="BondsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances/BondsScrollContainer"]
+[node name="InventoryContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances/InventoryScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/BondsInstances/BondsScrollContainer/BondsContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances/InventoryScrollContainer/InventoryContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
-text = "Więzi"
+text = "inv"
 
-[node name="HistoryInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+[node name="MovesInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
 visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="HistoryScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances"]
+[node name="MovesScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances"]
 custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -925,21 +933,21 @@ grow_vertical = 2
 theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="HistoryContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances/HistoryScrollContainer"]
+[node name="MovesContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances/MovesScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/HistoryInstances/HistoryScrollContainer/HistoryContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances/MovesScrollContainer/MovesContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 text = "Historia
 "
 
-[node name="MeleeInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
+[node name="JournalInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
 visible = false
 custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 
-[node name="MeleeScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MeleeInstances"]
+[node name="JournalScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances"]
 custom_minimum_size = Vector2(680, 400)
 layout_mode = 1
 anchors_preset = 15
@@ -953,127 +961,13 @@ grow_vertical = 2
 theme = ExtResource("22_da4ub")
 horizontal_scroll_mode = 3
 
-[node name="MeleeContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MeleeInstances/MeleeScrollContainer"]
+[node name="JournalContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances/JournalScrollContainer"]
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MeleeInstances/MeleeScrollContainer/MeleeContainer" instance=ExtResource("21_posp7")]
+[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances/JournalScrollContainer/JournalContainer" instance=ExtResource("21_posp7")]
 layout_mode = 2
 text = "Melee
-"
-
-[node name="RangedInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-
-[node name="RangedScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/RangedInstances"]
-custom_minimum_size = Vector2(680, 400)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = 10.0
-offset_bottom = 219.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("22_da4ub")
-horizontal_scroll_mode = 3
-
-[node name="RangedContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/RangedInstances/RangedScrollContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/RangedInstances/RangedScrollContainer/RangedContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-text = "Ranged
-"
-
-[node name="ArmorInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-
-[node name="ArmorScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/ArmorInstances"]
-custom_minimum_size = Vector2(680, 400)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = 10.0
-offset_bottom = 219.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("22_da4ub")
-horizontal_scroll_mode = 3
-
-[node name="ArmorContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/ArmorInstances/ArmorScrollContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/ArmorInstances/ArmorScrollContainer/ArmorContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-text = "Armor
-"
-
-[node name="ConsumablesInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-
-[node name="ConsumablesScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/ConsumablesInstances"]
-custom_minimum_size = Vector2(680, 400)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = 10.0
-offset_bottom = 219.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("22_da4ub")
-horizontal_scroll_mode = 3
-
-[node name="ConsumablesContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/ConsumablesInstances/ConsumablesScrollContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/ConsumablesInstances/ConsumablesScrollContainer/ConsumablesContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-text = "Consumables
-
-"
-
-[node name="OtherInstances" type="Control" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
-visible = false
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-
-[node name="OtherScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/OtherInstances"]
-custom_minimum_size = Vector2(680, 400)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 8.0
-offset_right = 10.0
-offset_bottom = 219.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("22_da4ub")
-horizontal_scroll_mode = 3
-
-[node name="OthersContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/OtherInstances/OtherScrollContainer"]
-layout_mode = 2
-theme_override_constants/separation = 5
-
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/OtherInstances/OtherScrollContainer/OthersContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-text = "Others
-
 "
 
 [node name="RightPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
@@ -1181,6 +1075,7 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[connection signal="pressed" from="BlackRectangle/MenuContainer/CharacterSheetButton" to="." method="_on_character_sheet_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]
