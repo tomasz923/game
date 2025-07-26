@@ -65,17 +65,6 @@ const JOURNAL = "JournalButton"
 @onready var moves_panel_buttons_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer
 @onready var journal_buttons_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer
 
-# Middle panel instances:
-@onready var character_sheet_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances
-@onready var inventory_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances
-@onready var moves_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances
-@onready var journal_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances
-
-# Instances containers
-@onready var charcter_sheet_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances/CharacterSheetScrollContainer/CharcterSheetContainer
-@onready var inventory_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances/InventoryScrollContainer/InventoryContainer
-@onready var moves_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances/MovesScrollContainer/MovesContainer
-@onready var journal_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances/JournalScrollContainer/JournalContainer
 
 # Right panels
 @onready var picture_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
@@ -91,6 +80,7 @@ const JOURNAL = "JournalButton"
 #@onready var small_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescription
 
 @onready var just_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel
+@onready var instances_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Instances/InstancesScrollContainer/InstancesContainer
 
 var available_characters: Array
 var current_character_int: int = 0
@@ -99,6 +89,7 @@ var stat_labels: Dictionary
 var stat_panels: Dictionary
 
 var submenu_panel_button_toggled: Button = null
+var submenu_panel_buttons_container_toggled: VBoxContainer = null
 var subpanel_button_toggled: Dictionary[String, TextureButton] = {
 	CHARACTER_SHEET: null,
 	INVENTORY: null,
@@ -163,17 +154,20 @@ func refresh():
 		ap_val.visible = false
 		ap_label.visible = false
 	
-	if submenu_panel_button_toggled == null:
+	#if submenu_panel_button_toggled == null:
 		# We cannot initiate those subpanel buttons at the beginning since the buttons
 		# are being assigned to the variables at the later stage:
-		subpanel_button_toggled[CHARACTER_SHEET] = status_effects_button
-		subpanel_button_toggled[INVENTORY] = melee_button
-		subpanel_button_toggled[MOVES] = basic_moves_button
-		subpanel_button_toggled[JOURNAL] = active_quests_button
+		#subpanel_button_toggled[CHARACTER_SHEET] = status_effects_button
+		#subpanel_button_toggled[INVENTORY] = melee_button
+		#subpanel_button_toggled[MOVES] = basic_moves_button
+		#subpanel_button_toggled[JOURNAL] = active_quests_button
+
 		
 		# All panels should be invisible and toggled off at the start:
 		submenu_panel_button_toggled = character_sheet_button
+		submenu_panel_buttons_container_toggled = character_sheet_panel_buttons_container
 		submenu_panel_button_toggled.set_pressed(true)
+		submenu_panel_buttons_container_toggled.visible = true
 		
 		subpanel_labels = {
 			"StatusEffectsButton": "cs_subpanel_status_effects",
@@ -260,51 +254,65 @@ func turn_stats_in_strings(stats: int) -> String:
 	#right_panel_picture.texture = status.picture
 
 
-#func _on_status_effects_button_pressed() -> void:
-	#subpanel_node_changed(status_effects_button, status_effects_instances, "cs_subpanel_status_effects")
-#
-#
-#func _on_bonds_button_pressed() -> void:
-	#subpanel_node_changed(bonds_button, bonds_instances, "cs_subpanel_bonds")
-#
-#
-#func _on_history_button_pressed() -> void:
-	#subpanel_node_changed(history_button, history_instances, "cs_subpanel_history")
-
-func change_submenu_panel(new_button: Button, middle_panel: Control, needs_right_panel_with_pic: bool):
+func change_submenu_panel(new_button: Button, panel_buttons_container: VBoxContainer, needs_right_panel_with_pic: bool):
 	if new_button != submenu_panel_button_toggled:
-		print("debug sub_menu:: submenu panel switched to %s" % new_button.name)
-		print(new_button != submenu_panel_button_toggled)
 		submenu_panel_button_toggled.set_pressed_no_signal(false)
 		submenu_panel_button_toggled = new_button
 		submenu_panel_button_toggled.set_pressed_no_signal(true)
+		submenu_panel_buttons_container_toggled.visible = false
+		submenu_panel_buttons_container_toggled = panel_buttons_container
+		submenu_panel_buttons_container_toggled.visible = true
+		# TODO: Change only when window is clciked
+		if needs_right_panel_with_pic:
+			picture_with_description_panel.visible = false
+			just_description_panel.visible = false
+		else:
+			picture_with_description_panel.visible = false
+			just_description_panel.visible = true
+			
 	else:
 		new_button.set_pressed_no_signal(true)
 		
 
-func change_character_sheet_panels(new_button: TextureButton):
+func change_character_sheet_panels(new_button: TextureButton) -> bool:
 	if new_button != subpanel_button_toggled[CHARACTER_SHEET]:
-		print("debug sub_menu:: character sheet panel switched to %s" % subpanel_button_toggled[CHARACTER_SHEET].name)
-		subpanel_button_toggled[CHARACTER_SHEET].set_pressed(false)
+		if subpanel_button_toggled[CHARACTER_SHEET] != null:
+			subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(false)
 		subpanel_button_toggled[CHARACTER_SHEET] = new_button
-		subpanel_button_toggled[CHARACTER_SHEET].set_pressed(true)
+		subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(true)
 		character_sheet_subpanel_label.text = subpanel_labels[new_button.name]
+		return true
 	else:
-		new_button.set_pressed(true)
+		new_button.set_pressed_no_signal(true)
+		return false
 
 # Changing submenus (probably could have been written better):
-	#change_character_sheet_panels(subpanel_button_toggled[CHARACTER_SHEET])
 func _on_character_sheet_button_pressed() -> void:
-	change_submenu_panel(character_sheet_button, null, true)
+	change_submenu_panel(character_sheet_button,character_sheet_panel_buttons_container, true)
+	character_sheet_panel_buttons_container.visible = true
+	subpanel_button_toggled[CHARACTER_SHEET].pressed
 
 
 func _on_inventory_button_pressed() -> void:
-	pass # Replace with function body.
+	change_submenu_panel(inventory_button, inventory_panel_buttons_container, true)
 
 
 func _on_moves_button_pressed() -> void:
-	pass # Replace with function body.
+	change_submenu_panel(moves_button, moves_panel_buttons_container, false)
 
 
 func _on_journal_button_pressed() -> void:
-	pass # Replace with function body.
+	change_submenu_panel(journal_button, journal_buttons_container, false)
+
+
+# Character Sheet Buttons ------------------------------------------------------
+func _on_status_effects_button_pressed() -> void:
+	change_character_sheet_panels(status_effects_button)
+
+
+func _on_bonds_button_pressed() -> void:
+	change_character_sheet_panels(bonds_button)
+
+
+func _on_history_button_pressed() -> void:
+	change_character_sheet_panels(history_button)
