@@ -1028,7 +1028,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 15
 
-[node name="SmallDescriptionLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+[node name="PicRightPanelTitleLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
@@ -1036,13 +1036,13 @@ text = "Status/Bond Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatusEffectBonusBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+[node name="PicColoredInfoBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
 custom_minimum_size = Vector2(470, 35)
 layout_mode = 2
 size_flags_horizontal = 4
 color = Color(0.862745, 0.384314, 0.313726, 1)
 
-[node name="StatusEffectBonusLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground"]
+[node name="PicColoredInfoLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicColoredInfoBackground"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1058,7 +1058,7 @@ text = "Bonus Description"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SmallDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+[node name="PicRightPanelDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
 custom_minimum_size = Vector2(470, 235)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1071,11 +1071,87 @@ autowrap_mode = 2
 
 [node name="JustDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 visible = false
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel"]
+self_modulate = Color(1, 1, 1, 0.745098)
+custom_minimum_size = Vector2(500, 370)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_posp7")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="SmallDescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 18.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 15
+
+[node name="SmallDescriptionLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+text = "Status/Bond Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StatusEffectBonusBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+custom_minimum_size = Vector2(470, 35)
+layout_mode = 2
+size_flags_horizontal = 4
+color = Color(0.862745, 0.384314, 0.313726, 1)
+
+[node name="StatusEffectBonusLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground"]
+custom_minimum_size = Vector2(460, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 24
+text = "Bonus Description"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SmallDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+custom_minimum_size = Vector2(470, 235)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("24_1p42s")
+theme_override_font_sizes/font_size = 18
+text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [connection signal="pressed" from="BlackRectangle/MenuContainer/CharacterSheetButton" to="." method="_on_character_sheet_button_pressed"]
+[connection signal="pressed" from="BlackRectangle/MenuContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
+[connection signal="pressed" from="BlackRectangle/MenuContainer/MovesButton" to="." method="_on_moves_button_pressed"]
+[connection signal="pressed" from="BlackRectangle/MenuContainer/JournalButton" to="." method="_on_journal_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]

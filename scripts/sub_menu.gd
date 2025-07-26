@@ -59,17 +59,36 @@ const JOURNAL = "JournalButton"
 @onready var done_quests_button: TextureButton = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/DoneQuestsButton
 @onready var journal_sub_panel_label: Label = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubPanelLabel
 
+# Subpanel buttons:
+@onready var character_sheet_panel_buttons_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer
+@onready var inventory_panel_buttons_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer
+@onready var moves_panel_buttons_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer
+@onready var journal_buttons_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer
+
+# Middle panel instances:
+@onready var character_sheet_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances
+@onready var inventory_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances
+@onready var moves_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances
+@onready var journal_instances: Control = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances
+
+# Instances containers
 @onready var charcter_sheet_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/CharacterSheetInstances/CharacterSheetScrollContainer/CharcterSheetContainer
 @onready var inventory_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/InventoryInstances/InventoryScrollContainer/InventoryContainer
 @onready var moves_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/MovesInstances/MovesScrollContainer/MovesContainer
 @onready var journal_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/JournalInstances/JournalScrollContainer/JournalContainer
 
+# Right panels
 @onready var picture_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
 @onready var right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/RightPanelPicture
-@onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
-@onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
-@onready var status_effect_bonus_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground
-@onready var small_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescription
+@onready var pic_right_panel_title_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicRightPanelTitleLabel
+@onready var pic_colored_info_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicColoredInfoBackground
+@onready var pic_colored_info_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicColoredInfoBackground/PicColoredInfoLabel
+@onready var pic_right_panel_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicRightPanelDescription
+
+#@onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
+#@onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
+#@onready var status_effect_bonus_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground
+#@onready var small_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescription
 
 @onready var just_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel
 
@@ -79,7 +98,7 @@ var current_character_stats: AllyStats
 var stat_labels: Dictionary
 var stat_panels: Dictionary
 
-var main_panel_button_toggled: Button = null
+var submenu_panel_button_toggled: Button = null
 var subpanel_button_toggled: Dictionary[String, TextureButton] = {
 	CHARACTER_SHEET: null,
 	INVENTORY: null,
@@ -144,7 +163,7 @@ func refresh():
 		ap_val.visible = false
 		ap_label.visible = false
 	
-	if main_panel_button_toggled == null:
+	if submenu_panel_button_toggled == null:
 		# We cannot initiate those subpanel buttons at the beginning since the buttons
 		# are being assigned to the variables at the later stage:
 		subpanel_button_toggled[CHARACTER_SHEET] = status_effects_button
@@ -153,8 +172,8 @@ func refresh():
 		subpanel_button_toggled[JOURNAL] = active_quests_button
 		
 		# All panels should be invisible and toggled off at the start:
-		main_panel_button_toggled = character_sheet_button
-		main_panel_button_toggled.set_pressed(true)
+		submenu_panel_button_toggled = character_sheet_button
+		submenu_panel_button_toggled.set_pressed(true)
 		
 		subpanel_labels = {
 			"StatusEffectsButton": "cs_subpanel_status_effects",
@@ -252,6 +271,17 @@ func turn_stats_in_strings(stats: int) -> String:
 #func _on_history_button_pressed() -> void:
 	#subpanel_node_changed(history_button, history_instances, "cs_subpanel_history")
 
+func change_submenu_panel(new_button: Button, middle_panel: Control, needs_right_panel_with_pic: bool):
+	if new_button != submenu_panel_button_toggled:
+		print("debug sub_menu:: submenu panel switched to %s" % new_button.name)
+		print(new_button != submenu_panel_button_toggled)
+		submenu_panel_button_toggled.set_pressed_no_signal(false)
+		submenu_panel_button_toggled = new_button
+		submenu_panel_button_toggled.set_pressed_no_signal(true)
+	else:
+		new_button.set_pressed_no_signal(true)
+		
+
 func change_character_sheet_panels(new_button: TextureButton):
 	if new_button != subpanel_button_toggled[CHARACTER_SHEET]:
 		print("debug sub_menu:: character sheet panel switched to %s" % subpanel_button_toggled[CHARACTER_SHEET].name)
@@ -262,6 +292,19 @@ func change_character_sheet_panels(new_button: TextureButton):
 	else:
 		new_button.set_pressed(true)
 
-# Changing buttons (probably could have been written better):
+# Changing submenus (probably could have been written better):
+	#change_character_sheet_panels(subpanel_button_toggled[CHARACTER_SHEET])
 func _on_character_sheet_button_pressed() -> void:
-	change_character_sheet_panels(subpanel_button_toggled[CHARACTER_SHEET])
+	change_submenu_panel(character_sheet_button, null, true)
+
+
+func _on_inventory_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_moves_button_pressed() -> void:
+	pass # Replace with function body.
+
+
+func _on_journal_button_pressed() -> void:
+	pass # Replace with function body.
