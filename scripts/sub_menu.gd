@@ -4,6 +4,7 @@ const CHARACTER_SHEET = "CharacterSheetButton"
 const INVENTORY = "InventoryButton"
 const MOVES = "MovesButton"
 const JOURNAL = "JournalButton"
+const MIDDLE_PANEL_INSTANCE = preload("res://game/scenes/middle_panel_instance.tscn")
 
 @onready var button_pressed: AudioStreamPlayer = $ButtonPressed
 @onready var character_sheet_button: Button = $BlackRectangle/MenuContainer/CharacterSheetButton
@@ -12,7 +13,7 @@ const JOURNAL = "JournalButton"
 @onready var journal_button: Button = $BlackRectangle/MenuContainer/JournalButton
 
 @onready var portrait: TextureRect = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/Portrait
-@onready var name_label: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/NameLabel
+@onready var name_label: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer/NameLabel
 @onready var class_label: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/ClassLabel
 @onready var level_val: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn/LevelVal
 @onready var xp_val: Label = $ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn/XPVal
@@ -83,9 +84,8 @@ const JOURNAL = "JournalButton"
 @onready var instances_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Instances/InstancesScrollContainer/InstancesContainer
 
 var available_characters: Array
-var current_character_int: int = 0
 var current_character_stats: AllyStats
-var stat_labels: Dictionary
+var stat_labels: Dictionary 
 var stat_panels: Dictionary
 
 var submenu_panel_button_toggled: Button = null
@@ -96,7 +96,11 @@ var subpanel_button_toggled: Dictionary[String, TextureButton] = {
 	MOVES: null,
 	JOURNAL: null
 }
-var subpanel_labels: Dictionary[String, String]
+var subpanel_labels: Dictionary[String, String] = {
+			"StatusEffectsButton": "cs_subpanel_status_effects",
+			"BondsButton": "cs_subpanel_bonds",
+			"HistoryButton": "cs_subpanel_history",
+		}
 
 #var current_character_sheet_subpanel_button: TextureButton
 #var current_character_sheet_subpanel_screen: Control
@@ -104,8 +108,14 @@ var subpanel_labels: Dictionary[String, String]
 #var status_effects_button_active: Button
 
 func refresh():
-	available_characters = [Global.current_scene.hero]
-	current_character_stats = available_characters[current_character_int].stats
+	#TODO Zmień zbieranie bohaterów, żeby mogło być ich mniej niż 4
+	available_characters = [
+		Global.current_scene.hero, 
+		Global.current_scene.follower_one,
+		Global.current_scene.follower_two,
+		Global.current_scene.follower_three
+		]
+	current_character_stats = available_characters[Global.save_state["current_ui_character_int"]].stats
 	name_label.text = current_character_stats.character_name
 	class_label.text = current_character_stats.character_class
 	portrait.texture = current_character_stats.portrait
@@ -115,7 +125,7 @@ func refresh():
 	coins_val.text = str(Global.save_state["coins"])
 	supplies_val.text = str(Global.save_state["supplies"])
 	
-	stat_labels = {
+	stat_labels= {
 		"strength": strength_val,
 		"dexterity": dexterity_val,
 		"endurance": endurance_val,
@@ -123,7 +133,7 @@ func refresh():
 		"memory": memory_val,
 		"charisma": charisma_val
 	}
-	
+
 	for stat_name in stat_labels.keys():
 		var stat_value = current_character_stats.get(stat_name)
 		if stat_value != null:
@@ -132,14 +142,14 @@ func refresh():
 			stat_labels[stat_name].text = "N/A"
 	
 	stat_panels = {
-		"strength": str_panel,
-		"dexterity": dex_panel,
-		"endurance": end_panel,
-		"processing": pro_panel,
-		"memory": mem_panel,
-		"charisma": cha_panel
-	}
-	
+			"strength": str_panel,
+			"dexterity": dex_panel,
+			"endurance": end_panel,
+			"processing": pro_panel,
+			"memory": mem_panel,
+			"charisma": cha_panel
+		}
+		
 	for stat_name in stat_labels.keys():
 		var stat_value = current_character_stats.get(stat_name)
 		if stat_value != null:
@@ -154,24 +164,24 @@ func refresh():
 		ap_val.visible = false
 		ap_label.visible = false
 	
-	#if submenu_panel_button_toggled == null:
+	if submenu_panel_button_toggled == null:
 		# We cannot initiate those subpanel buttons at the beginning since the buttons
 		# are being assigned to the variables at the later stage:
-		#subpanel_button_toggled[CHARACTER_SHEET] = status_effects_button
-		#subpanel_button_toggled[INVENTORY] = melee_button
-		#subpanel_button_toggled[MOVES] = basic_moves_button
-		#subpanel_button_toggled[JOURNAL] = active_quests_button
+		subpanel_button_toggled[CHARACTER_SHEET] = status_effects_button
+		subpanel_button_toggled[INVENTORY] = melee_button
+		subpanel_button_toggled[MOVES] = basic_moves_button
+		subpanel_button_toggled[JOURNAL] = active_quests_button
 
 		
 		# All panels should be invisible and toggled off at the start:
-		submenu_panel_button_toggled = character_sheet_button
-		submenu_panel_buttons_container_toggled = character_sheet_panel_buttons_container
-		submenu_panel_button_toggled.set_pressed(true)
-		submenu_panel_buttons_container_toggled.visible = true
-		
-		subpanel_labels = {
-			"StatusEffectsButton": "cs_subpanel_status_effects",
-		}
+		character_sheet_button.emit_signal("pressed")
+		#submenu_panel_button_toggled = character_sheet_button
+		#submenu_panel_buttons_container_toggled = character_sheet_panel_buttons_container
+		#submenu_panel_button_toggled.set_pressed(true)
+		#submenu_panel_buttons_container_toggled.visible = true
+		#subpanel_button_toggled[INVENTORY].emit_signal("pressed")
+	else:
+		submenu_panel_button_toggled.emit_signal("pressed")
 	
 	#list_status_effects(current_character_stats)
 	
@@ -255,11 +265,13 @@ func turn_stats_in_strings(stats: int) -> String:
 
 
 func change_submenu_panel(new_button: Button, panel_buttons_container: VBoxContainer, needs_right_panel_with_pic: bool):
+	button_pressed.play()
 	if new_button != submenu_panel_button_toggled:
-		submenu_panel_button_toggled.set_pressed_no_signal(false)
+		if submenu_panel_button_toggled != null:
+			submenu_panel_button_toggled.set_pressed_no_signal(false)
+			submenu_panel_buttons_container_toggled.visible = false
 		submenu_panel_button_toggled = new_button
 		submenu_panel_button_toggled.set_pressed_no_signal(true)
-		submenu_panel_buttons_container_toggled.visible = false
 		submenu_panel_buttons_container_toggled = panel_buttons_container
 		submenu_panel_buttons_container_toggled.visible = true
 		# TODO: Change only when window is clciked
@@ -274,23 +286,50 @@ func change_submenu_panel(new_button: Button, panel_buttons_container: VBoxConta
 		new_button.set_pressed_no_signal(true)
 		
 
-func change_character_sheet_panels(new_button: TextureButton) -> bool:
-	if new_button != subpanel_button_toggled[CHARACTER_SHEET]:
-		if subpanel_button_toggled[CHARACTER_SHEET] != null:
-			subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(false)
-		subpanel_button_toggled[CHARACTER_SHEET] = new_button
-		subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(true)
-		character_sheet_subpanel_label.text = subpanel_labels[new_button.name]
-		return true
+func change_character_sheet_panels(new_button: TextureButton) -> void:
+	button_pressed.play()
+	#if new_button != subpanel_button_toggled[CHARACTER_SHEET]:
+	if subpanel_button_toggled[CHARACTER_SHEET] != null:
+		subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(false)
+	subpanel_button_toggled[CHARACTER_SHEET] = new_button
+	subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(true)
+	character_sheet_subpanel_label.text = subpanel_labels[new_button.name]
+	clear_instances()
+		#print("character sheet panel worked 2")
+		#return true
+	#else:
+		#new_button.set_pressed_no_signal(true)
+		#print("character sheet panel worked 3")
+		#return false
+
+func _on_previous_character_button_pressed() -> void:
+	button_pressed.play()
+	if Global.save_state["current_ui_character_int"] == 0:
+		Global.save_state["current_ui_character_int"] = 3
 	else:
-		new_button.set_pressed_no_signal(true)
-		return false
+		Global.save_state["current_ui_character_int"] -= 1
+	refresh()
+
+
+func _on_next_character_button_pressed() -> void:
+	button_pressed.play()
+	if Global.save_state["current_ui_character_int"] == (len(available_characters) - 1):
+		Global.save_state["current_ui_character_int"] = 0
+	else:
+		Global.save_state["current_ui_character_int"] += 1
+	refresh()
+
+func clear_instances():
+	for n in instances_container.get_children():
+		instances_container.remove_child(n)
+		n.queue_free() 
+	#TODO Dodaj zmiany w prawym panelu
 
 # Changing submenus (probably could have been written better):
 func _on_character_sheet_button_pressed() -> void:
 	change_submenu_panel(character_sheet_button,character_sheet_panel_buttons_container, true)
 	character_sheet_panel_buttons_container.visible = true
-	subpanel_button_toggled[CHARACTER_SHEET].pressed
+	subpanel_button_toggled[CHARACTER_SHEET].emit_signal("pressed")
 
 
 func _on_inventory_button_pressed() -> void:
@@ -308,6 +347,17 @@ func _on_journal_button_pressed() -> void:
 # Character Sheet Buttons ------------------------------------------------------
 func _on_status_effects_button_pressed() -> void:
 	change_character_sheet_panels(status_effects_button)
+	if len(current_character_stats.status_effects) == 0:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.disabled = true
+		new_instance.text = "cs_no_status_effects_found"
+		instances_container.add_child(new_instance)
+	else:
+		for status in current_character_stats.status_effects:
+			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			new_instance.nested_resource = status
+			new_instance.text = status.status_name
+			instances_container.add_child(new_instance)
 
 
 func _on_bonds_button_pressed() -> void:
@@ -316,3 +366,7 @@ func _on_bonds_button_pressed() -> void:
 
 func _on_history_button_pressed() -> void:
 	change_character_sheet_panels(history_button)
+
+
+func _on_melee_button_pressed() -> void:
+	print("Hello world")

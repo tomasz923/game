@@ -9,7 +9,7 @@
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="5_3l230"]
 [ext_resource type="PackedScene" uid="uid://dimbub6bjxk82" path="res://game/scenes/popup_window.tscn" id="7_7hhc2"]
 [ext_resource type="PackedScene" uid="uid://bhrdjid1v1buq" path="res://game/scenes/reel.tscn" id="8_r5bfi"]
-[ext_resource type="Texture2D" uid="uid://ds47egx5yr2cp" path="res://assets/textures/ui/black_bar.png" id="10_wxwgt"]
+[ext_resource type="Texture2D" uid="uid://ds47egx5yr2cp" path="res://assets/ui/black_bar.png" id="10_wxwgt"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_uxlsf"]
 height = 4.0

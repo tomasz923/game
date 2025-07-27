@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://cx7007wuomcmc"]
+[gd_scene load_steps=61 format=3 uid="uid://cx7007wuomcmc"]
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
 [ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
@@ -20,7 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://ch36xkp5iyi7x" path="res://assets/ui/character_panel_history_pressed.png" id="18_posp7"]
 [ext_resource type="Texture2D" uid="uid://dxskgvbtqskul" path="res://assets/ui/character_panel_history_hover.png" id="19_ym0v8"]
 [ext_resource type="Texture2D" uid="uid://bryv6uhuoitgc" path="res://assets/ui/character_panel_history_disabled.png" id="20_da4ub"]
-[ext_resource type="PackedScene" uid="uid://rmax00vjuev4" path="res://game/scenes/character_sheet_subpanel_choice_button.tscn" id="21_posp7"]
 [ext_resource type="Texture2D" uid="uid://bu4l6frul5x4g" path="res://assets/ui/inventory_melee_normal.png" id="21_xm45r"]
 [ext_resource type="Texture2D" uid="uid://cdcjqeb3q6c37" path="res://assets/ui/inventory_melee_pressed.png" id="22_4wo7h"]
 [ext_resource type="Theme" uid="uid://1xrxjy3aa0fn" path="res://game/resources/sub_menu_theme.tres" id="22_da4ub"]
@@ -63,6 +62,12 @@
 shader = ExtResource("1_6j1v8")
 shader_parameter/blur = 4.0
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7oqij"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sev6r"]
+bg_color = Color(1, 1, 1, 0.470588)
+
 [node name="SubMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -72,7 +77,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
 metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 248.0, 240.0]
-metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0]
+metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0, 538.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ixln2")
@@ -230,13 +235,38 @@ expand_mode = 3
 custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
+layout_mode = 2
+alignment = 2
+
+[node name="PreviousCharacterButton" type="Button" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_7oqij")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sev6r")
+text = "<"
+
+[node name="NameLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer"]
+custom_minimum_size = Vector2(194, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
 text = "  NAME  "
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="NextCharacterButton" type="Button" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 30
+theme_override_styles/hover = SubResource("StyleBoxFlat_7oqij")
+theme_override_styles/normal = SubResource("StyleBoxFlat_sev6r")
+text = ">"
 
 [node name="ClassLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
 layout_mode = 2
@@ -255,6 +285,7 @@ vertical_alignment = 1
 
 [node name="QucikStats" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
 layout_mode = 2
+theme_override_constants/separation = 12
 
 [node name="LeftColumn" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats"]
 layout_mode = 2
@@ -885,11 +916,6 @@ horizontal_scroll_mode = 3
 layout_mode = 2
 theme_override_constants/separation = 5
 
-[node name="CharacterSheetSubpanelChoiceButton2" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Instances/InstancesScrollContainer/InstancesContainer" instance=ExtResource("21_posp7")]
-layout_mode = 2
-text = "CS
-"
-
 [node name="RightPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
@@ -1072,6 +1098,9 @@ autowrap_mode = 2
 [connection signal="pressed" from="BlackRectangle/MenuContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]
 [connection signal="pressed" from="BlackRectangle/MenuContainer/MovesButton" to="." method="_on_moves_button_pressed"]
 [connection signal="pressed" from="BlackRectangle/MenuContainer/JournalButton" to="." method="_on_journal_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer/PreviousCharacterButton" to="." method="_on_previous_character_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer/NextCharacterButton" to="." method="_on_next_character_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/StatusEffectsButton" to="." method="_on_status_effects_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/MeleeButton" to="." method="_on_melee_button_pressed"]

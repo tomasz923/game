@@ -21,7 +21,8 @@ var save_state: Dictionary = {
 	"experience": 0,
 	"level": 1,
 	"coins": 0,
-	"supplies": 0
+	"supplies": 0,
+	"current_ui_character_int": 0
 }
 
 var state_var_dialogue: Dictionary = { 
@@ -72,7 +73,7 @@ var user_prefs: UserPreferences
 var is_scene_being_loaded: bool = false
 # Saved as a part of a save file
 var screenshot: Image 
-# For initail load of resolution, sound settings etc.
+# For initial load of resolution, sound settings etc.
 var is_initial_load_ready = false
 # If th game cane be paused
 var is_pausable: bool = true

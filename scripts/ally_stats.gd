@@ -17,8 +17,10 @@ enum SecondBar {
 @export var memory: int
 var aggro: int
 
-@export_category("Bonds & Backstory & Debilities")
+@export_category("Character Sheet")
 @export var status_effects: Array[StatusEffect] = []
+@export var bonds: Array[StatusEffect] = []
+@export var backstory: Array[StatusEffect] = []
 
 #func initiate(character):
 	#max_health = 69 # Default value

@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=3 uid="uid://c8g7j7uorg1rj"]
+
+[ext_resource type="FontFile" uid="uid://dmgrexx73dwyv" path="res://assets/fonts/RobotoCondensed-Regular.ttf" id="2_7uptb"]
+[ext_resource type="Script" uid="uid://ckjyrjk385s7d" path="res://game/scripts/middle_panel_instance.gd" id="2_lflgg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xg14g"]
+bg_color = Color(1, 1, 1, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qwjo8"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lflgg"]
+bg_color = Color(1, 1, 1, 0.4)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3u218"]
+bg_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7uptb"]
+bg_color = Color(0, 0, 0, 0.4)
+
+[node name="MiddlePanelInstance" type="Button"]
+custom_minimum_size = Vector2(684, 84)
+offset_right = 8.0
+offset_bottom = 8.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("2_7uptb")
+theme_override_styles/focus = SubResource("StyleBoxFlat_xg14g")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_qwjo8")
+theme_override_styles/hover = SubResource("StyleBoxFlat_lflgg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_3u218")
+theme_override_styles/normal = SubResource("StyleBoxFlat_7uptb")
+text = "Random Item (X)
+"
+icon_alignment = 1
+script = ExtResource("2_lflgg")

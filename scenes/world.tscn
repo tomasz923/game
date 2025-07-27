@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=38 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" uid="uid://b3fgcn6odsah" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/temp/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -9,7 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/temp/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/temp/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="5_f8m7e"]
+[ext_resource type="Resource" uid="uid://b2eud1bwnv37q" path="res://assets/temp/stats_tymek_koparka.tres" id="7_jku6p"]
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://assets/temp/grids/Green/texture_01.png" id="7_v04pi"]
+[ext_resource type="Resource" uid="uid://4vlkwwt6is" path="res://assets/temp/stats_mirek_komunista.tres" id="8_jm7ae"]
+[ext_resource type="Resource" uid="uid://ybl4xutp2dhe" path="res://assets/temp/stats_krzysiek_stazysta.tres" id="9_ig733"]
 [ext_resource type="JSON" path="res://assets/json/dialogues/demo.json" id="11_srbxb"]
 [ext_resource type="PackedScene" uid="uid://chkq5elt8axwf" path="res://game/scenes/pink_guy.tscn" id="12_fw5yl"]
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
@@ -68,7 +71,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_hk75s"]
+[sub_resource type="Resource" id="Resource_jku6p"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -109,6 +112,7 @@ collision_mask = 3
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
 collision_mask = 2051
 model_tscn = ExtResource("21_m3ehy")
+stats = ExtResource("7_jku6p")
 character = 1
 
 [node name="FollowerTwo" parent="." instance=ExtResource("14_t2ro3")]
@@ -116,6 +120,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -6.874
 collision_mask = 2051
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 1
+stats = ExtResource("8_jm7ae")
 character = 2
 
 [node name="FollowerThree" parent="." instance=ExtResource("14_t2ro3")]
@@ -123,6 +128,7 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.468
 collision_mask = 2051
 model_tscn = ExtResource("21_m3ehy")
 follower_number = 2
+stats = ExtResource("9_ig733")
 character = 3
 
 [node name="map" type="Node3D" parent="."]
@@ -181,12 +187,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_hk75s")
-second_enemy_stats = SubResource("Resource_hk75s")
-third_enemy_stats = SubResource("Resource_hk75s")
-fourth_enemy_stats = SubResource("Resource_hk75s")
-fifth_enemy_stats = SubResource("Resource_hk75s")
-sixth_enemy_stats = SubResource("Resource_hk75s")
+first_enemy_stats = SubResource("Resource_jku6p")
+second_enemy_stats = SubResource("Resource_jku6p")
+third_enemy_stats = SubResource("Resource_jku6p")
+fourth_enemy_stats = SubResource("Resource_jku6p")
+fifth_enemy_stats = SubResource("Resource_jku6p")
+sixth_enemy_stats = SubResource("Resource_jku6p")
 
 [node name="MainMenuUI" parent="." instance=ExtResource("17_scav7")]
 visible = false
