@@ -39,3 +39,5 @@ text = "Random Item (X)
 "
 icon_alignment = 1
 script = ExtResource("2_lflgg")
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]

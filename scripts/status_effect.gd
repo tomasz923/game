@@ -7,7 +7,8 @@ enum Effect {
 	ENDURANCE,
 	MEMORY,
 	PROCESSING,
-	CHARISMA
+	CHARISMA,
+	BONDS
 }
 
 @export var status_name: String 

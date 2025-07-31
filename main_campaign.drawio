@@ -1,30 +1,168 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4">
-  <diagram name="Strona-1" id="c1oUz6ldAFJI0gAWKVRb">
-    <mxGraphModel dx="1519" dy="595" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6" pages="5">
+  <diagram name="Czas i miejsce" id="c1oUz6ldAFJI0gAWKVRb">
+    <mxGraphModel dx="1869" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eJcnqDhw7TKsgx9lGfIb-3" target="eJcnqDhw7TKsgx9lGfIb-6">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-3" value="Bohater zostaje wrzucony do kolonii" style="whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="eJcnqDhw7TKsgx9lGfIb-3" value="Bohater zostaje wrzucony do kolonii" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="240" y="80" width="200" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eJcnqDhw7TKsgx9lGfIb-6" target="eJcnqDhw7TKsgx9lGfIb-8">
+        <mxCell id="eJcnqDhw7TKsgx9lGfIb-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="eJcnqDhw7TKsgx9lGfIb-6" target="eJcnqDhw7TKsgx9lGfIb-8" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="eJcnqDhw7TKsgx9lGfIb-6" target="eJcnqDhw7TKsgx9lGfIb-10">
+        <mxCell id="eJcnqDhw7TKsgx9lGfIb-11" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="eJcnqDhw7TKsgx9lGfIb-6" target="eJcnqDhw7TKsgx9lGfIb-10" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-6" value="Nazwa?&lt;div&gt;Czas i miejsce akcji?&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="eJcnqDhw7TKsgx9lGfIb-6" value="Nazwa?&lt;div&gt;Czas i miejsce akcji?&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="50" y="90" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-8" value="Obóz Internowanych 12A // Internment Camp 12A" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="eJcnqDhw7TKsgx9lGfIb-8" value="Obóz Internowanych 12A // Internment Camp 12A" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-180" y="40" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="eJcnqDhw7TKsgx9lGfIb-10" value="Rok 2056.&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;div&gt;Union Fédérale Européenne&lt;br&gt;&lt;br&gt;Europäische Föderale Union&lt;br&gt;&lt;br&gt;European Federal Union&lt;br&gt;&lt;br&gt;Europejska Unia Federalna&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+        <mxCell id="eJcnqDhw7TKsgx9lGfIb-10" value="Rok 2056.&amp;nbsp;&lt;div&gt;&lt;br&gt;&lt;div&gt;Union Fédérale Européenne&lt;br&gt;&lt;br&gt;Europäische Föderale Union&lt;br&gt;&lt;br&gt;European Federal Union&lt;br&gt;&lt;br&gt;Europejska Unia Federalna&lt;/div&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="-180" y="120" width="120" height="270" as="geometry" />
         </mxCell>
+        <mxCell id="ZGj2lJeOsJRqzZeKcTj7-2" value="" style="edgeStyle=elbowEdgeStyle;elbow=horizontal;endArrow=classic;html=1;curved=0;rounded=0;endSize=8;startSize=8;" edge="1" parent="1" source="eJcnqDhw7TKsgx9lGfIb-6" target="eJcnqDhw7TKsgx9lGfIb-3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="320" as="sourcePoint" />
+            <mxPoint x="260" y="270" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="hvci-y2RSswknhQgso3g" name="Obozy">
+    <mxGraphModel dx="1869" dy="1803" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-4" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-6" target="ppGDjz2RJDXlK7jJ_ar5-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-6" value="Zieloni&lt;br&gt;(Religijni)" style="ellipse;whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="310" y="55" width="220" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-12" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-7" target="ppGDjz2RJDXlK7jJ_ar5-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-14" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-7" target="ppGDjz2RJDXlK7jJ_ar5-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-7" value="Ustrój" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="630" y="30" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-9" value="Postaci" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="200" y="25" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-13" value="Rada Przedstawicieli Trzech Religii Abrahamowych" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="800" width="190" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-19" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-16" target="ppGDjz2RJDXlK7jJ_ar5-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-16" value="Lider Judaizmu" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="30" y="-50" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-20" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-17" target="ppGDjz2RJDXlK7jJ_ar5-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-17" value="Lider Islamu" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="30" y="25" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-21" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-18" target="ppGDjz2RJDXlK7jJ_ar5-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-18" value="Lider Chrześcijaństwa" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="30" y="110" width="120" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-23" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-22" target="ppGDjz2RJDXlK7jJ_ar5-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-22" value="Skąd przemoc i wojny wśród religii pokoju?" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="-190" y="20" width="170" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-27" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-24" target="ppGDjz2RJDXlK7jJ_ar5-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-24" value="Wyzysk i kolonializm" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="-470" y="-20" width="227" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-26" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ppGDjz2RJDXlK7jJ_ar5-25" target="ppGDjz2RJDXlK7jJ_ar5-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ppGDjz2RJDXlK7jJ_ar5-25" value="Nienawiść i ludzkie przywary - inne religie mają te same problemy" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="-470" y="50" width="227" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-2" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-1" target="ppGDjz2RJDXlK7jJ_ar5-6">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="550" y="110" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-4" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-1" target="-jps8mwtu7x4ES3WPeyM-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-6" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-1" target="-jps8mwtu7x4ES3WPeyM-5">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-1" value="Lokacja" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="630" y="260" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-3" value="Klasztor na szczcyie góry nad ujściem rzeki" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="800" y="260" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-5" value="Dostęp tylko windą. Widok na Instytut po drugiej stronie" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="800" y="310" width="190" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-8" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-7" target="ppGDjz2RJDXlK7jJ_ar5-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-7" value="Filozofia" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="170" y="240" width="80" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-11" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-9" target="-jps8mwtu7x4ES3WPeyM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-9" value="Współpraca z ludzkością" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="-20" y="240" width="160" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-12" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-10" target="-jps8mwtu7x4ES3WPeyM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-10" value="Walka o uznanie duszy maszyn przez mainstreamowe wyznania" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="-25" y="290" width="170" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-14" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="-jps8mwtu7x4ES3WPeyM-13" target="-jps8mwtu7x4ES3WPeyM-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-jps8mwtu7x4ES3WPeyM-13" value="Proponenci współpracy z &quot;bezdomnymi&quot; - chociaż jako jedyni mieszkają w miejscu z dala od obcych maszyn?" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="-30" y="360" width="170" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="wCow9M_n7oYN3G34vsUv" name="Bohaterowie">
+    <mxGraphModel dx="1042" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="YcLy4kLY_bV89lnJq-Kl" name="Mechanika Gry">
+    <mxGraphModel dx="1042" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="7WBJ3vEdxJ5nd7g6BoI9" name="Fabuła">
+    <mxGraphModel dx="1042" dy="634" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
       </root>
     </mxGraphModel>
   </diagram>

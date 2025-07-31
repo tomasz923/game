@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PhantomCameraTween" load_steps=2 format=3 uid="uid://c57f1pauyxmuc"]
 
-[ext_resource type="Script" uid="uid://cobir00j4n1qx" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="1_vrc32"]
+[ext_resource type="Script" uid="uid://tuyhsdndtw6d" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="1_vrc32"]
 
 [resource]
 script = ExtResource("1_vrc32")

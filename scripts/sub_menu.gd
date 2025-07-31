@@ -5,6 +5,8 @@ const INVENTORY = "InventoryButton"
 const MOVES = "MovesButton"
 const JOURNAL = "JournalButton"
 const MIDDLE_PANEL_INSTANCE = preload("res://game/scenes/middle_panel_instance.tscn")
+const GREEN: Color = Color("#55927f") 
+const RED: Color = Color("#dc6250")
 
 @onready var button_pressed: AudioStreamPlayer = $ButtonPressed
 @onready var character_sheet_button: Button = $BlackRectangle/MenuContainer/CharacterSheetButton
@@ -68,19 +70,20 @@ const MIDDLE_PANEL_INSTANCE = preload("res://game/scenes/middle_panel_instance.t
 
 
 # Right panels
-@onready var picture_with_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel
-@onready var right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/RightPanelPicture
-@onready var pic_right_panel_title_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicRightPanelTitleLabel
-@onready var pic_colored_info_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicColoredInfoBackground
-@onready var pic_colored_info_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicColoredInfoBackground/PicColoredInfoLabel
-@onready var pic_right_panel_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicRightPanelDescription
+@onready var character_sheet_right_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel
+@onready var character_sheet_right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/CharacterSheetRightPanelPicture
+@onready var character_sheet_right_panel_vbox: VBoxContainer = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox
+@onready var character_sheet_right_panel_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelLabel
+@onready var character_sheet_right_panel_colored_strip: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelColoredStrip
+@onready var character_sheet_right_panel_colored_strip_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelColoredStrip/CharacterSheetRightPanelColoredStripLabel
+@onready var character_sheet_right_panel_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelDescription
 
 #@onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
 #@onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
 #@onready var status_effect_bonus_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground
 #@onready var small_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescription
 
-@onready var just_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel
+#@onready var just_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel
 @onready var instances_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Instances/InstancesScrollContainer/InstancesContainer
 
 var available_characters: Array
@@ -275,12 +278,7 @@ func change_submenu_panel(new_button: Button, panel_buttons_container: VBoxConta
 		submenu_panel_buttons_container_toggled = panel_buttons_container
 		submenu_panel_buttons_container_toggled.visible = true
 		# TODO: Change only when window is clciked
-		if needs_right_panel_with_pic:
-			picture_with_description_panel.visible = false
-			just_description_panel.visible = false
-		else:
-			picture_with_description_panel.visible = false
-			just_description_panel.visible = true
+		hide_right_panels()
 			
 	else:
 		new_button.set_pressed_no_signal(true)
@@ -288,6 +286,7 @@ func change_submenu_panel(new_button: Button, panel_buttons_container: VBoxConta
 
 func change_character_sheet_panels(new_button: TextureButton) -> void:
 	button_pressed.play()
+	hide_right_panels()
 	#if new_button != subpanel_button_toggled[CHARACTER_SHEET]:
 	if subpanel_button_toggled[CHARACTER_SHEET] != null:
 		subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(false)
@@ -325,6 +324,9 @@ func clear_instances():
 		n.queue_free() 
 	#TODO Dodaj zmiany w prawym panelu
 
+func hide_right_panels():
+	character_sheet_right_panel.visible = false
+	
 # Changing submenus (probably could have been written better):
 func _on_character_sheet_button_pressed() -> void:
 	change_submenu_panel(character_sheet_button,character_sheet_panel_buttons_container, true)
@@ -355,13 +357,40 @@ func _on_status_effects_button_pressed() -> void:
 	else:
 		for status in current_character_stats.status_effects:
 			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			new_instance.has_resources = true
 			new_instance.nested_resource = status
 			new_instance.text = status.status_name
+			new_instance.instance_was_highlighted.connect(_on_status_effect_was_highlighted)
 			instances_container.add_child(new_instance)
 
 
+func _on_status_effect_was_highlighted(resource: StatusEffect):
+	character_sheet_right_panel_picture.texture = resource.picture
+	character_sheet_right_panel_colored_strip_label.text = resource.bonus_description
+	character_sheet_right_panel_label.text = resource.status_name
+	character_sheet_right_panel_description.text = resource.description
+	if resource.bonus > 0:
+		character_sheet_right_panel_colored_strip.color = GREEN 
+	else:
+		character_sheet_right_panel_colored_strip.color = RED
+	character_sheet_right_panel.visible = true
+	
+
 func _on_bonds_button_pressed() -> void:
 	change_character_sheet_panels(bonds_button)
+	if len(current_character_stats.bonds) == 0:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.disabled = true
+		new_instance.text = "cs_no_bonds_found"
+		instances_container.add_child(new_instance)
+	else:
+		for status in current_character_stats.bonds:
+			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			new_instance.has_resources = true
+			new_instance.nested_resource = status
+			new_instance.text = status.status_name
+			new_instance.instance_was_highlighted.connect(_on_status_effect_was_highlighted)
+			instances_container.add_child(new_instance)
 
 
 func _on_history_button_pressed() -> void:

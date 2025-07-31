@@ -1,105 +1,131 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.4 Chrome/138.0.7204.97 Electron/37.2.1 Safari/537.36" version="28.0.4">
+<mxfile host="Electron" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.0.6 Chrome/138.0.7204.100 Electron/37.2.3 Safari/537.36" version="28.0.6">
   <diagram name="Strona-1" id="Tv7fYlmSppzn7SCQ0L_H">
-    <mxGraphModel dx="5438" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="6451" dy="1409" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-7" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" edge="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-7" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" parent="1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-2586.5" y="360" as="sourcePoint" />
             <mxPoint x="-2666.5" y="360" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-9" value="Walka ze Ślązakami" style="ellipse;whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-9" value="Walka ze Ślązakami" style="ellipse;whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-2590" y="300" width="180" height="120" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-31" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-12" target="ahaxrKawzvZABqLtC8Ha-30">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-31" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-12" target="ahaxrKawzvZABqLtC8Ha-30" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-35" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-12" target="ahaxrKawzvZABqLtC8Ha-34">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-35" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-12" target="ahaxrKawzvZABqLtC8Ha-34" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-12" value="Chcą zbudować centrum handlowe w Chrzanowie&lt;div&gt;&amp;nbsp;a pod nim wielki magazyn energii&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-12" value="Chcą zbudować centrum handlowe w Chrzanowie&lt;div&gt;&amp;nbsp;a pod nim wielki magazyn energii&lt;/div&gt;" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-2970" y="335" width="310" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-33" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-10" target="ahaxrKawzvZABqLtC8Ha-32">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-33" value="" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-10" target="ahaxrKawzvZABqLtC8Ha-32" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-10" value="Proponenci OZE" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-10" value="Proponenci OZE" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-2340" y="345" width="143" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-5" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-9" target="ahaxrKawzvZABqLtC8Ha-10">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-5" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-9" target="ahaxrKawzvZABqLtC8Ha-10" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="-2380" y="355" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-30" value="To spowoduje dalszy upadek węgla i znaczenia Ślązaków" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;strokeWidth=1;autosize=0;spacing=4;" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-30" value="To spowoduje dalszy upadek węgla i znaczenia Ślązaków" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;strokeWidth=1;autosize=0;spacing=4;" parent="1" vertex="1">
           <mxGeometry x="-3265" y="240" width="235" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-32" value="Razem z Kulczykami budują farmę wiatrową we Władysławowie" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-32" value="Razem z Kulczykami budują farmę wiatrową we Władysławowie" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-2140" y="327.5" width="175" height="65" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-34" value="" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-34" value="" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-3360" y="335" width="310" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-41" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-38" target="ahaxrKawzvZABqLtC8Ha-9">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-41" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-38" target="ahaxrKawzvZABqLtC8Ha-9" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-38" value="Mają Tuska w kieszeni" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-38" value="Mają Tuska w kieszeni" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-2353" y="280" width="160" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-43" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-47" target="ahaxrKawzvZABqLtC8Ha-48">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-43" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-47" target="ahaxrKawzvZABqLtC8Ha-48" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-2430" y="780" as="sourcePoint" />
+            <mxPoint x="-2330" y="930" as="sourcePoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-45" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-47" target="ahaxrKawzvZABqLtC8Ha-50">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-45" value="" style="edgeStyle=entityRelationEdgeStyle;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;rounded=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-47" target="ahaxrKawzvZABqLtC8Ha-50" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-47" value="Federacja Ślązaków" style="ellipse;whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-2750" y="690" width="290" height="80" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-47" value="Federacja Ślązaków" style="ellipse;whiteSpace=wrap;html=1;align=center;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2650" y="840" width="290" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-48" value="Próbowali z Budką i Morawieckim zepsuć prym Kaszubów" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-2355" y="690" width="150" height="50" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-48" value="Próbowali z Budką i Morawieckim zepsuć prym Kaszubów" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2255" y="840" width="150" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-50" value="Federacja od fedrowania" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-3040" y="615" width="240" height="30" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-50" value="Federacja od fedrowania" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2940" y="765" width="240" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-53" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-52" target="ahaxrKawzvZABqLtC8Ha-47">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-53" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-52" target="ahaxrKawzvZABqLtC8Ha-47" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-2430" y="780" as="targetPoint" />
+            <mxPoint x="-2330" y="930" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-52" value="Mają wtyki w chińskiej partii ludowej. Stąd wiedzą, że Kaszubi kupują tanie ma&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;gazyny energii&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-2380" y="760" width="200" height="50" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-52" value="Mają wtyki w chińskiej partii ludowej. Stąd wiedzą, że Kaszubi kupują tanie ma&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;gazyny energii&lt;/span&gt;" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2280" y="910" width="200" height="50" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-55" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-54" target="ahaxrKawzvZABqLtC8Ha-47">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-55" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-54" target="ahaxrKawzvZABqLtC8Ha-47" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-2750" y="660" as="targetPoint" />
+            <mxPoint x="-2650" y="810" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-54" value="Dywersant zna lokalnych społeczników z Woodstocka. Poznali się przed pierwszym zjazdem an grubę (chciał odszaleć swoje)" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-3050" y="670" width="245" height="90" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-54" value="Dywersant zna lokalnych społeczników z Woodstocka. Poznali się przed pierwszym zjazdem an grubę (chciał odszaleć swoje)" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2950" y="820" width="245" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-56" value="Mogą zaoferować miejsce w siedzibie JSW w Katowicach i ministerstwie przemysłu" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-3050" y="770" width="245" height="90" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-56" value="Mogą zaoferować miejsce w siedzibie JSW w Katowicach i ministerstwie przemysłu" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2950" y="920" width="245" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-57" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-56" target="ahaxrKawzvZABqLtC8Ha-47">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-57" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-56" target="ahaxrKawzvZABqLtC8Ha-47" edge="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-2752" y="660" as="targetPoint" />
+            <mxPoint x="-2652" y="810" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-60" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-58" target="ahaxrKawzvZABqLtC8Ha-32">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-60" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-58" target="ahaxrKawzvZABqLtC8Ha-32" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-58" value="Mają holding OZE" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-58" value="Mają holding OZE" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=1;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
           <mxGeometry x="-1890" y="345" width="140" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-62" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="ahaxrKawzvZABqLtC8Ha-61" target="ahaxrKawzvZABqLtC8Ha-47">
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-62" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" parent="1" source="ahaxrKawzvZABqLtC8Ha-61" target="ahaxrKawzvZABqLtC8Ha-47" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="ahaxrKawzvZABqLtC8Ha-61" value="Sankcje na Rosję sa im na rękę. Wojna na Ukrainie średnio" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
-          <mxGeometry x="-2370" y="600" width="240" height="70" as="geometry" />
+        <mxCell id="ahaxrKawzvZABqLtC8Ha-61" value="Sankcje na Rosję sa im na rękę. Wojna na Ukrainie średnio" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" parent="1" vertex="1">
+          <mxGeometry x="-2270" y="750" width="240" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="n-G_IiRZkCCNlc699aD8-1" value="Wątek efektywności" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="-2580" y="550" width="170" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="unC_3VhMxl3i9-iUKL7s-3" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="unC_3VhMxl3i9-iUKL7s-2" target="ahaxrKawzvZABqLtC8Ha-47">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-2520" y="800" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="-2520" y="840" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="unC_3VhMxl3i9-iUKL7s-4" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="unC_3VhMxl3i9-iUKL7s-2" target="n-G_IiRZkCCNlc699aD8-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="unC_3VhMxl3i9-iUKL7s-2" value="Argumenty przeciw atomowi:&lt;br&gt;- zależność od innych narodów i problemy ze składowaniem + kto by chciał mieszkać koło elektrowni jadrowej?" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="-2320" y="560" width="370" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="unC_3VhMxl3i9-iUKL7s-6" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="unC_3VhMxl3i9-iUKL7s-5" target="n-G_IiRZkCCNlc699aD8-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="unC_3VhMxl3i9-iUKL7s-7" style="edgeStyle=entityRelationEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=none;endArrow=none;segment=10;curved=1;sourcePerimeterSpacing=0;targetPerimeterSpacing=0;" edge="1" parent="1" source="unC_3VhMxl3i9-iUKL7s-5" target="ahaxrKawzvZABqLtC8Ha-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="unC_3VhMxl3i9-iUKL7s-5" value="Obrazek z internetu + efektywność na wyższych obrotach" style="whiteSpace=wrap;html=1;rounded=1;arcSize=50;align=center;verticalAlign=middle;strokeWidth=1;autosize=0;spacing=4;treeFolding=1;treeMoving=1;newEdgeStyle={&quot;edgeStyle&quot;:&quot;entityRelationEdgeStyle&quot;,&quot;startArrow&quot;:&quot;none&quot;,&quot;endArrow&quot;:&quot;none&quot;,&quot;segment&quot;:10,&quot;curved&quot;:1,&quot;sourcePerimeterSpacing&quot;:0,&quot;targetPerimeterSpacing&quot;:0};" vertex="1" parent="1">
+          <mxGeometry x="-3020" y="560" width="370" height="70" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

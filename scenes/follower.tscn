@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://bxnkmcpu0usej"]
 
 [ext_resource type="Script" uid="uid://bir070fwler4b" path="res://game/scripts/follower.gd" id="1_gruw4"]
-[ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/textures/ui/hexagon.png" id="2_m4dq5"]
-[ext_resource type="Script" uid="uid://bssxnxueyyk4s" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_sernc"]
+[ext_resource type="Texture2D" uid="uid://gqsd2qov6ra1" path="res://assets/ui/hexagon.png" id="2_m4dq5"]
+[ext_resource type="Script" uid="uid://codu3ye6wrwru" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="4_sernc"]
 [ext_resource type="Resource" uid="uid://c57f1pauyxmuc" path="res://game/resources/combat_camera_tween.tres" id="5_wbc0l"]
 [ext_resource type="Resource" uid="uid://dxi1ibhvc1qda" path="res://game/resources/default_pcam_res.tres" id="6_2qfk0"]
 

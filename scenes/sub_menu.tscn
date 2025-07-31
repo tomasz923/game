@@ -633,7 +633,6 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="CharacterSheetPanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -686,6 +685,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons"]
+visible = false
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 toggle_mode = true
@@ -920,7 +920,7 @@ theme_override_constants/separation = 5
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
-[node name="PicureWithDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+[node name="CharacterSheetRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -928,7 +928,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RightPanelPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel"]
+[node name="CharacterSheetRightPanelPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel"]
 custom_minimum_size = Vector2(500, 370)
 layout_mode = 1
 anchors_preset = 5
@@ -940,7 +940,7 @@ offset_bottom = 375.0
 grow_horizontal = 2
 expand_mode = 1
 
-[node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel"]
+[node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel"]
 self_modulate = Color(1, 1, 1, 0.745098)
 custom_minimum_size = Vector2(500, 370)
 layout_mode = 1
@@ -963,18 +963,18 @@ patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="SmallDescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground"]
+[node name="CharacterSheetRightPanelVbox" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 18.0
-offset_bottom = -20.0
+offset_top = 14.0
+offset_bottom = -6.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 30
 
-[node name="PicRightPanelTitleLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+[node name="CharacterSheetRightPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 32
@@ -982,13 +982,12 @@ text = "Status/Bond Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PicColoredInfoBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+[node name="CharacterSheetRightPanelColoredStrip" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox"]
 custom_minimum_size = Vector2(470, 35)
 layout_mode = 2
 size_flags_horizontal = 4
-color = Color(0.862745, 0.384314, 0.313726, 1)
 
-[node name="PicColoredInfoLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/PicColoredInfoBackground"]
+[node name="CharacterSheetRightPanelColoredStripLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelColoredStrip"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1004,15 +1003,14 @@ text = "Bonus Description"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PicRightPanelDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
-custom_minimum_size = Vector2(470, 235)
+[node name="CharacterSheetRightPanelDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox"]
+custom_minimum_size = Vector2(470, 210)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("24_1p42s")
-theme_override_font_sizes/font_size = 18
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 16
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets."
-horizontal_alignment = 1
-vertical_alignment = 1
+horizontal_alignment = 3
 autowrap_mode = 2
 
 [node name="JustDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
