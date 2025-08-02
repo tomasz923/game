@@ -633,6 +633,7 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="CharacterSheetPanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -697,7 +698,6 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="InventoryPanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -736,6 +736,7 @@ stretch_mode = 0
 [node name="RangedButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("24_1xd8a")
 texture_pressed = ExtResource("25_er0oe")
 texture_hover = ExtResource("26_xeu62")
@@ -745,6 +746,7 @@ stretch_mode = 0
 [node name="ArmorButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("27_fbmst")
 texture_pressed = ExtResource("28_4v6xj")
 texture_hover = ExtResource("29_u2kat")
@@ -754,6 +756,7 @@ stretch_mode = 0
 [node name="ConsumablesButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("30_0if04")
 texture_pressed = ExtResource("31_1rx0u")
 texture_hover = ExtResource("32_v64mn")
@@ -763,6 +766,7 @@ stretch_mode = 0
 [node name="OthersButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
+toggle_mode = true
 texture_normal = ExtResource("33_v64mn")
 texture_pressed = ExtResource("34_dplho")
 texture_hover = ExtResource("35_f8oeu")
@@ -921,6 +925,7 @@ custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
 
 [node name="CharacterSheetRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1008,10 +1013,168 @@ custom_minimum_size = Vector2(470, 210)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 18
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets."
 horizontal_alignment = 3
 autowrap_mode = 2
+
+[node name="InventoryRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryRightPanelPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel"]
+custom_minimum_size = Vector2(500, 370)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_right = 250.0
+offset_bottom = 375.0
+grow_horizontal = 2
+expand_mode = 1
+
+[node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel"]
+self_modulate = Color(1, 1, 1, 0.745098)
+custom_minimum_size = Vector2(500, 370)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -250.0
+offset_top = -370.0
+offset_right = 250.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("4_posp7")
+region_rect = Rect2(0, 0, 96, 96)
+patch_margin_left = 9
+patch_margin_top = 9
+patch_margin_right = 9
+patch_margin_bottom = 9
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="InventoryRightPanelVbox" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 14.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="InventoryRightPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 32
+text = "Item Name"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="InventoryRightPanelDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox"]
+custom_minimum_size = Vector2(470, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 18
+text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+horizontal_alignment = 3
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StatsHBoxContainer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox"]
+custom_minimum_size = Vector2(470, 140)
+layout_direction = 2
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="LeftColumnsVBoxContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer"]
+custom_minimum_size = Vector2(270, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="InventoryDescriptionLeftColumnRow1" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "First Row:"
+
+[node name="InventoryDescriptionLeftColumnRow2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "Second Row:"
+
+[node name="InventoryDescriptionLeftColumnRow3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "Third Row:"
+
+[node name="InventoryDescriptionLeftColumnRow4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+
+[node name="InventoryDescriptionLeftColumnRow5" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "inv_item_value"
+
+[node name="RightColumnsHBoxContainer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+alignment = 2
+
+[node name="CurrentValVBoxContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme_override_constants/separation = 5
+
+[node name="InventoryDescriptionRightColumnRow1" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "1"
+horizontal_alignment = 2
+
+[node name="InventoryDescriptionRightColumnRow2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "2"
+horizontal_alignment = 2
+
+[node name="InventoryDescriptionRightColumnRow3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "3"
+horizontal_alignment = 2
+
+[node name="InventoryDescriptionRightColumnRow4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+horizontal_alignment = 2
+
+[node name="InventoryDescriptionRightColumnRow5" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_vrsuv")
+theme_override_font_sizes/font_size = 20
+text = "5"
+horizontal_alignment = 2
 
 [node name="JustDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 visible = false
@@ -1102,3 +1265,7 @@ autowrap_mode = 2
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/BondsButton" to="." method="_on_bonds_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons/HistoryButton" to="." method="_on_history_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/MeleeButton" to="." method="_on_melee_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/RangedButton" to="." method="_on_ranged_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/ArmorButton" to="." method="_on_armor_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/ConsumablesButton" to="." method="_on_consumables_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/OthersButton" to="." method="_on_others_button_pressed"]

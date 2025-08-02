@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://y0egc0gmui6w"]
+[gd_scene load_steps=39 format=3 uid="uid://y0egc0gmui6w"]
 
 [ext_resource type="Script" uid="uid://b3fgcn6odsah" path="res://game/scripts/world.gd" id="1_2ccfw"]
 [ext_resource type="Texture2D" uid="uid://c8arnlq67qi7" path="res://assets/temp/grids/Dark/texture_05.png" id="1_xdxcu"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bj2tjclvfiove" path="res://assets/temp/grids/Purple/texture_05.png" id="3_dalsv"]
 [ext_resource type="Texture2D" uid="uid://cgu4eqqbe8eyj" path="res://assets/temp/grids/Red/texture_02.png" id="4_wm34j"]
 [ext_resource type="PackedScene" uid="uid://brlv5mgijxokp" path="res://game/scenes/hero.tscn" id="5_f8m7e"]
+[ext_resource type="Resource" uid="uid://do3fsdbx42roh" path="res://assets/temp/ally_stats_robert_prototype.tres" id="5_jm7ae"]
 [ext_resource type="Resource" uid="uid://b2eud1bwnv37q" path="res://assets/temp/stats_tymek_koparka.tres" id="7_jku6p"]
 [ext_resource type="Texture2D" uid="uid://dko2pc0uq6pwf" path="res://assets/temp/grids/Green/texture_01.png" id="7_v04pi"]
 [ext_resource type="Resource" uid="uid://4vlkwwt6is" path="res://assets/temp/stats_mirek_komunista.tres" id="8_jm7ae"]
@@ -17,12 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://chkq5elt8axwf" path="res://game/scenes/pink_guy.tscn" id="12_fw5yl"]
 [ext_resource type="PackedScene" uid="uid://60bjoj4rgs0" path="res://game/scenes/dialogue_box.tscn" id="12_iqn5y"]
 [ext_resource type="PackedScene" uid="uid://dhud3at5jueto" path="res://game/scenes/dice.tscn" id="13_l85go"]
-[ext_resource type="Resource" uid="uid://dv1dxsmsw6n34" path="res://game/inventory_items/warhammer.tres" id="14_lwq1p"]
 [ext_resource type="PackedScene" uid="uid://bxnkmcpu0usej" path="res://game/scenes/follower.tscn" id="14_t2ro3"]
 [ext_resource type="Script" uid="uid://bdqm72mmhjgte" path="res://game/scripts/enemy_stats.gd" id="15_m4aht"]
 [ext_resource type="PackedScene" uid="uid://5ibyy0swkdkk" path="res://game/scenes/notification.tscn" id="16_7qtmg"]
 [ext_resource type="PackedScene" uid="uid://dfc5c7rer8bhs" path="res://assets/ui/main_menu_ui.tscn" id="17_scav7"]
 [ext_resource type="PackedScene" uid="uid://cx7007wuomcmc" path="res://game/scenes/sub_menu.tscn" id="18_hk75s"]
+[ext_resource type="PackedScene" uid="uid://bymu7wfhjtk3w" path="res://assets/temp/item_1h_screwdriver.tscn" id="19_jm7ae"]
 [ext_resource type="PackedScene" uid="uid://duegwtaiakd63" path="res://game/machine_models/decoy_model.tscn" id="21_m3ehy"]
 [ext_resource type="PackedScene" uid="uid://dfoih408r3vqi" path="res://game/scenes/screen_transiton.tscn" id="23_2pwpc"]
 
@@ -71,7 +72,7 @@ albedo_texture = ExtResource("4_wm34j")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6nk3g"]
 albedo_texture = ExtResource("7_v04pi")
 
-[sub_resource type="Resource" id="Resource_jku6p"]
+[sub_resource type="Resource" id="Resource_jm7ae"]
 resource_local_to_scene = true
 script = ExtResource("15_m4aht")
 enemy_class = 0
@@ -80,7 +81,7 @@ character_name = "ERROR: Name not found"
 max_health = 20
 current_health = 1
 basic_damage = 20
-melee = ExtResource("14_lwq1p")
+melee_weapon = ExtResource("19_jm7ae")
 
 [node name="world" type="Node3D" groups=["main_menu"]]
 process_mode = 3
@@ -107,6 +108,7 @@ shadow_enabled = true
 [node name="Hero" parent="." instance=ExtResource("5_f8m7e")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.2562, 0.0238276, -1.78514)
 collision_mask = 3
+stats = ExtResource("5_jm7ae")
 
 [node name="FollowerOne" parent="." instance=ExtResource("14_t2ro3")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -5.52409, 2.38419e-07, -3.3487)
@@ -187,12 +189,12 @@ third_enemy_model = ExtResource("21_m3ehy")
 fourth_enemy_model = ExtResource("21_m3ehy")
 fifth_enemy_model = ExtResource("21_m3ehy")
 sixth_enemy_model = ExtResource("21_m3ehy")
-first_enemy_stats = SubResource("Resource_jku6p")
-second_enemy_stats = SubResource("Resource_jku6p")
-third_enemy_stats = SubResource("Resource_jku6p")
-fourth_enemy_stats = SubResource("Resource_jku6p")
-fifth_enemy_stats = SubResource("Resource_jku6p")
-sixth_enemy_stats = SubResource("Resource_jku6p")
+first_enemy_stats = SubResource("Resource_jm7ae")
+second_enemy_stats = SubResource("Resource_jm7ae")
+third_enemy_stats = SubResource("Resource_jm7ae")
+fourth_enemy_stats = SubResource("Resource_jm7ae")
+fifth_enemy_stats = SubResource("Resource_jm7ae")
+sixth_enemy_stats = SubResource("Resource_jm7ae")
 
 [node name="MainMenuUI" parent="." instance=ExtResource("17_scav7")]
 visible = false

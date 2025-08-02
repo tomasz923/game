@@ -78,6 +78,17 @@ const RED: Color = Color("#dc6250")
 @onready var character_sheet_right_panel_colored_strip_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelColoredStrip/CharacterSheetRightPanelColoredStripLabel
 @onready var character_sheet_right_panel_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox/CharacterSheetRightPanelDescription
 
+@onready var inventory_right_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel
+@onready var inventory_right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/InventoryRightPanelPicture
+@onready var inventory_right_panel_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/InventoryRightPanelLabel
+@onready var inventory_description_left_column_row_1: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer/InventoryDescriptionLeftColumnRow1
+@onready var inventory_description_left_column_row_2: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer/InventoryDescriptionLeftColumnRow2
+@onready var inventory_description_left_column_row_3: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer/InventoryDescriptionLeftColumnRow3
+@onready var inventory_description_right_column_row_1: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer/InventoryDescriptionRightColumnRow1
+@onready var inventory_description_right_column_row_2: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer/InventoryDescriptionRightColumnRow2
+@onready var inventory_description_right_column_row_3: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer/InventoryDescriptionRightColumnRow3
+@onready var inventory_description_right_column_row_5: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer/InventoryDescriptionRightColumnRow5
+
 #@onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
 #@onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
 #@onready var status_effect_bonus_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground
@@ -103,6 +114,11 @@ var subpanel_labels: Dictionary[String, String] = {
 			"StatusEffectsButton": "cs_subpanel_status_effects",
 			"BondsButton": "cs_subpanel_bonds",
 			"HistoryButton": "cs_subpanel_history",
+			"MeleeButton": "inv_subpanel_melee",
+			"RangedButton": "inv_subpanel_ranged",
+			"ArmorButton": "inv_subpanel_armor",
+			"ConsumablesButton": "inv_subpanel_consumables",
+			"OthersButton": "inv_subpanel_others"
 		}
 
 #var current_character_sheet_subpanel_button: TextureButton
@@ -269,6 +285,7 @@ func turn_stats_in_strings(stats: int) -> String:
 
 func change_submenu_panel(new_button: Button, panel_buttons_container: VBoxContainer, needs_right_panel_with_pic: bool):
 	button_pressed.play()
+	clear_instances()
 	if new_button != submenu_panel_button_toggled:
 		if submenu_panel_button_toggled != null:
 			submenu_panel_button_toggled.set_pressed_no_signal(false)
@@ -294,12 +311,18 @@ func change_character_sheet_panels(new_button: TextureButton) -> void:
 	subpanel_button_toggled[CHARACTER_SHEET].set_pressed_no_signal(true)
 	character_sheet_subpanel_label.text = subpanel_labels[new_button.name]
 	clear_instances()
-		#print("character sheet panel worked 2")
-		#return true
-	#else:
-		#new_button.set_pressed_no_signal(true)
-		#print("character sheet panel worked 3")
-		#return false
+
+
+func change_inventory_panels(new_button: TextureButton) -> void:
+	button_pressed.play()
+	hide_right_panels()
+	if subpanel_button_toggled[INVENTORY] != null:
+		subpanel_button_toggled[INVENTORY].set_pressed_no_signal(false)
+	subpanel_button_toggled[INVENTORY] = new_button
+	subpanel_button_toggled[INVENTORY].set_pressed_no_signal(true)
+	inventory_sub_panel_label.text = subpanel_labels[new_button.name]
+	clear_instances()
+
 
 func _on_previous_character_button_pressed() -> void:
 	button_pressed.play()
@@ -330,13 +353,12 @@ func hide_right_panels():
 # Changing submenus (probably could have been written better):
 func _on_character_sheet_button_pressed() -> void:
 	change_submenu_panel(character_sheet_button,character_sheet_panel_buttons_container, true)
-	character_sheet_panel_buttons_container.visible = true
 	subpanel_button_toggled[CHARACTER_SHEET].emit_signal("pressed")
 
 
 func _on_inventory_button_pressed() -> void:
 	change_submenu_panel(inventory_button, inventory_panel_buttons_container, true)
-
+	subpanel_button_toggled[INVENTORY].emit_signal("pressed")
 
 func _on_moves_button_pressed() -> void:
 	change_submenu_panel(moves_button, moves_panel_buttons_container, false)
@@ -393,9 +415,52 @@ func _on_bonds_button_pressed() -> void:
 			instances_container.add_child(new_instance)
 
 
-func _on_history_button_pressed() -> void:
-	change_character_sheet_panels(history_button)
+#func _on_history_button_pressed() -> void:
+	#change_character_sheet_panels(history_button)
+
+# Character Sheet Buttons ------------------------------------------------------
+func _on_weapon_was_highlighted(resource: Weapon):
+	inventory_right_panel_picture.texture = resource.item_picture
+	inventory_right_panel_label.text = resource.item_name
+	
+	inventory_description_left_column_row_1.text = "inv_weapon_type"
+	if resource.weapon_type == Weapon.ItemType.WEAPON_2H:
+		inventory_description_right_column_row_1.text = "inv_two_handed_weapon"
+	else:
+		inventory_description_right_column_row_1.text = "inv_one_handed_weapon"
+	
+	inventory_description_left_column_row_2.text = "inv_weapon_damage_type"
+	if resource.piercing:
+		inventory_description_right_column_row_1.text = "inv_two_handed_weapon"
+	else:
+		inventory_description_right_column_row_1.text = "inv_one_handed_weapon"
+
+	inventory_right_panel.visible = true
 
 
 func _on_melee_button_pressed() -> void:
-	print("Hello world")
+	change_inventory_panels(melee_button)
+	var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+	var new_weapon = current_character_stats.melee_weapon.instantiate()
+	new_instance.has_resources = true
+	new_instance.nested_resource = new_weapon
+	new_instance.text = new_weapon.item_name
+	#new_instance.instance_was_highlighted.connect(_on_status_effect_was_highlighted)
+	instances_container.add_child(new_instance)
+	
+
+
+func _on_ranged_button_pressed() -> void:
+	change_inventory_panels(ranged_button)
+
+
+func _on_armor_button_pressed() -> void:
+	change_inventory_panels(armor_button)
+
+
+func _on_consumables_button_pressed() -> void:
+	change_inventory_panels(consumables_button)
+
+
+func _on_others_button_pressed() -> void:
+	change_inventory_panels(others_button)

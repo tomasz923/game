@@ -1,5 +1,6 @@
 extends Resource
-class_name InventoryItem
+class_name InventoryItem2
+# LEGACY CODE
 
 enum ItemType {
 	WEAPON_1H, #0

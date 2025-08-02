@@ -36,7 +36,7 @@ func update_target_position(target_position: Vector3):
 func change_equipment(stats: MachineStats):
 	var new_weapon
 	var new_weapon_2
-	if stats.melee != null:
+	if stats.melee_weapon != null:
 		for n in model.right_hand_container.get_children():
 			model.right_hand_container.remove_child(n)
 			n.queue_free()
@@ -46,9 +46,9 @@ func change_equipment(stats: MachineStats):
 		for n in model.back_container.get_children():
 			model.back_container.remove_child(n)
 			n.queue_free()
-		new_weapon = stats.melee.model_scene.instantiate()
+		new_weapon = stats.melee_weapon.instantiate()
 		new_weapon_2 = new_weapon.duplicate()
-		if stats.melee.type == 0:
+		if new_weapon.weapon_type == MeleeWeapon.ItemType.WEAPON_1H:
 			model.hips_container.add_child(new_weapon)
 			model.right_hand_container.add_child(new_weapon_2)
 			melee_animation = "1h_melee_horizontal"

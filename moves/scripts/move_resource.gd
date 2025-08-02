@@ -1,5 +1,6 @@
 extends Resource
 class_name MoveResource
+# LEGACY CODE - REMOVE WHEN READY
 
 func sort_modifiers(array: Array) -> Array:
 	# Sort the array using sort_custom
@@ -23,10 +24,11 @@ func set_dice(dice_one: int, dice_two: int, roll_result: int):
 		Global.current_combat_scene.show_the_dice(roll_result)
 
 func get_protection(stats: MachineStats) -> int:
-	var var_container: int = 0
-	if stats.spray != null:
-		var_container += stats.enemy_stats.spray.damage_bonus
-	if stats.shield != null:
-		var_container += stats.enemy_stats.shield.damage_bonus
-	return var_container
+	#var var_container: int = 0
+	#if stats.spray != null:
+		#var_container += stats.enemy_stats.spray.damage_bonus
+	#if stats.shield != null:
+		#var_container += stats.enemy_stats.shield.damage_bonus
+	print("Legacy MoveResource was used")
+	return 0
 	

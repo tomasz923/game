@@ -2,8 +2,8 @@ extends Button
 
 signal instance_was_highlighted(items)
 
-@export var nested_resource: Resource
-@export var nested_string: String = "Error - no data found"
+var nested_string: String = "Error - no data found"
+var nested_resource
 var has_resources: bool = false
 
 

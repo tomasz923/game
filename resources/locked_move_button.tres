@@ -1,8 +1,8 @@
 [gd_resource type="Theme" load_steps=8 format=3 uid="uid://ckegye7rc3uxy"]
 
-[ext_resource type="Texture2D" uid="uid://dwin0yjc4dr0b" path="res://assets/textures/move_icons/locked_move_pressed.png" id="1_qsnxm"]
-[ext_resource type="Texture2D" uid="uid://c5w0ir6ebehkw" path="res://assets/textures/move_icons/locked_move_normal.png" id="2_1wljk"]
-[ext_resource type="Texture2D" uid="uid://tlx3l43jnusq" path="res://assets/textures/move_icons/locked_move_hover.png" id="2_wa40g"]
+[ext_resource type="Texture2D" uid="uid://dwin0yjc4dr0b" path="res://assets/temp/move_icons/locked_move_pressed.png" id="1_qsnxm"]
+[ext_resource type="Texture2D" uid="uid://c5w0ir6ebehkw" path="res://assets/temp/move_icons/locked_move_normal.png" id="2_1wljk"]
+[ext_resource type="Texture2D" uid="uid://tlx3l43jnusq" path="res://assets/temp/move_icons/locked_move_hover.png" id="2_wa40g"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jamod"]
 texture = ExtResource("1_qsnxm")
