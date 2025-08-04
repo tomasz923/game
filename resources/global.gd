@@ -5,6 +5,17 @@ enum MoveType {
 	HEAL, 
 	OTHER
 }
+
+
+enum InventoryCategory {
+	MELEE, 
+	RANGED, 
+	PROTECTION,
+	CONSUMABLES,
+	OTHERS
+}
+
+
 enum Characters {
 	HERO, 
 	JETT, 
@@ -15,6 +26,7 @@ enum Characters {
 	ONYX
 }
 
+
 var save_state: Dictionary = {
 	#The player and the followers will use this variable.
 	"current_exploration_speed":  3.5,
@@ -24,6 +36,7 @@ var save_state: Dictionary = {
 	"supplies": 0,
 	"current_ui_character_int": 0
 }
+
 
 var state_var_dialogue: Dictionary = { 
 	"talker": "ERROR",
@@ -36,6 +49,16 @@ var state_var_dialogue: Dictionary = {
 	'the_quest_is_active': false,
 	'the_quest_is_done': false
 }
+
+
+var inventory: Dictionary = { 
+	InventoryCategory.MELEE: {},
+	InventoryCategory.RANGED: {},
+	InventoryCategory.PROTECTION: {},
+	InventoryCategory.CONSUMABLES: {},
+	InventoryCategory.OTHERS: {},
+}
+
 
 var journal: Dictionary = {
 	'q_test_quest' = {
@@ -110,7 +133,7 @@ var talker = null #The object that the Player is talking to.
 var dice_box = null #Path to the dice box in a local scene. Should be established at the ready.
 var pop_up = null #Path to the notification node in a local scene. Should be established at the ready.
 var moves_menu = null #Path to the moves node in a local scene. Should be established at the ready.
-var inventory = null
+#var inventory = null
 
 
 #Cameras for Dialogue

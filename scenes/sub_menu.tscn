@@ -77,7 +77,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
 metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 248.0, 240.0]
-metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0, 538.0]
+metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0, 538.0, 1380.0, 1850.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ixln2")
@@ -1099,7 +1099,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="LeftColumnsVBoxContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer"]
-custom_minimum_size = Vector2(270, 0)
+custom_minimum_size = Vector2(266, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
@@ -1108,18 +1108,21 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "First Row:"
+clip_text = true
 
 [node name="InventoryDescriptionLeftColumnRow2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
-text = "Second Row:"
+text = "Second Row: "
+clip_text = true
 
 [node name="InventoryDescriptionLeftColumnRow3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "Third Row:"
+clip_text = true
 
 [node name="InventoryDescriptionLeftColumnRow4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
@@ -1131,6 +1134,7 @@ layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "inv_item_value"
+clip_text = true
 
 [node name="RightColumnsHBoxContainer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer"]
 custom_minimum_size = Vector2(200, 0)
@@ -1148,6 +1152,7 @@ theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "1"
 horizontal_alignment = 2
+clip_text = true
 
 [node name="InventoryDescriptionRightColumnRow2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
@@ -1155,6 +1160,7 @@ theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "2"
 horizontal_alignment = 2
+clip_text = true
 
 [node name="InventoryDescriptionRightColumnRow3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
@@ -1162,6 +1168,7 @@ theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "3"
 horizontal_alignment = 2
+clip_text = true
 
 [node name="InventoryDescriptionRightColumnRow4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
@@ -1175,6 +1182,7 @@ theme_override_fonts/font = ExtResource("5_vrsuv")
 theme_override_font_sizes/font_size = 20
 text = "5"
 horizontal_alignment = 2
+clip_text = true
 
 [node name="JustDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 visible = false

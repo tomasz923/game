@@ -1,9 +1,10 @@
-extends Node3D
+extends Resource
 class_name InventoryItem
 
 @export var item_name: String = 'missing_name' 
 @export var item_description: String = 'missing_description'
 @export var item_picture: Texture2D
+@export var item_model: PackedScene
 @export var value: int = 0
 @export var can_be_sold: bool = true
 @export var executable_script: Script 

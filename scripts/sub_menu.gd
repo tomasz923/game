@@ -349,6 +349,7 @@ func clear_instances():
 
 func hide_right_panels():
 	character_sheet_right_panel.visible = false
+	inventory_right_panel.visible = false
 	
 # Changing submenus (probably could have been written better):
 func _on_character_sheet_button_pressed() -> void:
@@ -431,23 +432,29 @@ func _on_weapon_was_highlighted(resource: Weapon):
 	
 	inventory_description_left_column_row_2.text = "inv_weapon_damage_type"
 	if resource.piercing:
-		inventory_description_right_column_row_1.text = "inv_two_handed_weapon"
+		inventory_description_right_column_row_2.text = "inv_weapon_piercing_bonus"
 	else:
-		inventory_description_right_column_row_1.text = "inv_one_handed_weapon"
-
+		inventory_description_right_column_row_2.text = "inv_weapon_blunt_damage"
+	
+	inventory_description_left_column_row_3.text = "inv_weapon_damage_bonus"
+	if resource.damage_bonus > 0:
+		inventory_description_right_column_row_3.text = "+" + str(resource.damage_bonus)
+	else:
+		inventory_description_right_column_row_3.text = "0"
+	
+	inventory_description_right_column_row_3.text = str(resource.value)
 	inventory_right_panel.visible = true
 
 
 func _on_melee_button_pressed() -> void:
 	change_inventory_panels(melee_button)
-	var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
-	var new_weapon = current_character_stats.melee_weapon.instantiate()
-	new_instance.has_resources = true
-	new_instance.nested_resource = new_weapon
-	new_instance.text = new_weapon.item_name
-	#new_instance.instance_was_highlighted.connect(_on_status_effect_was_highlighted)
-	instances_container.add_child(new_instance)
-	
+	if current_character_stats.melee_weapon:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.has_resources = true
+		new_instance.nested_resource = current_character_stats.melee_weapon
+		new_instance.text = current_character_stats.melee_weapon.item_name
+		new_instance.instance_was_highlighted.connect(_on_weapon_was_highlighted)
+		instances_container.add_child(new_instance)
 
 
 func _on_ranged_button_pressed() -> void:

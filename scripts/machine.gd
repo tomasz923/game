@@ -46,9 +46,9 @@ func change_equipment(stats: MachineStats):
 		for n in model.back_container.get_children():
 			model.back_container.remove_child(n)
 			n.queue_free()
-		new_weapon = stats.melee_weapon.instantiate()
+		new_weapon = stats.melee_weapon.item_model.instantiate()
 		new_weapon_2 = new_weapon.duplicate()
-		if new_weapon.weapon_type == MeleeWeapon.ItemType.WEAPON_1H:
+		if stats.melee_weapon.weapon_type == Weapon.ItemType.WEAPON_1H:
 			model.hips_container.add_child(new_weapon)
 			model.right_hand_container.add_child(new_weapon_2)
 			melee_animation = "1h_melee_horizontal"
