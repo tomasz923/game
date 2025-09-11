@@ -19,17 +19,21 @@ bg_color = Color(1, 1, 1, 1)
 bg_color = Color(0, 0, 0, 0.4)
 
 [node name="MiddlePanelInstance" type="Button"]
-custom_minimum_size = Vector2(684, 84)
+custom_minimum_size = Vector2(1385, 168)
 offset_right = 8.0
 offset_bottom = 8.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_colors/font_disabled_color = Color(1, 1, 1, 1)
 theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_hover_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/icon_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_focus_color = Color(0, 0, 0, 1)
 theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_7uptb")
+theme_override_font_sizes/font_size = 36
 theme_override_styles/focus = SubResource("StyleBoxFlat_xg14g")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_qwjo8")
 theme_override_styles/hover = SubResource("StyleBoxFlat_lflgg")
@@ -41,3 +45,4 @@ icon_alignment = 1
 script = ExtResource("2_lflgg")
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="pressed" from="." to="." method="_on_pressed"]

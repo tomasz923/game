@@ -59,7 +59,6 @@ var inventory: Dictionary = {
 	InventoryCategory.OTHERS: {},
 }
 
-
 var journal: Dictionary = {
 	'q_test_quest' = {
 		'status': 1, 
@@ -358,7 +357,35 @@ func remove_all_child_nodes(node):
 			node.remove_child(n)
 			n.queue_free() 
 
+func add_item(item: InventoryItem, amount: int = 1) -> void:
+	var category: InventoryCategory
+	
+	match item:
+		Weapon:
+			category = InventoryCategory.MELEE
+		Shield:
+			category = InventoryCategory.PROTECTION
+		Defence:
+			category = InventoryCategory.PROTECTION
+	
+	if inventory.has(item):
+		inventory[category][item] += amount
+	else:
+		inventory[category][item] = amount
 
+func remove_item(item: InventoryItem, amount: int = 1) -> void:
+	var category: InventoryCategory
+	
+	match item:
+		Weapon:
+			category = InventoryCategory.MELEE
+	
+	if inventory[category].has(item):
+		inventory[category][item] -= amount
+		
+		# Remove item if count is zero or less
+		if inventory[category][item] <= 0:
+			inventory[category].erase(item)
 # STOP
 func collect_save_files(is_loading: bool):
 	for n in current_scene.main_menu_ui.save_slots_container.get_children():

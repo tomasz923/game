@@ -80,6 +80,7 @@ const RED: Color = Color("#dc6250")
 
 @onready var inventory_right_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel
 @onready var inventory_right_panel_picture: TextureRect = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/InventoryRightPanelPicture
+@onready var inventory_right_panel_description: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/InventoryRightPanelDescription
 @onready var inventory_right_panel_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/InventoryRightPanelLabel
 @onready var inventory_description_left_column_row_1: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer/InventoryDescriptionLeftColumnRow1
 @onready var inventory_description_left_column_row_2: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer/InventoryDescriptionLeftColumnRow2
@@ -420,9 +421,37 @@ func _on_bonds_button_pressed() -> void:
 	#change_character_sheet_panels(history_button)
 
 # Character Sheet Buttons ------------------------------------------------------
+func _on_melee_button_pressed() -> void:
+	change_inventory_panels(melee_button)
+	if current_character_stats.melee_weapon:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.has_resources = true
+		new_instance.unmark_item_as_equipped()
+		new_instance.nested_resource = current_character_stats.melee_weapon
+		new_instance.text = current_character_stats.melee_weapon.item_name
+		new_instance.instance_was_highlighted.connect(_on_weapon_was_highlighted)
+		new_instance.instance_was_pressed.connect(_on_weapon_was_chosen)
+		new_instance.mark_item_as_equipped()
+		instances_container.add_child(new_instance)
+	if Global.inventory[Global.InventoryCategory.MELEE]:
+		for weapon in Global.inventory[Global.InventoryCategory.MELEE]:
+			var number_str = ""
+			var amount = Global.inventory[Global.InventoryCategory.MELEE][weapon]
+			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			if amount > 1:
+				number_str = "(" + str(amount) + ")"
+			new_instance.has_resources = true
+			new_instance.nested_resource = weapon
+			new_instance.text = weapon.item_name + number_str
+			new_instance.instance_was_highlighted.connect(_on_weapon_was_highlighted)
+			new_instance.instance_was_pressed.connect(_on_weapon_was_chosen)
+			instances_container.add_child(new_instance)
+
+
 func _on_weapon_was_highlighted(resource: Weapon):
 	inventory_right_panel_picture.texture = resource.item_picture
 	inventory_right_panel_label.text = resource.item_name
+	inventory_right_panel_description.text = resource.item_description
 	
 	inventory_description_left_column_row_1.text = "inv_weapon_type"
 	if resource.weapon_type == Weapon.ItemType.WEAPON_2H:
@@ -442,32 +471,134 @@ func _on_weapon_was_highlighted(resource: Weapon):
 	else:
 		inventory_description_right_column_row_3.text = "0"
 	
-	inventory_description_right_column_row_3.text = str(resource.value)
+	inventory_description_right_column_row_5.text = str(resource.value)
+	inventory_right_panel.visible = true
+
+func _on_weapon_was_chosen(resource: Weapon, marked: bool):
+	if not marked:
+		var equipped_weapon = current_character_stats.melee_weapon.duplicate()
+		Global.remove_item(resource)
+		Global.add_item(equipped_weapon)
+		current_character_stats.melee_weapon = resource
+		available_characters[Global.save_state["current_ui_character_int"]].change_equipment(current_character_stats)
+	subpanel_button_toggled[INVENTORY].emit_signal("pressed")
+
+func _on_armor_button_pressed() -> void:
+	change_inventory_panels(armor_button)
+	var no_items_found:bool = true
+	if current_character_stats.shield:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		no_items_found = false
+		new_instance.has_resources = true
+		new_instance.nested_resource = current_character_stats.shield
+		new_instance.text = current_character_stats.shield.item_name
+		new_instance.instance_was_highlighted.connect(_on_protection_was_highlighted)
+		new_instance.instance_was_pressed.connect(_on_protection_was_chosen)
+		new_instance.mark_item_as_equipped()
+		instances_container.add_child(new_instance)
+	if current_character_stats.defence:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		no_items_found = false
+		new_instance.has_resources = true
+		new_instance.nested_resource = current_character_stats.defence
+		new_instance.text = current_character_stats.defence.item_name
+		new_instance.instance_was_highlighted.connect(_on_protection_was_highlighted)
+		new_instance.instance_was_pressed.connect(_on_protection_was_chosen)
+		new_instance.mark_item_as_equipped()
+		instances_container.add_child(new_instance)
+	if Global.inventory[Global.InventoryCategory.PROTECTION]:
+		for protection in Global.inventory[Global.InventoryCategory.PROTECTION]:
+			var number_str = ""
+			var amount = Global.inventory[Global.InventoryCategory.PROTECTION][protection]
+			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			no_items_found = false
+			if amount > 1:
+				number_str = "(" + str(amount) + ")"
+			new_instance.has_resources = true
+			new_instance.nested_resource = protection
+			new_instance.text = protection.item_name + number_str
+			new_instance.instance_was_highlighted.connect(_on_protection_was_highlighted)
+			new_instance.instance_was_pressed.connect(_on_protection_was_chosen)
+			instances_container.add_child(new_instance)
+		print("Items found")
+	if no_items_found:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.disabled = true
+		new_instance.text = "inv_no_items_found"
+		instances_container.add_child(new_instance)
+		print("No items found")
+		print(Global.inventory[Global.InventoryCategory.PROTECTION])
+		print("---")
+
+
+func _on_protection_was_highlighted(resource: InventoryItem):
+	inventory_right_panel_picture.texture = resource.item_picture
+	inventory_right_panel_label.text = resource.item_name
+	inventory_right_panel_description.text = resource.item_description
+	
+	inventory_description_left_column_row_1.text = "inv_protection_type"
+	if resource is Shield:
+		inventory_description_right_column_row_1.text = "inv_protection_shield"
+	else:
+		inventory_description_right_column_row_1.text = "inv_protection_field"
+	
+	inventory_description_left_column_row_2.text = "inv_protection_label"
+	inventory_description_right_column_row_2.text = "+" + str(resource.protection)
+	
+	inventory_description_left_column_row_3.text = ""
+	inventory_description_right_column_row_3.text = ""
+	
+	inventory_description_right_column_row_5.text = str(resource.value)
 	inventory_right_panel.visible = true
 
 
-func _on_melee_button_pressed() -> void:
-	change_inventory_panels(melee_button)
-	if current_character_stats.melee_weapon:
-		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
-		new_instance.has_resources = true
-		new_instance.nested_resource = current_character_stats.melee_weapon
-		new_instance.text = current_character_stats.melee_weapon.item_name
-		new_instance.instance_was_highlighted.connect(_on_weapon_was_highlighted)
-		instances_container.add_child(new_instance)
+func _on_protection_was_chosen(resource: InventoryItem, marked: bool):
+	if resource is Shield:
+		var equipped_shield = current_character_stats.shield.duplicate()
+		if not marked:
+			Global.remove_item(resource)
+			Global.add_item(equipped_shield)
+			current_character_stats.shield = resource
+		else:
+			Global.add_item(equipped_shield)
+			current_character_stats.shield = null
+	if resource is Defence:
+		var equipped_defence= current_character_stats.defence.duplicate()
+		if not marked:
+			Global.remove_item(resource)
+			Global.add_item(equipped_defence)
+			current_character_stats.defence = resource
+		else:
+			Global.add_item(equipped_defence)
+			current_character_stats.defence = null
+	subpanel_button_toggled[INVENTORY].emit_signal("pressed")
 
 
 func _on_ranged_button_pressed() -> void:
 	change_inventory_panels(ranged_button)
-
-
-func _on_armor_button_pressed() -> void:
-	change_inventory_panels(armor_button)
+	var no_items_found = true
+	if no_items_found:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.disabled = true
+		new_instance.text = "inv_no_items_found"
+		instances_container.add_child(new_instance)
 
 
 func _on_consumables_button_pressed() -> void:
 	change_inventory_panels(consumables_button)
+	var no_items_found = true
+	if no_items_found:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.disabled = true
+		new_instance.text = "inv_no_items_found"
+		instances_container.add_child(new_instance)
 
 
 func _on_others_button_pressed() -> void:
 	change_inventory_panels(others_button)
+	var no_items_found = true
+	if no_items_found:
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.disabled = true
+		new_instance.text = "inv_no_items_found"
+		instances_container.add_child(new_instance)

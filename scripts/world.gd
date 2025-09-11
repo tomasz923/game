@@ -18,6 +18,7 @@ class_name GameMap
 @onready var sub_menu: Control = $SubMenu
 
 func _ready():
+	Global.add_item(preload("res://assets/temp/weapon_1h_screwdriver.tres"))
 	Global.allow_movement = true
 	Global.current_scene = self
 	#Global.moves_menu = $Moves

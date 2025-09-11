@@ -76,8 +76,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
-metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 248.0, 240.0]
-metadata/_edit_vertical_guides_ = [605.0, 1289.0, 1297.0, 538.0, 1380.0, 1850.0]
+metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 398.0, 240.0, 1896.0]
+metadata/_edit_vertical_guides_ = [613.0, 1215.0, 1179.0, 538.0, 1380.0, 2600.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ixln2")
@@ -102,7 +102,7 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.313726)
 
 [node name="BlackRectangle" type="NinePatchRect" parent="."]
-custom_minimum_size = Vector2(0, 150)
+custom_minimum_size = Vector2(0, 300)
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
@@ -124,7 +124,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 45
+theme_override_constants/separation = 90
 alignment = 1
 
 [node name="CharacterSheetButton" type="Button" parent="BlackRectangle/MenuContainer"]
@@ -164,17 +164,17 @@ toggle_mode = true
 text = "submenu_journal"
 
 [node name="ContentContainer" type="Control" parent="."]
-custom_minimum_size = Vector2(1920, 750)
+custom_minimum_size = Vector2(3840, 1500)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -960.0
-offset_top = -300.0
-offset_right = 960.0
-offset_bottom = 450.0
+offset_left = -1920.0
+offset_top = -690.0
+offset_right = 1920.0
+offset_bottom = 816.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -189,11 +189,10 @@ theme_override_constants/separation = 55
 alignment = 1
 
 [node name="LeftPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 
 [node name="Background" type="NinePatchRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer"]
-custom_minimum_size = Vector2(500, 200)
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -214,33 +213,35 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 18.0
-offset_top = 18.0
-offset_right = -18.0
-offset_bottom = -15.0
+offset_left = 28.0
+offset_top = 28.0
+offset_right = -28.0
+offset_bottom = -25.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 60
 
 [node name="FirstLayer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container"]
-custom_minimum_size = Vector2(0, 200)
+custom_minimum_size = Vector2(0, 400)
 layout_mode = 2
+theme_override_constants/separation = 20
 
 [node name="Portrait" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer"]
-custom_minimum_size = Vector2(200, 124.955)
+custom_minimum_size = Vector2(400, 250)
 layout_mode = 2
 expand_mode = 3
 
 [node name="InfoBox" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer"]
-custom_minimum_size = Vector2(260, 0)
+custom_minimum_size = Vector2(520, 0)
 layout_mode = 2
+theme_override_constants/separation = 8
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
 layout_mode = 2
-alignment = 2
+alignment = 1
 
 [node name="PreviousCharacterButton" type="Button" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
@@ -250,16 +251,16 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_sev6r")
 text = "<"
 
 [node name="NameLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer"]
-custom_minimum_size = Vector2(194, 0)
+custom_minimum_size = Vector2(392, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "  NAME  "
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="NextCharacterButton" type="Button" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/HBoxContainer"]
-custom_minimum_size = Vector2(30, 0)
+custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
@@ -271,7 +272,7 @@ text = ">"
 [node name="ClassLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "Class"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -291,40 +292,40 @@ theme_override_constants/separation = 12
 layout_mode = 2
 
 [node name="LevelLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "cs_level"
 vertical_alignment = 1
 
 [node name="XPLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "cs_experience"
 
 [node name="HPLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "cs_hp"
 
 [node name="APLabel" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/LeftColumn"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "cs_ap"
 
 [node name="RightColumn" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats"]
 layout_mode = 2
 
 [node name="LevelVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/FirstLayer/InfoBox/QucikStats/RightColumn"]
-custom_minimum_size = Vector2(125, 0)
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -333,7 +334,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -342,7 +343,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -351,7 +352,7 @@ vertical_alignment = 1
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "0/0"
 horizontal_alignment = 2
 vertical_alignment = 1
@@ -361,7 +362,7 @@ layout_mode = 2
 theme_override_constants/separation = 7
 
 [node name="StrPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
-custom_minimum_size = Vector2(20, 35)
+custom_minimum_size = Vector2(40, 70)
 layout_mode = 2
 color = Color(1, 1, 1, 0.2)
 
@@ -375,7 +376,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "cs_strength"
 vertical_alignment = 1
 
@@ -389,13 +390,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="DexPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
-custom_minimum_size = Vector2(20, 35)
+custom_minimum_size = Vector2(20, 70)
 layout_mode = 2
 color = Color(1, 1, 1, 0.2)
 
@@ -409,7 +410,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "cs_dexterity"
 vertical_alignment = 1
 
@@ -423,13 +424,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="EndPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
-custom_minimum_size = Vector2(20, 35)
+custom_minimum_size = Vector2(20, 70)
 layout_mode = 2
 color = Color(1, 1, 1, 0.2)
 
@@ -443,7 +444,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "cs_endurance"
 vertical_alignment = 1
 
@@ -457,13 +458,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ProPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
-custom_minimum_size = Vector2(20, 35)
+custom_minimum_size = Vector2(20, 70)
 layout_mode = 2
 color = Color(1, 1, 1, 0.2)
 
@@ -477,7 +478,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "cs_processing"
 vertical_alignment = 1
 
@@ -491,13 +492,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="MemPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
-custom_minimum_size = Vector2(20, 35)
+custom_minimum_size = Vector2(20, 70)
 layout_mode = 2
 color = Color(1, 1, 1, 0.2)
 
@@ -511,7 +512,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "cs_memory"
 vertical_alignment = 1
 
@@ -525,13 +526,13 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ChaPanel" type="ColorRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/SecondLayer"]
-custom_minimum_size = Vector2(20, 35)
+custom_minimum_size = Vector2(20, 70)
 layout_mode = 2
 color = Color(1, 1, 1, 0.2)
 
@@ -545,7 +546,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "cs_charisma"
 vertical_alignment = 1
 
@@ -559,14 +560,14 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "0"
 horizontal_alignment = 2
 vertical_alignment = 1
 
 [node name="ThirdLayer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container"]
 layout_mode = 2
-theme_override_constants/separation = 50
+theme_override_constants/separation = 100
 alignment = 1
 
 [node name="CurrencyContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer"]
@@ -574,7 +575,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="CoinsIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(160, 160)
 layout_mode = 2
 texture = ExtResource("6_36jpb")
 expand_mode = 3
@@ -582,7 +583,7 @@ expand_mode = 3
 [node name="CoinsVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/CurrencyContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -591,7 +592,7 @@ vertical_alignment = 1
 layout_mode = 2
 
 [node name="SuppliesIcon" type="TextureRect" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer"]
-custom_minimum_size = Vector2(80, 80)
+custom_minimum_size = Vector2(160, 160)
 layout_mode = 2
 texture = ExtResource("7_cejr0")
 expand_mode = 3
@@ -599,13 +600,13 @@ expand_mode = 3
 [node name="SuppliesVal" type="Label" parent="ContentContainer/PanelsContainer/LeftPanelContainer/Container/ThirdLayer/SuppliesContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="MiddlePanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
-custom_minimum_size = Vector2(700, 0)
+custom_minimum_size = Vector2(1400, 0)
 layout_mode = 2
 
 [node name="Container" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer"]
@@ -622,7 +623,7 @@ theme_override_constants/separation = 20
 
 [node name="SubPanel" type="NinePatchRect" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container"]
 self_modulate = Color(1, 1, 1, 0.745098)
-custom_minimum_size = Vector2(700, 110)
+custom_minimum_size = Vector2(1400, 220)
 layout_mode = 2
 texture = ExtResource("4_posp7")
 patch_margin_left = 9
@@ -633,23 +634,22 @@ axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
 [node name="CharacterSheetPanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = -8.0
-offset_bottom = -8.0
+offset_left = 18.0
+offset_top = 18.0
+offset_right = -18.0
+offset_bottom = -18.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="CharacterSheetSubpanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Character Sheet"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -660,7 +660,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="StatusEffectsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -673,7 +673,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="BondsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -687,7 +687,7 @@ stretch_mode = 0
 
 [node name="HistoryButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/CharacterSheetPanelButtonsContainer/SubButtons"]
 visible = false
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("17_llh0a")
@@ -698,6 +698,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="InventoryPanelButtonsContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -708,12 +709,12 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="InventorySubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Inventory"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -724,7 +725,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="MeleeButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("21_xm45r")
@@ -734,7 +735,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="RangedButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("24_1xd8a")
@@ -744,7 +745,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="ArmorButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("27_fbmst")
@@ -754,7 +755,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="ConsumablesButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("30_0if04")
@@ -764,7 +765,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="OthersButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("33_v64mn")
@@ -785,12 +786,12 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="MovesSubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Moves"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -801,7 +802,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="BasicMovesButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 toggle_mode = true
 button_pressed = true
@@ -812,7 +813,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="StartingMovesButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("38_vx3gg")
@@ -822,7 +823,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Advanced1Button" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("41_ralpd")
@@ -832,7 +833,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="Advanced2Button" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/MovesPanelButtonsContainer/SubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("44_q06dq")
@@ -853,12 +854,12 @@ offset_right = -8.0
 offset_bottom = -8.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="JournalSubPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Journal"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -869,7 +870,7 @@ theme_override_constants/separation = 20
 alignment = 1
 
 [node name="ActiveQuestsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("47_72867")
@@ -879,7 +880,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="GeneralInfoButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("50_ralpd")
@@ -889,7 +890,7 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [node name="DoneQuestsButton" type="TextureButton" parent="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons"]
-custom_minimum_size = Vector2(48, 48)
+custom_minimum_size = Vector2(96, 48)
 layout_mode = 2
 toggle_mode = true
 texture_normal = ExtResource("50_n26wl")
@@ -910,7 +911,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_right = 10.0
-offset_bottom = 219.0
+offset_bottom = 860.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("22_da4ub")
@@ -921,7 +922,7 @@ layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="RightPanelContainer" type="Control" parent="ContentContainer/PanelsContainer"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 
 [node name="CharacterSheetRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
@@ -934,7 +935,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="CharacterSheetRightPanelPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel"]
-custom_minimum_size = Vector2(500, 370)
+custom_minimum_size = Vector2(1000, 740)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -947,7 +948,7 @@ expand_mode = 1
 
 [node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel"]
 self_modulate = Color(1, 1, 1, 0.745098)
-custom_minimum_size = Vector2(500, 370)
+custom_minimum_size = Vector2(1000, 740)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -973,8 +974,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 14.0
-offset_bottom = -6.0
+offset_top = 24.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
@@ -982,13 +983,13 @@ theme_override_constants/separation = 30
 [node name="CharacterSheetRightPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Status/Bond Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CharacterSheetRightPanelColoredStrip" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox"]
-custom_minimum_size = Vector2(470, 35)
+custom_minimum_size = Vector2(940, 70)
 layout_mode = 2
 size_flags_horizontal = 4
 
@@ -1003,22 +1004,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 48
 text = "Bonus Description"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="CharacterSheetRightPanelDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/CharacterSheetRightPanel/SmallRightPanelBackground/CharacterSheetRightPanelVbox"]
-custom_minimum_size = Vector2(470, 210)
+custom_minimum_size = Vector2(940, 420)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
+theme_override_font_sizes/font_size = 36
 text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets."
 horizontal_alignment = 3
 autowrap_mode = 2
 
 [node name="InventoryRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1027,7 +1029,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="InventoryRightPanelPicture" type="TextureRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel"]
-custom_minimum_size = Vector2(500, 370)
+custom_minimum_size = Vector2(1000, 740)
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -1040,7 +1042,7 @@ expand_mode = 1
 
 [node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel"]
 self_modulate = Color(1, 1, 1, 0.745098)
-custom_minimum_size = Vector2(500, 370)
+custom_minimum_size = Vector2(1000, 740)
 layout_mode = 1
 anchors_preset = 7
 anchor_left = 0.5
@@ -1066,8 +1068,8 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 14.0
-offset_bottom = -6.0
+offset_top = 24.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 30
@@ -1075,19 +1077,18 @@ theme_override_constants/separation = 30
 [node name="InventoryRightPanelLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
+theme_override_font_sizes/font_size = 64
 text = "Item Name"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="InventoryRightPanelDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox"]
-custom_minimum_size = Vector2(470, 100)
+custom_minimum_size = Vector2(940, 310)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 18
-text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
-horizontal_alignment = 3
+theme_override_font_sizes/font_size = 48
+text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting."
 vertical_alignment = 1
 autowrap_mode = 2
 
@@ -1097,59 +1098,60 @@ layout_direction = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_constants/separation = 8
 
 [node name="LeftColumnsVBoxContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer"]
-custom_minimum_size = Vector2(266, 0)
+custom_minimum_size = Vector2(532, 0)
 layout_mode = 2
-theme_override_constants/separation = 5
+theme_override_constants/separation = 10
 
 [node name="InventoryDescriptionLeftColumnRow1" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "First Row:"
 clip_text = true
 
 [node name="InventoryDescriptionLeftColumnRow2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "Second Row: "
 clip_text = true
 
 [node name="InventoryDescriptionLeftColumnRow3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "Third Row:"
 clip_text = true
 
 [node name="InventoryDescriptionLeftColumnRow4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 
 [node name="InventoryDescriptionLeftColumnRow5" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/LeftColumnsVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "inv_item_value"
 clip_text = true
 
 [node name="RightColumnsHBoxContainer" type="HBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 alignment = 2
 
 [node name="CurrentValVBoxContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme_override_constants/separation = 5
 
 [node name="InventoryDescriptionRightColumnRow1" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "1"
 horizontal_alignment = 2
 clip_text = true
@@ -1157,7 +1159,7 @@ clip_text = true
 [node name="InventoryDescriptionRightColumnRow2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "2"
 horizontal_alignment = 2
 clip_text = true
@@ -1165,7 +1167,7 @@ clip_text = true
 [node name="InventoryDescriptionRightColumnRow3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 text = "3"
 horizontal_alignment = 2
 clip_text = true
@@ -1173,14 +1175,14 @@ clip_text = true
 [node name="InventoryDescriptionRightColumnRow4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
+theme_override_font_sizes/font_size = 36
 horizontal_alignment = 2
 
 [node name="InventoryDescriptionRightColumnRow5" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 20
-text = "5"
+theme_override_font_sizes/font_size = 36
+text = "50"
 horizontal_alignment = 2
 clip_text = true
 
