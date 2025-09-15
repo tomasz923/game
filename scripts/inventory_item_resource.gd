@@ -7,7 +7,7 @@ class_name InventoryItem
 @export var item_model: PackedScene
 @export var value: int = 0
 @export var can_be_sold: bool = true
-@export var executable_script: Script 
+@export var is_unclassified: bool = false
 
 
 #@export var damage_bonus: int = 0

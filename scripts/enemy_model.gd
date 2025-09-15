@@ -8,6 +8,7 @@ signal weapon_unsheathed()
 
 @onready var animation_player: AnimationPlayer = $decoy/AnimationPlayer
 @onready var right_hand_container: Node3D = $decoy/Armature/Skeleton3D/RightHandBone/RightHandContainer
+@onready var left_hand_container: Node3D = $decoy/Armature/Skeleton3D/LeftHandBone/LeftHandContainer
 @onready var hips_container: Node3D = $decoy/Armature/Skeleton3D/HipsBone/HipsContainer
 @onready var back_container: Node3D = $decoy/Armature/Skeleton3D/BackBone/BackContainer
 @onready var floating_number: Node3D = $FloatingTextsNode/FloatingNumber

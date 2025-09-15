@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://cx7007wuomcmc"]
+[gd_scene load_steps=64 format=3 uid="uid://cx7007wuomcmc"]
 
 [ext_resource type="Shader" uid="uid://bywymkd61j5cq" path="res://game/resources/blur.gdshader" id="1_6j1v8"]
 [ext_resource type="Script" uid="uid://7vih6n5620vx" path="res://game/scripts/sub_menu.gd" id="1_vkxky"]
@@ -68,6 +68,44 @@ bg_color = Color(1, 1, 1, 1)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sev6r"]
 bg_color = Color(1, 1, 1, 0.470588)
 
+[sub_resource type="Animation" id="Animation_ralpd"]
+resource_name = "show_error"
+length = 3.0
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackRectangle/ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 2.6, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7oqij"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackRectangle/ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sev6r"]
+_data = {
+&"RESET": SubResource("Animation_7oqij"),
+&"show_error": SubResource("Animation_ralpd")
+}
+
 [node name="SubMenu" type="Control"]
 layout_mode = 3
 anchors_preset = 15
@@ -77,7 +115,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
 metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 398.0, 240.0, 1896.0]
-metadata/_edit_vertical_guides_ = [613.0, 1215.0, 1179.0, 538.0, 1380.0, 2600.0]
+metadata/_edit_vertical_guides_ = [613.0, 1215.0, 1179.0, 538.0, 1380.0, 2600.0, -208.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ixln2")
@@ -162,6 +200,26 @@ size_flags_vertical = 4
 theme = ExtResource("3_screk")
 toggle_mode = true
 text = "submenu_journal"
+
+[node name="ErrorLabel" type="Label" parent="BlackRectangle"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -419.0
+offset_top = 157.0
+offset_right = 420.0
+offset_bottom = 235.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.933333, 0.698039, 0.290196, 1)
+theme_override_font_sizes/font_size = 48
+text = "Sorry, this action is not possible"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ContentContainer" type="Control" parent="."]
 custom_minimum_size = Vector2(3840, 1500)
@@ -926,7 +984,6 @@ custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 
 [node name="CharacterSheetRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1264,6 +1321,11 @@ text = "Lorem Ipsum is simply dummy text of the printing and typesetting industr
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_sev6r")
+}
 
 [connection signal="pressed" from="BlackRectangle/MenuContainer/CharacterSheetButton" to="." method="_on_character_sheet_button_pressed"]
 [connection signal="pressed" from="BlackRectangle/MenuContainer/InventoryButton" to="." method="_on_inventory_button_pressed"]

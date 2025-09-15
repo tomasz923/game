@@ -97,6 +97,8 @@ const RED: Color = Color("#dc6250")
 
 #@onready var just_description_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel
 @onready var instances_container: VBoxContainer = $ContentContainer/PanelsContainer/MiddlePanelContainer/Container/Instances/InstancesScrollContainer/InstancesContainer
+@onready var error_label: Label = $BlackRectangle/ErrorLabel
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var available_characters: Array
 var current_character_stats: AllyStats
@@ -368,6 +370,9 @@ func _on_moves_button_pressed() -> void:
 
 func _on_journal_button_pressed() -> void:
 	change_submenu_panel(journal_button, journal_buttons_container, false)
+	print('DEBUG: %s' % subpanel_button_toggled[JOURNAL].name)
+	subpanel_button_toggled[JOURNAL].emit_signal("pressed")
+	print(subpanel_button_toggled[JOURNAL].is_pressed())
 
 
 # Character Sheet Buttons ------------------------------------------------------
@@ -439,7 +444,7 @@ func _on_melee_button_pressed() -> void:
 			var amount = Global.inventory[Global.InventoryCategory.MELEE][weapon]
 			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
 			if amount > 1:
-				number_str = "(" + str(amount) + ")"
+				number_str = " (" + str(amount) + ")"
 			new_instance.has_resources = true
 			new_instance.nested_resource = weapon
 			new_instance.text = weapon.item_name + number_str
@@ -513,22 +518,18 @@ func _on_armor_button_pressed() -> void:
 			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
 			no_items_found = false
 			if amount > 1:
-				number_str = "(" + str(amount) + ")"
+				number_str = " (" + str(amount) + ")"
 			new_instance.has_resources = true
 			new_instance.nested_resource = protection
 			new_instance.text = protection.item_name + number_str
 			new_instance.instance_was_highlighted.connect(_on_protection_was_highlighted)
 			new_instance.instance_was_pressed.connect(_on_protection_was_chosen)
 			instances_container.add_child(new_instance)
-		print("Items found")
 	if no_items_found:
 		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
 		new_instance.disabled = true
 		new_instance.text = "inv_no_items_found"
 		instances_container.add_child(new_instance)
-		print("No items found")
-		print(Global.inventory[Global.InventoryCategory.PROTECTION])
-		print("---")
 
 
 func _on_protection_was_highlighted(resource: InventoryItem):
@@ -554,22 +555,22 @@ func _on_protection_was_highlighted(resource: InventoryItem):
 
 func _on_protection_was_chosen(resource: InventoryItem, marked: bool):
 	if resource is Shield:
-		var equipped_shield = current_character_stats.shield.duplicate()
 		if not marked:
+			if current_character_stats.shield != null:
+				Global.add_item(current_character_stats.defence)
 			Global.remove_item(resource)
-			Global.add_item(equipped_shield)
 			current_character_stats.shield = resource
 		else:
-			Global.add_item(equipped_shield)
+			Global.add_item(resource)
 			current_character_stats.shield = null
 	if resource is Defence:
-		var equipped_defence= current_character_stats.defence.duplicate()
 		if not marked:
-			Global.remove_item(resource)
-			Global.add_item(equipped_defence)
+			if current_character_stats.defence != null:
+				Global.add_item(current_character_stats.defence)
 			current_character_stats.defence = resource
+			Global.remove_item(resource)
 		else:
-			Global.add_item(equipped_defence)
+			Global.add_item(current_character_stats.defence)
 			current_character_stats.defence = null
 	subpanel_button_toggled[INVENTORY].emit_signal("pressed")
 
@@ -586,19 +587,80 @@ func _on_ranged_button_pressed() -> void:
 
 func _on_consumables_button_pressed() -> void:
 	change_inventory_panels(consumables_button)
-	var no_items_found = true
-	if no_items_found:
+	if Global.inventory[Global.InventoryCategory.CONSUMABLES]:
+		for consumable in Global.inventory[Global.InventoryCategory.CONSUMABLES]:
+			var number_str = ""
+			var amount = Global.inventory[Global.InventoryCategory.CONSUMABLES][consumable]
+			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			if amount > 1:
+				number_str = " (" + str(amount) + ")"
+			new_instance.has_resources = true
+			new_instance.nested_resource = consumable
+			new_instance.text = consumable.item_name + number_str
+			new_instance.instance_was_highlighted.connect(_on_non_weapon_was_highlighted)
+			new_instance.instance_was_pressed.connect(_on_consumable_was_chosen)
+			instances_container.add_child(new_instance)
+	else:
 		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
 		new_instance.disabled = true
 		new_instance.text = "inv_no_items_found"
 		instances_container.add_child(new_instance)
+
+func _on_non_weapon_was_highlighted(resource: InventoryItem):
+	inventory_right_panel_picture.texture = resource.item_picture
+	inventory_right_panel_label.text = resource.item_name
+	inventory_right_panel_description.text = resource.item_description
+	
+	inventory_description_left_column_row_1.text = ""
+	inventory_description_right_column_row_1.text = ""
+	
+	inventory_description_left_column_row_2.text = ""
+	inventory_description_right_column_row_2.text = "" 
+	
+	inventory_description_left_column_row_3.text = ""
+	inventory_description_right_column_row_3.text = ""
+	
+	inventory_description_right_column_row_5.text = str(resource.value)
+	inventory_right_panel.visible = true
+
+
+func _on_consumable_was_chosen(resource: Consumable, _marked: bool):
+	if resource.executable_script:
+		var script = resource.executable_script.new()
+		if script.condtion_is_met(current_character_stats):
+			script.consumable_function(current_character_stats)
+			Global.remove_item(resource)
+			refresh()
+		else:
+			show_error(resource.error_message)
 
 
 func _on_others_button_pressed() -> void:
 	change_inventory_panels(others_button)
+	if Global.inventory[Global.InventoryCategory.OTHERS]:
+		for consumable in Global.inventory[Global.InventoryCategory.OTHERS]:
+			var number_str = ""
+			var amount = Global.inventory[Global.InventoryCategory.OTHERS][consumable]
+			var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+			if amount > 1:
+				number_str = " (" + str(amount) + ")"
+			new_instance.has_resources = true
+			new_instance.nested_resource = consumable
+			new_instance.text = consumable.item_name + number_str
+			new_instance.instance_was_highlighted.connect(_on_non_weapon_was_highlighted)
+			instances_container.add_child(new_instance)
 	var no_items_found = true
-	if no_items_found:
+	if true:
+		pass
+	else:
 		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
 		new_instance.disabled = true
 		new_instance.text = "inv_no_items_found"
 		instances_container.add_child(new_instance)
+
+
+func show_error(error_message: String):
+	#if not animation_player.is_playing():
+		#pass
+	error_label.text = error_message
+	animation_player.play("show_error")

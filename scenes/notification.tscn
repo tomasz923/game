@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://5ibyy0swkdkk"]
 
 [ext_resource type="Script" uid="uid://cncetb6mrk8a0" path="res://game/scripts/notification.gd" id="1_dxdwi"]
-[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/textures/ui/combat_window.png" id="2_yr452"]
-[ext_resource type="LabelSettings" uid="uid://cvwem8rp6u724" path="res://game/resources/mvp_bonus_numbers_label.tres" id="3_me4yo"]
+[ext_resource type="Texture2D" uid="uid://d1p7rplkrgxj6" path="res://assets/ui/combat_window.png" id="2_yr452"]
+[ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="3_pknou"]
 
 [sub_resource type="Animation" id="Animation_exjtq"]
 length = 0.001
@@ -41,42 +41,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(300, 90)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Background:size")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(300, 90)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Background/Text:size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(300, 90)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:custom_minimum_size")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(0, 90)]
 }
 
 [sub_resource type="Animation" id="Animation_aevmx"]
@@ -117,43 +81,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 5.8, 6),
 "transitions": PackedFloat32Array(1, 0.67, 0.67),
 "update": 0,
-"values": [Vector2(300, 90), Vector2(300, 90), Vector2(0, 90)]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Background:size")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 5.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(300, 90), Vector2(300, 90)]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Background/Text:size")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(-0.2, 0, 5.8, 6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(300, 1), Vector2(300, 90), Vector2(300, 90), Vector2(300, 1)]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath(".:custom_minimum_size")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0, 5.8, 6),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(0, 90), Vector2(0, 90), Vector2(0, 0)]
+"values": [Vector2(600, 180), Vector2(600, 180), Vector2(0, 90)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_28i3s"]
@@ -163,7 +91,6 @@ _data = {
 }
 
 [node name="Notification" type="Control"]
-custom_minimum_size = Vector2(0, 90)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -183,9 +110,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = 134.0
-offset_bottom = 224.0
+offset_left = -960.0
+offset_top = -495.0
+offset_right = -360.0
+offset_bottom = -315.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_yr452")
@@ -194,16 +122,34 @@ patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 
-[node name="Text" type="Label" parent="Background"]
+[node name="Container" type="VBoxContainer" parent="Background"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 4.0
+offset_right = -5.0
+offset_bottom = -4.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 18
-text = "ABC"
-label_settings = ExtResource("3_me4yo")
+theme_override_constants/separation = 10
+
+[node name="Title" type="Label" parent="Background/Container"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_pknou")
+theme_override_font_sizes/font_size = 52
+text = "Sorry, can't do"
+horizontal_alignment = 1
+vertical_alignment = 1
+clip_text = true
+
+[node name="Description" type="Label" parent="Background/Container"]
+custom_minimum_size = Vector2(0, 90)
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_pknou")
+theme_override_font_sizes/font_size = 32
+text = "You cannot equip a shield while using a two-handed weapon"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
@@ -211,5 +157,5 @@ clip_text = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_28i3s")
+&"": SubResource("AnimationLibrary_28i3s")
 }
