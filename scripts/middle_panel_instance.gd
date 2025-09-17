@@ -4,7 +4,8 @@ signal instance_was_highlighted(items)
 signal instance_was_pressed(items, mark)
 
 const ITEM_EQUIPPED_MARK = preload("res://assets/ui/item_equipped_mark.png")
-var nested_string: String = "Error - no data found"
+#var nested_array: Array[String] = ["Error - no data found"]
+var nested_array: Array
 var nested_resource
 var has_resources: bool = false
 var is_marked: bool = false
@@ -16,7 +17,7 @@ func _on_mouse_entered() -> void:
 	if has_resources:
 		items_to_be_sent = nested_resource
 	else:
-		items_to_be_sent = nested_string
+		items_to_be_sent = nested_array
 		
 	instance_was_highlighted.emit(items_to_be_sent)
 
@@ -37,6 +38,6 @@ func _on_pressed() -> void:
 	if has_resources:
 		items_to_be_sent = nested_resource
 	else:
-		items_to_be_sent = nested_string
+		items_to_be_sent = nested_array
 		
 	instance_was_pressed.emit(items_to_be_sent, is_marked)

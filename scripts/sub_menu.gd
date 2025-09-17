@@ -5,6 +5,7 @@ const INVENTORY = "InventoryButton"
 const MOVES = "MovesButton"
 const JOURNAL = "JournalButton"
 const MIDDLE_PANEL_INSTANCE = preload("res://game/scenes/middle_panel_instance.tscn")
+const JOURNAL_UPDATES_TEXT = preload("res://game/resources/journal_updates_text.tres")
 const GREEN: Color = Color("#55927f") 
 const RED: Color = Color("#dc6250")
 
@@ -90,6 +91,11 @@ const RED: Color = Color("#dc6250")
 @onready var inventory_description_right_column_row_3: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer/InventoryDescriptionRightColumnRow3
 @onready var inventory_description_right_column_row_5: Label = $ContentContainer/PanelsContainer/RightPanelContainer/InventoryRightPanel/SmallRightPanelBackground/InventoryRightPanelVbox/StatsHBoxContainer/RightColumnsHBoxContainer/CurrentValVBoxContainer/InventoryDescriptionRightColumnRow5
 
+@onready var journal_right_panel: Control = $ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel
+@onready var quest_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/QuestLabel
+@onready var quest_type_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/QuestTypeBackground/QuestTypeLabel
+@onready var journal_updates_container: VBoxContainer = $ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer
+
 #@onready var small_description_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/SmallDescriptionLabel
 #@onready var status_effect_bonus_label: Label = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground/StatusEffectBonusLabel
 #@onready var status_effect_bonus_background: ColorRect = $ContentContainer/PanelsContainer/RightPanelContainer/PicureWithDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground
@@ -121,7 +127,10 @@ var subpanel_labels: Dictionary[String, String] = {
 			"RangedButton": "inv_subpanel_ranged",
 			"ArmorButton": "inv_subpanel_armor",
 			"ConsumablesButton": "inv_subpanel_consumables",
-			"OthersButton": "inv_subpanel_others"
+			"OthersButton": "inv_subpanel_others",
+			"ActiveQuestsButton": "journal_subpanel_active_quests",
+			"GeneralInfoButton": "journal_subpanel_general_info",
+			"DoneQuestsButton": "journal_subpanel_done_quests"
 		}
 
 #var current_character_sheet_subpanel_button: TextureButton
@@ -326,6 +335,16 @@ func change_inventory_panels(new_button: TextureButton) -> void:
 	inventory_sub_panel_label.text = subpanel_labels[new_button.name]
 	clear_instances()
 
+func change_journal_panels(new_button: TextureButton) -> void:
+	button_pressed.play()
+	hide_right_panels()
+	if subpanel_button_toggled[JOURNAL] != null:
+		subpanel_button_toggled[JOURNAL].set_pressed_no_signal(false)
+	subpanel_button_toggled[JOURNAL] = new_button
+	subpanel_button_toggled[JOURNAL].set_pressed_no_signal(true)
+	journal_sub_panel_label.text = subpanel_labels[new_button.name]
+	clear_instances()
+
 
 func _on_previous_character_button_pressed() -> void:
 	button_pressed.play()
@@ -353,6 +372,7 @@ func clear_instances():
 func hide_right_panels():
 	character_sheet_right_panel.visible = false
 	inventory_right_panel.visible = false
+	journal_right_panel.visible = false
 	
 # Changing submenus (probably could have been written better):
 func _on_character_sheet_button_pressed() -> void:
@@ -370,9 +390,7 @@ func _on_moves_button_pressed() -> void:
 
 func _on_journal_button_pressed() -> void:
 	change_submenu_panel(journal_button, journal_buttons_container, false)
-	print('DEBUG: %s' % subpanel_button_toggled[JOURNAL].name)
 	subpanel_button_toggled[JOURNAL].emit_signal("pressed")
-	print(subpanel_button_toggled[JOURNAL].is_pressed())
 
 
 # Character Sheet Buttons ------------------------------------------------------
@@ -657,6 +675,46 @@ func _on_others_button_pressed() -> void:
 		new_instance.disabled = true
 		new_instance.text = "inv_no_items_found"
 		instances_container.add_child(new_instance)
+
+
+
+func _on_active_quests_button_pressed() -> void:
+	change_journal_panels(active_quests_button)
+	for quest_name in Global.journal['current_quests'].keys():
+		var new_instance = MIDDLE_PANEL_INSTANCE.instantiate()
+		new_instance.has_resources = false
+		new_instance.nested_array = Global.journal['current_quests'][quest_name]
+		new_instance.text = quest_name
+		new_instance.instance_was_highlighted.connect(_on_journal_element_was_highlighted)
+		instances_container.add_child(new_instance)
+
+
+func _on_journal_element_was_highlighted(entries:Array):
+	Global.remove_all_child_nodes(journal_updates_container)
+	journal_right_panel.visible = true
+	for i in range(entries.size()):
+		var label = Label.new()
+		label.label_settings = JOURNAL_UPDATES_TEXT
+		label.custom_minimum_size = Vector2(940, 0)
+		label.text = entries[i]
+		label.autowrap_mode = TextServer.AUTOWRAP_WORD
+		journal_updates_container.add_child(label)
+		if i+1 != entries.size():
+			var free_space_label = Label.new()
+			free_space_label.label_settings = JOURNAL_UPDATES_TEXT
+			free_space_label.custom_minimum_size = Vector2(940, 0)
+			free_space_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+			free_space_label.text = '---'
+			journal_updates_container.add_child(free_space_label)
+			
+	#print(type_string(typeof(entries)))
+
+func _on_general_info_button_pressed() -> void:
+	change_journal_panels(general_info_button)
+
+
+func _on_done_quests_button_pressed() -> void:
+	change_journal_panels(done_quests_button)
 
 
 func show_error(error_message: String):

@@ -24,7 +24,6 @@
 [ext_resource type="Texture2D" uid="uid://cdcjqeb3q6c37" path="res://assets/ui/inventory_melee_pressed.png" id="22_4wo7h"]
 [ext_resource type="Theme" uid="uid://1xrxjy3aa0fn" path="res://game/resources/sub_menu_theme.tres" id="22_da4ub"]
 [ext_resource type="Texture2D" uid="uid://dnk3q7glh50wt" path="res://assets/ui/inventory_melee_hover.png" id="23_16pnf"]
-[ext_resource type="FontFile" uid="uid://bx0plfnm6a5af" path="res://assets/fonts/Roboto-Regular.ttf" id="24_1p42s"]
 [ext_resource type="Texture2D" uid="uid://cq6uos5eey8np" path="res://assets/ui/inventory_ranged_normal.png" id="24_1xd8a"]
 [ext_resource type="Texture2D" uid="uid://f52rksdy2046" path="res://assets/ui/inventory_ranged_pressed.png" id="25_er0oe"]
 [ext_resource type="Texture2D" uid="uid://bn3i367t36k80" path="res://assets/ui/inventory_ranged_hover.png" id="26_xeu62"]
@@ -57,6 +56,7 @@
 [ext_resource type="Texture2D" uid="uid://c3w8ilbp083c2" path="res://assets/ui/journal_info_hover.png" id="52_sev6r"]
 [ext_resource type="Texture2D" uid="uid://cvepemaggtqkb" path="res://assets/ui/journal_done_pressed.png" id="54_7oqij"]
 [ext_resource type="Texture2D" uid="uid://b14q0q51fu1a3" path="res://assets/ui/journal_done_hover.png" id="55_sev6r"]
+[ext_resource type="LabelSettings" uid="uid://bdhx76qqem6tb" path="res://game/resources/journal_updates_text.tres" id="58_7oqij"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vrsuv"]
 shader = ExtResource("1_6j1v8")
@@ -67,6 +67,21 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sev6r"]
 bg_color = Color(1, 1, 1, 0.470588)
+
+[sub_resource type="Animation" id="Animation_7oqij"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BlackRectangle/ErrorLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_ralpd"]
 resource_name = "show_error"
@@ -85,21 +100,6 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_7oqij"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BlackRectangle/ErrorLabel:self_modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sev6r"]
 _data = {
 &"RESET": SubResource("Animation_7oqij"),
@@ -114,8 +114,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_vkxky")
-metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 398.0, 240.0, 1896.0]
-metadata/_edit_vertical_guides_ = [613.0, 1215.0, 1179.0, 538.0, 1380.0, 2600.0, -208.0]
+metadata/_edit_horizontal_guides_ = [-20.0, 1133.0, 990.0, 286.0, 263.0, 1896.0, 484.0, 408.0]
+metadata/_edit_vertical_guides_ = [613.0, 1215.0, 1179.0, 538.0, 1380.0, 2600.0, -208.0, 2705.0]
 
 [node name="ButtonPressed" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ixln2")
@@ -931,6 +931,7 @@ alignment = 1
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 toggle_mode = true
+button_pressed = true
 texture_normal = ExtResource("47_72867")
 texture_pressed = ExtResource("48_vx3gg")
 texture_hover = ExtResource("49_ygjat")
@@ -984,6 +985,7 @@ custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
 
 [node name="CharacterSheetRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1243,8 +1245,7 @@ text = "50"
 horizontal_alignment = 2
 clip_text = true
 
-[node name="JustDescriptionPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
-visible = false
+[node name="JournalRightPanel" type="Control" parent="ContentContainer/PanelsContainer/RightPanelContainer"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1252,7 +1253,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="SmallRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel"]
+[node name="LongRightPanelBackground" type="NinePatchRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel"]
 self_modulate = Color(1, 1, 1, 0.745098)
 custom_minimum_size = Vector2(500, 370)
 layout_mode = 1
@@ -1270,32 +1271,33 @@ patch_margin_bottom = 9
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
 
-[node name="SmallDescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground"]
+[node name="DescriptionContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
 offset_top = 18.0
-offset_bottom = -20.0
+offset_right = -8.0
+offset_bottom = -16.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 15
+theme_override_constants/separation = 30
 
-[node name="SmallDescriptionLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
+[node name="QuestLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 32
-text = "Status/Bond Name"
+theme_override_font_sizes/font_size = 64
+text = "Looking for the Cure"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="StatusEffectBonusBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
-custom_minimum_size = Vector2(470, 35)
+[node name="QuestTypeBackground" type="ColorRect" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer"]
+custom_minimum_size = Vector2(940, 70)
 layout_mode = 2
 size_flags_horizontal = 4
-color = Color(0.862745, 0.384314, 0.313726, 1)
 
-[node name="StatusEffectBonusLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer/StatusEffectBonusBackground"]
+[node name="QuestTypeLabel" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/QuestTypeBackground"]
 custom_minimum_size = Vector2(460, 0)
 layout_mode = 1
 anchors_preset = 15
@@ -1306,21 +1308,198 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_fonts/font = ExtResource("5_vrsuv")
-theme_override_font_sizes/font_size = 24
-text = "Bonus Description"
+theme_override_font_sizes/font_size = 48
+text = "Side Quest"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SmallDescription" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JustDescriptionPanel/SmallRightPanelBackground/SmallDescriptionContainer"]
-custom_minimum_size = Vector2(470, 235)
+[node name="ScrollContainer" type="ScrollContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer"]
+custom_minimum_size = Vector2(974, 1250)
 layout_mode = 2
-size_flags_horizontal = 4
-theme_override_fonts/font = ExtResource("24_1p42s")
-theme_override_font_sizes/font_size = 18
-text = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets."
-horizontal_alignment = 1
-vertical_alignment = 1
+size_flags_horizontal = 8
+theme = ExtResource("22_da4ub")
+
+[node name="JournalUpdatesContainer" type="VBoxContainer" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="Label" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(940, 0)
+layout_mode = 2
+text = "Hello world Hello world Hello world Hello world Hello world"
+label_settings = ExtResource("58_7oqij")
 autowrap_mode = 2
+
+[node name="Label2" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label3" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label4" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label5" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label6" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label7" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label8" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label9" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label10" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label11" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label12" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label13" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label14" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label15" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label16" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label17" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label18" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label19" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label20" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label21" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label22" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label23" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label24" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label25" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label26" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label27" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label28" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
+
+[node name="Label29" type="Label" parent="ContentContainer/PanelsContainer/RightPanelContainer/JournalRightPanel/LongRightPanelBackground/DescriptionContainer/ScrollContainer/JournalUpdatesContainer"]
+custom_minimum_size = Vector2(900, 0)
+layout_mode = 2
+text = "Hello world"
+label_settings = ExtResource("58_7oqij")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
@@ -1341,3 +1520,6 @@ libraries = {
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/ArmorButton" to="." method="_on_armor_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/ConsumablesButton" to="." method="_on_consumables_button_pressed"]
 [connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/InventoryPanelButtonsContainer/SubButtons/OthersButton" to="." method="_on_others_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/ActiveQuestsButton" to="." method="_on_active_quests_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/GeneralInfoButton" to="." method="_on_general_info_button_pressed"]
+[connection signal="pressed" from="ContentContainer/PanelsContainer/MiddlePanelContainer/Container/SubPanel/JournalButtonsContainer/JournalSubButtons/DoneQuestsButton" to="." method="_on_done_quests_button_pressed"]

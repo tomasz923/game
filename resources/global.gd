@@ -60,19 +60,16 @@ var inventory: Dictionary = {
 }
 
 var journal: Dictionary = {
-	'q_test_quest' = {
-		'status': 1, 
-		'updates': ['qi_test_quest']
+	'current_quests' = {
+		"abc" = ['The world is coming to and end', 'The end in nigh!', 'Repent!'],
+		"def" = ['Oh, happy world!']
 	},
-	'q_test_quest_2' = {
-		'status': 2, 
-		'updates': ['qi_test_quest_2', '0']
+	'general_information' = {
 	},
-	'q_test_quest_3' = {
-		'status': 3, 
-		'updates': ['qi_test_quest_3', '4']
+	'completed_quests' = {
 	}
 }
+var journal_main_quests: Array = []
 
 var max_file_num_auto: int = 0
 var max_timestamp_auto: int = 0
@@ -397,6 +394,13 @@ func remove_item(item: InventoryItem, amount: int = 1) -> void:
 	# Remove item if count is zero or less
 	if inventory[category][item] <= 0:
 		inventory[category].erase(item)
+
+
+func update_current_quest(quest_name: String, quest_update: String) -> void:
+	if journal["current_quests"].has(quest_name):
+		journal["current_quests"][quest_name].append(quest_update)
+	else:
+		push_error("'%s' is not an active quest. '%s' was not added" % [quest_name, quest_update])
 # STOP
 func collect_save_files(is_loading: bool):
 	for n in current_scene.main_menu_ui.save_slots_container.get_children():
